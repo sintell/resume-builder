@@ -75,9 +75,9 @@ https://github.com/hhru/api/blob/resumes/docs/resumes.md#%D0%A1%D0%BE%D0%B7%D0%B
 
 ## Настройка видимости
 
-## Персональная информация
-- (**api_parametr_name** - Текст для  lable)
-- **last_name** — фамилия;
+## Персональная информация(**api_parametr_name** - Текст для  lable)
+*Полный список параметров и правил валидации можно получить GET /resumes/{resume_id}/conditions*
+- **last_name** — фамилия ;
     + Автодоплонение у поля - отключить
     + Валидация
         * Символы кирилицы

@@ -309,7 +309,7 @@ https://github.com/hhru/api/blob/resumes/docs/resumes.md#%D0%A1%D0%BE%D0%B7%D0%B
   - удаленная работа
 
 ## Образование
-Селект с элементами справочника `business_trip_readiness`:
+Селект с элементами справочника `education_level`:
   - Высшее
   - Бакалавр
   - Магистр

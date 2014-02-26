@@ -1,0 +1,37 @@
+{
+    "indent": 4,
+    "browser": true,
+    "curly": true,
+    "eqeqeq": true,
+    "immed": true,
+    "latedef": true,
+    "newcap": true,
+    "noarg": true,
+    "nonew": true,
+    "undef": true,
+    "strict": true,
+    "devel": true,
+    "unused": true,
+    "camelcase": true,
+    "bitwise": true,
+    "globals": {
+        "jsx": true,
+        "jsxAjax": true,
+        "jsxComponents": true,
+        "HH": true,
+        "HHSearch": true,
+        "HHMaps": true,
+        "HHGallery2": true,
+        "jQuery": true,
+        "$": true,
+        "Backbone": true,
+        "_": true,
+        "requirejs": true,
+        "define": true,
+        "Raphael": true,
+        "YMaps": true,
+        "swfobject": true,
+        "LiveTex": true
+    }
+}
+

@@ -1,0 +1,23 @@
+.control {
+
+}
+
+.control__label {
+
+}
+
+.control__value {
+
+}
+
+    .control_editing .control__value {
+        display: none;
+    }
+
+.control__input {
+
+}
+
+    .control_viewing .control__input {
+        display: none;
+    }

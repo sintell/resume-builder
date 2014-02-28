@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Resume builder</title>
     <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
     <script data-main="js/main" src="js/lib/require.js"></script>
 </head>
 <body>
@@ -16,8 +17,52 @@
             </form>
         </div>
     </div>
+
     <div class="HH-ResumeBuilder-Container">
-    
+      
     </div>
+
+    <script type="text/template" id="HH-ResumeBuilder-AppTemplate">
+        <div class="HH-ResumeBuilder-ResumeList">
+            
+        </div>
+    </script>
+
+    <script type="text/template" id="HH-ResumeBuilder-ResumeTemplate">
+        <div class="resume">
+            <div class="HH-Resume-ResumeSection">
+                <a class="HH-ResumeSection-Switch" href="#">Изменить</a>
+
+                <div class="HH-ResumeSection-Control control control_viewing">
+                    <label class="control__label">Желаемая должность</label>
+                    <span class="control__value"><%= title %></span>
+                    <input class="HH-ResumeSection-ControlInput control__input"
+                           type="text"
+                           value="<%= title %>"
+                           name="title"
+                           placeholder="Например, «Менеджер по продажам»"/>
+                </div>
+
+                <div class="HH-ResumeSalarySection-Control control control_viewing">
+                    <label class="control__label">Желаемая зарплата</label>
+                    <span class="control__value"><%= salary.amount %></span>
+                    <input class="HH-ResumeSalarySection-ControlInput control__input"
+                           type="text"
+                           value="<%= salary.amount %>"
+                           name="amount"/>
+
+                    <input class="HH-ResumeSalarySection-ControlInput control__input" type="radio" value="RUR" name="currency">
+                        RUR
+                    </input>               
+                </div>
+
+                <a class="HH-ResumeSection-Submit" href="#">Сохранить</a>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/template" id="HH-ResumeBuilder-SalaryTemplate">
+
+    </script>
 </body>
 </html>

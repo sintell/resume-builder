@@ -11,5 +11,9 @@
   },
   "engines": {
     "node": "0.10.26"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-connect": "~0.7.1"
   }
 }

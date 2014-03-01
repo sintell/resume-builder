@@ -34,6 +34,36 @@
                 <a class="HH-ResumeSection-Switch" href="#">Изменить</a>
 
                 <div class="HH-ResumeSection-Control control control_viewing">
+                    <label class="control__label">ФИО</label>
+                    <span class="control__value"><%= resume.last_name %></span>
+                    <input class="HH-ResumeSection-ControlTextbox control__input"
+                           type="text"
+                           value="<%= resume.last_name %>"
+                           name="last-name"
+                           data-hh-name="last_name"/>
+
+                    <span class="control__value"><%= resume.first_name %></span>
+                    <input class="HH-ResumeSection-ControlTextbox control__input"
+                           type="text"
+                           value="<%= resume.first_name %>"
+                           name="first-name"
+                           data-hh-name="first_name"/>
+
+                    <span class="control__value"><%= resume.middle_name %></span>
+                    <input class="HH-ResumeSection-ControlTextbox control__input"
+                           type="text"
+                           value="<%= resume.middle_name %>"
+                           name="middle-name"
+                           data-hh-name="middle_name"/>
+                </div>
+
+                <a class="HH-ResumeSection-Submit" href="#">Сохранить</a>
+            </div>
+
+            <div class="HH-Resume-ResumeSection">
+                <a class="HH-ResumeSection-Switch" href="#">Изменить</a>
+
+                <div class="HH-ResumeSection-Control control control_viewing">
                     <label class="control__label">Желаемая должность</label>
                     <span class="control__value"><%= resume.title %></span>
                     <input class="HH-ResumeSection-ControlTextbox control__input"

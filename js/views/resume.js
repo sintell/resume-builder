@@ -40,7 +40,6 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         _submit: function(event) {
             var $section,
                 attributes = {},
-                prefix,
                 that = this;
 
             event.preventDefault();

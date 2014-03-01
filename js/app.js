@@ -9,15 +9,6 @@ define([
 ], function($, _, Backbone, Resume, Dictionary, ResumeList, ResumeView) {
     'use strict';
 
-    // HH API не поддерживает HTTP PATCH, поэтому заменяем его на PUT
-    var originalSync = Backbone.sync;
-    Backbone.sync = function(method, model, options) {
-        if (method === 'patch') {
-            options.type = 'PUT';
-        }
-        return originalSync(method, model, options);
-    };
-
     $.ajaxSetup({
         beforeSend: function(xhr, settings) {
             xhr.setRequestHeader('Content-Type', 'text/plain;charset=utf-8');

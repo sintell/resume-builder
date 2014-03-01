@@ -31,18 +31,14 @@ define([
         template: _.template($('#HH-ResumeBuilder-AppTemplate').html()),
 
         initialize: function() {
-            var resumePremise,
-                dictionaryPremise,
-                that = this;
+            var that = this;
 
             this.resumes = new ResumeList();
-            this.listenTo(this.resumes, 'sync', this.render);
-            resumePremise = this.resumes.fetch();
-
             this.dictionary = new Dictionary();
-            dictionaryPremise = this.dictionary.fetch();
 
-            $.when(resumePremise, dictionaryPremise).then(function() {
+            this.listenTo(this.resumes, 'sync', this.render);
+
+            $.when(this.resumes.fetch(), this.dictionary.fetch()).then(function() {
                 if (that.resumes.length > 0) {
                     that.resumes.first().fetch();
                 } else {

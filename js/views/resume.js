@@ -11,7 +11,7 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
 
         initialize: function(attributes, options) {
             this.dictionary = options.dictionary;
-            this.listenTo(this.model, 'change', this.render);
+            this.listenTo(this.model, 'sync', this.render);
         },
 
         render: function() {
@@ -50,7 +50,7 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
                 that._saveAttribute(
                     attributes,
                     textbox.getAttribute('data-hh-namespace'),
-                    textbox.getAttribute('name'),
+                    textbox.getAttribute('data-hh-name'),
                     textbox.value
                 );
             });
@@ -59,13 +59,15 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
                     that._saveAttribute(
                         attributes,
                         checkbox.getAttribute('data-hh-namespace'),
-                        checkbox.getAttribute('name'),
+                        checkbox.getAttribute('data-hh-name'),
                         checkbox.value
                     );
                 }
             });
 
-            this.model.save(attributes, {patch: true});
+            $.when(this.model.save(attributes)).then(function() {
+                that.model.fetch();
+            });
         },
 
         _saveAttribute: function(attributes, namespace, key, value) {

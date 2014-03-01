@@ -5,7 +5,8 @@ define(['underscore', 'backbone'], function(_, Backbone) {
         defaults: {
             salary: {},
             employment: {},
-            schedule: {}
+            schedule: {},
+            business_trip_readiness: {}
         },
 
         writeOnly: [

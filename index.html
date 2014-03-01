@@ -102,6 +102,23 @@
                     <% }); %>
                 </div>
 
+                <div class="HH-ResumeSection-Control control control_viewing">
+                    <label class="control_label">Готовность к командировкам</label>
+                    <span class="control__value"><%= resume.business_trip_readiness.name %></span>
+                    <% _.each(dictionary.business_trip_readiness, function(readiness) { %>
+                        <input class="HH-ResumeSection-ControlCheckbox control__input"
+                               type="radio"
+                               value="<%= readiness.id %>"
+                               name="readiness"
+                               data-hh-name="id"
+                               data-hh-namespace="business_trip_readiness"
+                               <%= readiness.id === resume.business_trip_readiness.id ? 'checked' : '' %>/>
+                        <span class="control__input-text">
+                            <%= readiness.name %>
+                        </span>
+                    <% }); %>
+                </div>
+
                 <a class="HH-ResumeSection-Submit" href="#">Сохранить</a>
             </div>
         </div>

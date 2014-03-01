@@ -1,4 +1,9 @@
-define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
+define([
+    'jquery',
+    'underscore',
+    'backbone',
+    'views/specialization'
+], function($, _, Backbone, SpecializationView) {
     'use strict';
 
     return Backbone.View.extend({
@@ -11,18 +16,35 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
 
         initialize: function(attributes, options) {
             this.dictionary = options.dictionary;
+            this.specializations = options.specializations;
+
             this.listenTo(this.model, 'sync', this.render);
         },
 
         render: function() {
-            var data = $.extend({}, {
-                resume: this.model.attributes
-            }, {
-                dictionary: this.dictionary.attributes
+            var resumeData,
+                specializationsData,
+                templateData;
+
+            resumeData = $.extend({},
+                this.model.attributes, {
+                    specializationNames: this.model.specializationNames()
+                }
+            );
+
+            specializationsData = this.specializations.map(function(specialization) {
+                return specialization.attributes;
             });
 
-            this.$el.html(this.template(data));
-            
+            templateData = {
+                resume: resumeData,
+                dictionary: this.dictionary.attributes,
+                specializations: specializationsData
+            };
+
+            this.$el.html(this.template(templateData));
+            this._bindSelect();
+
             return this;
         },
 
@@ -53,9 +75,19 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
                     textbox.value
                 );
             });
-            $section.find('.HH-ResumeSection-ControlCheckbox').each(function(index, checkbox) {
+            $section.find('.HH-ResumeSection-ControlRadio').each(function(index, checkbox) {
                 if (checkbox.checked) {
                     that._saveAttribute(
+                        attributes,
+                        checkbox.getAttribute('data-hh-namespace'),
+                        checkbox.getAttribute('data-hh-name'),
+                        checkbox.value
+                    );
+                }
+            });
+            $section.find('.HH-ResumeSection-ControlCheckbox').each(function(index, checkbox) {
+                if (checkbox.checked) {
+                    that._saveArrayAttribute(
                         attributes,
                         checkbox.getAttribute('data-hh-namespace'),
                         checkbox.getAttribute('data-hh-name'),
@@ -78,6 +110,38 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             } else {
                 attributes[key] = value;
             }
+        },
+
+        _saveArrayAttribute: function(attributes, namespace, key, value) {
+            var item = {};
+
+            if (!attributes.hasOwnProperty(namespace)) {
+                attributes[namespace] = [];
+            }
+            item[key] = value;
+            attributes[namespace].push(item);
+        },
+
+        _bindSelect: function() {
+            var id,
+                specialization,
+                specializationView,
+                that = this,
+                $select;
+
+            $select = this.$el.find('.HH-SpecializationControl-Select');
+            $select.off('change').on('change', function() {
+                if (this.selectedIndex !== -1) {
+                    id = this[this.selectedIndex].value;
+                    specialization = that.specializations.get(id);
+                    specializationView = new SpecializationView({
+                        model: specialization,
+                        specializationIds: that.model.specializationIds()
+                    });
+                    that.$el.find('.HH-ResumeSection-SpecializationList').html(specializationView.render().el);
+                }
+            });
+            $select.trigger('change');
         }
     });
 });

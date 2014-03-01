@@ -7,7 +7,8 @@ define(['underscore', 'backbone'], function(_, Backbone) {
             employment: {},
             schedule: {},
             business_trip_readiness: {},
-            travel_time: {}
+            travel_time: {},
+            specialization: []
         },
 
         writeOnly: [
@@ -29,6 +30,30 @@ define(['underscore', 'backbone'], function(_, Backbone) {
 
         toJSON: function(options) {
             return _.omit(this.attributes, this.writeOnly);
+        },
+
+        specializationNames: function() {
+            var names;
+
+            if (this.get('specialization').map) {
+                names = this.get('specialization').map(function(specialization) {
+                    return specialization.name;
+                });
+
+                return names.join(', ');
+            } else {
+                return '';
+            }
+        },
+
+        specializationIds: function() {
+            if (this.get('specialization').map) {
+                return this.get('specialization').map(function(specialization) {
+                    return specialization.id;
+                });
+            } else {
+                return [];
+            }
         }
     });
 });

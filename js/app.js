@@ -5,8 +5,9 @@ define([
     'models/resume',
     'models/dictionary',
     'collections/resume_list',
-    'views/resume'
-], function($, _, Backbone, Resume, Dictionary, ResumeList, ResumeView) {
+    'collections/specialization_list',
+    'views/resume',
+], function($, _, Backbone, Resume, Dictionary, ResumeList, SpecializationList, ResumeView) {
     'use strict';
 
     $.ajaxSetup({
@@ -26,10 +27,13 @@ define([
 
             this.resumes = new ResumeList();
             this.dictionary = new Dictionary();
+            this.specializations = new SpecializationList();
 
             this.listenTo(this.resumes, 'sync', this.render);
 
-            $.when(this.resumes.fetch(), this.dictionary.fetch()).then(function() {
+            $.when(this.resumes.fetch(),
+                   this.dictionary.fetch(),
+                   this.specializations.fetch()).then(function() {
                 if (that.resumes.length > 0) {
                     that.resumes.first().fetch();
                 } else {
@@ -39,14 +43,17 @@ define([
         },
 
         render: function() {
-            var view = new ResumeView({
+            var resumeView;
+
+            resumeView = new ResumeView({
                 model: this.resumes.first(),
             }, {
-                dictionary: this.dictionary
+                dictionary: this.dictionary,
+                specializations: this.specializations
             });
 
             this.$el.html(this.template());
-            this.$el.find('.HH-ResumeBuilder-ResumeList').append(view.render().el);
+            this.$el.find('.HH-ResumeBuilder-ResumeList').append(resumeView.render().el);
         }
     });
 });

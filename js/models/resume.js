@@ -3,7 +3,8 @@ define(['underscore', 'backbone'], function(_, Backbone) {
 
     return Backbone.Model.extend({
         defaults: {
-            'salary': {}
+            salary: {},
+            employment: {}
         },
 
         url: function() {

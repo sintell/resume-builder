@@ -45,7 +45,7 @@
 
                 <div class="HH-ResumeSection-Control control control_viewing">
                     <label class="control__label">Желаемая зарплата</label>
-                    <span class="control__value"><%= resume.salary.amount %></span>
+                    <span class="control__value"><%= resume.salary.amount %> <%= resume.salary.currency %></span>
                     <input class="HH-ResumeSection-ControlTextbox control__input"
                            type="text"
                            value="<%= resume.salary.amount %>"
@@ -54,15 +54,31 @@
 
                     <% _.each(dictionary.currency, function(currency) { %> 
                         <input class="HH-ResumeSection-ControlCheckbox control__input"
-                             type="radio"
-                             value="<%= currency.code %>"
-                             name="currency"
-                             data-hh-namespace="salary"
-                             <%= currency.code === resume.salary.currency ? 'checked' : '' %>/>
+                               type="radio"
+                               value="<%= currency.code %>"
+                               name="currency"
+                               data-hh-namespace="salary"
+                               <%= currency.code === resume.salary.currency ? 'checked' : '' %>/>
                         <span class="control__input-text">
                             <%= currency.abbr %>
                         </span>
                     <% }); %>              
+                </div>
+
+                <div class="HH-ResumeSection-Control control control_viewing">
+                    <label class="control_label">Занятость</label>
+                    <span class="control__value"><%= resume.employment.name %></span>
+                    <% _.each(dictionary.employment, function(employment) { %>
+                        <input class="HH-ResumeSection-ControlCheckbox control__input"
+                               type="radio"
+                               value="<%= employment.id %>"
+                               name="id"
+                               data-hh-namespace="employment"
+                               <%= employment.id === resume.employment.id ? 'checked' : '' %>/>
+                        <span class="control__input-text">
+                            <%= employment.name %>
+                        </span>
+                    <% }); %>
                 </div>
 
                 <a class="HH-ResumeSection-Submit" href="#">Сохранить</a>

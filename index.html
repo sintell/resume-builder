@@ -57,6 +57,24 @@
                            data-hh-name="middle_name"/>
                 </div>
 
+                <div class="HH-ResumeSection-Control control control_viewing">
+                    <label class="control__label">Пол</label>
+                    <span class="control__value"><%= resume.gender.name %></span>
+
+                    <% _.each(dictionary.gender, function(gender) { %>
+                    <input class="HH-ResumeSection-ControlCheckbox control__input"
+                           type="radio"
+                           value="<%= gender.id %>"
+                           name="gender"
+                           data-hh-name="id"
+                           data-hh-namespace="gender"
+                    <%= gender.id === resume.gender.id ? 'checked' : '' %>/>
+                        <span class="control__input-text">
+                            <%= gender.name %>
+                        </span>
+                    <% }); %>
+                </div>
+
                 <a class="HH-ResumeSection-Submit" href="#">Сохранить</a>
             </div>
 

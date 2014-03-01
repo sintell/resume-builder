@@ -109,12 +109,29 @@
                         <input class="HH-ResumeSection-ControlCheckbox control__input"
                                type="radio"
                                value="<%= readiness.id %>"
-                               name="readiness"
+                               name="business_trip_readiness"
                                data-hh-name="id"
                                data-hh-namespace="business_trip_readiness"
                                <%= readiness.id === resume.business_trip_readiness.id ? 'checked' : '' %>/>
                         <span class="control__input-text">
                             <%= readiness.name %>
+                        </span>
+                    <% }); %>
+                </div>
+
+                <div class="HH-ResumeSection-Control control control_viewing">
+                    <label class="control_label">Время в пути</label>
+                    <span class="control__value"><%= resume.travel_time.name %></span>
+                    <% _.each(dictionary.travel_time, function(time) { %>
+                        <input class="HH-ResumeSection-ControlCheckbox control__input"
+                               type="radio"
+                               value="<%= time.id %>"
+                               name="travel_time"
+                               data-hh-name="id"
+                               data-hh-namespace="travel_time"
+                               <%= time.id === resume.travel_time.id ? 'checked' : '' %>/>
+                        <span class="control__input-text">
+                            <%= time.name %>
                         </span>
                     <% }); %>
                 </div>

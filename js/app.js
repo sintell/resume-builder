@@ -2,10 +2,11 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'collections/resume_list',
     'models/resume',
+    'models/dictionary',
+    'collections/resume_list',
     'views/resume'
-], function($, _, Backbone, ResumeList, Resume, ResumeView) {
+], function($, _, Backbone, Resume, Dictionary, ResumeList, ResumeView) {
     'use strict';
 
     // HH API не поддерживает HTTP PATCH, поэтому заменяем его на PUT
@@ -30,24 +31,31 @@ define([
         template: _.template($('#HH-ResumeBuilder-AppTemplate').html()),
 
         initialize: function() {
-            var that = this;
+            var resumePremise,
+                dictionaryPremise,
+                that = this;
 
-            this.collection = new ResumeList();
-            this.listenTo(this.collection, 'sync', this.render);
-            this.collection.fetch({
-                success: function() {
-                    if (that.collection.length > 0) {
-                        that.collection.first().fetch();
-                    } else {
-                        // TODO создать новое резюме
-                    }
+            this.resumes = new ResumeList();
+            this.listenTo(this.resumes, 'sync', this.render);
+            resumePremise = this.resumes.fetch();
+
+            this.dictionary = new Dictionary();
+            dictionaryPremise = this.dictionary.fetch();
+
+            $.when(resumePremise, dictionaryPremise).then(function() {
+                if (that.resumes.length > 0) {
+                    that.resumes.first().fetch();
+                } else {
+                    // TODO создать новое резюме
                 }
             });
         },
 
         render: function() {
             var view = new ResumeView({
-                model: this.collection.first()
+                model: this.resumes.first(),
+            }, {
+                dictionary: this.dictionary
             });
 
             this.$el.html(this.template());

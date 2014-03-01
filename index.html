@@ -35,34 +35,39 @@
 
                 <div class="HH-ResumeSection-Control control control_viewing">
                     <label class="control__label">Желаемая должность</label>
-                    <span class="control__value"><%= title %></span>
-                    <input class="HH-ResumeSection-ControlInput control__input"
+                    <span class="control__value"><%= resume.title %></span>
+                    <input class="HH-ResumeSection-ControlTextbox control__input"
                            type="text"
-                           value="<%= title %>"
+                           value="<%= resume.title %>"
                            name="title"
                            placeholder="Например, «Менеджер по продажам»"/>
                 </div>
 
-                <div class="HH-ResumeSalarySection-Control control control_viewing">
+                <div class="HH-ResumeSection-Control control control_viewing">
                     <label class="control__label">Желаемая зарплата</label>
-                    <span class="control__value"><%= salary.amount %></span>
-                    <input class="HH-ResumeSalarySection-ControlInput control__input"
+                    <span class="control__value"><%= resume.salary.amount %></span>
+                    <input class="HH-ResumeSection-ControlTextbox control__input"
                            type="text"
-                           value="<%= salary.amount %>"
-                           name="amount"/>
+                           value="<%= resume.salary.amount %>"
+                           name="amount"
+                           data-hh-namespace="salary"/>
 
-                    <input class="HH-ResumeSalarySection-ControlInput control__input" type="radio" value="RUR" name="currency">
-                        RUR
-                    </input>               
+                    <% _.each(dictionary.currency, function(currency) { %> 
+                        <input class="HH-ResumeSection-ControlCheckbox control__input"
+                             type="radio"
+                             value="<%= currency.code %>"
+                             name="currency"
+                             data-hh-namespace="salary"
+                             <%= currency.code === resume.salary.currency ? 'checked' : '' %>/>
+                        <span class="control__input-text">
+                            <%= currency.abbr %>
+                        </span>
+                    <% }); %>              
                 </div>
 
                 <a class="HH-ResumeSection-Submit" href="#">Сохранить</a>
             </div>
         </div>
-    </script>
-
-    <script type="text/template" id="HH-ResumeBuilder-SalaryTemplate">
-
     </script>
 </body>
 </html>

@@ -2,8 +2,9 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'views/specialization'
-], function($, _, Backbone, SpecializationView) {
+    'views/specialization',
+    'views/birthDate'
+], function($, _, Backbone, SpecializationView, BirthDateView) {
     'use strict';
 
     return Backbone.View.extend({
@@ -19,6 +20,10 @@ define([
             this.specializations = options.specializations;
 
             this.listenTo(this.model, 'sync', this.render);
+
+            this.components = [];
+
+            this.components.push(new BirthDateView());
         },
 
         render: function() {
@@ -44,6 +49,18 @@ define([
 
             this.$el.html(this.template(templateData));
             this._bindSelect();
+
+            for (var i in this.components) {
+                var component = this.components[i],
+                    container = this.$el.find([
+                        '.HH-ResumeSection-Component[data-hh-component="',
+                        this.components[i].componentName,
+                        '""]'].join(''));
+
+                component.fill(this.model.attributes);
+                container.html(component.render().el);
+                container.contents().unwrap();
+            }
 
             return this;
         },
@@ -87,6 +104,10 @@ define([
                     attributes.specialization.push(obj);
                 }
             });
+
+            for (var i in this.components) {
+                this.components[i].takeback(attributes);
+            }
 
             $.when(this.model.save(attributes)).then(function() {
                 that.model.fetch();

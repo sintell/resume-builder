@@ -82,6 +82,14 @@
                     </span>
                 </div>
 
+                <div class="HH-ResumeSection-Control control control_viewing">
+                    <label class="control__label">Город проживания</label>
+                    <span class="control__value"><%= resume.area.name %></span>
+
+                    <span class="HH-ResumeSection-Component" data-hh-component="area">
+                    </span>
+                </div>
+
                 <a class="HH-ResumeSection-Submit" href="#">Сохранить</a>
             </div>
 
@@ -248,6 +256,24 @@
         <input class="control__input HH-ResumeBuilder-Component-BirthDate-Year"
                value="<%= date.year %>"
                name="birth_date_year"/>
+    </script>
+
+    <script type="text/template" id="HH-ResumeBuilder-Component-Area">
+        <input class="control__input HH-ResumeBuilder-Component-Area-Input"
+               value="<%= area.name %>"
+               name="area_name"/>
+        <div class="HH-ResumeBuilder-Component-Suggest">
+        </div>
+    </script>
+
+    <script type="text/template" id="HH-ResumeBuilder-Component-Suggest">
+        <% if (suggest.length > 0) { %>
+        <ul>
+            <% _.each(suggest, function(suggest) { %>
+            <li><%= suggest %></li>
+            <% }); %>
+        </ul>
+        <% } %>
     </script>
 </body>
 </html>

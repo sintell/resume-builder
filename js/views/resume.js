@@ -3,8 +3,9 @@ define([
     'underscore',
     'backbone',
     'views/specialization',
-    'views/birthDate'
-], function($, _, Backbone, SpecializationView, BirthDateView) {
+    'views/birthDate',
+    'views/area'
+], function($, _, Backbone, SpecializationView, BirthDateView, AreaView) {
     'use strict';
 
     return Backbone.View.extend({
@@ -24,6 +25,7 @@ define([
             this.components = [];
 
             this.components.push(new BirthDateView());
+            this.components.push(new AreaView(options));
         },
 
         render: function() {
@@ -55,7 +57,7 @@ define([
                     container = this.$el.find([
                         '.HH-ResumeSection-Component[data-hh-component="',
                         this.components[i].componentName,
-                        '""]'].join(''));
+                        '"]'].join(''));
 
                 component.fill(this.model.attributes);
                 container.html(component.render().el);

@@ -3,6 +3,7 @@ define(['underscore', 'backbone', 'models/validator'], function(_, Backbone, Val
 
     return Backbone.Model.extend({
         defaults: {
+            area: {},
             gender: {},
             birth_date: '1993-01-01',
             salary: {},

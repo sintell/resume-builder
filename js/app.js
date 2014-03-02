@@ -4,10 +4,11 @@ define([
     'backbone',
     'models/resume',
     'models/dictionary',
+    'models/area',
     'collections/resume_list',
     'collections/specialization_list',
     'views/resume',
-], function($, _, Backbone, Resume, Dictionary, ResumeList, SpecializationList, ResumeView) {
+], function($, _, Backbone, Resume, Dictionary, Area, ResumeList, SpecializationList, ResumeView) {
     'use strict';
 
     $.ajaxSetup({
@@ -26,12 +27,14 @@ define([
 
             this.resumes = new ResumeList();
             this.dictionary = new Dictionary();
+            this.area = new Area();
             this.specializations = new SpecializationList();
 
             this.listenTo(this.resumes, 'sync', this.render);
 
             $.when(this.resumes.fetch(),
                    this.dictionary.fetch(),
+                   this.area.fetch(),
                    this.specializations.fetch()).then(function() {
                 if (that.resumes.length > 0) {
                     that.resumes.first().fetch();
@@ -45,9 +48,10 @@ define([
             var resumeView;
 
             resumeView = new ResumeView({
-                model: this.resumes.first(),
+                model: this.resumes.first()
             }, {
                 dictionary: this.dictionary,
+                area: this.area,
                 specializations: this.specializations
             });
 

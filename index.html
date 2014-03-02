@@ -107,6 +107,20 @@
                 </div>
 
                 <div class="HH-ResumeSection-Control control control_viewing">
+                    <label class="control_label">Переезд</label>
+                    <span class="control__value"><%= resume.relocation.type.name %></span>
+                    <% _.each(dictionary.relocation_type, function(relocationType) { %>
+                        <input class="HH-ResumeSection-ControlRadio control__input"
+                               type="radio"
+                               value="<%= relocationType.id %>"
+                               name="relocation"
+                               data-hh-name="relocation.type.id"
+                               <%= relocationType.id === resume.relocation.type.id ? 'checked' : '' %>/>
+                        <span class="control__input-text"><%= relocationType.name %></span>
+                    <% }); %>
+                </div>
+
+                <div class="HH-ResumeSection-Control control control_viewing">
                     <label class="control_label">Готовность к командировкам</label>
                     <span class="control__value"><%= resume.business_trip_readiness.name %></span>
                     <% _.each(dictionary.business_trip_readiness, function(readiness) { %>

@@ -9,7 +9,7 @@ define(['underscore', 'backbone', 'models/validator'], function(_, Backbone, Val
             business_trip_readiness: {},
             travel_time: {},
             specialization: [{profarea_id: null}],
-            relocation_type: {}
+            relocation: {type:{}}
         },
 
         readOnly: [

@@ -1,4 +1,4 @@
-define(['underscore', 'backbone'], function(_, Backbone) {
+define(['underscore', 'backbone', 'models/validator'], function(_, Backbone, Validator) {
     'use strict';
 
     return Backbone.Model.extend({
@@ -11,7 +11,7 @@ define(['underscore', 'backbone'], function(_, Backbone) {
             specialization: []
         },
 
-        writeOnly: [
+        readOnly: [
             '_progress',
             'photo',
             'updated_at',
@@ -24,12 +24,28 @@ define(['underscore', 'backbone'], function(_, Backbone) {
             'experience'
         ],
 
+        initialize: function() {
+            var that = this;
+
+            this.validator = new Validator({}, {
+                resume: this
+            });
+
+            $.when(this.validator.fetch()).then(function() {
+                that.trigger('sync');
+            });
+        },
+
         url: function() {
             return this.get('url');
         },
 
         toJSON: function(options) {
-            return _.omit(this.attributes, this.writeOnly);
+            return _.omit(this.attributes, this.readOnly);
+        },
+
+        validate: function(attributes, options) {
+            
         },
 
         specializationNames: function() {

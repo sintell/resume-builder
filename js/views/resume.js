@@ -61,6 +61,7 @@ define([
 
         _submit: function(event) {
             var $section,
+                $specializations,
                 attributes = {},
                 that = this;
 
@@ -68,31 +69,22 @@ define([
 
             $section = $(event.currentTarget).closest('.HH-Resume-ResumeSection');
             $section.find('.HH-ResumeSection-ControlTextbox').each(function(index, textbox) {
-                that._saveAttribute(
-                    attributes,
-                    textbox.getAttribute('data-hh-namespace'),
-                    textbox.getAttribute('data-hh-name'),
-                    textbox.value
-                );
+                that._saveAttribute(attributes, textbox.getAttribute('data-hh-name'), textbox.value);
             });
-            $section.find('.HH-ResumeSection-ControlRadio').each(function(index, checkbox) {
-                if (checkbox.checked) {
-                    that._saveAttribute(
-                        attributes,
-                        checkbox.getAttribute('data-hh-namespace'),
-                        checkbox.getAttribute('data-hh-name'),
-                        checkbox.value
-                    );
+            $section.find('.HH-ResumeSection-ControlRadio').each(function(index, radio) {
+                if (radio.checked) {
+                    that._saveAttribute(attributes, radio.getAttribute('data-hh-name'), radio.value);
                 }
             });
-            $section.find('.HH-ResumeSection-ControlCheckbox').each(function(index, checkbox) {
+            $specializations = $section.find('.HH-ResumeSection-ControlSpecialization');
+            if ($specializations.length > 0) {
+                attributes.specialization = [];
+            }
+            $specializations.each(function(index, checkbox) {
                 if (checkbox.checked) {
-                    that._saveArrayAttribute(
-                        attributes,
-                        checkbox.getAttribute('data-hh-namespace'),
-                        checkbox.getAttribute('data-hh-name'),
-                        checkbox.value
-                    );
+                    var obj = {};
+                    obj[checkbox.getAttribute('data-hh-name')] = checkbox.value;
+                    attributes.specialization.push(obj);
                 }
             });
 
@@ -101,25 +93,24 @@ define([
             });
         },
 
-        _saveAttribute: function(attributes, namespace, key, value) {
-            if (namespace !== null) {
-                if (!attributes.hasOwnProperty(namespace)) {
-                    attributes[namespace] = {};
+        // Принимает строку вида "salary.amount" в параметре name и записывает value в attributes.salary.amount
+        _saveAttribute: function(attributes, name, value) {
+            var namespaces = name.split('.'),
+                key;
+
+            for (var i = 0; i < namespaces.length; i += 1) {
+                key = namespaces[i];
+
+                if (!attributes.hasOwnProperty(key)) {
+                    attributes[key] = {};
                 }
-                attributes[namespace][key] = value;
-            } else {
-                attributes[key] = value;
-            }
-        },
 
-        _saveArrayAttribute: function(attributes, namespace, key, value) {
-            var item = {};
-
-            if (!attributes.hasOwnProperty(namespace)) {
-                attributes[namespace] = [];
+                if (i === namespaces.length - 1) {
+                    attributes[key] = value;
+                } else {
+                    attributes = attributes[key];
+                }
             }
-            item[key] = value;
-            attributes[namespace].push(item);
         },
 
         _bindSelect: function() {

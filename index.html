@@ -65,16 +65,14 @@
                            type="text"
                            value="<%= resume.salary.amount %>"
                            name="amount"
-                           data-hh-name="amount"
-                           data-hh-namespace="salary"/>
+                           data-hh-name="salary.amount"/>
 
                     <% _.each(dictionary.currency, function(currency) { %> 
                         <input class="HH-ResumeSection-ControlRadio control__input"
                                type="radio"
                                value="<%= currency.code %>"
                                name="currency"
-                               data-hh-name="currency"
-                               data-hh-namespace="salary"
+                               data-hh-name="salary.currency"
                                <%= currency.code === resume.salary.currency ? 'checked' : '' %>/>
                         <span class="control__input-text"><%= currency.abbr %></span>
                     <% }); %>              
@@ -88,8 +86,7 @@
                                type="radio"
                                value="<%= employment.id %>"
                                name="employment"
-                               data-hh-name="id"
-                               data-hh-namespace="employment"
+                               data-hh-name="employment.id"
                                <%= employment.id === resume.employment.id ? 'checked' : '' %>/>
                         <span class="control__input-text"><%= employment.name %></span>
                     <% }); %>
@@ -103,8 +100,7 @@
                                type="radio"
                                value="<%= schedule.id %>"
                                name="schedule"
-                               data-hh-name="id"
-                               data-hh-namespace="schedule"
+                               data-hh-name="schedule.id"
                                <%= schedule.id === resume.schedule.id ? 'checked' : '' %>/>
                         <span class="control__input-text"><%= schedule.name %></span>
                     <% }); %>
@@ -118,8 +114,7 @@
                                type="radio"
                                value="<%= readiness.id %>"
                                name="business_trip_readiness"
-                               data-hh-name="id"
-                               data-hh-namespace="business_trip_readiness"
+                               data-hh-name="business_trip_readiness.id"
                                <%= readiness.id === resume.business_trip_readiness.id ? 'checked' : '' %>/>
                         <span class="control__input-text"><%= readiness.name %></span>
                     <% }); %>
@@ -133,8 +128,7 @@
                                type="radio"
                                value="<%= time.id %>"
                                name="travel_time"
-                               data-hh-name="id"
-                               data-hh-namespace="travel_time"
+                               data-hh-name="travel_time.id"
                                <%= time.id === resume.travel_time.id ? 'checked' : '' %>/>
                         <span class="control__input-text"><%= time.name %></span>
                     <% }); %>
@@ -147,12 +141,11 @@
 
     <script type="text/template" id="HH-ResumeBuilder-SpecializationTemplate">
         <% _.each(specialization.specializations, function(child) { %>
-            <input class="HH-ResumeSection-ControlCheckbox control__input"
+            <input class="HH-ResumeSection-ControlSpecialization control__input"
                    type="checkbox"
                    value="<%= child.id %>"
                    name="specialization"
                    data-hh-name="id"
-                   data-hh-namespace="specialization"
                    <%= (specializationIds.indexOf(child.id) !== -1) ? 'checked' : '' %>/>
             <span class="control__input-text"><%= child.name %></span>
         <% }); %>

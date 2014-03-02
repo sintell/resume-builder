@@ -45,13 +45,15 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         },
 
         _change: function() {
-            this.day = parseInt($('select[name="birth_date_day"] :selected').val());
-            this.month = parseInt($('[name="birth_date_month"] :selected').val());
-            this.year = parseInt($('[name="birth_date_year"]').val());
-
+            this._updateValues();
             this._updateCalendar();
-
             this.render();
+        },
+
+        _updateValues: function(){
+            this.day = parseInt($('[name="birth_date-day"]').val());
+            this.month = parseInt($('[name="birth_date-month"]').val());
+            this.year = parseInt($('[name="birth_date-year"]').val());
         },
 
         _updateCalendar: function(){
@@ -90,11 +92,9 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
                 return val > 9 ? val : '0' + val;
             };
 
-            var day = $('[name="birth_date_day"]').val();
-            var month = $('[name="birth_date_month"]').val();
-            var year = $('[name="birth_date_year"]').val();
+            this._updateValues();
 
-            return year + '-' + _addZero(month) + '-' + _addZero(day);
+            return this.year + '-' + _addZero(this.month) + '-' + _addZero(this.day);
         }
     });
 });

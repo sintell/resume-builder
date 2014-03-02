@@ -234,7 +234,7 @@
         <span class="control__value"><%= date.year %></span>
 
         <select class="control__input"
-                name="birth_date_day">
+                name="birth_date-day">
             <% _.each(_.range(1,  calendar.days[date.month - 1] + 1), function(day) { %>
             <option value="<%= day %>"
             <%= date.day === day ? 'selected' : '' %>>
@@ -244,7 +244,7 @@
         </select>
                 
         <select class="control__input HH-ResumeBuilder-Component-BirthDate-Month"
-                name="birth_date_month">
+                name="birth_date-month">
             <% _.each(calendar.months, function(month, index) { %>
             <option value="<%= index + 1 %>"
             <%= date.month === index + 1 ? 'selected' : '' %>>
@@ -255,7 +255,7 @@
 
         <input class="control__input HH-ResumeBuilder-Component-BirthDate-Year"
                value="<%= date.year %>"
-               name="birth_date_year"/>
+               name="birth_date-year"/>
     </script>
 
     <script type="text/template" id="HH-ResumeBuilder-Component-Area">

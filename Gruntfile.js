@@ -13,13 +13,16 @@ module.exports = function(grunt) {
             }
         },
         watch: {
-          css: {
-            files: ['**/*.js', '**/*.css', '*.html'],
-            tasks: ['oauth-server'],
-            options: {
-                livereload: true,
+            all:{
+                files: ['js/*.js', 'css/*.css', '*.html'],
+                options: {
+                    livereload: true,
+                }
             },
-          },
+            server: {
+                files: ['server/*.js'],
+                tasks: ['oauth-server'],
+            }
         },
     });
     grunt.loadNpmTasks('grunt-contrib-watch');

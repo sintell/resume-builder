@@ -25,12 +25,18 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             return this;
         },
 
+        hideSuggest: function(){
+           this.$el.empty();
+        },
+
         updateSuggest: function(text) {
             if (text.length >= this.options.minInput){
                 this.suggest = this._getSuggest(text);
             } else {
                 this.suggest = [];
             }
+
+            this.render();
         },
 
         _getSuggest: function(text) {

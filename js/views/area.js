@@ -37,12 +37,14 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest'], function($, _, Bac
 
             this.$el.html(this.template(data));
 
+            this.suggest.setElement(this.$el.find('.HH-ResumeBuilder-Component-Suggest'));
+
             return this;
         },
 
         onSelectSuggest: function(data) {
             this.$el.find('.HH-ResumeBuilder-Component-Area-Input').val(data.text);
-            this._hideSuggest();
+            this.suggest.hideSuggest();
         },
 
         takeback: function(attributes) {
@@ -57,15 +59,7 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest'], function($, _, Bac
 
         _updateSuggest: function() {
             this._updateValues();
-
             this.suggest.updateSuggest(this.name);
-
-            this.$el.find('.HH-ResumeBuilder-Component-Suggest').html(this.suggest.render().el);
-            this.suggest.delegateEvents();
-        },
-
-        _hideSuggest: function(){
-            this.$el.find('.HH-ResumeBuilder-Component-Suggest').empty();
         },
 
         _updateValues: function() {

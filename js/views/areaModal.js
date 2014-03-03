@@ -22,7 +22,7 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             this.modalShow = false;
         },
 
-        _initArea: function(area, val){
+        _initArea: function(area, val) {
             if (area == null){
                 return;
             }
@@ -46,7 +46,7 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             return this;
         },
 
-        toggle: function(name){
+        toggle: function(name) {
             if (!this.modalShow){
                 this.show(name);
             } else {
@@ -54,7 +54,7 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             }
         },
 
-        show: function(activeName){
+        show: function(activeName) {
             var node = this._findNodeByName(activeName, this.area);
 
             this._setNodeAndParentsOpen(node);
@@ -86,19 +86,19 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             }
         },
 
-        _setNodeAndParentsOpen: function(node){
+        _setNodeAndParentsOpen: function(node) {
             if (!node) {
                 return;
             }
 
             node.open = true;
 
-            if (node.parent_id){
+            if (node.parent_id) {
                 this._setNodeAndParentsOpen(this._findNodeById(node.parent_id, this.area));
             }
         },
 
-        _findNodeById: function(id, node){
+        _findNodeById: function(id, node) {
             if (!node){
                 return null;
             }

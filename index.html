@@ -9,8 +9,12 @@
 <body>
     <div class="header">
         <span class="user__name">Имя пользователя</span>
-        <span class="button__login"><a href="http://localhost:8081/oauth">Войти</a></span>
-        <span class="button__logout"><a href="http://localhost:8081/oauth/logout">Выйти</a></span>
+        <span class="button__login"><a href="http://localhost:3000/oauth">Войти</a></span>
+        <span class="logout">
+            <form action="http://localhost:3000/oauth/logout" method="POST">
+                <input type="submit" class="button__logout" value="Выйти" />
+            </form>
+        </span>
     </div>
     <div class="HH-ResumeBuilder-Container">
     

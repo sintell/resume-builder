@@ -33,6 +33,7 @@ app.get('/oauth', function(req, res) {
 
     var postString = 'grant_type=authorization_code&client_id=' + app.set('client_id') + '&client_secret=' +
     app.set('client_secret') + '&code='+authCode + config.redirectUri;
+
     var postOptions = {
         hostname: 'm.hh.ru',
         port: 443,
@@ -70,7 +71,7 @@ app.get('/oauth', function(req, res) {
 
 });
 
-app.get('/oauth/logout', function(req, res) {
+app.post('/oauth/logout', function(req, res) {
     'use strict';
     res.clearCookie('access_token');
     res.clearCookie('refresh_token');

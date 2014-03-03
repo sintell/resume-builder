@@ -1,4 +1,4 @@
-var config = require('./config/config.js')
+var config = require('./config/config.js');
 
 module.exports = function(grunt) {
     'use strict';
@@ -34,6 +34,7 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-connect');
+
 
 
     grunt.registerTask('oauth-server', 'Start the oauth server', function() {

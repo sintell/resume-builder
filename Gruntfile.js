@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-
+    "use strict";
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -17,10 +17,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-connect');
 
     // Default task(s).
-    grunt.registerTask('server', 'Start the oauth server', function() {
+    grunt.registerTask('oauth-server', 'Start the oauth server', function() {
         grunt.log.writeln('Started oauth server on port 3000');
         require('./server/app.js').listen(3000);
     });
-    grunt.registerTask('default', ['server','connect']);
+    grunt.registerTask('default', ['oauth-server','connect']);
 
 };

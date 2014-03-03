@@ -79,7 +79,7 @@
                 </div>
 
                 <div class="HH-ResumeSection-Control control control_viewing">
-                    <label class="control_label">Занятость</label>
+                    <label class="control__label">Занятость</label>
                     <span class="control__value"><%= resume.employment.name %></span>
                     <% _.each(dictionary.employment, function(employment) { %>
                         <input class="HH-ResumeSection-ControlRadio control__input"
@@ -93,7 +93,7 @@
                 </div>
 
                 <div class="HH-ResumeSection-Control control control_viewing">
-                    <label class="control_label">График работы</label>
+                    <label class="control__label">График работы</label>
                     <span class="control__value"><%= resume.schedule.name %></span>
                     <% _.each(dictionary.schedule, function(schedule) { %>
                         <input class="HH-ResumeSection-ControlRadio control__input"
@@ -107,7 +107,7 @@
                 </div>
 
                 <div class="HH-ResumeSection-Control control control_viewing">
-                    <label class="control_label">Переезд</label>
+                    <label class="control__label">Переезд</label>
                     <span class="control__value"><%= resume.relocation.type.name %></span>
                     <% _.each(dictionary.relocation_type, function(relocationType) { %>
                         <input class="HH-ResumeSection-ControlRadio control__input"
@@ -121,7 +121,7 @@
                 </div>
 
                 <div class="HH-ResumeSection-Control control control_viewing">
-                    <label class="control_label">Готовность к командировкам</label>
+                    <label class="control__label">Готовность к командировкам</label>
                     <span class="control__value"><%= resume.business_trip_readiness.name %></span>
                     <% _.each(dictionary.business_trip_readiness, function(readiness) { %>
                         <input class="HH-ResumeSection-ControlRadio control__input"
@@ -135,7 +135,7 @@
                 </div>
 
                 <div class="HH-ResumeSection-Control control control_viewing">
-                    <label class="control_label">Время в пути</label>
+                    <label class="control__label">Время в пути</label>
                     <span class="control__value"><%= resume.travel_time.name %></span>
                     <% _.each(dictionary.travel_time, function(time) { %>
                         <input class="HH-ResumeSection-ControlRadio control__input"

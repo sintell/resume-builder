@@ -18,8 +18,7 @@ app.get('/oauth', function(req, res){
     
     error = req.query.error;
     if (typeof(error) !== "undefined"){
-        //TODO: improve error handling
-        console.log("error:", error);
+        console.error("Error requesting auth code:", error);
         res.send(403);
         return;
     }
@@ -47,8 +46,9 @@ app.get('/oauth', function(req, res){
         postResponse.on('data', function (chunk) {
             var data = JSON.parse(chunk);
             if (typeof(data.error) !== "undefined"){
-                //TODO: improve error handling
+                console.error("Error in auth token exchange response:", data.error, data.error_description)
                 res.send(500);
+                return;
             }
             res.cookie('access_token', data.access_token, { maxAge: data.expires_in, httpOnly: true });
             res.cookie('refresh_token', data.refresh_token, {maxAge: 900000, httpOnly: true });
@@ -57,7 +57,7 @@ app.get('/oauth', function(req, res){
         });
     });
     postRequest.on("error", function(err){
-        console.log(err);
+        console.log("Error in server-server post request:", err);
     });
 
     postRequest.write(postString);
@@ -67,7 +67,7 @@ app.get('/oauth', function(req, res){
 
 app.get("/oauth/logout", function(req, res){
     "use strict";
-    console.log(res);
+    console.log("lrworks");
     res.clearCookie("access_token");
     res.clearCookie("refresh_token");
     res.redirect("http://0.0.0.0:8080/");

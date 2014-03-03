@@ -1,3 +1,5 @@
+var config = require('./config/config.js')
+
 module.exports = function(grunt) {
     'use strict';
 
@@ -8,7 +10,7 @@ module.exports = function(grunt) {
         connect: {
             server: {
                 options: {
-                    port: 8080,
+                    port: config.staticServerPort,
                     base: '.',
                     livereload: true
                 }
@@ -35,8 +37,8 @@ module.exports = function(grunt) {
 
 
     grunt.registerTask('oauth-server', 'Start the oauth server', function() {
-        grunt.log.writeln('Started oauth server on port 3000');
-        require('./server/app.js').listen(3000);
+        grunt.log.writeln('Started oauth server on port: ' + config.oauthServerPort);
+        require('./server/app.js').listen(config.oauthServerPort);
     });
     
     grunt.registerTask('default', ['oauth-server','connect', 'watch']);

@@ -1,11 +1,12 @@
-var express = require('express'),
+var config = require('../config/config.js'),
+    express = require('express'),
     https = require('https'),
     app = module.exports = express();
 
 app.configure(function() {
     'use strict';
-    app.set('client_id', 'JDO5CUDRLURHK91M2OODFNPVR0HTDDL8B5SJ3POS0JSL8K435312Q7O5TUVCI2A6');
-    app.set('client_secret', 'P05LHTCU10TCV2SPMUSMB00LA9KIBHQ2NGQ6AMS9BVKIT535K6D9CDCJN2795PFF');
+    app.set('client_id', config.clientId);
+    app.set('client_secret', config.clientSecret);
 
     app.use(express.cookieParser('secret'));
     app.use(express.bodyParser());
@@ -25,12 +26,13 @@ app.get('/oauth', function(req, res) {
     
     authCode = req.query.code;
     if (typeof(authCode) === 'undefined') {
-        res.redirect('https://m.hh.ru/oauth/authorize?response_type=code&client_id='+app.set('client_id'));  
+        res.redirect('https://m.hh.ru/oauth/authorize?response_type=code&client_id=' + app.set('client_id') +
+        config.redirectUri);  
         return;      
     }
 
-    var postString = 'grant_type=authorization_code&client_id='+app.set('client_id')+'&client_secret='+app.set('client_secret')+
-    '&code='+authCode;
+    var postString = 'grant_type=authorization_code&client_id=' + app.set('client_id') + '&client_secret=' +
+    app.set('client_secret') + '&code='+authCode + config.redirectUri;
     var postOptions = {
         hostname: 'm.hh.ru',
         port: 443,
@@ -55,7 +57,7 @@ app.get('/oauth', function(req, res) {
             res.cookie('access_token', data.access_token, {maxAge: data.expires_in, httpOnly: true});
             res.cookie('refresh_token', data.refresh_token, {maxAge: 900000, httpOnly: true});
 
-            res.redirect('http://0.0.0.0:8080/');
+            res.redirect('http://0.0.0.0:' + config.staticServerPort);
             return;
         });
     });
@@ -72,5 +74,5 @@ app.get('/oauth/logout', function(req, res) {
     'use strict';
     res.clearCookie('access_token');
     res.clearCookie('refresh_token');
-    res.redirect('http://0.0.0.0:8080/');
+    res.redirect('http://0.0.0.0::' + config.staticServerPort);
 });

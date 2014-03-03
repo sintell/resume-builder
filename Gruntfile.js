@@ -8,12 +8,21 @@ module.exports = function(grunt) {
                 options: {
                     port: 8080,
                     base: ".",
-                    keepalive: true
+                    livereload: true
                 }
             }
-        }
+        },
+        watch: {
+          css: {
+            files: ['**/*.js', '**/*.css', '*.html'],
+            tasks: ['oauth-server'],
+            options: {
+                livereload: true,
+            },
+          },
+        },
     });
-
+    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-connect');
 
     // Default task(s).
@@ -21,6 +30,6 @@ module.exports = function(grunt) {
         grunt.log.writeln('Started oauth server on port 3000');
         require('./server/app.js').listen(3000);
     });
-    grunt.registerTask('default', ['oauth-server','connect']);
+    grunt.registerTask('default', ['oauth-server','connect', 'watch']);
 
 };

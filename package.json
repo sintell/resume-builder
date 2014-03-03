@@ -1,19 +1,21 @@
 {
-    "name": "resume-builder",
-    "version": "0.0.1",
-    "description": "Resume builder for hh.ru",
-    "scripts": {
-        "start": "node ./server/app.js"
-    },
-    "main": "./server/app.js",
-    "dependencies": {
-        "express": "~3.4.8"
-    },
-    "engines": {
-        "node": "0.10.26"
-    },
-    "devDependencies": {
-        "grunt": "~0.4.2",
-        "grunt-contrib-connect": "~0.7.1"
-    }
+  "name": "resume-builder",
+  "version": "0.0.1",
+  "description": "Resume builder for hh.ru",
+  "scripts": {
+    "start": "node ./server/app.js"
+  },
+  "main": "./server/app.js",
+  "dependencies": {
+    "express": "~3.4.8"
+  },
+  "engines": {
+    "node": "0.10.26"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-connect": "~0.7.1",
+    "connect-livereload": "~0.3.2",
+    "grunt-contrib-watch": "~0.5.3"
+  }
 }

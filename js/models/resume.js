@@ -46,7 +46,11 @@ define(['underscore', 'backbone', 'models/validator'], function(_, Backbone, Val
         },
 
         validate: function(attributes, options) {
-            
+            var errors = this.validator.validateResume(attributes);
+
+            if (errors.length > 0) {
+                return errors;
+            }
         },
 
         specializationNames: function() {

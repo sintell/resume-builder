@@ -25,7 +25,7 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             return this;
         },
 
-        hideSuggest: function(){
+        hide: function(){
            this.$el.empty();
         },
 

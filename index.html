@@ -19,12 +19,10 @@
     </div>
 
     <div class="HH-ResumeBuilder-Container">
-      
     </div>
 
     <script type="text/template" id="HH-ResumeBuilder-AppTemplate">
         <div class="HH-ResumeBuilder-ResumeList">
-            
         </div>
     </script>
 
@@ -69,9 +67,9 @@
                            data-hh-name="id"
                            data-hh-namespace="gender"
                     <%= gender.id === resume.gender.id ? 'checked' : '' %>/>
-                        <span class="control__input-text">
-                            <%= gender.name %>
-                        </span>
+                            <span class="control__input-text">
+                                <%= gender.name %>
+                            </span>
                     <% }); %>
                 </div>
 
@@ -113,8 +111,8 @@
                     <select class="HH-SpecializationControl-Select control__input">
                         <% _.each(specializations, function(specialization) { %>
                             <option value="<%= specialization.id %>"
-                                    <%= resume.specialization[0].profarea_id === specialization.id ? 'selected' : '' %>>
-                                <%= specialization.name %>
+                            <%= resume.specialization[0].profarea_id === specialization.id ? 'selected' : '' %>>
+                            <%= specialization.name %>
                             </option>
                         <% }); %>
                     </select>
@@ -130,28 +128,28 @@
                            name="amount"
                            data-hh-name="salary.amount"/>
 
-                    <% _.each(dictionary.currency, function(currency) { %> 
-                        <input class="HH-ResumeSection-ControlRadio control__input"
-                               type="radio"
-                               value="<%= currency.code %>"
-                               name="currency"
-                               data-hh-name="salary.currency"
-                               <%= currency.code === resume.salary.currency ? 'checked' : '' %>/>
-                        <span class="control__input-text"><%= currency.abbr %></span>
-                    <% }); %>              
+                    <% _.each(dictionary.currency, function(currency) { %>
+                    <input class="HH-ResumeSection-ControlRadio control__input"
+                           type="radio"
+                           value="<%= currency.code %>"
+                           name="currency"
+                           data-hh-name="salary.currency"
+                    <%= currency.code === resume.salary.currency ? 'checked' : '' %>/>
+                    <span class="control__input-text"><%= currency.abbr %></span>
+                    <% }); %>
                 </div>
 
                 <div class="HH-ResumeSection-Control control control_viewing">
                     <label class="control__label">Занятость</label>
                     <span class="control__value"><%= resume.employment.name %></span>
                     <% _.each(dictionary.employment, function(employment) { %>
-                        <input class="HH-ResumeSection-ControlRadio control__input"
-                               type="radio"
-                               value="<%= employment.id %>"
-                               name="employment"
-                               data-hh-name="employment.id"
-                               <%= employment.id === resume.employment.id ? 'checked' : '' %>/>
-                        <span class="control__input-text"><%= employment.name %></span>
+                    <input class="HH-ResumeSection-ControlRadio control__input"
+                           type="radio"
+                           value="<%= employment.id %>"
+                           name="employment"
+                           data-hh-name="employment.id"
+                    <%= employment.id === resume.employment.id ? 'checked' : '' %>/>
+                    <span class="control__input-text"><%= employment.name %></span>
                     <% }); %>
                 </div>
 
@@ -159,13 +157,13 @@
                     <label class="control__label">График работы</label>
                     <span class="control__value"><%= resume.schedule.name %></span>
                     <% _.each(dictionary.schedule, function(schedule) { %>
-                        <input class="HH-ResumeSection-ControlRadio control__input"
-                               type="radio"
-                               value="<%= schedule.id %>"
-                               name="schedule"
-                               data-hh-name="schedule.id"
-                               <%= schedule.id === resume.schedule.id ? 'checked' : '' %>/>
-                        <span class="control__input-text"><%= schedule.name %></span>
+                    <input class="HH-ResumeSection-ControlRadio control__input"
+                           type="radio"
+                           value="<%= schedule.id %>"
+                           name="schedule"
+                           data-hh-name="schedule.id"
+                    <%= schedule.id === resume.schedule.id ? 'checked' : '' %>/>
+                    <span class="control__input-text"><%= schedule.name %></span>
                     <% }); %>
                 </div>
 
@@ -173,13 +171,13 @@
                     <label class="control__label">Переезд</label>
                     <span class="control__value"><%= resume.relocation.type.name %></span>
                     <% _.each(dictionary.relocation_type, function(relocationType) { %>
-                        <input class="HH-ResumeSection-ControlRadio control__input"
-                               type="radio"
-                               value="<%= relocationType.id %>"
-                               name="relocation"
-                               data-hh-name="relocation.type.id"
-                               <%= relocationType.id === resume.relocation.type.id ? 'checked' : '' %>/>
-                        <span class="control__input-text"><%= relocationType.name %></span>
+                    <input class="HH-ResumeSection-ControlRadio control__input"
+                           type="radio"
+                           value="<%= relocationType.id %>"
+                           name="relocation"
+                           data-hh-name="relocation.type.id"
+                    <%= relocationType.id === resume.relocation.type.id ? 'checked' : '' %>/>
+                    <span class="control__input-text"><%= relocationType.name %></span>
                     <% }); %>
                 </div>
 
@@ -187,13 +185,13 @@
                     <label class="control__label">Готовность к командировкам</label>
                     <span class="control__value"><%= resume.business_trip_readiness.name %></span>
                     <% _.each(dictionary.business_trip_readiness, function(readiness) { %>
-                        <input class="HH-ResumeSection-ControlRadio control__input"
-                               type="radio"
-                               value="<%= readiness.id %>"
-                               name="business_trip_readiness"
-                               data-hh-name="business_trip_readiness.id"
-                               <%= readiness.id === resume.business_trip_readiness.id ? 'checked' : '' %>/>
-                        <span class="control__input-text"><%= readiness.name %></span>
+                    <input class="HH-ResumeSection-ControlRadio control__input"
+                           type="radio"
+                           value="<%= readiness.id %>"
+                           name="business_trip_readiness"
+                           data-hh-name="business_trip_readiness.id"
+                    <%= readiness.id === resume.business_trip_readiness.id ? 'checked' : '' %>/>
+                    <span class="control__input-text"><%= readiness.name %></span>
                     <% }); %>
                 </div>
 
@@ -201,13 +199,13 @@
                     <label class="control__label">Время в пути</label>
                     <span class="control__value"><%= resume.travel_time.name %></span>
                     <% _.each(dictionary.travel_time, function(time) { %>
-                        <input class="HH-ResumeSection-ControlRadio control__input"
-                               type="radio"
-                               value="<%= time.id %>"
-                               name="travel_time"
-                               data-hh-name="travel_time.id"
-                               <%= time.id === resume.travel_time.id ? 'checked' : '' %>/>
-                        <span class="control__input-text"><%= time.name %></span>
+                    <input class="HH-ResumeSection-ControlRadio control__input"
+                           type="radio"
+                           value="<%= time.id %>"
+                           name="travel_time"
+                           data-hh-name="travel_time.id"
+                    <%= time.id === resume.travel_time.id ? 'checked' : '' %>/>
+                    <span class="control__input-text"><%= time.name %></span>
                     <% }); %>
                 </div>
 
@@ -218,13 +216,13 @@
 
     <script type="text/template" id="HH-ResumeBuilder-SpecializationTemplate">
         <% _.each(specialization.specializations, function(child) { %>
-            <input class="HH-ResumeSection-ControlSpecialization control__input"
-                   type="checkbox"
-                   value="<%= child.id %>"
-                   name="specialization"
-                   data-hh-name="id"
-                   <%= (specializationIds.indexOf(child.id) !== -1) ? 'checked' : '' %>/>
-            <span class="control__input-text"><%= child.name %></span>
+        <input class="HH-ResumeSection-ControlSpecialization control__input"
+               type="checkbox"
+               value="<%= child.id %>"
+               name="specialization"
+               data-hh-name="id"
+        <%= (specializationIds.indexOf(child.id) !== -1) ? 'checked' : '' %>/>
+        <span class="control__input-text"><%= child.name %></span>
         <% }); %>
     </script>
 
@@ -242,7 +240,7 @@
             </option>
             <% }); %>
         </select>
-                
+
         <select class="control__input HH-ResumeBuilder-Component-BirthDate-Month"
                 name="birth_date-month">
             <% _.each(calendar.months, function(month, index) { %>
@@ -262,7 +260,10 @@
         <input class="control__input HH-ResumeBuilder-Component-Area-Input"
                value="<%= area.name %>"
                name="area_name"/>
+        <span class="control__input HH-ResumeBuilder-Component-Area-ShowModal">Супермодалка?</span>
         <div class="HH-ResumeBuilder-Component-Suggest">
+        </div>
+        <div class="HH-ResumeBuilder-Component-AreaModal">
         </div>
     </script>
 
@@ -271,6 +272,21 @@
         <ul>
             <% _.each(suggest, function(suggest) { %>
             <li><%= suggest %></li>
+            <% }); %>
+        </ul>
+        <% } %>
+    </script>
+
+    <script type="text/template" id="HH-ResumeBuilder-Component-AreaModal">
+        <% if (area != null) { %>
+        <ul>
+            <% _.each(area.areas, function(a) { %>
+            <li>
+                <span><%= a.name  %></span>
+                <% if (a.open) { %>
+                <%= fntemplate({area: a, fntemplate: fntemplate}) %>
+                <% } %>
+            </li>
             <% }); %>
         </ul>
         <% } %>

@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'views/suggest'], function($, _, Backbone, Suggest) {
+define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'], function($, _, Backbone, Suggest, AreaModal) {
     'use strict';
 
     return Backbone.View.extend({
@@ -11,7 +11,8 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest'], function($, _, Bac
         template: _.template($('#HH-ResumeBuilder-Component-Area').html()),
 
         events: {
-            'keyup .HH-ResumeBuilder-Component-Area-Input': '_updateSuggest'
+            'keyup .HH-ResumeBuilder-Component-Area-Input': '_updateSuggest',
+            'click .HH-ResumeBuilder-Component-Area-ShowModal': '_toggleModal'
         },
 
         initialize: function(options) {
@@ -19,7 +20,10 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest'], function($, _, Bac
                 areas: options.area.attributes
             };
 
+            this._orderArea(this.area);
+
             this._initializeSuggest();
+            this._initializeModal();
         },
 
         fill: function(attributes) {
@@ -38,23 +42,50 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest'], function($, _, Bac
             this.$el.html(this.template(data));
 
             this.suggest.setElement(this.$el.find('.HH-ResumeBuilder-Component-Suggest'));
+            this.modal.setElement(this.$el.find('.HH-ResumeBuilder-Component-AreaModal'));
 
             return this;
         },
 
         onSelectSuggest: function(data) {
             this.$el.find('.HH-ResumeBuilder-Component-Area-Input').val(data.text);
-            this.suggest.hideSuggest();
+            this.suggest.hide();
+        },
+
+        onSelectModal: function(data) {
+            this.$el.find('.HH-ResumeBuilder-Component-Area-Input').val(data.text);
+            this.modal.hide();
         },
 
         takeback: function(attributes) {
             this._updateValues();
 
-            this.id = this._findNodeByName(this.name, this.area).id;
+            var node = this._findNodeByName(this.name, this.area);
+
+            if (node) {
+                this.id = node.id;
+            } else {
+                this.id = 0;
+            }
 
             attributes.area = {
                 id: this.id
             };
+        },
+
+        _orderArea: function(area) {
+            if (!area) {
+                return ;
+            }
+
+            area.areas = _.sortBy(area.areas, function(area){
+                var val = parseInt(area.id);
+                return val > 1000 ? 999999999 : -val;
+            });
+
+            for (var i in area.areas){
+                this._orderArea(area.areas[i]);
+            }
         },
 
         _updateSuggest: function() {
@@ -109,6 +140,17 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest'], function($, _, Bac
             for (var i in node.areas){
                 this._getDataForSuggest(node.areas[i], result);
             }
+        },
+
+        _initializeModal: function() {
+            this.modal = new AreaModal(this.area);
+
+            this.listenTo(this.modal, 'selectAreaModal', this.onSelectModal);
+        },
+
+        _toggleModal: function() {
+            this._updateValues();
+            this.modal.toggle(this.name);
         }
     });
 });

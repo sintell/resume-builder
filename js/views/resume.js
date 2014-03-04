@@ -4,8 +4,10 @@ define([
     'backbone',
     'views/specialization',
     'views/birthDate',
-    'views/area'
-], function($, _, Backbone, SpecializationView, BirthDateView, AreaView) {
+    'views/area',
+    'views/citizenship',
+    'views/workTicket',
+], function($, _, Backbone, SpecializationView, BirthDateView, AreaView, CitizenshipView, WorkTicketView) {
     'use strict';
 
     return Backbone.View.extend({
@@ -26,6 +28,8 @@ define([
 
             this.components.push(new BirthDateView());
             this.components.push(new AreaView(options));
+            this.components.push(new CitizenshipView(options));
+            this.components.push(new WorkTicketView(options));
         },
 
         render: function() {

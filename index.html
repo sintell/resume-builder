@@ -88,6 +88,26 @@
                     </span>
                 </div>
 
+                <div class="HH-ResumeSection-Control control control_viewing">
+                    <label class="control__label">Гражданство</label>
+                    <span class="control__value">
+                        <%= _.map(resume.citizenship, function(element) { return element.name; }).join(', ') %>
+                    </span>
+
+                    <span class="HH-ResumeSection-Component" data-hh-component="citizenship">
+                    </span>
+                </div>
+
+                <div class="HH-ResumeSection-Control control control_viewing">
+                    <label class="control__label">Разрешение на работу</label>
+                    <span class="control__value">
+                        <%= _.map(resume.work_ticket, function(element) { return element.name; }).join(', ') %>
+                    </span>
+
+                    <span class="HH-ResumeSection-Component" data-hh-component="work-ticket">
+                    </span>
+                </div>
+
                 <a class="HH-ResumeSection-Submit" href="#">Сохранить</a>
             </div>
 
@@ -267,6 +287,46 @@
         </div>
     </script>
 
+    <script type="text/template" id="HH-ResumeBuilder-Component-Citizenship">
+        <label class="control__input">
+            <input type="radio"
+            <%= selectedAreas.length === 1 && selectedAreas[0].id === RUSSIA ? 'checked' : ''  %>
+            name="HH-ResumeBuilder-Component-Citizenship"
+            class="HH-ResumeBuilder-Component-Citizenship-Russia" />
+            Россия
+        </label>
+        <label class="control__input">
+            <input type="radio"
+            <%= selectedAreas.length !== 1 || selectedAreas[0].id !== RUSSIA ? 'checked' : ''  %>
+            name="HH-ResumeBuilder-Component-Citizenship"
+            class="HH-ResumeBuilder-Component-Citizenship-Other" />
+            Другие страны
+        </label>
+
+        <div class="HH-ResumeBuilder-Component-CountryPicker control__input">
+        </div>
+    </script>
+
+    <script type="text/template" id="HH-ResumeBuilder-Component-WorkTicket">
+        <label class="control__input">
+            <input type="radio"
+            <%= selectedAreas.length === 1 && selectedAreas[0].id === RUSSIA ? 'checked' : ''  %>
+            name="HH-ResumeBuilder-Component-WorkTicket"
+            class="HH-ResumeBuilder-Component-WorkTicket-Russia" />
+            Россия
+        </label>
+        <label class="control__input">
+            <input type="radio"
+            <%= selectedAreas.length !== 1 || selectedAreas[0].id !== RUSSIA ? 'checked' : ''  %>
+            name="HH-ResumeBuilder-Component-WorkTicket"
+            class="HH-ResumeBuilder-Component-WorkTicket-Other" />
+            Другие страны
+        </label>
+
+        <div class="HH-ResumeBuilder-Component-CountryPicker control__input">
+        </div>
+    </script>
+
     <script type="text/template" id="HH-ResumeBuilder-Component-Suggest">
         <% if (suggest.length > 0) { %>
         <ul>
@@ -290,6 +350,20 @@
             <% }); %>
         </ul>
         <% } %>
+    </script>
+
+    <script type="text/template" id="HH-ResumeBuilder-Component-CountryPicker">
+        <ul>
+            <% _.each(area, function(area) { %>
+            <li>
+                <label>
+                    <input type="checkbox"
+                            <%= selectedIds.indexOf(area.id) >=0 ? 'checked' : '' %>/>
+                    <%= area.name  %>
+                </label>
+            </li>
+            <% }); %>
+        </ul>
     </script>
 </body>
 </html>

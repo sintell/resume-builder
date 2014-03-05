@@ -21,15 +21,18 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             });
 
             this.$el.html(this.template(data));
+            this.$el.find('.HH-Suggest-Results').css('width', this.width + 'px');
 
             return this;
         },
 
-        hide: function(){
+        hide: function() {
             this.$el.empty();
         },
 
-        updateSuggest: function(text) {
+        updateSuggest: function(text, width) {
+            this.width = width;
+
             if (text.length >= this.options.minInput) {
                 this.suggest = this._getSuggest(text);
             } else {

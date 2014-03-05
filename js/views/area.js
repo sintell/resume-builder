@@ -90,11 +90,16 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
 
         _updateSuggest: function() {
             this._updateValues();
-            this.suggest.updateSuggest(this.name);
+            this.suggest.updateSuggest(this.name, this.width);
         },
 
         _updateValues: function() {
-            this.name = $('.HH-ResumeBuilder-Component-Area-Input').val();
+            var input;
+
+            input = $('.HH-ResumeBuilder-Component-Area-Input');
+
+            this.name = input.val();
+            this.width = input.outerWidth() - parseInt(input.css('border-left-width'));
         },
 
         _findNodeByName: function(name, node) {

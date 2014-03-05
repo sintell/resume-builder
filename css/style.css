@@ -99,6 +99,7 @@
         padding: 0px 10px;
         background: #fff;
         cursor: pointer;
+        overflow: hidden;
     }
 
         .suggest-list__item:hover {

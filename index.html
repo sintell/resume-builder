@@ -35,8 +35,8 @@
                 </div>
 
                 <div class="HH-ResumeSection-Control control control_viewing">
-                    <label class="control__label">ФИО</label>
-                    <span class="control__value"><%= resume.last_name %> <%= resume.first_name %> <%= resume.middle_name %></span>
+                    <label class="control__label">Фамилия</label>
+                    <span class="control__value"><%= resume.last_name %></span>
                     
                     <div class="control__input">
                         <input class="HH-ResumeSection-ControlTextbox"
@@ -44,13 +44,27 @@
                                value="<%= resume.last_name %>"
                                name="last_name"
                                data-hh-name="last_name"/>
+                    </div>
+                </div>
 
+                <div class="HH-ResumeSection-Control control control_viewing">
+                    <label class="control__label">Имя</label>
+                    <span class="control__value"><%= resume.first_name %></span>
+                    
+                    <div class="control__input">
                         <input class="HH-ResumeSection-ControlTextbox"
                                type="text"
                                value="<%= resume.first_name %>"
                                name="first_name"
                                data-hh-name="first_name"/>
+                    </div>
+                </div>
 
+                <div class="HH-ResumeSection-Control control control_viewing">
+                    <label class="control__label">Отчество</label>
+                    <span class="control__value"><%= resume.middle_name %></span>
+                    
+                    <div class="control__input">
                         <input class="HH-ResumeSection-ControlTextbox"
                                type="text"
                                value="<%= resume.middle_name %>"

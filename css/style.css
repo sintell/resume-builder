@@ -1,31 +1,92 @@
+.container {
+    width: 960px;
+    margin: 0px auto;
+}
+
+.resume {
+    margin-bottom: 50px;
+}
+
+.section {
+
+}
+
+    .section__title {
+        margin-top: 25px;
+    }
+
+    .section__title-text {
+        height: 25px;
+        line-height: 25px;
+        display: inline-block;
+    }
+
+    .section__title-link {
+
+    }
+
+        .section__title-link_hidden {
+            display: none;
+        }
+
 .control {
-    margin-bottom: 25px;
+    margin-top: 25px;
 }
 
-.control__label {
+    .control:first-child {
+        margin-top: 0px;
+    }
 
-}
+    .control:after {
+        display: block;
+        content: '';
+        clear: both;
+    }
 
-.control__value {
+    .control_viewing {
 
-}
+    }
 
-    .control_editing .control__value {
+    .control_editing {
+
+    }
+
+    .control_submit {
+
+    }
+
+    .control_viewing.control_submit {
         display: none;
     }
 
-.control__input {
-
-}
-
-    .control_viewing .control__input {
-        display: none;
+    .control__label {
+        float: left;
+        width: 20%;
+        display: block;
     }
 
-.control__input-text {
-
-}
-
-    .control_viewing .control__input-text {
-        display: none;
+    .control__value {
+        float: left;
     }
+
+        .control_editing .control__value {
+            display: none;
+        }
+
+    .control__input {
+        float: left;
+        width: 80%;
+        display: block;
+    }
+
+        .control_viewing .control__input {
+            display: none;
+        }
+
+    .control__input-text {
+
+    }
+
+        .control_viewing .control__input-text {
+            display: none;
+        } 

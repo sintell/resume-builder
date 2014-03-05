@@ -78,6 +78,7 @@ define([
             event.preventDefault();
 
             $section = $(event.currentTarget).closest('.HH-Resume-ResumeSection');
+            $section.find('.HH-ResumeSection-Switch').toggleClass('section__title-link_hidden');
             $controls = $section.find('.HH-ResumeSection-Control');
             $controls.toggleClass('control_viewing').toggleClass('control_editing');
         },

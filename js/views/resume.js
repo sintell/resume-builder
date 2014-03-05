@@ -61,7 +61,8 @@ define([
                     container = this.$el.find([
                         '.HH-ResumeSection-Component[data-hh-component="',
                         this.components[i].componentName,
-                        '"]'].join(''));
+                        '"]'
+                    ].join(''));
 
                 component.fill(this.model.attributes);
                 container.html(component.render().el);

@@ -25,7 +25,7 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         },
 
         render: function() {
-            var data = $.extend({},{
+            var data = $.extend({}, {
                 date: {
                     day: this.day,
                     month: this.month,
@@ -50,13 +50,13 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             this.render();
         },
 
-        _updateValues: function(){
+        _updateValues: function() {
             this.day = parseInt($('[name="birth_date-day"]').val());
             this.month = parseInt($('[name="birth_date-month"]').val());
             this.year = parseInt($('[name="birth_date-year"]').val());
         },
 
-        _updateCalendar: function(){
+        _updateCalendar: function() {
             this.calendar = {
                 months: [
                     'Январь',
@@ -88,7 +88,7 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         },
 
         _formatBirthDate: function() {
-            var _addZero = function(val){
+            var _addZero = function(val) {
                 return val > 9 ? val : '0' + val;
             };
 

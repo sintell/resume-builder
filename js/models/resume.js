@@ -44,7 +44,7 @@ define(['underscore', 'backbone', 'models/validator'], function(_, Backbone, Val
             return this.get('url');
         },
 
-        toJSON: function(options) {
+        toJSON: function() {
             return _.omit(this.attributes, this.readOnly);
         },
 

@@ -26,11 +26,11 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         },
 
         hide: function(){
-           this.$el.empty();
+            this.$el.empty();
         },
 
         updateSuggest: function(text) {
-            if (text.length >= this.options.minInput){
+            if (text.length >= this.options.minInput) {
                 this.suggest = this._getSuggest(text);
             } else {
                 this.suggest = [];

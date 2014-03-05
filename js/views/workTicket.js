@@ -32,7 +32,7 @@ define(['jquery', 'underscore', 'backbone', 'views/countryPicker'], function($, 
         },
 
         render: function() {
-            var data = $.extend({},{
+            var data = $.extend({}, {
                 area: this.area,
                 RUSSIA: this.RUSSIA,
                 selectedAreas: this.selectedAreas
@@ -55,7 +55,7 @@ define(['jquery', 'underscore', 'backbone', 'views/countryPicker'], function($, 
             attributes.work_ticket = this.selectedAreas;
         },
 
-        _setArea: function(area){
+        _setArea: function(area) {
             var OTHER_COUNTRIES = 1001,
                 that = this,
                 pointer = area;
@@ -64,7 +64,7 @@ define(['jquery', 'underscore', 'backbone', 'views/countryPicker'], function($, 
 
             for (var j = 0; j < 2; j++) {
                 for (var i in pointer.areas) {
-                    if (pointer.areas[i].id != OTHER_COUNTRIES) {
+                    if (parseInt(pointer.areas[i].id) !== OTHER_COUNTRIES) {
                         this.area.push({
                             id: parseInt(pointer.areas[i].id),
                             name:pointer.areas[i].name
@@ -80,27 +80,27 @@ define(['jquery', 'underscore', 'backbone', 'views/countryPicker'], function($, 
             });
 
             var russia = _.find(this.area, function(item) {
-                return item.id == that.RUSSIA;
+                return item.id === that.RUSSIA;
             });
 
-            if (this.area.length != 0 ){
+            if (this.area.length > 0) {
                 this.area.splice(this.area.indexOf(russia), 1);
                 this.area.unshift(russia);
             }
         },
 
-        _initializeCountryPicker: function(){
+        _initializeCountryPicker: function() {
             this.countryPicker = new CountryPicker(this.area);
 
             this.listenTo(this.countryPicker, 'countryPicked', this._onCountryPicked);
         },
 
-        _onCountryPicked: function(selectedAreas){
+        _onCountryPicked: function(selectedAreas) {
             this.selectedAreas = selectedAreas;
         },
 
         _change: function(event) {
-            if ($(event.currentTarget).is('.HH-ResumeBuilder-Component-WorkTicket-Russia')){
+            if ($(event.currentTarget).is('.HH-ResumeBuilder-Component-WorkTicket-Russia')) {
                 this.selectedAreas = [
                     {
                         id: this.RUSSIA

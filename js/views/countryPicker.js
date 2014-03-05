@@ -44,7 +44,7 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         },
 
         toggle: function() {
-            if (!this.isShow){
+            if (!this.isShow) {
                 this.show();
             } else {
                 this.hide();
@@ -56,22 +56,22 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             this.isShow = true;
         },
 
-        hide: function(){
+        hide: function() {
             this.$el.empty();
             this.isShow = false;
         },
 
-        _select: function(event){
+        _select: function(event) {
             event.stopPropagation();
 
-            var text = $(event.currentTarget).text(),
+            var selected,
                 that = this;
 
-            var selected = _.map(this.$el.find(':checked').parent().toArray(), function(item) {
+            selected = _.map(this.$el.find(':checked').parent().toArray(), function(item) {
                 var name = $(item).text().trim();
 
-                return _.find(that.area, function(item){
-                    return item.name == name;
+                return _.find(that.area, function(item) {
+                    return item.name === name;
                 });
             });
 
@@ -91,15 +91,15 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         },
 
         _findNodeById: function(id, node) {
-            if (!node){
+            if (!node) {
                 return null;
             }
 
-            if (node.id === id){
+            if (node.id === id) {
                 return node;
             }
 
-            for (var i in node.areas){
+            for (var i in node.areas) {
                 var found = this._findNodeById(id, node.areas[i]);
                 if (found) {
                     return found;
@@ -110,7 +110,7 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         },
 
         _findNodeByName: function(name, node) {
-            if (!node){
+            if (!node) {
                 return null;
             }
 
@@ -118,7 +118,7 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
                 return node;
             }
 
-            for (var i in node.areas){
+            for (var i in node.areas) {
                 var found = this._findNodeByName(name, node.areas[i]);
                 if (found) {
                     return found;

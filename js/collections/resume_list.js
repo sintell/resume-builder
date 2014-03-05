@@ -6,7 +6,7 @@ define(['underscore', 'backbone', 'models/resume'], function(_, Backbone, Resume
 
         url: 'https://api.hh.ru/resumes/mine',
 
-        parse: function(response, options) {
+        parse: function(response) {
             return response.items;
         }
     });

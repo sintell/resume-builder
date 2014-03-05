@@ -32,7 +32,7 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
         },
 
         render: function() {
-            var data = $.extend({},{
+            var data = $.extend({}, {
                     area: {
                         id: this.id,
                         name: this.name
@@ -78,7 +78,7 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
                 return ;
             }
 
-            area.areas = _.sortBy(area.areas, function(area){
+            area.areas = _.sortBy(area.areas, function(area) {
                 var val = parseInt(area.id);
                 return val > 1000 ? 999999999 : -val;
             });

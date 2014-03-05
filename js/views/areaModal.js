@@ -14,7 +14,7 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             'click li': '_selectOrOpen'
         },
 
-        initialize: function(area, initialArea) {
+        initialize: function(area) {
             this.area = area;
 
             this._initArea(this.area, false);
@@ -23,19 +23,19 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         },
 
         _initArea: function(area, val) {
-            if (area == null){
+            if (!area) {
                 return;
             }
 
             area.open = val;
 
-            for (var i in area.areas){
+            for (var i in area.areas) {
                 this._initArea(area.areas[i]);
             }
         },
 
         render: function() {
-            var data = $.extend({},{
+            var data = $.extend({}, {
                     area: this.area
                 }, {
                     fntemplate: this.template
@@ -63,14 +63,14 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             this.modalShow = true;
         },
 
-        hide: function(){
+        hide: function() {
             this._initArea(this.area, false);
 
             this.$el.empty();
             this.modalShow = false;
         },
 
-        _selectOrOpen: function(event){
+        _selectOrOpen: function(event) {
             event.stopPropagation();
 
             var text = $(event.currentTarget).children().first().text();
@@ -99,15 +99,15 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         },
 
         _findNodeById: function(id, node) {
-            if (!node){
+            if (!node) {
                 return null;
             }
 
-            if (node.id === id){
+            if (node.id === id) {
                 return node;
             }
 
-            for (var i in node.areas){
+            for (var i in node.areas) {
                 var found = this._findNodeById(id, node.areas[i]);
                 if (found) {
                     return found;
@@ -118,7 +118,7 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         },
 
         _findNodeByName: function(name, node) {
-            if (!node){
+            if (!node) {
                 return null;
             }
 
@@ -126,7 +126,7 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
                 return node;
             }
 
-            for (var i in node.areas){
+            for (var i in node.areas) {
                 var found = this._findNodeByName(name, node.areas[i]);
                 if (found) {
                     return found;

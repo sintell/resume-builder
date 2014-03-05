@@ -9,10 +9,17 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         },
 
         render: function() {
-            this.$el.html(this.template({
-                specialization: this.model.attributes,
+            var data,
+                specializationsCopy;
+
+            specializationsCopy = _.clone(this.model.get('specializations'));
+            data = {
+                leftSpecializations: specializationsCopy.splice(0, Math.ceil(specializationsCopy.length / 2)),
+                rightSpecializations: specializationsCopy,
                 specializationIds: this.specializationIds
-            }));
+            };
+
+            this.$el.html(this.template(data));
 
             return this;
         }

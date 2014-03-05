@@ -28,8 +28,13 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         },
 
         render: function() {
-            var data = {
-                area: this.area,
+            var data,
+                areaCopy;
+
+            areaCopy = _.clone(this.area);
+            data = {
+                leftAreas: areaCopy.splice(0, Math.ceil(this.area.length / 2)),
+                rightAreas: areaCopy,
                 selectedIds: this.selectedIds
             };
 

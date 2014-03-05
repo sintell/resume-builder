@@ -270,15 +270,23 @@
     </script>
 
     <script type="text/template" id="HH-ResumeBuilder-SpecializationTemplate">
-        <% _.each(specialization.specializations, function(child) { %>
-        <input class="HH-ResumeSection-ControlSpecialization"
-               type="checkbox"
-               value="<%= child.id %>"
-               name="specialization"
-               data-hh-name="id"
-               <%= (specializationIds.indexOf(child.id) !== -1) ? 'checked' : '' %>/>
-        <span class="control__input-text"><%= child.name %></span>
+        <div class="checkboxes-wrapper">
+        <% _.each([leftSpecializations, rightSpecializations], function(specializations) { %>
+            <ul class="checkbox-list">
+            <% _.each(specializations, function(specialization) { %>
+                <li class="checkbox-list__item">
+                    <input class="HH-ResumeSection-ControlSpecialization"
+                           type="checkbox"
+                           value="<%= specialization.id %>"
+                           name="specialization"
+                           data-hh-name="id"
+                           <%= (specializationIds.indexOf(specialization.id) !== -1) ? 'checked' : '' %>/>
+                    <span class="control__input-text"><%= specialization.name %></span>
+                </li>
+            <% }); %>
+            </ul>
         <% }); %>
+        </div>
     </script>
 
     <script type="text/template" id="HH-ResumeBuilder-Component-BirthDate">
@@ -322,7 +330,7 @@
 
             <a class="HH-ResumeBuilder-Component-Area-ShowModal" href="#">Выбрать из списка</a>
             <div class="HH-ResumeBuilder-Component-Suggest"></div>
-            <div class="HH-ResumeBuilder-Component-AreaModal area-wrapper"></div>
+            <div class="HH-ResumeBuilder-Component-AreaModal areas-wrapper"></div>
         </div>
     </script>
 
@@ -384,10 +392,10 @@
             <% _.each(area.areas, function(a) { %>
             <li class="area-list__item">
                 <% if (a.open) { %>
-                    <span class="area-list__item-text area-list__item-text_active"><%= a.name %></span>
-                    <%= fntemplate({area: a, fntemplate: fntemplate}) %>
+                <span class="area-list__item-text area-list__item-text_active"><%= a.name %></span>
+                <%= fntemplate({area: a, fntemplate: fntemplate}) %>
                 <% } else { %>
-                    <span class="area-list__item-text"><%= a.name %></span>
+                <span class="area-list__item-text"><%= a.name %></span>
                 <% } %>
             </li>
             <% }); %>
@@ -396,17 +404,20 @@
     </script>
 
     <script type="text/template" id="HH-ResumeBuilder-Component-CountryPicker">
-        <ul class="country-list">
-            <% _.each(area, function(area) { %>
-            <li class="country-list__item">
-                <label>
-                    <input type="checkbox"
-                           <%= selectedIds.indexOf(area.id) >=0 ? 'checked' : '' %>/>
-                    <%= area.name  %>
-                </label>
-            </li>
+        <div class="checkboxes-wrapper">
+            <% _.each([leftAreas, rightAreas], function(areas) { %>
+            <ul class="checkbox-list">
+                <% _.each(areas, function(area) { %>
+                <li class="checkbox-list__item">
+                    <label>
+                        <input type="checkbox" <%= selectedIds.indexOf(area.id) >=0 ? 'checked' : '' %>/>
+                        <%= area.name  %>
+                    </label>
+                </li>
+                <% }); %>
+            </ul>
             <% }); %>
-        </ul>
+        </div>
     </script>
 </body>
 </html>

@@ -148,7 +148,9 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
             this.listenTo(this.modal, 'selectAreaModal', this.onSelectModal);
         },
 
-        _toggleModal: function() {
+        _toggleModal: function(event) {
+            event.preventDefault();
+
             this._updateValues();
             this.modal.toggle(this.name);
         }

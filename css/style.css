@@ -52,7 +52,7 @@
     }
 
     .control_submit {
-
+        
     }
 
     .control_viewing.control_submit {
@@ -89,4 +89,68 @@
 
         .control_viewing .control__input-text {
             display: none;
-        } 
+        }
+
+.suggest-list {
+    padding: 0px;
+    margin: 0px;
+    display: inline-block;
+    list-style: none;
+    border: 1px solid #ccc;
+    position: absolute;
+    z-index: 1000;
+}
+
+    .suggest-list__item {
+        height: 25px;
+        line-height: 25px;
+        padding: 0px 10px;
+        background: #fff;
+        cursor: pointer;
+    }
+
+        .suggest-list__item:hover {
+            background: #ccc;
+        }
+
+.area-wrapper {
+    margin-left: -25px;
+}
+
+.area-list {
+    padding: 0px;
+    list-style: none;
+    display: block;
+}
+
+    .area-list__item {
+        margin-left: 25px;        
+    }
+
+    .area-list__item-text {
+        height: 25px;
+        padding: 0px 10px;
+        background: #fff;
+        line-height: 25px;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+        .area-list__item-text_active {
+            background: #ccc;
+        }
+
+        .area-list__item-text:hover {
+            background: #ccc;
+        }
+
+.country-list {
+    padding: 0px;
+    list-style: none;
+    margin-bottom: 0px;
+}
+
+    .country-list__item {
+
+    }
+

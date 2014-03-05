@@ -173,7 +173,7 @@
                                value="<%= currency.code %>"
                                name="currency"
                                data-hh-name="salary.currency"
-                        <%= currency.code === resume.salary.currency ? 'checked' : '' %>/>
+                               <%= currency.code === resume.salary.currency ? 'checked' : '' %>/>
                         <span class="control__input-text"><%= currency.abbr %></span>
                         <% }); %>
                     </div>
@@ -189,7 +189,7 @@
                                value="<%= employment.id %>"
                                name="employment"
                                data-hh-name="employment.id"
-                        <%= employment.id === resume.employment.id ? 'checked' : '' %>/>
+                               <%= employment.id === resume.employment.id ? 'checked' : '' %>/>
                         <span class="control__input-text"><%= employment.name %></span>
                         <% }); %>
                     </div>
@@ -205,7 +205,7 @@
                                value="<%= schedule.id %>"
                                name="schedule"
                                data-hh-name="schedule.id"
-                        <%= schedule.id === resume.schedule.id ? 'checked' : '' %>/>
+                               <%= schedule.id === resume.schedule.id ? 'checked' : '' %>/>
                         <span class="control__input-text"><%= schedule.name %></span>
                         <% }); %>
                     </div>
@@ -221,7 +221,7 @@
                                value="<%= relocationType.id %>"
                                name="relocation"
                                data-hh-name="relocation.type.id"
-                        <%= relocationType.id === resume.relocation.type.id ? 'checked' : '' %>/>
+                               <%= relocationType.id === resume.relocation.type.id ? 'checked' : '' %>/>
                         <span class="control__input-text"><%= relocationType.name %></span>
                         <% }); %>
                     </div>
@@ -237,7 +237,7 @@
                                value="<%= readiness.id %>"
                                name="business_trip_readiness"
                                data-hh-name="business_trip_readiness.id"
-                        <%= readiness.id === resume.business_trip_readiness.id ? 'checked' : '' %>/>
+                               <%= readiness.id === resume.business_trip_readiness.id ? 'checked' : '' %>/>
                         <span class="control__input-text"><%= readiness.name %></span>
                         <% }); %>
                     </div>
@@ -253,7 +253,7 @@
                                value="<%= time.id %>"
                                name="travel_time"
                                data-hh-name="travel_time.id"
-                        <%= time.id === resume.travel_time.id ? 'checked' : '' %>/>
+                               <%= time.id === resume.travel_time.id ? 'checked' : '' %>/>
                         <span class="control__input-text"><%= time.name %></span>
                         <% }); %>
                     </div>
@@ -276,7 +276,7 @@
                value="<%= child.id %>"
                name="specialization"
                data-hh-name="id"
-        <%= (specializationIds.indexOf(child.id) !== -1) ? 'checked' : '' %>/>
+               <%= (specializationIds.indexOf(child.id) !== -1) ? 'checked' : '' %>/>
         <span class="control__input-text"><%= child.name %></span>
         <% }); %>
     </script>
@@ -320,9 +320,9 @@
                    value="<%= area.name %>"
                    name="area_name"/>
 
-            <span class="HH-ResumeBuilder-Component-Area-ShowModal">Супермодалка?</span>
+            <a class="HH-ResumeBuilder-Component-Area-ShowModal" href="#">Выбрать из списка</a>
             <div class="HH-ResumeBuilder-Component-Suggest"></div>
-            <div class="HH-ResumeBuilder-Component-AreaModal"></div>
+            <div class="HH-ResumeBuilder-Component-AreaModal area-wrapper"></div>
         </div>
     </script>
 
@@ -330,16 +330,16 @@
         <div class="control__input">
             <label>
                 <input type="radio"
-                <%= selectedAreas.length === 1 && selectedAreas[0].id === RUSSIA ? 'checked' : ''  %>
-                name="HH-ResumeBuilder-Component-Citizenship"
-                class="HH-ResumeBuilder-Component-Citizenship-Russia" />
+                       <%= selectedAreas.length === 1 && selectedAreas[0].id === RUSSIA ? 'checked' : ''  %>
+                       name="HH-ResumeBuilder-Component-Citizenship"
+                       class="HH-ResumeBuilder-Component-Citizenship-Russia" />
                 Россия
             </label>
             <label>
                 <input type="radio"
-                <%= selectedAreas.length !== 1 || selectedAreas[0].id !== RUSSIA ? 'checked' : ''  %>
-                name="HH-ResumeBuilder-Component-Citizenship"
-                class="HH-ResumeBuilder-Component-Citizenship-Other" />
+                       <%= selectedAreas.length !== 1 || selectedAreas[0].id !== RUSSIA ? 'checked' : ''  %>
+                       name="HH-ResumeBuilder-Component-Citizenship"
+                       class="HH-ResumeBuilder-Component-Citizenship-Other" />
                 Другие страны
             </label>
 
@@ -351,16 +351,16 @@
         <div class="control__input">
             <label>
                 <input type="radio"
-                <%= selectedAreas.length === 1 && selectedAreas[0].id === RUSSIA ? 'checked' : ''  %>
-                name="HH-ResumeBuilder-Component-WorkTicket"
-                class="HH-ResumeBuilder-Component-WorkTicket-Russia" />
+                       <%= selectedAreas.length === 1 && selectedAreas[0].id === RUSSIA ? 'checked' : ''  %>
+                       name="HH-ResumeBuilder-Component-WorkTicket"
+                       class="HH-ResumeBuilder-Component-WorkTicket-Russia" />
                 Россия
             </label>
             <label>
                 <input type="radio"
-                <%= selectedAreas.length !== 1 || selectedAreas[0].id !== RUSSIA ? 'checked' : ''  %>
-                name="HH-ResumeBuilder-Component-WorkTicket"
-                class="HH-ResumeBuilder-Component-WorkTicket-Other" />
+                       <%= selectedAreas.length !== 1 || selectedAreas[0].id !== RUSSIA ? 'checked' : ''  %>
+                       name="HH-ResumeBuilder-Component-WorkTicket"
+                       class="HH-ResumeBuilder-Component-WorkTicket-Other" />
                 Другие страны
             </label>
 
@@ -370,9 +370,9 @@
 
     <script type="text/template" id="HH-ResumeBuilder-Component-Suggest">
         <% if (suggest.length > 0) { %>
-        <ul>
+        <ul class="suggest-list">
             <% _.each(suggest, function(suggest) { %>
-            <li><%= suggest %></li>
+            <li class="suggest-list__item"><%= suggest %></li>
             <% }); %>
         </ul>
         <% } %>
@@ -380,12 +380,14 @@
 
     <script type="text/template" id="HH-ResumeBuilder-Component-AreaModal">
         <% if (area != null) { %>
-        <ul>
+        <ul class="area-list">
             <% _.each(area.areas, function(a) { %>
-            <li>
-                <span><%= a.name  %></span>
+            <li class="area-list__item">
                 <% if (a.open) { %>
-                <%= fntemplate({area: a, fntemplate: fntemplate}) %>
+                    <span class="area-list__item-text area-list__item-text_active"><%= a.name %></span>
+                    <%= fntemplate({area: a, fntemplate: fntemplate}) %>
+                <% } else { %>
+                    <span class="area-list__item-text"><%= a.name %></span>
                 <% } %>
             </li>
             <% }); %>
@@ -394,12 +396,12 @@
     </script>
 
     <script type="text/template" id="HH-ResumeBuilder-Component-CountryPicker">
-        <ul>
+        <ul class="country-list">
             <% _.each(area, function(area) { %>
-            <li>
+            <li class="country-list__item">
                 <label>
                     <input type="checkbox"
-                            <%= selectedIds.indexOf(area.id) >=0 ? 'checked' : '' %>/>
+                           <%= selectedIds.indexOf(area.id) >=0 ? 'checked' : '' %>/>
                     <%= area.name  %>
                 </label>
             </li>

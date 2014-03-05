@@ -136,23 +136,11 @@
             background: #ccc;
         }
 
-.checkboxes-wrapper {
-
-}
-
-    .checkboxes-wrapper:after {
-        content: '';
-        display: block;
-        clear: both;
-    }
-
 .checkbox-list {
     padding: 0px;
+    margin: 0px;
     list-style: none;
-    margin-bottom: 0px;
     display: block;
-    float: left;
-    width: 50%;
 }
 
     .checkbox-list__item {

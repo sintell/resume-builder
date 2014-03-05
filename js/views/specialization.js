@@ -9,13 +9,10 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         },
 
         render: function() {
-            var data,
-                specializationsCopy;
+            var data;
 
-            specializationsCopy = _.clone(this.model.get('specializations'));
             data = {
-                leftSpecializations: specializationsCopy.splice(0, Math.ceil(specializationsCopy.length / 2)),
-                rightSpecializations: specializationsCopy,
+                specialization: this.model.attributes,
                 specializationIds: this.specializationIds
             };
 

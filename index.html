@@ -78,17 +78,21 @@
                     <span class="control__value"><%= resume.gender.name %></span>
 
                     <div class="control__input">
+                        <ul class="checkbox-list">
                         <% _.each(dictionary.gender, function(gender) { %>
-                        <label>
-                            <input class="HH-ResumeSection-ControlRadio"
-                                   type="radio"
-                                   value="<%= gender.id %>"
-                                   name="gender"
-                                   data-hh-name="gender.id"
-                                   <%= gender.id === resume.gender.id ? 'checked' : '' %>/>
-                            <%= gender.name %>
-                        </label>
+                            <li class="checkbox-list__item">
+                                <label>
+                                    <input class="HH-ResumeSection-ControlRadio"
+                                           type="radio"
+                                           value="<%= gender.id %>"
+                                           name="gender"
+                                           data-hh-name="gender.id"
+                                           <%= gender.id === resume.gender.id ? 'checked' : '' %>/>
+                                    <%= gender.name %>
+                                </label>
+                            </li>
                         <% }); %>
+                        </ul>
                     </div>
                 </div>
 
@@ -144,6 +148,7 @@
                 <div class="HH-ResumeSection-Control control control_viewing">
                     <label class="control__label">Желаемая должность</label>
                     <span class="control__value"><%= resume.title %></span>
+
                     <div class="control__input">
                         <input class="HH-ResumeSection-ControlTextbox"
                                type="text"
@@ -157,6 +162,7 @@
                 <div class="HH-ResumeSection-Control control control_viewing">
                     <label class="control__label">Профессиональная область</label>
                     <span class="control__value"><%= resume.specializationNames %></span>
+
                     <div class="control__input">
                         <select class="HH-SpecializationControl-Select">
                             <% _.each(specializations, function(specialization) { %>
@@ -173,6 +179,7 @@
                 <div class="HH-ResumeSection-Control control control_viewing">
                     <label class="control__label">Желаемая зарплата</label>
                     <span class="control__value"><%= resume.salary.amount %> <%= resume.salary.currency %></span>
+
                     <div class="control__input">
                         <input class="HH-ResumeSection-ControlTextbox"
                                type="text"
@@ -180,107 +187,136 @@
                                name="amount"
                                data-hh-name="salary.amount"/>
 
+                        <ul class="checkbox-list">
                         <% _.each(dictionary.currency, function(currency) { %>
-                        <label>
-                            <input class="HH-ResumeSection-ControlRadio"
-                                   type="radio"
-                                   value="<%= currency.code %>"
-                                   name="currency"
-                                   data-hh-name="salary.currency"
-                                   <%= currency.code === resume.salary.currency ? 'checked' : '' %>/>
-                            <%= currency.abbr %>
-                        </label>
+                            <li class="checkbox-list__item">
+                                <label>
+                                    <input class="HH-ResumeSection-ControlRadio"
+                                           type="radio"
+                                           value="<%= currency.code %>"
+                                           name="currency"
+                                           data-hh-name="salary.currency"
+                                           <%= currency.code === resume.salary.currency ? 'checked' : '' %>/>
+                                    <%= currency.abbr %>
+                                </label>
+                            </li>
                         <% }); %>
+                        </ul>
                     </div>
                 </div>
 
                 <div class="HH-ResumeSection-Control control control_viewing">
                     <label class="control__label">Занятость</label>
                     <span class="control__value"><%= resume.employment.name %></span>
+
                     <div class="control__input">
+                        <ul class="checkbox-list">
                         <% _.each(dictionary.employment, function(employment) { %>
-                        <label>
-                            <input class="HH-ResumeSection-ControlRadio"
-                                   type="radio"
-                                   value="<%= employment.id %>"
-                                   name="employment"
-                                   data-hh-name="employment.id"
-                                   <%= employment.id === resume.employment.id ? 'checked' : '' %>/>
-                            <%= employment.name %>
-                        </label>
+                            <li class="checkbox-list__item">
+                                <label>
+                                    <input class="HH-ResumeSection-ControlRadio"
+                                           type="radio"
+                                           value="<%= employment.id %>"
+                                           name="employment"
+                                           data-hh-name="employment.id"
+                                           <%= employment.id === resume.employment.id ? 'checked' : '' %>/>
+                                    <%= employment.name %>
+                                </label>
+                            </li>
                         <% }); %>
+                        </ul>
                     </div>
                 </div>
 
                 <div class="HH-ResumeSection-Control control control_viewing">
                     <label class="control__label">График работы</label>
                     <span class="control__value"><%= resume.schedule.name %></span>
+
                     <div class="control__input">
+                        <ul class="checkbox-list">
                         <% _.each(dictionary.schedule, function(schedule) { %>
-                        <label>
-                            <input class="HH-ResumeSection-ControlRadio"
-                                   type="radio"
-                                   value="<%= schedule.id %>"
-                                   name="schedule"
-                                   data-hh-name="schedule.id"
-                                   <%= schedule.id === resume.schedule.id ? 'checked' : '' %>/>
-                            <%= schedule.name %>
-                        </label>
+                            <li class="checkbox-list__item">
+                                <label>
+                                    <input class="HH-ResumeSection-ControlRadio"
+                                           type="radio"
+                                           value="<%= schedule.id %>"
+                                           name="schedule"
+                                           data-hh-name="schedule.id"
+                                           <%= schedule.id === resume.schedule.id ? 'checked' : '' %>/>
+                                    <%= schedule.name %>
+                                </label>
+                            </li>
                         <% }); %>
+                        </ul>
                     </div>
                 </div>
 
                 <div class="HH-ResumeSection-Control control control_viewing">
                     <label class="control__label">Переезд</label>
                     <span class="control__value"><%= resume.relocation.type.name %></span>
+
                     <div class="control__input">
+                        <ul class="checkbox-list">
                         <% _.each(dictionary.relocation_type, function(relocationType) { %>
-                        <label>
-                            <input class="HH-ResumeSection-ControlRadio"
-                                   type="radio"
-                                   value="<%= relocationType.id %>"
-                                   name="relocation"
-                                   data-hh-name="relocation.type.id"
-                                   <%= relocationType.id === resume.relocation.type.id ? 'checked' : '' %>/>
-                            <%= relocationType.name %>
-                        </label>
+                            <li class="checkbox-list__item">
+                                <label>
+                                    <input class="HH-ResumeSection-ControlRadio"
+                                           type="radio"
+                                           value="<%= relocationType.id %>"
+                                           name="relocation"
+                                           data-hh-name="relocation.type.id"
+                                           <%= relocationType.id === resume.relocation.type.id ? 'checked' : '' %>/>
+                                    <%= relocationType.name %>
+                                </label>
+                            </li>
                         <% }); %>
+                        </ul>
                     </div>
                 </div>
 
                 <div class="HH-ResumeSection-Control control control_viewing">
                     <label class="control__label">Готовность к командировкам</label>
                     <span class="control__value"><%= resume.business_trip_readiness.name %></span>
+
                     <div class="control__input">
+                        <ul class="checkbox-list">
                         <% _.each(dictionary.business_trip_readiness, function(readiness) { %>
-                        <label>
-                            <input class="HH-ResumeSection-ControlRadio"
-                                   type="radio"
-                                   value="<%= readiness.id %>"
-                                   name="business_trip_readiness"
-                                   data-hh-name="business_trip_readiness.id"
-                                   <%= readiness.id === resume.business_trip_readiness.id ? 'checked' : '' %>/>
-                            <%= readiness.name %>
-                        <label>
+                            <li class="checkbox-list__item">
+                                <label>
+                                    <input class="HH-ResumeSection-ControlRadio"
+                                           type="radio"
+                                           value="<%= readiness.id %>"
+                                           name="business_trip_readiness"
+                                           data-hh-name="business_trip_readiness.id"
+                                           <%= readiness.id === resume.business_trip_readiness.id ? 'checked' : '' %>/>
+                                    <%= readiness.name %>
+                                <label>
+                            </li>
                         <% }); %>
+                        </ul>
                     </div>
                 </div>
 
                 <div class="HH-ResumeSection-Control control control_viewing">
                     <label class="control__label">Время в пути</label>
                     <span class="control__value"><%= resume.travel_time.name %></span>
+
                     <div class="control__input">
+                        <ul class="checkbox-list">
                         <% _.each(dictionary.travel_time, function(time) { %>
-                        <label>
-                            <input class="HH-ResumeSection-ControlRadio"
-                                   type="radio"
-                                   value="<%= time.id %>"
-                                   name="travel_time"
-                                   data-hh-name="travel_time.id"
-                                   <%= time.id === resume.travel_time.id ? 'checked' : '' %>/>
-                            <%= time.name %>
-                        </label>
+                            <li class="checkbox-list__item">
+                                <label>
+                                    <input class="HH-ResumeSection-ControlRadio"
+                                           type="radio"
+                                           value="<%= time.id %>"
+                                           name="travel_time"
+                                           data-hh-name="travel_time.id"
+                                           <%= time.id === resume.travel_time.id ? 'checked' : '' %>/>
+                                    <%= time.name %>
+                                </label>
+                            </li>
                         <% }); %>
+                        </ul>
                     </div>
                 </div>
 
@@ -295,25 +331,21 @@
     </script>
 
     <script type="text/template" id="HH-ResumeBuilder-SpecializationTemplate">
-        <div class="checkboxes-wrapper">
-        <% _.each([leftSpecializations, rightSpecializations], function(specializations) { %>
-            <ul class="checkbox-list">
-            <% _.each(specializations, function(specialization) { %>
-                <li class="checkbox-list__item">
-                    <label>
-                        <input class="HH-ResumeSection-ControlSpecialization"
-                               type="checkbox"
-                               value="<%= specialization.id %>"
-                               name="specialization"
-                               data-hh-name="id"
-                               <%= (specializationIds.indexOf(specialization.id) !== -1) ? 'checked' : '' %>/>
-                        <%= specialization.name %>
-                    </label>
-                </li>
-            <% }); %>
-            </ul>
+        <ul class="checkbox-list">
+        <% _.each(specialization.specializations, function(specialization) { %>
+            <li class="checkbox-list__item">
+                <label>
+                    <input class="HH-ResumeSection-ControlSpecialization"
+                           type="checkbox"
+                           value="<%= specialization.id %>"
+                           name="specialization"
+                           data-hh-name="id"
+                           <%= (specializationIds.indexOf(specialization.id) !== -1) ? 'checked' : '' %>/>
+                    <%= specialization.name %>
+                </label>
+            </li>
         <% }); %>
-        </div>
+        </ul>
     </script>
 
     <script type="text/template" id="HH-ResumeBuilder-Component-BirthDate">
@@ -363,20 +395,26 @@
 
     <script type="text/template" id="HH-ResumeBuilder-Component-Citizenship">
         <div class="control__input">
-            <label>
-                <input type="radio"
-                       <%= selectedAreas.length === 1 && selectedAreas[0].id === RUSSIA ? 'checked' : ''  %>
-                       name="HH-ResumeBuilder-Component-Citizenship"
-                       class="HH-ResumeBuilder-Component-Citizenship-Russia" />
-                Россия
-            </label>
-            <label>
-                <input type="radio"
-                       <%= selectedAreas.length !== 1 || selectedAreas[0].id !== RUSSIA ? 'checked' : ''  %>
-                       name="HH-ResumeBuilder-Component-Citizenship"
-                       class="HH-ResumeBuilder-Component-Citizenship-Other" />
-                Другие страны
-            </label>
+            <ul class="checkbox-list">
+                <li class="checkbox-list__item">
+                    <label>
+                        <input type="radio"
+                               <%= selectedAreas.length === 1 && selectedAreas[0].id === RUSSIA ? 'checked' : ''  %>
+                               name="HH-ResumeBuilder-Component-Citizenship"
+                               class="HH-ResumeBuilder-Component-Citizenship-Russia" />
+                        Россия
+                    </label>
+                </li>
+                <li class="checkbox-list__item">
+                    <label>
+                        <input type="radio"
+                               <%= selectedAreas.length !== 1 || selectedAreas[0].id !== RUSSIA ? 'checked' : ''  %>
+                               name="HH-ResumeBuilder-Component-Citizenship"
+                               class="HH-ResumeBuilder-Component-Citizenship-Other" />
+                        Другие страны
+                    </label>
+                </li>
+            </ul>
 
             <div class="HH-ResumeBuilder-Component-CountryPicker"></div>
         </dov>
@@ -384,20 +422,26 @@
 
     <script type="text/template" id="HH-ResumeBuilder-Component-WorkTicket">
         <div class="control__input">
-            <label>
-                <input type="radio"
-                       <%= selectedAreas.length === 1 && selectedAreas[0].id === RUSSIA ? 'checked' : ''  %>
-                       name="HH-ResumeBuilder-Component-WorkTicket"
-                       class="HH-ResumeBuilder-Component-WorkTicket-Russia" />
-                Россия
-            </label>
-            <label>
-                <input type="radio"
-                       <%= selectedAreas.length !== 1 || selectedAreas[0].id !== RUSSIA ? 'checked' : ''  %>
-                       name="HH-ResumeBuilder-Component-WorkTicket"
-                       class="HH-ResumeBuilder-Component-WorkTicket-Other" />
-                Другие страны
-            </label>
+            <ul class="checkbox-list">
+                <li class="checkbox-list__item">
+                    <label>
+                        <input type="radio"
+                               <%= selectedAreas.length === 1 && selectedAreas[0].id === RUSSIA ? 'checked' : ''  %>
+                               name="HH-ResumeBuilder-Component-WorkTicket"
+                               class="HH-ResumeBuilder-Component-WorkTicket-Russia" />
+                        Россия
+                    </label>
+                </li>
+                <li class="checkbox-list__item">
+                    <label>
+                        <input type="radio"
+                               <%= selectedAreas.length !== 1 || selectedAreas[0].id !== RUSSIA ? 'checked' : ''  %>
+                               name="HH-ResumeBuilder-Component-WorkTicket"
+                               class="HH-ResumeBuilder-Component-WorkTicket-Other" />
+                        Другие страны
+                    </label>
+                </li>
+            </ul>
 
             <div class="HH-ResumeBuilder-Component-CountryPicker"></div>
         </div>
@@ -431,20 +475,16 @@
     </script>
 
     <script type="text/template" id="HH-ResumeBuilder-Component-CountryPicker">
-        <div class="checkboxes-wrapper">
-            <% _.each([leftAreas, rightAreas], function(areas) { %>
-            <ul class="checkbox-list">
-                <% _.each(areas, function(area) { %>
-                <li class="checkbox-list__item">
-                    <label>
-                        <input type="checkbox" <%= selectedIds.indexOf(area.id) >=0 ? 'checked' : '' %>/>
-                        <%= area.name  %>
-                    </label>
-                </li>
-                <% }); %>
-            </ul>
+        <ul class="checkbox-list">
+            <% _.each(area, function(area) { %>
+            <li class="checkbox-list__item">
+                <label>
+                    <input type="checkbox" <%= selectedIds.indexOf(area.id) >=0 ? 'checked' : '' %>/>
+                    <%= area.name  %>
+                </label>
+            </li>
             <% }); %>
-        </div>
+        </ul>
     </script>
 </body>
 </html>

@@ -32,11 +32,13 @@ define(['jquery', 'underscore', 'backbone', 'views/countryPicker'], function($, 
         },
 
         render: function() {
-            var data = $.extend({}, {
+            var data;
+
+            data = {
                 area: this.area,
                 RUSSIA: this.RUSSIA,
                 selectedAreas: this.selectedAreas
-            });
+            };
 
             this.$el.html(this.template(data));
 

@@ -35,11 +35,12 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         },
 
         render: function() {
-            var data = $.extend({}, {
-                    area: this.area
-                }, {
-                    fntemplate: this.template
-                });
+            var data;
+
+            data = {
+                area: this.area,
+                fntemplate: this.template
+            };
 
             this.$el.html(this.template(data));
 

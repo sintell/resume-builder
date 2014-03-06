@@ -37,10 +37,10 @@ define([
                 specializationsData,
                 templateData;
 
-            resumeData = $.extend({},
-                this.model.attributes, {
-                    specializationNames: this.model.specializationNames()
-                }
+            resumeData = $.extend(
+                {},
+                this.model.attributes,
+                {specializationNames: this.model.specializationNames()}
             );
 
             specializationsData = this.specializations.map(function(specialization) {

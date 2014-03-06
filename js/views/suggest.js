@@ -16,9 +16,11 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         },
 
         render: function() {
-            var data = $.extend({}, {
+            var data;
+
+            data = {
                 suggest: this.suggest
-            });
+            };
 
             this.$el.html(this.template(data));
             this.$el.find('.HH-Suggest-Results').css('width', this.width + 'px');

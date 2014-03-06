@@ -25,15 +25,16 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         },
 
         render: function() {
-            var data = $.extend({}, {
+            var data;
+
+            data = {
+                calendar: this.calendar,
                 date: {
                     day: this.day,
                     month: this.month,
                     year: this.year
                 }
-            }, {
-                calendar: this.calendar
-            });
+            };
 
             this.$el.html(this.template(data));
 

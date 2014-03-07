@@ -35,9 +35,7 @@ define(['underscore', 'backbone', 'models/validator'], function(_, Backbone, Val
                 resume: this
             });
 
-            $.when(this.validator.fetch()).then(function() {
-                that.trigger('sync');
-            });
+            this.validator.fetch();
         },
 
         url: function() {
@@ -51,7 +49,7 @@ define(['underscore', 'backbone', 'models/validator'], function(_, Backbone, Val
         validate: function(attributes, options) {
             var errors = this.validator.validateResume(attributes);
 
-            if (errors.length > 0) {
+            if (errors.length) {
                 return errors;
             }
         },
@@ -59,15 +57,11 @@ define(['underscore', 'backbone', 'models/validator'], function(_, Backbone, Val
         specializationNames: function() {
             var names;
 
-            if (this.get('specialization').map) {
-                names = this.get('specialization').map(function(specialization) {
-                    return specialization.name;
-                });
+            names = this.get('specialization').map(function(specialization) {
+                return specialization.name;
+            });
 
-                return names.join(', ');
-            } else {
-                return '';
-            }
+            return names.join(', ');
         },
 
         specializationIds: function() {

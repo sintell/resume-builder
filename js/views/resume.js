@@ -79,7 +79,7 @@ define([
             event.preventDefault();
 
             $section = $(event.currentTarget).closest('.HH-Resume-ResumeSection');
-            $section.find('.HH-ResumeSection-Switch').toggleClass('section__title-link_hidden');
+            $section.find('.HH-ResumeSection-Switch').toggleClass('section__title-button_hidden');
             $controls = $section.find('.HH-ResumeSection-Control');
             $controls.toggleClass('control_viewing').toggleClass('control_editing');
         },
@@ -102,7 +102,7 @@ define([
                 }
             });
             $specializations = $section.find('.HH-ResumeSection-ControlSpecialization');
-            if ($specializations.length > 0) {
+            if ($specializations.length) {
                 attributes.specialization = [];
             }
             $specializations.each(function(index, checkbox) {

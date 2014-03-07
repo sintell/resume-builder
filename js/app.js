@@ -36,7 +36,7 @@ define([
                    this.dictionary.fetch(),
                    this.area.fetch(),
                    this.specializations.fetch()).then(function() {
-                if (that.resumes.length > 0) {
+                if (that.resumes.length) {
                     that.resumes.first().fetch();
                 } else {
                     // TODO создать новое резюме

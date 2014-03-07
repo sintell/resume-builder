@@ -85,7 +85,7 @@ define(['jquery', 'underscore', 'backbone', 'views/countryPicker'], function($, 
                 return item.id === that.RUSSIA;
             });
 
-            if (this.area.length !== 0 ){
+            if (this.area.length) {
                 this.area.splice(this.area.indexOf(russia), 1);
                 this.area.unshift(russia);
             }

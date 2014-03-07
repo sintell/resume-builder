@@ -30,8 +30,14 @@
             <div class="HH-Resume-ResumeSection section">
                 <div class="section__title">
                     <h3 class="section__title-text">Персональная информация</h3>
-                    <a class="HH-ResumeSection-Switch section__title-link" href="#">Изменить</a>
-                    <a class="HH-ResumeSection-Switch section__title-link section__title-link_hidden" href="#">Отменить</a>
+                    <button class="HH-ResumeSection-Switch section__title-button"
+                            type="button">
+                        Изменить
+                    </button>
+                    <button class="HH-ResumeSection-Switch section__title-button section__title-button_hidden"
+                            type="button">
+                        Отменить
+                    </button>
                 </div>
 
                 <div class="HH-ResumeSection-Control control control_viewing">
@@ -128,7 +134,7 @@
                 </div>
 
                 <div class="HH-ResumeSection-Control control control_viewing control_submit">
-                    <label class="control__label">&nbsp;</label>
+                    <label class="control__label"></label>
                     
                     <div class="control__input">
                         <button type="button" class="HH-ResumeSection-Submit">Сохранить</button>
@@ -141,8 +147,14 @@
             <div class="HH-Resume-ResumeSection">
                 <div class="section__title">
                     <h3 class="section__title-text">Желаемая должность и зарплата</h3>
-                    <a class="HH-ResumeSection-Switch section__title-link" href="#">Изменить</a>
-                    <a class="HH-ResumeSection-Switch section__title-link section__title-link_hidden" href="#">Отменить</a>
+                    <button class="HH-ResumeSection-Switch section__title-button"
+                            type="button">
+                        Изменить
+                    </button>
+                    <button class="HH-ResumeSection-Switch section__title-button section__title-button_hidden"
+                            type="button">
+                        Отменить
+                    </button>
                 </div>
 
                 <div class="HH-ResumeSection-Control control control_viewing">
@@ -167,8 +179,8 @@
                         <select class="HH-SpecializationControl-Select">
                             <% _.each(specializations, function(specialization) { %>
                             <option value="<%= specialization.id %>"
-                            <%= resume.specialization[0].profarea_id === specialization.id ? 'selected' : '' %>>
-                            <%= specialization.name %>
+                                    <%= resume.specialization[0].profarea_id === specialization.id ? 'selected' : '' %>>
+                                <%= specialization.name %>
                             </option>
                             <% }); %>
                         </select>
@@ -321,7 +333,7 @@
                 </div>
 
                 <div class="HH-ResumeSection-Control control control_viewing control_submit">
-                    <label class="control__label">&nbsp;</label>
+                    <label class="control__label"></label>
                     <div class="control__input">
                         <button type="button" class="HH-ResumeSection-Submit">Сохранить</button>
                     </div>
@@ -387,7 +399,7 @@
                    value="<%= area.name %>"
                    name="area_name"/>
 
-            <a class="HH-ResumeBuilder-Component-Area-ShowModal" href="#">Выбрать из списка</a>
+            <button type="button" class="HH-ResumeBuilder-Component-Area-ShowModal">Выбрать из списка</button>
             <div class="HH-ResumeBuilder-Component-Suggest"></div>
             <div class="HH-ResumeBuilder-Component-AreaModal areas-wrapper"></div>
         </div>

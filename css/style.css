@@ -21,11 +21,11 @@
         display: inline-block;
     }
 
-    .section__title-link {
+    .section__title-button {
 
     }
 
-        .section__title-link_hidden {
+        .section__title-button_hidden {
             display: none;
         }
 
@@ -63,6 +63,7 @@
         float: left;
         width: 20%;
         display: block;
+        min-height: 1px;
     }
 
     .control__value {

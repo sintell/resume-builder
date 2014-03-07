@@ -27,7 +27,7 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
         },
 
         fill: function(attributes) {
-            this.id = parseInt(attributes.area.id);
+            this.id = parseInt(attributes.area.id, 10);
             this.name = attributes.area.name;
         },
 
@@ -81,7 +81,7 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
             }
 
             area.areas = _.sortBy(area.areas, function(area) {
-                var val = parseInt(area.id);
+                var val = parseInt(area.id, 10);
                 return val > 1000 ? 999999999 : -val;
             });
 
@@ -101,7 +101,7 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
             input = $('.HH-ResumeBuilder-Component-Area-Input');
 
             this.name = input.val();
-            this.width = input.outerWidth() - parseInt(input.css('border-left-width'));
+            this.width = input.outerWidth() - parseInt(input.css('border-left-width'), 10);
         },
 
         _findNodeByName: function(name, node) {

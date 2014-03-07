@@ -35,7 +35,8 @@ define([
         render: function() {
             var resumeData,
                 specializationsData,
-                templateData;
+                templateData,
+                that = this;
 
             resumeData = $.extend(
                 {},
@@ -56,18 +57,18 @@ define([
             this.$el.html(this.template(templateData));
             this._bindSelect();
 
-            for (var i in this.components) {
-                var component = this.components[i],
-                    container = this.$el.find([
-                        '.HH-ResumeSection-Component[data-hh-component="',
-                        this.components[i].componentName,
-                        '"]'
-                    ].join(''));
 
-                component.fill(this.model.attributes);
+            _.each(this.components, function(component) {
+                var container = that.$el.find([
+                    '.HH-ResumeSection-Component[data-hh-component="',
+                    component.componentName,
+                    '"]'
+                ].join(''));
+
+                component.fill(that.model.attributes);
                 container.html(component.render().el);
                 container.contents().unwrap();
-            }
+            });
 
             return this;
         },

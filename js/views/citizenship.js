@@ -27,7 +27,7 @@ define(['jquery', 'underscore', 'backbone', 'views/countryPicker'], function($, 
 
         fill: function(attributes) {
             this.selectedAreas = _.map(attributes.citizenship, function(item) {
-                return { id:  parseInt(item.id) };
+                return { id:  parseInt(item.id, 10) };
             });
         },
 
@@ -66,9 +66,9 @@ define(['jquery', 'underscore', 'backbone', 'views/countryPicker'], function($, 
 
             for (var j = 0; j < 2; j++) {
                 for (var i in pointer.areas) {
-                    if (parseInt(pointer.areas[i].id) !== OTHER_COUNTRIES) {
+                    if (parseInt(pointer.areas[i].id, 10) !== OTHER_COUNTRIES) {
                         this.area.push({
-                            id: parseInt(pointer.areas[i].id),
+                            id: parseInt(pointer.areas[i].id, 10),
                             name:pointer.areas[i].name
                         });
                     } else {

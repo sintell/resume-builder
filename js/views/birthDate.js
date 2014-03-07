@@ -17,9 +17,9 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         fill: function(attributes) {
             var split = attributes.birth_date.split('-');
 
-            this.day = parseInt(split[2]);
-            this.month = parseInt(split[1]);
-            this.year = parseInt(split[0]);
+            this.day = parseInt(split[2], 10);
+            this.month = parseInt(split[1], 10);
+            this.year = parseInt(split[0], 10);
 
             this._updateCalendar();
         },
@@ -52,9 +52,9 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         },
 
         _updateValues: function() {
-            this.day = parseInt($('[name="birth_date-day"]').val());
-            this.month = parseInt($('[name="birth_date-month"]').val());
-            this.year = parseInt($('[name="birth_date-year"]').val());
+            this.day = parseInt($('[name="birth_date-day"]').val(), 10);
+            this.month = parseInt($('[name="birth_date-month"]').val(), 10);
+            this.year = parseInt($('[name="birth_date-year"]').val(), 10);
         },
 
         _updateCalendar: function() {

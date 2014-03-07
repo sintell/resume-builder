@@ -26,13 +26,22 @@ app.get('/oauth', function(req, res) {
     
     authCode = req.query.code;
     if (typeof(authCode) === 'undefined') {
-        res.redirect('https://m.hh.ru/oauth/authorize?response_type=code&client_id=' + app.set('client_id') +
-        config.redirectUri);  
+        res.redirect([
+            'https://m.hh.ru/oauth/authorize?',
+            'response_type=','code',
+            '&client_id=', app.set('client_id'),
+            config.redirectUri
+        ].join(''));  
         return;      
     }
 
-    var postString = 'grant_type=authorization_code&client_id=' + app.set('client_id') + '&client_secret=' +
-    app.set('client_secret') + '&code='+authCode + config.redirectUri;
+    var postString = [
+        'grant_type=', 'authorization_code',
+        '&client_id=', app.set('client_id'),
+        '&client_secret=', app.set('client_secret'),
+        '&code=', authCode,
+        config.redirectUri
+    ].join('');
 
     var postOptions = {
         hostname: 'm.hh.ru',
@@ -55,8 +64,15 @@ app.get('/oauth', function(req, res) {
                 return;
             }
 
-            res.cookie('access_token', data.access_token, {maxAge: data.expires_in, httpOnly: true});
-            res.cookie('refresh_token', data.refresh_token, {maxAge: 900000, httpOnly: true});
+            res.cookie('access_token', data.access_token, {
+                maxAge: data.expires_in,
+                httpOnly: true
+            });
+            
+            res.cookie('refresh_token', data.refresh_token, {
+                maxAge: 900000,
+                httpOnly: true
+            });
 
             res.redirect('http://0.0.0.0:' + config.staticServerPort);
             return;
@@ -75,5 +91,5 @@ app.post('/oauth/logout', function(req, res) {
     'use strict';
     res.clearCookie('access_token');
     res.clearCookie('refresh_token');
-    res.redirect('http://0.0.0.0::' + config.staticServerPort);
+    res.redirect('http://0.0.0.0:' + config.staticServerPort);
 });

@@ -22,6 +22,10 @@ define(['jquery', 'underscore', 'backbone', 'views/countryPicker'], function($, 
                 areas: options.area.attributes
             });
 
+            if (options.resume.ready) {
+                this.maxCount = options.resume.conditions.get('work_ticket').max_count;
+            }
+
             this._initializeCountryPicker();
         },
 
@@ -92,7 +96,7 @@ define(['jquery', 'underscore', 'backbone', 'views/countryPicker'], function($, 
         },
 
         _initializeCountryPicker: function() {
-            this.countryPicker = new CountryPicker(this.area);
+            this.countryPicker = new CountryPicker(this.area, this.maxCount);
 
             this.listenTo(this.countryPicker, 'countryPicked', this._onCountryPicked);
         },

@@ -11,12 +11,13 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         template: _.template($('#HH-ResumeBuilder-Component-CountryPicker').html()),
 
         events: {
-            'change input[type="checkbox"]': '_select'
+            'change .HH-ResumeBuilder-Checkbox': '_select'
         },
 
-        initialize: function(area) {
+        initialize: function(area, maxCount) {
             this.area = area;
             this.isShow = false;
+            this.maxCount = maxCount;
         },
 
         setSelectedAreas: function(selectedAreas) {
@@ -36,6 +37,8 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             };
 
             this.$el.html(this.template(data));
+
+            this._validateCount();
 
             return this;
         },
@@ -64,13 +67,15 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             var selected,
                 that = this;
 
-            selected = _.map(this.$el.find(':checked').parent().toArray(), function(item) {
+            selected = _.map(this.$el.find('.HH-ResumeBuilder-Checkbox:checked').parent().toArray(), function(item) {
                 var name = $(item).text().trim();
 
                 return _.find(that.area, function(item) {
                     return item.name === name;
                 });
             });
+
+            this._validateCount();
 
             this.trigger('countryPicked', selected);
         },
@@ -123,6 +128,14 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             }
 
             return null;
+        },
+
+        _validateCount: function() {
+            if (this.$el.find('.HH-ResumeBuilder-Checkbox:checked').length >= this.maxCount) {
+                this.$el.find('.HH-ResumeBuilder-Checkbox:not(:checked)').attr('disabled', true);
+            } else {
+                this.$el.find('.HH-ResumeBuilder-Checkbox').removeAttr('disabled');
+            }
         }
     });
 });

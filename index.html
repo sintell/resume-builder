@@ -361,7 +361,7 @@
         <% _.each(specialization.specializations, function(specialization) { %>
             <li class="checkbox-list__item">
                 <label>
-                    <input class="HH-ResumeSection-ControlSpecialization"
+                    <input class="HH-ResumeBuilder-Checkbox HH-ResumeSection-ControlSpecialization"
                            type="checkbox"
                            value="<%= specialization.id %>"
                            name="specialization"
@@ -506,7 +506,9 @@
             <% _.each(area, function(area) { %>
             <li class="checkbox-list__item">
                 <label>
-                    <input type="checkbox" <%= selectedIds.indexOf(area.id) >=0 ? 'checked' : '' %>/>
+                    <input class="HH-ResumeBuilder-Checkbox"
+                           type="checkbox"
+                           <%= selectedIds.indexOf(area.id) >=0 ? 'checked' : '' %>/>
                     <%= area.name  %>
                 </label>
             </li>

@@ -25,8 +25,9 @@ define([
 
             this.listenTo(this.model, 'sync', this.render);
 
-            this.components = [];
+            _.extend(options, {resume: this.model});
 
+            this.components = [];
             this.components.push(new BirthDateView());
             this.components.push(new AreaView(options));
             this.components.push(new CitizenshipView(options));
@@ -60,8 +61,6 @@ define([
                 specializations: specializationsData,
                 conditions: this.model.conditions.attributes
             };
-
-            console.log(this.model.conditions.attributes.salary.fields.amount)
 
             this.$el.html(this.template(templateData));
             this._bindSelect();
@@ -176,7 +175,8 @@ define([
                     specialization = that.specializations.get(id);
                     specializationView = new SpecializationView({
                         model: specialization,
-                        specializationIds: that.model.specializationIds()
+                        specializationIds: that.model.specializationIds(),
+                        maxCount: that.model.conditions.get('specialization').max_count
                     });
                     that.$el.find('.HH-ResumeSection-SpecializationList').html(specializationView.render().el);
                 }

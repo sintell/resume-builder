@@ -1,4 +1,4 @@
-define(['underscore', 'backbone', 'models/validator'], function(_, Backbone, Validator) {
+define(['underscore', 'backbone'], function(_, Backbone) {
     'use strict';
 
     return Backbone.Model.extend({
@@ -31,12 +31,6 @@ define(['underscore', 'backbone', 'models/validator'], function(_, Backbone, Val
 
         initialize: function() {
             var that = this;
-
-            this.validator = new Validator({}, {
-                resume: this
-            });
-
-            this.validator.fetch();
         },
 
         url: function() {
@@ -45,14 +39,6 @@ define(['underscore', 'backbone', 'models/validator'], function(_, Backbone, Val
 
         toJSON: function() {
             return _.omit(this.attributes, this.readOnly);
-        },
-
-        validate: function(attributes, options) {
-            var errors = this.validator.validateResume(attributes);
-
-            if (errors.length) {
-                return errors;
-            }
         },
 
         specializationNames: function() {

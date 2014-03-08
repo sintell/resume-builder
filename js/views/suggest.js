@@ -23,6 +23,10 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             this.selected = null;
         },
 
+        setData: function(data) {
+            this.data = data;
+        },
+
         render: function() {
             var $results,
                 borderWidth,

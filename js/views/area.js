@@ -101,7 +101,7 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
             input = $('.HH-ResumeBuilder-Component-Area-Input');
 
             this.name = input.val();
-            this.width = input.outerWidth() - parseInt(input.css('border-left-width'), 10);
+            this.width = input.outerWidth();
         },
 
         _findNodeByName: function(name, node) {

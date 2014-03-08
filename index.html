@@ -49,6 +49,8 @@
                                type="text"
                                value="<%= resume.last_name %>"
                                name="last_name"
+                               maxlength="<%= conditions.last_name.max_length %>"
+                               pattern="<%= conditions.last_name.regexp %>"
                                data-hh-name="last_name"/>
                     </div>
                 </div>
@@ -62,6 +64,8 @@
                                type="text"
                                value="<%= resume.first_name %>"
                                name="first_name"
+                               maxlength="<%= conditions.first_name.max_length %>"
+                               pattern="<%= conditions.first_name.regexp %>"
                                data-hh-name="first_name"/>
                     </div>
                 </div>
@@ -75,6 +79,8 @@
                                type="text"
                                value="<%= resume.middle_name %>"
                                name="middle_name"
+                               maxlength="<%= conditions.middle_name.max_length %>"
+                               pattern="<%= conditions.middle_name.regexp %>"
                                data-hh-name="middle_name"/>
                     </div>
                 </div>
@@ -173,6 +179,7 @@
                                value="<%= resume.title %>"
                                name="title"
                                data-hh-name="title"
+                               maxlength="<%= conditions.title.max_length %>"
                                placeholder="Например, «Менеджер по продажам»"/>
                     </div>
                 </div>
@@ -203,7 +210,8 @@
                                type="text"
                                value="<%= resume.salary.amount %>"
                                name="amount"
-                               data-hh-name="salary.amount"/>
+                               data-hh-name="salary.amount"
+                               pattern="^[0-9]+$"/>
 
                         <ul class="checkbox-list">
                         <% _.each(dictionary.currency, function(currency) { %>
@@ -395,7 +403,8 @@
 
             <input class="HH-ResumeBuilder-Component-BirthDate-Year"
                    value="<%= date.year %>"
-                   name="birth_date-year"/>
+                   name="birth_date-year"
+                   pattern="^[0-9]{4}$"/>
         </div>
     </script>
 

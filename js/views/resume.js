@@ -7,7 +7,8 @@ define([
     'views/area',
     'views/citizenship',
     'views/workTicket',
-], function($, _, Backbone, SpecializationView, BirthDateView, AreaView, CitizenshipView, WorkTicketView) {
+    'views/metro',
+], function($, _, Backbone, SpecializationView, BirthDateView, AreaView, CitizenshipView, WorkTicketView, MetroView) {
     'use strict';
 
     return Backbone.View.extend({
@@ -30,6 +31,7 @@ define([
             this.components.push(new AreaView(options));
             this.components.push(new CitizenshipView(options));
             this.components.push(new WorkTicketView(options));
+            this.components.push(new MetroView());
         },
 
         render: function() {
@@ -64,6 +66,17 @@ define([
                     component.componentName,
                     '"]'
                 ].join(''));
+
+                if (container.data('hh-depends')){
+                    var depends = container.data('hh-depends');
+                    _.each(depends, function(dependency) {
+                        var element = _.find(that.components, function(item){
+                            return item.componentName === dependency.component;
+                        });
+
+                        component.listenTo(element, dependency.event, component[dependency.callback]);
+                    });
+                }
 
                 component.fill(that.model.attributes);
                 container.html(component.render().el);

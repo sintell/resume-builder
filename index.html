@@ -116,6 +116,12 @@
                 </div>
 
                 <div class="HH-ResumeSection-Control control control_viewing">
+                    <div class="HH-ResumeSection-Component"
+                         data-hh-component="metro"
+                         data-hh-depends='[{"component": "area", "event": "selectArea", "callback": "_onSelectArea"}]'></div>
+                </div>
+
+                <div class="HH-ResumeSection-Control control control_viewing">
                     <label class="control__label">Гражданство</label>
                     <span class="control__value">
                         <%= _.map(resume.citizenship, function(element) { return element.name; }).join(', ') %>
@@ -497,6 +503,21 @@
             </li>
             <% }); %>
         </ul>
+    </script>
+
+    <script type="text/template" id="HH-ResumeBuilder-Component-Metro">
+        <% if (hasMetro) { %>
+        <label class="control__label">Ближайшее метро</label>
+        <span class="control__value"><%= metro %></span>
+
+        <div class="control__input">
+            <input class="HH-ResumeBuilder-Component-Metro-Input"
+                   value="<%= metro %>"
+                   name="metro"/>
+
+            <div class="HH-ResumeBuilder-Component-Suggest"></div>
+        </div>
+        <% } %>
     </script>
 </body>
 </html>

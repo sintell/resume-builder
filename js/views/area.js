@@ -13,7 +13,8 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
         events: {
             'keyup .HH-ResumeBuilder-Component-Area-Input': '_updateSuggest',
             'keydown .HH-ResumeBuilder-Component-Area-Input': '_preventKeydown',
-            'click .HH-ResumeBuilder-Component-Area-ShowModal': '_toggleModal'
+            'click .HH-ResumeBuilder-Component-Area-ShowModal': '_toggleModal',
+            'change .HH-ResumeBuilder-Component-Area-Input': '_onChange'
         },
 
         initialize: function(options) {
@@ -53,11 +54,13 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
         onSelectSuggest: function(data) {
             this.$el.find('.HH-ResumeBuilder-Component-Area-Input').val(data.text);
             this.suggest.hide();
+            this._onChange();
         },
 
         onSelectModal: function(data) {
             this.$el.find('.HH-ResumeBuilder-Component-Area-Input').val(data.text);
             this.modal.hide();
+            this._onChange();
         },
 
         takeback: function(attributes) {
@@ -98,12 +101,24 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
         },
 
         _updateValues: function() {
-            var input;
-
-            input = $('.HH-ResumeBuilder-Component-Area-Input');
+            var input = $('.HH-ResumeBuilder-Component-Area-Input');
 
             this.name = input.val();
             this.width = input.outerWidth();
+        },
+
+        _onChange: function(){
+            this._updateValues();
+
+            var node = this._findNodeByName(this.name, this.area);
+
+            if (node) {
+                this.id = node.id;
+            } else {
+                this.id = 0;
+            }
+
+            this.trigger('selectArea', this.id);
         },
 
         _findNodeByName: function(name, node) {

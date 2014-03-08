@@ -107,6 +107,10 @@
             background: #ccc;
         }
 
+        .suggest-list__item_selected {
+            background: #ccc;
+        }
+
 .areas-wrapper {
     margin-left: -25px;
 }

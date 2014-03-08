@@ -12,6 +12,7 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
 
         events: {
             'keyup .HH-ResumeBuilder-Component-Area-Input': '_updateSuggest',
+            'keydown .HH-ResumeBuilder-Component-Area-Input': '_preventKeydown',
             'click .HH-ResumeBuilder-Component-Area-ShowModal': '_toggleModal'
         },
 
@@ -90,9 +91,10 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
             }
         },
 
-        _updateSuggest: function() {
+        _updateSuggest: function(event) {
             this._updateValues();
             this.suggest.updateSuggest(this.name, this.width);
+            this.suggest.processKey(event);
         },
 
         _updateValues: function() {
@@ -160,6 +162,10 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
 
             this._updateValues();
             this.modal.toggle(this.name);
+        },
+
+        _preventKeydown: function(event) {
+            this.suggest.preventKeydown(event);
         }
     });
 });

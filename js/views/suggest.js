@@ -47,15 +47,59 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         _getSuggest: function(text) {
             var result = [];
 
-            for (var i in this.data){
-                if (this.data[i].toLowerCase().indexOf(text.toLowerCase()) === 0) {
-                    result.push(this.data[i]);
+            var keyboard = {
+                'q' : 'й',
+                'w' : 'ц',
+                'e' : 'у',
+                'r' : 'к',
+                't' : 'е',
+                'y' : 'н',
+                'u' : 'г',
+                'i' : 'ш',
+                'o' : 'щ',
+                'p' : 'з',
+                '[' : 'х',
+                ']' : 'ъ',
+                'a' : 'ф',
+                's' : 'ы',
+                'd' : 'в',
+                'f' : 'а',
+                'g' : 'п',
+                'h' : 'р',
+                'j' : 'о',
+                'k' : 'л',
+                'l' : 'д',
+                ';' : 'ж',
+                '\'' : 'э',
+                'z' : 'я',
+                'x' : 'ч',
+                'c' : 'с',
+                'v' : 'м',
+                'b' : 'и',
+                'n' : 'т',
+                'm' : 'ь',
+                ',' : 'б',
+                '.' : 'ю',
+                '`' : 'ё'
+            };
+
+            var toRussianKeyboard = function(str){
+                return _.reduce(str, function(memo, c) {
+                    return memo + (keyboard[c.toLowerCase()] || c);
+                }, '');
+            };
+
+            _.each(this.data, function(area) {
+                if (toRussianKeyboard(area.toLowerCase()).replace('ё','е').indexOf(
+                    toRussianKeyboard(text.toLowerCase()).replace('ё','е')) === 0
+                    ) {
+                    result.push(area);
                 }
-            }
+            });
 
             if (
                 result.length === 1 &&
-                result[0].toLocaleLowerCase() === text.toLocaleLowerCase()
+                result[0].toLowerCase().replace('ё','e') === text.toLowerCase().replace('ё','e')
                 )
             {
                 return [];

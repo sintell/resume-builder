@@ -68,37 +68,41 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
 
             $items = this.$el.find('.HH-ResumeBuilder-SuggestItem');
 
-            switch (event.which) {
-                case this.keymap.ARROW_DOWN:
-                    if (this.selected !== null) {
-                        this.selected = (this.selected + 1) % $items.length;
-                    } else {
-                        this.selected = 0;
-                    }
-                    $($items.get(this.selected)).addClass('suggest-list__item_selected');
+            if (event) {
+                switch (event.which) {
+                    case this.keymap.ARROW_DOWN:
+                        if (this.selected !== null) {
+                            this.selected = (this.selected + 1) % $items.length;
+                        } else {
+                            this.selected = 0;
+                        }
+                        $($items.get(this.selected)).addClass('suggest-list__item_selected');
 
-                    break;
-                case this.keymap.ARROW_UP:
-                    if (this.selected !== null) {
-                        this.selected = (this.selected - 1) % $items.length;
-                    } else {
-                        this.selected = $items.length - 1;
-                    }
-                    $($items.get(this.selected)).addClass('suggest-list__item_selected');
+                        break;
+                    case this.keymap.ARROW_UP:
+                        if (this.selected !== null) {
+                            this.selected = (this.selected - 1) % $items.length;
+                        } else {
+                            this.selected = $items.length - 1;
+                        }
+                        $($items.get(this.selected)).addClass('suggest-list__item_selected');
 
-                    break;
-                case this.keymap.ESCAPE:
-                    this.selected = null;
-                    this.hide();
+                        break;
+                    case this.keymap.ESCAPE:
+                        this.selected = null;
+                        this.hide();
 
-                    break;
-                case this.keymap.CARRIAGE_RETURN:
-                    this.trigger('selectSuggest', {
-                        text: this.suggest[this.selected]
-                    });
-                    this.selected = null;
+                        break;
+                    case this.keymap.CARRIAGE_RETURN:
+                        if (this.selected !== null) {
+                            this.trigger('selectSuggest', {
+                                text: this.suggest[this.selected]
+                            });
+                            this.selected = null;
+                        }
 
-                    break;
+                        break;
+                }
             }
         },
 

@@ -490,10 +490,16 @@
             <% _.each(area.areas, function(a) { %>
             <li class="area-list__item">
                 <% if (a.open) { %>
-                <span class="area-list__item-text area-list__item-text_active"><%= a.name %></span>
+                <label class="area-list__item-text area-list__item-text_active">
+                    <input type="radio" checked/>
+                    <span class="HH-AreaModal-Text"><%= a.name %></span>
+                </label>
                 <%= fntemplate({area: a, fntemplate: fntemplate}) %>
                 <% } else { %>
-                <span class="area-list__item-text"><%= a.name %></span>
+                <label class="area-list__item-text">
+                    <input type="radio"/>
+                    <span class="HH-AreaModal-Text"><%= a.name %></span>
+                </label>
                 <% } %>
             </li>
             <% }); %>

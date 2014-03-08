@@ -74,7 +74,7 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         _selectOrOpen: function(event) {
             event.stopPropagation();
 
-            var text = $(event.currentTarget).children().first().text();
+            var text = $(event.currentTarget).find('.HH-AreaModal-Text').text();
             var node = this._findNodeByName(text, this.area);
 
             if (node.areas.length === 0) {

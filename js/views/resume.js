@@ -40,6 +40,10 @@ define([
                 templateData,
                 that = this;
 
+            if (!this.model.ready) {
+                return this;
+            }
+
             resumeData = $.extend(
                 {},
                 this.model.attributes,
@@ -53,12 +57,14 @@ define([
             templateData = {
                 resume: resumeData,
                 dictionary: this.dictionary.attributes,
-                specializations: specializationsData
+                specializations: specializationsData,
+                conditions: this.model.conditions.attributes
             };
+
+            console.log(this.model.conditions.attributes.salary.fields.amount)
 
             this.$el.html(this.template(templateData));
             this._bindSelect();
-
 
             _.each(this.components, function(component) {
                 var container = that.$el.find([

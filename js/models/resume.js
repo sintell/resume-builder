@@ -1,4 +1,4 @@
-define(['underscore', 'backbone'], function(_, Backbone) {
+define(['underscore', 'backbone', 'models/conditions'], function(_, Backbone, Conditions) {
     'use strict';
 
     return Backbone.Model.extend({
@@ -31,6 +31,17 @@ define(['underscore', 'backbone'], function(_, Backbone) {
 
         initialize: function() {
             var that = this;
+
+            this.ready = false;
+            this.conditions = new Conditions(
+                {},
+                {resume: this}
+            );
+
+            $.when(this.conditions.fetch()).then(function() {
+                that.ready = true;
+                that.trigger('sync');
+            });
         },
 
         url: function() {

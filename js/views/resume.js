@@ -8,7 +8,10 @@ define([
     'views/citizenship',
     'views/workTicket',
     'views/metro',
-], function($, _, Backbone, SpecializationView, BirthDateView, AreaView, CitizenshipView, WorkTicketView, MetroView) {
+    'views/relocation',
+    'views/relocationArea',
+], function($, _, Backbone, SpecializationView, BirthDateView, AreaView, CitizenshipView, WorkTicketView, MetroView,
+            RelocationView, RelocationArea) {
     'use strict';
 
     return Backbone.View.extend({
@@ -33,6 +36,8 @@ define([
             this.components.push(new CitizenshipView(options));
             this.components.push(new WorkTicketView(options));
             this.components.push(new MetroView());
+            this.components.push(new RelocationView(options));
+            this.components.push(new RelocationArea(options));
         },
 
         render: function() {

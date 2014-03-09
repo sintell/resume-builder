@@ -43,7 +43,7 @@
                 <div class="HH-ResumeSection-Control control control_viewing">
                     <label class="control__label">Фамилия</label>
                     <span class="control__value"><%= resume.last_name %></span>
-                    
+
                     <div class="control__input">
                         <input class="HH-ResumeSection-ControlTextbox"
                                type="text"
@@ -58,7 +58,7 @@
                 <div class="HH-ResumeSection-Control control control_viewing">
                     <label class="control__label">Имя</label>
                     <span class="control__value"><%= resume.first_name %></span>
-                    
+
                     <div class="control__input">
                         <input class="HH-ResumeSection-ControlTextbox"
                                type="text"
@@ -73,7 +73,7 @@
                 <div class="HH-ResumeSection-Control control control_viewing">
                     <label class="control__label">Отчество</label>
                     <span class="control__value"><%= resume.middle_name %></span>
-                    
+
                     <div class="control__input">
                         <input class="HH-ResumeSection-ControlTextbox"
                                type="text"
@@ -147,7 +147,7 @@
 
                 <div class="HH-ResumeSection-Control control control_viewing control_submit">
                     <label class="control__label"></label>
-                    
+
                     <div class="control__input">
                         <button type="button" class="HH-ResumeSection-Submit">Сохранить</button>
                     </div>
@@ -281,23 +281,13 @@
                     <label class="control__label">Переезд</label>
                     <span class="control__value"><%= resume.relocation.type.name %></span>
 
-                    <div class="control__input">
-                        <ul class="checkbox-list">
-                        <% _.each(dictionary.relocation_type, function(relocationType) { %>
-                            <li class="checkbox-list__item">
-                                <label>
-                                    <input class="HH-ResumeSection-ControlRadio"
-                                           type="radio"
-                                           value="<%= relocationType.id %>"
-                                           name="relocation"
-                                           data-hh-name="relocation.type.id"
-                                           <%= relocationType.id === resume.relocation.type.id ? 'checked' : '' %>/>
-                                    <%= relocationType.name %>
-                                </label>
-                            </li>
-                        <% }); %>
-                        </ul>
-                    </div>
+                    <div class="HH-ResumeSection-Component" data-hh-component="relocation"></div>
+                </div>
+
+                <div class="HH-ResumeSection-Control control control_viewing">
+                    <div class="HH-ResumeSection-Component"
+                         data-hh-component="relocation-area"
+                         data-hh-depends='[{"component": "relocation", "event": "selectRelocation", "callback": "_onSelectRelocation"}]'></div>
                 </div>
 
                 <div class="HH-ResumeSection-Control control control_viewing">
@@ -531,6 +521,42 @@
             <input class="HH-ResumeBuilder-Component-Metro-Input"
                    value="<%= metro %>"
                    name="metro"/>
+
+            <div class="HH-ResumeBuilder-Component-Suggest"></div>
+        </div>
+        <% } %>
+    </script>
+
+    <script type="text/template" id="HH-ResumeBuilder-Component-Relocation">
+        <div class="control__input">
+            <ul class="checkbox-list">
+                <% _.each(relocation_type, function(relocationType) { %>
+                <li class="checkbox-list__item">
+                    <label>
+                        <input type="radio"
+                               value="<%= relocationType.id %>"
+                               name="relocation"
+                        <%= relocationType.id === relocation.type.id ? 'checked' : '' %>/>
+                        <%= relocationType.name %>
+                    </label>
+                </li>
+                <% }); %>
+            </ul>
+        </div>
+    </script>
+
+    <script type="text/template" id="HH-ResumeBuilder-Component-RelocationArea">
+        <% if (needArea) { %>
+        <label class="control__label">Города переезда</label>
+        <span class="control__value"><%= areas %></span>
+
+        <div class="control__input ">
+            <input  class="HH-ResumeBuilder-Component-RelocationArea-Input"
+                    type="text"
+                    value="<%= areas %>"
+                    name="relocation_areas"/>
+
+            <span>Укажите города переезда через запятую</span>
 
             <div class="HH-ResumeBuilder-Component-Suggest"></div>
         </div>

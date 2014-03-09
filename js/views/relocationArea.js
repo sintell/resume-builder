@@ -6,7 +6,9 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest'], function($, _, Bac
 
         const: {
             NO_RELOCATION: 'no_relocation',
-            DELIMITER: ','
+            DELIMITER: ',',
+            OTHER_COUNTRY: 1000,
+            LOW_PRIORITY: 999999999
         },
 
         className: 'HH-ResumeSection-Component-RelocationArea',
@@ -144,7 +146,7 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest'], function($, _, Bac
 
             area.areas = _.sortBy(area.areas, function(area) {
                 var val = parseInt(area.id, 10);
-                return val > 1000 ? 999999999 : -val;
+                return val > this.const.OTHER_COUNTRY ? this.const.LOW_PRIORITY : -val;
             });
 
             for (var i in area.areas){

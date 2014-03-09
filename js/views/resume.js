@@ -10,8 +10,17 @@ define([
     'views/metro',
     'views/relocation',
     'views/relocationArea',
-], function($, _, Backbone, SpecializationView, BirthDateView, AreaView, CitizenshipView, WorkTicketView, MetroView,
-            RelocationView, RelocationArea) {
+], function($,
+            _,
+            Backbone,
+            SpecializationView,
+            BirthDateView,
+            AreaView,
+            CitizenshipView,
+            WorkTicketView,
+            MetroView,
+            RelocationView,
+            RelocationArea) {
     'use strict';
 
     return Backbone.View.extend({

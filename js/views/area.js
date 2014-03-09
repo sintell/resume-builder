@@ -10,6 +10,11 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
 
         template: _.template($('#HH-ResumeBuilder-Component-Area').html()),
 
+        const: {
+            OTHER_COUNTRY: 1000,
+            LOW_PRIORITY: 999999999
+        },
+
         events: {
             'keyup .HH-ResumeBuilder-Component-Area-Input': '_updateSuggest',
             'keydown .HH-ResumeBuilder-Component-Area-Input': '_preventKeydown',
@@ -86,7 +91,7 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
 
             area.areas = _.sortBy(area.areas, function(area) {
                 var val = parseInt(area.id, 10);
-                return val > 1000 ? 999999999 : -val;
+                return val > this.const.OTHER_COUNTRY ? this.const.LOW_PRIORITY : -val;
             });
 
             for (var i in area.areas){

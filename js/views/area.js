@@ -85,13 +85,14 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
         },
 
         _orderArea: function(area) {
+            var that = this;
             if (!area) {
                 return ;
             }
 
             area.areas = _.sortBy(area.areas, function(area) {
                 var val = parseInt(area.id, 10);
-                return val > this.const.OTHER_COUNTRY ? this.const.LOW_PRIORITY : -val;
+                return val > that.const.OTHER_COUNTRY ? that.const.LOW_PRIORITY : -val;
             });
 
             for (var i in area.areas){

@@ -20,7 +20,7 @@ define([
             WorkTicketView,
             MetroView,
             RelocationView,
-            RelocationArea) {
+            RelocationAreaView) {
     'use strict';
 
     return Backbone.View.extend({
@@ -46,7 +46,7 @@ define([
             this.components.push(new WorkTicketView(options));
             this.components.push(new MetroView());
             this.components.push(new RelocationView(options));
-            this.components.push(new RelocationArea(options));
+            this.components.push(new RelocationAreaView(options));
         },
 
         render: function() {

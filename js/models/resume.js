@@ -2,12 +2,14 @@ define([
     'underscore',
     'backbone',
     'models/conditions',
+    'models/validator',
     'config',
     'utils'
 ], function(
     _,
     Backbone,
     Conditions,
+    Validator,
     Config,
     Utils
 ) {
@@ -68,6 +70,10 @@ define([
                 that.ready = true;
                 that.trigger('load');
             });
+
+            $.when(this.valrul.fetch()).then(function(){
+                console.log(that.valrul.getRules());
+            })
         },
 
         url: function() {

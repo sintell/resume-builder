@@ -100,7 +100,18 @@ define(['jquery', 'underscore', 'backbone', 'models/metro', 'views/suggest'], fu
                 }
             })).then(function(){
                 that.hasMetro = true;
-                that.suggest.setData(that._getDataForSuggest());
+                that.suggestData = that._getDataForSuggest();
+
+                /// Проверка, есть у эта станция на двух линиях
+                /// Если есть, то в списке саджсеста она будет с припиской линии
+                if (that.metroName && that.suggestData.indexOf(that.metroName) === -1) {
+                    /// Находим по idшнику линию и приписываем к себе
+                    var name = that._getLineNameByStationId();
+
+                    that.metroName += ' (' + name + ')';
+                }
+
+                that.suggest.setData(that.suggestData);
                 that.render();
             });
         },
@@ -119,9 +130,23 @@ define(['jquery', 'underscore', 'backbone', 'models/metro', 'views/suggest'], fu
 
         _getId: function() {
             var that = this,
-                result = 0;
+                result = 0,
+                regexp = /(.*) \((.*)\)/;
+
+            var matches = regexp.exec(that.metroName);
+
+            if (matches) {
+                that.metroName = matches[1];
+                that.lineName = matches[2];
+            }
 
             _.each(this.model.attributes.lines, function(line){
+                if (that.lineName) {
+                    if (line.name.toLowerCase() !== that.lineName.toLowerCase()) {
+                        return;
+                    }
+                }
+
                 _.each(line.stations, function(station){
                     if (station.name.toLowerCase() === that.metroName.toLowerCase()){
                         result = station.id;
@@ -130,6 +155,23 @@ define(['jquery', 'underscore', 'backbone', 'models/metro', 'views/suggest'], fu
             });
 
             return result;
+        },
+
+
+        _getLineNameByStationId: function() {
+            var that = this;
+
+            var line = _.find(this.model.attributes.lines, function(line){
+                return _.find(line.stations, function(station) {
+                    return station.id === that.metroId;
+                });
+            });
+
+            if (line) {
+                return line.name;
+            }
+
+            return '';
         },
 
         _noMetro: function() {
@@ -149,13 +191,31 @@ define(['jquery', 'underscore', 'backbone', 'models/metro', 'views/suggest'], fu
 
         _getDataForSuggest: function() {
             var data = [];
+
+            var multipleStations = [];
+
             _.each(this.model.attributes.lines, function(line){
                 _.each(line.stations, function(station){
-                    if (data.indexOf(station.name) === -1) {
-                        data.push(station.name);
+
+                    if (data.indexOf(station.name) >= 0) {
+                        multipleStations.push(station.name);
                     }
+
+                    data.push(station.name);
                 });
             });
+
+            if (multipleStations.length !== 0) {
+                data = _.difference(data, multipleStations);
+
+                _.each(this.model.attributes.lines, function(line){
+                    _.each(line.stations, function(station){
+                        if (multipleStations.indexOf(station.name) >= 0) {
+                            data.push(station.name + ' (' + line.name +  ')');
+                        }
+                    });
+                });
+            }
 
             return data;
         },

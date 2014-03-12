@@ -77,7 +77,7 @@ define(['jquery', 'underscore', 'backbone', 'models/metro', 'views/suggest'], fu
             this.suggest.hide();
         },
 
-        _onSelectArea: function(id){
+        _onSelectArea: function(id) {
             var that = this;
             if (!id) {
                 that._noMetro();
@@ -98,7 +98,7 @@ define(['jquery', 'underscore', 'backbone', 'models/metro', 'views/suggest'], fu
                     that._noMetro();
                     that.render();
                 }
-            })).then(function(){
+            })).then(function() {
                 that.hasMetro = true;
                 that.suggestData = that._getDataForSuggest();
 
@@ -140,15 +140,15 @@ define(['jquery', 'underscore', 'backbone', 'models/metro', 'views/suggest'], fu
                 that.lineName = matches[2];
             }
 
-            _.each(this.model.attributes.lines, function(line){
+            _.each(this.model.attributes.lines, function(line) {
                 if (that.lineName) {
                     if (line.name.toLowerCase() !== that.lineName.toLowerCase()) {
                         return;
                     }
                 }
 
-                _.each(line.stations, function(station){
-                    if (station.name.toLowerCase() === that.metroName.toLowerCase()){
+                _.each(line.stations, function(station) {
+                    if (station.name.toLowerCase() === that.metroName.toLowerCase()) {
                         result = station.id;
                     }
                 });
@@ -161,7 +161,7 @@ define(['jquery', 'underscore', 'backbone', 'models/metro', 'views/suggest'], fu
         _getLineNameByStationId: function() {
             var that = this;
 
-            var line = _.find(this.model.attributes.lines, function(line){
+            var line = _.find(this.model.attributes.lines, function(line) {
                 return _.find(line.stations, function(station) {
                     return station.id === that.metroId;
                 });
@@ -194,8 +194,8 @@ define(['jquery', 'underscore', 'backbone', 'models/metro', 'views/suggest'], fu
 
             var multipleStations = [];
 
-            _.each(this.model.attributes.lines, function(line){
-                _.each(line.stations, function(station){
+            _.each(this.model.attributes.lines, function(line) {
+                _.each(line.stations, function(station) {
 
                     if (data.indexOf(station.name) >= 0) {
                         multipleStations.push(station.name);
@@ -208,8 +208,8 @@ define(['jquery', 'underscore', 'backbone', 'models/metro', 'views/suggest'], fu
             if (multipleStations.length !== 0) {
                 data = _.difference(data, multipleStations);
 
-                _.each(this.model.attributes.lines, function(line){
-                    _.each(line.stations, function(station){
+                _.each(this.model.attributes.lines, function(line) {
+                    _.each(line.stations, function(station) {
                         if (multipleStations.indexOf(station.name) >= 0) {
                             data.push(station.name + ' (' + line.name +  ')');
                         }

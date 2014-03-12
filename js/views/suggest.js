@@ -155,7 +155,7 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
                 '`' : 'ё'
             };
 
-            var toRussianKeyboard = function(str){
+            var toRussianKeyboard = function(str) {
                 return _.reduce(str, function(memo, c) {
                     return memo + (keyboard[c.toLowerCase()] || c);
                 }, '');

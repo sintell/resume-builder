@@ -87,7 +87,7 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
         _orderArea: function(area) {
             var that = this;
             if (!area) {
-                return ;
+                return;
             }
 
             area.areas = _.sortBy(area.areas, function(area) {
@@ -95,9 +95,9 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
                 return val > that.const.OTHER_COUNTRY ? that.const.LOW_PRIORITY : -val;
             });
 
-            for (var i in area.areas){
-                this._orderArea(area.areas[i]);
-            }
+            area.areas.forEach(function(area) {
+                that._orderArea(area);
+            });
         },
 
         _updateSuggest: function(event) {
@@ -113,7 +113,7 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
             this.width = input.outerWidth();
         },
 
-        _onChange: function(){
+        _onChange: function() {
             this._updateValues();
 
             var node = this._findNodeByName(this.name, this.area);
@@ -128,7 +128,7 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
         },
 
         _findNodeByName: function(name, node) {
-            if (!node){
+            if (!node) {
                 return null;
             }
 
@@ -136,7 +136,7 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
                 return node;
             }
 
-            for (var i in node.areas){
+            for (var i in node.areas) {
                 var found = this._findNodeByName(name, node.areas[i]);
                 if (found) {
                     return found;
@@ -158,7 +158,9 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
         },
 
         _getDataForSuggest: function(node, result) {
-            if (!node){
+            var that = this;
+
+            if (!node) {
                 return null;
             }
 
@@ -167,9 +169,9 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
                 return;
             }
 
-            for (var i in node.areas){
-                this._getDataForSuggest(node.areas[i], result);
-            }
+            node.areas.forEach(function(area) {
+                that._getDataForSuggest(area, result);
+            });
         },
 
         _initializeModal: function() {

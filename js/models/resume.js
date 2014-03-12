@@ -63,13 +63,9 @@ define(['underscore', 'backbone', 'models/conditions'], function(_, Backbone, Co
         },
 
         specializationIds: function() {
-            if (this.get('specialization').map) {
-                return this.get('specialization').map(function(specialization) {
-                    return specialization.id;
-                });
-            } else {
-                return [];
-            }
+            return this.get('specialization').map(function(specialization) {
+                return specialization.id;
+            });
         }
     });
 });

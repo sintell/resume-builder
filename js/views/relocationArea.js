@@ -121,7 +121,7 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest'], function($, _, Bac
         },
 
         _findNodeByName: function(name, node) {
-            if (!node){
+            if (!node) {
                 return null;
             }
 
@@ -129,7 +129,7 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest'], function($, _, Bac
                 return node;
             }
 
-            for (var i in node.areas){
+            for (var i in node.areas) {
                 var found = this._findNodeByName(name, node.areas[i]);
                 if (found) {
                     return found;
@@ -150,20 +150,20 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest'], function($, _, Bac
                 return val > that.const.OTHER_COUNTRY ? that.const.LOW_PRIORITY : -val;
             });
 
-            for (var i in area.areas){
+            for (var i in area.areas) {
                 this._orderArea(area.areas[i]);
             }
         },
 
         _onSelectRelocation: function(id) {
-            if (this.needArea != (id !== this.const.NO_RELOCATION)){
+            if (this.needArea != (id !== this.const.NO_RELOCATION)) {
                 this.needArea = id !== this.const.NO_RELOCATION;
                 this.render();
             }
         },
 
         _getDataForSuggest: function(node, result) {
-            if (!node){
+            if (!node) {
                 return null;
             }
 
@@ -172,7 +172,7 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest'], function($, _, Bac
                 return;
             }
 
-            for (var i in node.areas){
+            for (var i in node.areas) {
                 this._getDataForSuggest(node.areas[i], result);
             }
         },

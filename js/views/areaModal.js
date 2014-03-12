@@ -48,7 +48,7 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         },
 
         toggle: function(name) {
-            if (!this.modalShow){
+            if (!this.modalShow) {
                 this.show(name);
             } else {
                 this.hide();

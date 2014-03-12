@@ -2,7 +2,7 @@ define(['underscore', 'backbone'], function(_, Backbone) {
     'use strict';
 
     return Backbone.Model.extend({
-        setCity: function(id){
+        setCity: function(id) {
             this.id = id;
         },
 
@@ -10,8 +10,8 @@ define(['underscore', 'backbone'], function(_, Backbone) {
             return 'https://api.hh.ru/metro/' + this.id;
         },
 
-        parse: function(responce){
-            if (responce.description){
+        parse: function(responce) {
+            if (responce.description) {
                 return null;
             }
 

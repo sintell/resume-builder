@@ -13,7 +13,10 @@ define([
 
     $.ajaxSetup({
         beforeSend: function(xhr) {
-            xhr.setRequestHeader('Authorization', 'Bearer R2D3SLBP5JR1VO7JULE5R0BCMDBJFOC6RVFGOL0KDN37A1IRHAJRRSFLJLMO1BR8');
+            xhr.setRequestHeader(
+                'Authorization',
+                'Bearer R2D3SLBP5JR1VO7JULE5R0BCMDBJFOC6RVFGOL0KDN37A1IRHAJRRSFLJLMO1BR8'
+            );
         }
     });
 
@@ -32,10 +35,12 @@ define([
 
             this.listenTo(this.resumes, 'sync', this.render);
 
-            $.when(this.resumes.fetch(),
-                   this.dictionary.fetch(),
-                   this.area.fetch(),
-                   this.specializations.fetch()).then(function() {
+            $.when(
+                this.resumes.fetch(),
+                this.dictionary.fetch(),
+                this.area.fetch(),
+                this.specializations.fetch()
+            ).then(function() {
                 if (that.resumes.length) {
                     that.resumes.first().fetch();
                 } else {

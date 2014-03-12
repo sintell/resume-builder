@@ -66,19 +66,16 @@
         min-height: 1px;
     }
 
-    .control__value {
-        float: left;
-    }
-
-        .control_editing .control__value {
-            display: none;
-        }
-
+    .control__value,
     .control__input {
         float: left;
         width: 80%;
         display: block;
     }
+
+        .control_editing .control__value {
+            display: none;
+        }
 
         .control_viewing .control__input {
             display: none;
@@ -100,7 +97,6 @@
         padding: 0px 10px;
         background: #fff;
         cursor: pointer;
-        overflow: hidden;
     }
 
         .suggest-list__item:hover {
@@ -118,7 +114,6 @@
 .area-list {
     padding: 0px;
     list-style: none;
-    display: block;
 }
 
     .area-list__item {
@@ -146,7 +141,6 @@
     padding: 0px;
     margin: 0px;
     list-style: none;
-    display: block;
 }
 
     .checkbox-list__item {

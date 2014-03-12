@@ -10,17 +10,19 @@ define([
     'views/metro',
     'views/relocation',
     'views/relocationArea',
-], function($,
-            _,
-            Backbone,
-            SpecializationView,
-            BirthDateView,
-            AreaView,
-            CitizenshipView,
-            WorkTicketView,
-            MetroView,
-            RelocationView,
-            RelocationAreaView) {
+], function(
+    $,
+    _,
+    Backbone,
+    SpecializationView,
+    BirthDateView,
+    AreaView,
+    CitizenshipView,
+    WorkTicketView,
+    MetroView,
+    RelocationView,
+    RelocationAreaView
+) {
     'use strict';
 
     return Backbone.View.extend({
@@ -86,10 +88,10 @@ define([
                     '"]'
                 ].join(''));
 
-                if (container.data('hh-depends')){
+                if (container.data('hh-depends')) {
                     var depends = container.data('hh-depends');
                     _.each(depends, function(dependency) {
-                        var element = _.find(that.components, function(item){
+                        var element = _.find(that.components, function(item) {
                             return item.componentName === dependency.component;
                         });
 

@@ -1,16 +1,72 @@
 define(['underscore', 'backbone'], function(_, Backbone) {
     'use strict';
+
+
+    // Выранивает объект с правилами
+    // из O = {
+    //     "site": {
+    //         "required": false,
+    //         "fields":{
+    //             "type": {
+    //                 "rule1": "val1",
+    //                 "rule2": "val2"
+    //             },
+    //             "url": {
+    //                 "rule1": "val3",
+    //                 "rule2": "val4"
+    //             }
+    //         }
+    //     }
+    // }
+    // 
+    // получаем O = {
+    //     "site": {
+    //         "required": false
+    //     },
+    //     "site.type": {
+    //         "rule1": "val1",
+    //         "rule2": "val2"
+    //     },
+    //     "site.url": {
+    //         "rule1": "val3",
+    //         "rule2": "val4"
+    //     }
+    // }
+    var flatten = function (obj, into, prefix) {
+        into = into || {};
+        prefix = prefix || '';
+
+        _.each(obj, function(val, key) {
+            if (obj.hasOwnProperty(key)) {
+                if (Object.keys(val).indexOf('fields') !== -1) {
+                    into[prefix + key] = _.omit(val, 'fields');
+                    flatten(val.fields, into, prefix + key + '.');
+                }
+                else {
+                    into[prefix + key] = val;
+                }
+            }
+        });
+
+        return into;
+    };
+
     return Backbone.Model.extend({
 
         validationRules: {},
         htmlAttributes:{},
         
+        parse: function(data) {
+            return flatten(data);
+        },
+
         initialize: function(options) {
             this.resume = options.resume;
+            this.fetch();
         },
 
         url: function () {
-            if (this.resume && !this.resume.isNew()) {
+            if (this.resume ) {
                 return ['https://api.hh.ru/resumes', this.resume.id, 'conditions'].join('/');
             } else {
                 return 'https://api.hh.ru/resume_conditions';
@@ -31,8 +87,8 @@ define(['underscore', 'backbone'], function(_, Backbone) {
                     this._formatRules.call(value);
                 } else {
                     this.validationRules[key] = value;
-                };
-            })
+                }
+            });
         }
 
     });

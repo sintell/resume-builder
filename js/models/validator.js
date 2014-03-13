@@ -1,8 +1,6 @@
 define(['underscore', 'backbone', 'models/validationRules'], function(_, Backbone, ValidationRules) {
     'use strict';
 
-    var validators = {};
-
     var Validator = function(options){
         this.rules = new ValidationRules({resume:{id:options}});
         var that = this;
@@ -14,16 +12,15 @@ define(['underscore', 'backbone', 'models/validationRules'], function(_, Backbon
                 // Выбираем из модели правил все правила применимые к полю field
                 // Для каждого правила вызываем соотвествующий валидатор
                 // Если валидатор вернул не пустую строку, то значит произошла ошибка и строка содержит ее описание
-                var errors = [];
-                var r = that.rules.get(field.name);
-                _.each(r, function(rule, ruleName) {
+                var rules = that.rules.get(field.name);
+                for(var ruleName in rules) {
+                    var rule = rules[ruleName];
                     var errorText = Validator.prototype.validators[ruleName](field.value, rule);
+                    console.log(errorText);
                     if( !_.isUndefined(errorText) ) {
-                        errors.push[errorText];
+                        return errorText;
                     }
-                }, this);
-                console.log(errors);
-                return errors;
+                }
             }
         };
     };
@@ -35,7 +32,7 @@ define(['underscore', 'backbone', 'models/validationRules'], function(_, Backbon
         };
 
         var isNumber = function(value) {
-            return _.isNumber(value) || (_.isString(value) && value.match('/^d+$/'));
+            return _.isNumber(value) || (_.isString(value) && /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test(value));
         };
 
         return {
@@ -57,19 +54,23 @@ define(['underscore', 'backbone', 'models/validationRules'], function(_, Backbon
             min_count: function(value, minCount) {
                 if (_.isArray(value) && value.length < minCount) {
                     return "Необходимо выбрать минимум значений";
-                }             },
+                }
+            },
             max_count: function(value, maxCount) {
-                if (_.isArray(value) && value.length > maxCount) {
+                if (maxCount && _.isArray(value) && value.length > maxCount) {
                     return "Необходимо выбрать максимум значений";
                 } 
             },
             min_value: function(value, minValue) {
-                if (isNumber(value) && value < minValue) {
+                // console.log(parseFloat(value, 10), "<", minValue)
+                // console.log(parseFloat(value, 10) < minValue)
+                // console.log(isNumber(value))
+                if (isNumber(value) && parseFloat(value, 10) < minValue) {
                     return "Минимальное значение";
                 } 
             },
             max_value: function(value, maxValue) {
-                if (isNumber(value) && value > maxValue) {
+                if (maxValue && isNumber(value) && parseFloat(value, 10) > maxValue) {
                     return "Максимальное значение";
                 } 
             },
@@ -81,7 +82,8 @@ define(['underscore', 'backbone', 'models/validationRules'], function(_, Backbon
             max_date: function(value, maxDate) {
                 if (new Date(value) > new Date(maxDate)) {
                     return "Максимальная дата";
-                }             },
+                }
+            },
             regexp: function(value, regexp) {
                 if (!(new RegExp(regexp)).test(value))    {
                     return "Поле содержит недопустимые символы";

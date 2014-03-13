@@ -102,10 +102,16 @@ define([
         _validateInput: function(event) {
             var name = $(event.target).data('hh-name');
             console.log(name);
-            this.validator.validateField({
+            var error = this.validator.validateField({
                 name: name,
                 value: $(event.target).val()
             });
+            console.log(error);
+            if(typeof error !== 'undefined') {
+                $(event.target).addClass('with_error');
+            } else {
+                $(event.target).removeClass('with_error');
+            }
         }
     });
 });

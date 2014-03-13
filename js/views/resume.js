@@ -2,6 +2,7 @@ define([
     'jquery',
     'underscore',
     'backbone',
+    'models/validator'
     'views/header',
     'views/statusSidebar',
     'views/infoSidebar',
@@ -13,6 +14,7 @@ define([
     $,
     _,
     Backbone,
+    Validator
     HeaderView,
     StatusSidebarView,
     InfoSidebarView,
@@ -25,6 +27,11 @@ define([
 
     return Backbone.View.extend({
         template: _.template(ResumeTemplate),
+
+        events: {
+            'blur *[data-hh-name]': '_validateInput',
+            'change *[data-hh-name]': '_validateInput'
+        },
 
         initialize: function(attributes, options) {
             var that = this;
@@ -90,6 +97,15 @@ define([
                 dictionary: this.dictionary.attributes,
                 conditions: this.model.conditions.attributes
             };
+        },
+
+        _validateInput: function(event) {
+            var name = $(event.target).data('hh-name');
+            console.log(name);
+            this.validator.validateField({
+                name: name,
+                value: $(event.target).val()
+            });
         }
     });
 });

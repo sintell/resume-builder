@@ -93,6 +93,10 @@ define([
             return attributes;
         },
 
+        validate: function(attributes, options) {
+            
+        },
+
         specializationNames: function() {
             var names;
 

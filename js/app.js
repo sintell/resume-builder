@@ -15,7 +15,7 @@ define([
         beforeSend: function(xhr) {
             xhr.setRequestHeader(
                 'Authorization',
-                'Bearer R2D3SLBP5JR1VO7JULE5R0BCMDBJFOC6RVFGOL0KDN37A1IRHAJRRSFLJLMO1BR8'
+                'Bearer MGDGK21AJ75KJP0VABVRU3RN1H883IQUTOPLNU715R9G34TOAQ93FIIEEV2DAV12'
             );
         }
     });

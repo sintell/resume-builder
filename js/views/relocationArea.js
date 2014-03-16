@@ -1,4 +1,16 @@
-define(['jquery', 'underscore', 'backbone', 'views/baseArea', 'views/suggest'], function($, _, Backbone, BaseArea, Suggest) {
+define([
+    'jquery',
+    'underscore',
+    'backbone',
+    'views/baseArea',
+    'views/suggest'
+], function(
+    $,
+    _,
+    Backbone,
+    BaseArea,
+    Suggest
+) {
     'use strict';
 
     // Модуль, отвечающий за отображение и логику заполнения "городов переезда"

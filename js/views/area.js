@@ -1,4 +1,18 @@
-define(['jquery', 'underscore', 'backbone', 'views/baseArea', 'views/suggest', 'views/areaModal'], function($, _, Backbone, BaseArea, Suggest, AreaModal) {
+define([
+    'jquery',
+    'underscore',
+    'backbone',
+    'views/baseArea',
+    'views/suggest',
+    'views/areaModal'
+], function(
+    $,
+    _,
+    Backbone,
+    BaseArea,
+    Suggest,
+    AreaModal
+) {
     'use strict';
 
     // Модуль, отвечающий за город проживания.

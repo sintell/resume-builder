@@ -5,8 +5,8 @@ define([
     'models/resume',
     'models/dictionary',
     'models/area',
-    'collections/resume_list',
-    'collections/specialization_list',
+    'collections/resumeList',
+    'collections/specializationList',
     'views/resume',
 ], function($, _, Backbone, Resume, Dictionary, Area, ResumeList, SpecializationList, ResumeView) {
     'use strict';

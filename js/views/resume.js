@@ -5,8 +5,7 @@ define([
     'views/specialization',
     'views/birthDate',
     'views/area',
-    'views/citizenship',
-    'views/workTicket',
+    'views/resumeCountryPicker',
     'views/metro',
     'views/relocation',
     'views/relocationArea',
@@ -17,8 +16,7 @@ define([
     SpecializationView,
     BirthDateView,
     AreaView,
-    CitizenshipView,
-    WorkTicketView,
+    ResumeCountryPicker,
     MetroView,
     RelocationView,
     RelocationAreaView
@@ -44,8 +42,17 @@ define([
             this.components = [];
             this.components.push(new BirthDateView());
             this.components.push(new AreaView(options));
-            this.components.push(new CitizenshipView(options));
-            this.components.push(new WorkTicketView(options));
+            this.components.push(new ResumeCountryPicker(options, {
+                name: 'citizenship',
+                templateName: 'Citizenship',
+                componentName: 'citizenship'
+            }));
+
+            this.components.push(new ResumeCountryPicker(options, {
+                name: 'work_ticket',
+                templateName: 'WorkTicket',
+                componentName: 'work-ticket'
+            }));
             this.components.push(new MetroView());
             this.components.push(new RelocationView(options));
             this.components.push(new RelocationAreaView(options));

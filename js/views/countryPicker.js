@@ -1,7 +1,7 @@
-define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
+define(['jquery', 'underscore', 'backbone', 'views/baseArea'], function($, _, Backbone, BaseArea) {
     'use strict';
 
-    return Backbone.View.extend({
+    return BaseArea.extend({
         tagName: 'div',
 
         className: 'HH-ResumeSection-Component-CountryPicker',
@@ -90,41 +90,6 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             if (node.parent_id) {
                 this._setNodeAndParentsOpen(this._findNodeById(node.parent_id, this.area));
             }
-        },
-
-        findIdByData: function(data, node) {
-            if (!node) {
-                return null;
-            }
-
-            if (
-                (data.id && node.id === data.id) ||
-                    (data.name && node.name && node.name.toLowerCase() === data.name.toLowerCase())
-                )
-            {
-                return node;
-            }
-
-            for (var i in node.areas) {
-                var found = this._findIdByData(data, node.areas[i]);
-                if (found) {
-                    return found;
-                }
-            }
-
-            return null;
-        },
-
-        _findNodeById: function(id, node) {
-            return this._findIdByData({
-                id: id
-            }, node);
-        },
-
-        _findNodeByName: function(name, node) {
-            return this._findIdByData({
-                name: name
-            }, node);
         },
 
         _validateCount: function() {

@@ -4,15 +4,17 @@ define(['jquery', 'underscore', 'backbone', 'views/countryPicker'], function($, 
     return Backbone.View.extend({
         tagName: 'span',
 
-        className: 'HH-ResumeSection-Component-Citizenship',
+        className: function() {
+            return 'HH-ResumeSection-Component-' + this.templateName;
+        },
 
-        componentName: 'citizenship',
+        events: function() {
+            var e = {};
 
-        template: _.template($('#HH-ResumeBuilder-Component-Citizenship').html()),
+            e['change .HH-ResumeBuilder-Component-' + this.templateName + '-Other'] = '_change';
+            e['change .HH-ResumeBuilder-Component-' + this.templateName + '-Russia'] = '_change';
 
-        events: {
-            'change .HH-ResumeBuilder-Component-Citizenship-Other': '_change',
-            'change .HH-ResumeBuilder-Component-Citizenship-Russia': '_change'
+            return e;
         },
 
         const: {
@@ -20,20 +22,29 @@ define(['jquery', 'underscore', 'backbone', 'views/countryPicker'], function($, 
             OTHER_COUNTRIES: 1001
         },
 
-        initialize: function(options) {
+        initialize: function(options, names) {
+            // Суть в том, что блоки "гражданство" и "разрешение на работу" одинаковые.
+            // Единственное отличие - название поля, откуда брать данные из резюме и т.д.
+            // Именно это название мы передаём в initialize
+            this.name = names.name;
+            this.componentName = names.componentName;
+            this.templateName = names.templateName;
+
+            this.template = _.template($('#HH-ResumeBuilder-Component-' + this.templateName).html());
+
             this._setArea({
                 areas: options.area.attributes
             });
 
             if (options.resume.ready) {
-                this.maxCount = options.resume.conditions.get('citizenship').max_count;
+                this.maxCount = options.resume.conditions.get(this.name).max_count;
             }
 
             this._initializeCountryPicker();
         },
 
         fill: function(attributes) {
-            this.selectedAreas = _.map(attributes.citizenship, function(item) {
+            this.selectedAreas = _.map(attributes[this.name], function(item) {
                 return { id:  parseInt(item.id, 10) };
             });
         },
@@ -61,7 +72,7 @@ define(['jquery', 'underscore', 'backbone', 'views/countryPicker'], function($, 
         },
 
         takeback: function(attributes) {
-            attributes.citizenship = this.selectedAreas;
+            attributes[this.name] = this.selectedAreas;
         },
 
         _setArea: function(areas) {
@@ -69,7 +80,6 @@ define(['jquery', 'underscore', 'backbone', 'views/countryPicker'], function($, 
             var otherCountries;
 
             that.area = [];
-
 
             // Выбираем все страны наверху списка
             _.each(areas.areas, function(area) {
@@ -118,7 +128,7 @@ define(['jquery', 'underscore', 'backbone', 'views/countryPicker'], function($, 
         },
 
         _change: function(event) {
-            if ($(event.currentTarget).is('.HH-ResumeBuilder-Component-Citizenship-Russia')) {
+            if ($(event.currentTarget).is('.HH-ResumeBuilder-Component-' + this.templateName +'-Russia')) {
                 this.selectedAreas = [
                     {
                         id: this.const.RUSSIA

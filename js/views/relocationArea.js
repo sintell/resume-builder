@@ -1,15 +1,9 @@
-define(['jquery', 'underscore', 'backbone', 'views/suggest'], function($, _, Backbone, Suggest) {
+define(['jquery', 'underscore', 'backbone', 'views/baseArea', 'views/suggest'], function($, _, Backbone, BaseArea, Suggest) {
     'use strict';
 
-    return Backbone.View.extend({
+    // Модуль, отвечающий за отображение и логику заполнения "городов переезда"
+    return BaseArea.extend({
         tagName: 'div',
-
-        const: {
-            NO_RELOCATION: 'no_relocation',
-            DELIMITER: ',',
-            OTHER_COUNTRY: 1000,
-            LOW_PRIORITY: 999999999
-        },
 
         className: 'HH-ResumeSection-Component-RelocationArea',
 
@@ -26,6 +20,8 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest'], function($, _, Bac
             this.area = {
                 areas: options.area.attributes
             };
+
+            this._orderArea(this.area);
 
             this._initializeSuggest();
         },
@@ -120,72 +116,11 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest'], function($, _, Bac
             this.suggest.processKey(event);
         },
 
-        _findNodeByName: function(name, node) {
-            if (!node) {
-                return null;
-            }
-
-            if (node.name && node.name.toLowerCase() === name.toLowerCase()) {
-                return node;
-            }
-
-            for (var i in node.areas) {
-                var found = this._findNodeByName(name, node.areas[i]);
-                if (found) {
-                    return found;
-                }
-            }
-
-            return null;
-        },
-
-        _orderArea: function(area) {
-            var that = this;
-            if (!area) {
-                return ;
-            }
-
-            area.areas = _.sortBy(area.areas, function(area) {
-                var val = parseInt(area.id, 10);
-                return val > that.const.OTHER_COUNTRY ? that.const.LOW_PRIORITY : -val;
-            });
-
-            for (var i in area.areas) {
-                this._orderArea(area.areas[i]);
-            }
-        },
-
         _onSelectRelocation: function(id) {
             if (this.needArea != (id !== this.const.NO_RELOCATION)) {
                 this.needArea = id !== this.const.NO_RELOCATION;
                 this.render();
             }
-        },
-
-        _getDataForSuggest: function(node, result) {
-            if (!node) {
-                return null;
-            }
-
-            if (node.name && node.areas.length === 0) {
-                result.push(node.name);
-                return;
-            }
-
-            for (var i in node.areas) {
-                this._getDataForSuggest(node.areas[i], result);
-            }
-        },
-
-        _initializeSuggest: function() {
-            var data = [];
-            this._getDataForSuggest(this.area, data);
-
-            this.suggest = new Suggest(data, {
-                minInput: 3
-            });
-
-            this.listenTo(this.suggest, 'selectSuggest', this.onSelectSuggest);
-        },
+        }
     });
 });

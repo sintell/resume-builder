@@ -1,4 +1,16 @@
-define(['jquery', 'underscore', 'backbone', 'views/baseArea'], function($, _, Backbone, BaseArea) {
+define([
+    'jquery',
+    'underscore',
+    'backbone',
+    'views/baseArea',
+    'views/checkboxGroup'
+], function(
+    $,
+    _,
+    Backbone,
+    BaseArea,
+    CheckboxGroup
+) {
     'use strict';
 
     return BaseArea.extend({
@@ -18,6 +30,9 @@ define(['jquery', 'underscore', 'backbone', 'views/baseArea'], function($, _, Ba
             this.area = area;
             this.isShow = false;
             this.maxCount = maxCount;
+            this.checkboxGroup = new CheckboxGroup({
+                maxCount: maxCount
+            });
         },
 
         setSelectedAreas: function(selectedAreas) {
@@ -38,7 +53,7 @@ define(['jquery', 'underscore', 'backbone', 'views/baseArea'], function($, _, Ba
 
             this.$el.html(this.template(data));
 
-            this._validateCount();
+            this.checkboxGroup.validateCount(this.$el);
 
             return this;
         },
@@ -67,6 +82,8 @@ define(['jquery', 'underscore', 'backbone', 'views/baseArea'], function($, _, Ba
             var selected,
                 that = this;
 
+            this.checkboxGroup.validateCount(this.$el);
+
             selected = _.map(this.$el.find('.HH-ResumeBuilder-Checkbox:checked').parent().toArray(), function(item) {
                 var name = $(item).text().trim();
 
@@ -74,8 +91,6 @@ define(['jquery', 'underscore', 'backbone', 'views/baseArea'], function($, _, Ba
                     return item.name === name;
                 });
             });
-
-            this._validateCount();
 
             this.trigger('countryPicked', selected);
         },
@@ -89,14 +104,6 @@ define(['jquery', 'underscore', 'backbone', 'views/baseArea'], function($, _, Ba
 
             if (node.parent_id) {
                 this._setNodeAndParentsOpen(this._findNodeById(node.parent_id, this.area));
-            }
-        },
-
-        _validateCount: function() {
-            if (this.$el.find('.HH-ResumeBuilder-Checkbox:checked').length >= this.maxCount) {
-                this.$el.find('.HH-ResumeBuilder-Checkbox:not(:checked)').attr('disabled', true);
-            } else {
-                this.$el.find('.HH-ResumeBuilder-Checkbox').removeAttr('disabled');
             }
         }
     });

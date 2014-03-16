@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
+define(['jquery', 'underscore', 'backbone', 'views/checkboxGroup'], function($, _, Backbone, CheckboxGroup) {
     'use strict';
 
     return Backbone.View.extend({
@@ -10,7 +10,9 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
 
         initialize: function(options) {
             this.specializationIds = options.specializationIds;
-            this.maxCount = options.maxCount;
+            this.checkboxGroup = new CheckboxGroup({
+                maxCount: options.maxCount
+            });
         },
 
         render: function() {
@@ -23,17 +25,13 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
 
             this.$el.html(this.template(data));
 
-            this._validateCount();
+            this.checkboxGroup.validateCount(this.$el);
 
             return this;
         },
 
         _validateCount: function() {
-            if (this.$el.find('.HH-ResumeBuilder-Checkbox:checked').length >= this.maxCount) {
-                this.$el.find('.HH-ResumeBuilder-Checkbox:not(:checked)').attr('disabled', true);
-            } else {
-                this.$el.find('.HH-ResumeBuilder-Checkbox').removeAttr('disabled');
-            }
+            this.checkboxGroup.validateCount(this.$el);
         }
     });
 });

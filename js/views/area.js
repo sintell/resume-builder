@@ -12,7 +12,7 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
 
         const: {
             OTHER_COUNTRY: 1000,
-            LOW_PRIORITY: 999999999
+            SUGGEST_COUNT: 2
         },
 
         events: {
@@ -92,7 +92,7 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
 
             area.areas = _.sortBy(area.areas, function(area) {
                 var val = parseInt(area.id, 10);
-                return val > that.const.OTHER_COUNTRY ? that.const.LOW_PRIORITY : -val;
+                return val > that.const.OTHER_COUNTRY ? val: -val;
             });
 
             area.areas.forEach(function(area) {
@@ -151,7 +151,7 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
             this._getDataForSuggest(this.area, data);
 
             this.suggest = new Suggest(data, {
-                minInput: 3
+                minInput: this.const.SUGGEST_COUNT
             });
 
             this.listenTo(this.suggest, 'selectSuggest', this.onSelectSuggest);
@@ -164,7 +164,7 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
                 return null;
             }
 
-            if (node.name && node.areas.length === 0) {
+            if (node.name && !node.areas.length) {
                 result.push(node.name);
                 return;
             }

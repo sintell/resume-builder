@@ -15,7 +15,10 @@ define(['jquery', 'underscore', 'backbone', 'views/countryPicker'], function($, 
             'change .HH-ResumeBuilder-Component-Citizenship-Russia': '_change'
         },
 
-        RUSSIA: 113,
+        const: {
+            RUSSIA: 113,
+            OTHER_COUNTRIES: 1001
+        },
 
         initialize: function(options) {
             this._setArea({
@@ -40,7 +43,7 @@ define(['jquery', 'underscore', 'backbone', 'views/countryPicker'], function($, 
 
             data = {
                 area: this.area,
-                RUSSIA: this.RUSSIA,
+                RUSSIA: this.const.RUSSIA,
                 selectedAreas: this.selectedAreas
             };
 
@@ -50,7 +53,7 @@ define(['jquery', 'underscore', 'backbone', 'views/countryPicker'], function($, 
 
             this.countryPicker.setElement(this.$el.find('.HH-ResumeBuilder-Component-CountryPicker'));
 
-            if (this.selectedAreas.length !== 1 || this.selectedAreas[0].id !== this.RUSSIA) {
+            if (this.selectedAreas.length !== 1 || this.selectedAreas[0].id !== this.const.RUSSIA) {
                 this.countryPicker.show();
             }
 
@@ -61,37 +64,46 @@ define(['jquery', 'underscore', 'backbone', 'views/countryPicker'], function($, 
             attributes.citizenship = this.selectedAreas;
         },
 
-        _setArea: function(area) {
-            var OTHER_COUNTRIES = 1001,
-                that = this,
-                pointer = area;
+        _setArea: function(areas) {
+            var that = this;
+            var otherCountries;
 
-            this.area = [];
+            that.area = [];
 
-            for (var j = 0; j < 2; j++) {
-                for (var i in pointer.areas) {
-                    if (parseInt(pointer.areas[i].id, 10) !== OTHER_COUNTRIES) {
-                        this.area.push({
-                            id: parseInt(pointer.areas[i].id, 10),
-                            name:pointer.areas[i].name
-                        });
-                    } else {
-                        pointer = pointer.areas[i];
-                    }
+
+            // Выбираем все страны наверху списка
+            _.each(areas.areas, function(area) {
+                if (parseInt(area.id, 10) !== that.const.OTHER_COUNTRIES) {
+                    that.area.push({
+                        id: parseInt(area.id, 10),
+                        name: area.name
+                    });
+                } else {
+                    otherCountries = area;
                 }
+            });
+
+            // Выбираем страны в ветви других стран
+            if (otherCountries) {
+                _.each(otherCountries.areas, function(area) {
+                    that.area.push({
+                        id: parseInt(area.id, 10),
+                        name: area.name
+                    });
+                });
             }
 
-            this.area = _.sortBy(this.area, function(area) {
+            var russia;
+            that.area = _.sortBy(that.area, function(area) {
+                if (area.id === that.const.RUSSIA) {
+                    russia = area;
+                }
                 return area.name;
             });
 
-            var russia = _.find(this.area, function(item) {
-                return item.id === that.RUSSIA;
-            });
-
-            if (this.area.length) {
-                this.area.splice(this.area.indexOf(russia), 1);
-                this.area.unshift(russia);
+            if (that.area.length) {
+                that.area.splice(this.area.indexOf(russia), 1);
+                that.area.unshift(russia);
             }
         },
 
@@ -109,7 +121,7 @@ define(['jquery', 'underscore', 'backbone', 'views/countryPicker'], function($, 
             if ($(event.currentTarget).is('.HH-ResumeBuilder-Component-Citizenship-Russia')) {
                 this.selectedAreas = [
                     {
-                        id: this.RUSSIA
+                        id: this.const.RUSSIA
                     }
                 ];
             }

@@ -31,7 +31,9 @@ define(['jquery', 'underscore', 'backbone', 'views/countryPicker'], function($, 
 
         fill: function(attributes) {
             this.selectedAreas = _.map(attributes.work_ticket, function(item) {
-                return { id:  parseInt(item.id, 10) };
+                return {
+                    id:  parseInt(item.id, 10)
+                };
             });
         },
 

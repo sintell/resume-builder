@@ -108,7 +108,14 @@ define(['jquery', 'underscore', 'backbone', 'models/metro', 'views/suggest'], fu
                     /// Находим по idшнику линию и приписываем к себе
                     var name = that._getLineNameByStationId();
 
-                    that.metroName += ' (' + name + ')';
+                    // Тут может быть, что имени ветки не будет найдено
+                    // Это связано с тем, что мы сменили город проживания
+                    // В этом случае, название станции метро обнуляем
+                    if (!name) {
+                        that.metroName = '';
+                    } else {
+                        that.metroName += ' (' + name + ')';
+                    }
                 }
 
                 that.suggest.setData(that.suggestData);

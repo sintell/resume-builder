@@ -92,17 +92,21 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             }
         },
 
-        _findNodeById: function(id, node) {
+        findIdByData: function(data, node) {
             if (!node) {
                 return null;
             }
 
-            if (node.id === id) {
+            if (
+                (data.id && node.id === data.id) ||
+                    (data.name && node.name && node.name.toLowerCase() === data.name.toLowerCase())
+                )
+            {
                 return node;
             }
 
             for (var i in node.areas) {
-                var found = this._findNodeById(id, node.areas[i]);
+                var found = this._findIdByData(data, node.areas[i]);
                 if (found) {
                     return found;
                 }
@@ -111,23 +115,16 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             return null;
         },
 
+        _findNodeById: function(id, node) {
+            return this._findIdByData({
+                id: id
+            }, node);
+        },
+
         _findNodeByName: function(name, node) {
-            if (!node) {
-                return null;
-            }
-
-            if (node.name && node.name.toLowerCase() === name.toLowerCase()) {
-                return node;
-            }
-
-            for (var i in node.areas) {
-                var found = this._findNodeByName(name, node.areas[i]);
-                if (found) {
-                    return found;
-                }
-            }
-
-            return null;
+            return this._findIdByData({
+                name: name
+            }, node);
         },
 
         _validateCount: function() {

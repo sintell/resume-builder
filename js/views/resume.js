@@ -81,7 +81,7 @@ define([
             this.$el.html(this.template(templateData));
             this._bindSelect();
 
-            _.each(this.components, function(component) {
+            this.components.forEach(function(component) {
                 var container = that.$el.find([
                     '.HH-ResumeSection-Component[data-hh-component="',
                     component.componentName,
@@ -116,7 +116,7 @@ define([
             $section = $(event.currentTarget).closest('.HH-Resume-ResumeSection');
             $section.find('.HH-ResumeSection-Switch').toggleClass('section__title-button_hidden');
             $controls = $section.find('.HH-ResumeSection-Control');
-            $controls.toggleClass('control_viewing').toggleClass('control_editing');
+            $controls.toggleClass('control_viewing control_editing');
         },
 
         _submit: function(event) {
@@ -148,9 +148,9 @@ define([
                 }
             });
 
-            for (var i in this.components) {
-                this.components[i].takeback(attributes);
-            }
+            this.components.forEach(function(component) {
+                component.takeback(attributes);
+            });
 
             $.when(this.model.save(attributes)).then(function() {
                 that.model.fetch();

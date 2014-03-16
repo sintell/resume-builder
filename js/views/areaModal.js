@@ -11,7 +11,7 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         template: _.template($('#HH-ResumeBuilder-Component-AreaModal').html()),
 
         events: {
-            'click li': '_selectOrOpen'
+            'click .HH-Component-AreaModal-Item': '_selectOrOpen'
         },
 
         initialize: function(area) {
@@ -74,7 +74,9 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         _selectOrOpen: function(event) {
             event.stopPropagation();
 
-            var text = $(event.currentTarget).find('.HH-AreaModal-Text').text();
+            // Без .first() jquery выбирает все элементы .HH-AreaModal-Text,
+            // в том числе и у раскрытых child в иерархии.
+            var text = $(event.currentTarget).find('.HH-AreaModal-Text').first().text();
             var node = this._findNodeByName(text, this.area);
 
             if (node.areas.length === 0) {
@@ -105,8 +107,8 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             }
 
             if (
-                data.id && node.id === data.id ||
-                data.name && node.name && node.name.toLowerCase() === data.name.toLowerCase()
+                (data.id && node.id === data.id) ||
+                (data.name && node.name && node.name.toLowerCase() === data.name.toLowerCase())
                 )
             {
                 return node;

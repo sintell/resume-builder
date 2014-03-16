@@ -9,6 +9,10 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             CARRIAGE_RETURN: 13
         },
 
+        defaults: {
+            maxElements: 7
+        },
+
         template: _.template($('#HH-ResumeBuilder-Component-Suggest').html()),
 
         events: {
@@ -18,6 +22,8 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         initialize: function(data, options) {
             this.data = data;
             this.options = options;
+
+            this.maxElements = options.maxElements || this.defaults.maxElements;
 
             this.suggest = [];
             this.selected = null;
@@ -117,7 +123,8 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         },
 
         _getSuggest: function(text) {
-            var result = [];
+            var result = [],
+                that = this;
 
             var keyboard = {
                 'q' : 'й',
@@ -155,23 +162,33 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
                 '`' : 'ё'
             };
 
-            var toRussianKeyboard = function(str) {
-                return _.reduce(str, function(memo, c) {
-                    return memo + (keyboard[c.toLowerCase()] || c);
+            var textPreprocessing = function(str) {
+                // toLowerCase
+                // to russian keyboard
+                // replace ё to e
+                var s =  _.reduce(str.toLowerCase(), function(memo, c) {
+                    return memo + (keyboard[c] || c);
                 }, '');
+
+                return s.replace('ё','е');
             };
 
-            _.each(this.data, function(area) {
-                if (toRussianKeyboard(area.toLowerCase()).replace('ё','е').indexOf(
-                    toRussianKeyboard(text.toLowerCase()).replace('ё','е')) === 0
-                    ) {
+            var processedText = textPreprocessing(text);
+
+            this.data.forEach(function(area) {
+                if (
+                    // Аналогично str.startWith(substr)
+                    textPreprocessing(area).indexOf(processedText) === 0 &&
+                    result.length < that.maxElements
+                    )
+                {
                     result.push(area);
                 }
             });
 
             if (
                 result.length === 1 &&
-                result[0].toLowerCase().replace('ё','e') === text.toLowerCase().replace('ё','e')
+                textPreprocessing(result[0]) === processedText
                 )
             {
                 return [];

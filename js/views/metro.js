@@ -102,8 +102,8 @@ define(['jquery', 'underscore', 'backbone', 'models/metro', 'views/suggest'], fu
                 that.hasMetro = true;
                 that.suggestData = that._getDataForSuggest();
 
-                /// Проверка, есть у эта станция на двух линиях
-                /// Если есть, то в списке саджсеста она будет с припиской линии
+                // Проверка, есть у эта станция на двух линиях
+                // Если есть, то в списке саджсеста она будет с припиской линии
                 if (that.metroName && that.suggestData.indexOf(that.metroName) === -1) {
                     /// Находим по idшнику линию и приписываем к себе
                     var name = that._getLineNameByStationId();
@@ -147,14 +147,14 @@ define(['jquery', 'underscore', 'backbone', 'models/metro', 'views/suggest'], fu
                 that.lineName = matches[2];
             }
 
-            _.each(this.model.attributes.lines, function(line) {
+            this.model.attributes.lines.forEach(function(line) {
                 if (that.lineName) {
                     if (line.name.toLowerCase() !== that.lineName.toLowerCase()) {
                         return;
                     }
                 }
 
-                _.each(line.stations, function(station) {
+                line.stations.forEach(function(station) {
                     if (station.name.toLowerCase() === that.metroName.toLowerCase()) {
                         result = station.id;
                     }
@@ -166,16 +166,19 @@ define(['jquery', 'underscore', 'backbone', 'models/metro', 'views/suggest'], fu
 
 
         _getLineNameByStationId: function() {
-            var that = this;
+            var that = this,
+                result;
 
-            var line = _.find(this.model.attributes.lines, function(line) {
-                return _.find(line.stations, function(station) {
-                    return station.id === that.metroId;
+            this.model.attributes.lines.forEach(function(line) {
+                line.stations.forEach(function(station) {
+                    if (station.id === that.metroId) {
+                        result = line;
+                    }
                 });
             });
 
-            if (line) {
-                return line.name;
+            if (result) {
+                return result.name;
             }
 
             return '';
@@ -189,9 +192,7 @@ define(['jquery', 'underscore', 'backbone', 'models/metro', 'views/suggest'], fu
         },
 
         _initializeSuggest: function() {
-            this.suggest = new Suggest([], {
-                minInput: 3
-            });
+            this.suggest = new Suggest();
 
             this.listenTo(this.suggest, 'selectSuggest', this.onSelectSuggest);
         },
@@ -199,32 +200,41 @@ define(['jquery', 'underscore', 'backbone', 'models/metro', 'views/suggest'], fu
         _getDataForSuggest: function() {
             var data = [];
 
-            var multipleStations = [];
+            this.model.attributes.lines.forEach(function(line) {
+                line.stations.forEach(function(station) {
+                    var result;
 
-            _.each(this.model.attributes.lines, function(line) {
-                _.each(line.stations, function(station) {
+                    data.forEach(function(item) {
+                        if (result) {
+                            return;
+                        }
 
-                    if (data.indexOf(station.name) >= 0) {
-                        multipleStations.push(station.name);
+                        if (item.name === station.name) {
+                            result = item;
+                        }
+                    });
+
+                    if (result) {
+                        data.push({
+                            name: station.name,
+                            fullName: station.name + ' (' + line.name +  ')',
+                            useFullName: true
+                        });
+
+                        result.useFullName = true;
+                    } else {
+                        data.push({
+                            name: station.name,
+                            fullName: station.name + ' (' + line.name +  ')',
+                            useFullName: false
+                        });
                     }
-
-                    data.push(station.name);
                 });
             });
 
-            if (multipleStations.length !== 0) {
-                data = _.difference(data, multipleStations);
-
-                _.each(this.model.attributes.lines, function(line) {
-                    _.each(line.stations, function(station) {
-                        if (multipleStations.indexOf(station.name) >= 0) {
-                            data.push(station.name + ' (' + line.name +  ')');
-                        }
-                    });
-                });
-            }
-
-            return data;
+            return _.map(data, function(item) {
+                return item.useFullName ? item.fullName : item.name;
+            });
         },
 
         _preventKeydown: function(event) {

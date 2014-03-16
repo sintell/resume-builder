@@ -10,7 +10,8 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         },
 
         defaults: {
-            maxElements: 7
+            maxElements: 7,
+            minInput: 2
         },
 
         template: _.template($('#HH-ResumeBuilder-Component-Suggest').html()),
@@ -20,10 +21,11 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         },
 
         initialize: function(data, options) {
-            this.data = data;
-            this.options = options;
+            this.data = data || [];
+            this.options = options || {};
 
-            this.maxElements = options.maxElements || this.defaults.maxElements;
+            this.minInput = this.options.minInput || this.defaults.minInput;
+            this.maxElements = this.options.maxElements || this.defaults.maxElements;
 
             this.suggest = [];
             this.selected = null;
@@ -60,7 +62,7 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
 
             this.width = width;
 
-            if (text.length >= this.options.minInput) {
+            if (text.length >= this.minInput) {
                 prevLength = this.suggest.length;
                 this.suggest = this._getSuggest(text);
                 if (prevLength !== this.suggest.length) {

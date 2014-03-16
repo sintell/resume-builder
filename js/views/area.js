@@ -90,7 +90,7 @@ define(['jquery', 'underscore', 'backbone', 'views/baseArea', 'views/suggest', '
             var input = $('.HH-ResumeBuilder-Component-Area-Input');
 
             this.name = input.val();
-            this.width = input.outerWidth();
+            this.width = input.width();
         },
 
         _onChange: function() {

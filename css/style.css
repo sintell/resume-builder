@@ -97,6 +97,8 @@
         padding: 0px 10px;
         background: #fff;
         cursor: pointer;
+        padding: 0px 2px;
+        min-width: inherit;
     }
 
         .suggest-list__item:hover {

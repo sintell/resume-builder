@@ -36,19 +36,15 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         },
 
         render: function() {
-            var $results,
-                borderWidth,
-                data;
+            var data;
 
             data = {
                 suggest: this.suggest
             };
 
             this.$el.html(this.template(data));
-
-            $results = this.$el.find('.HH-Suggest-Results');
-            borderWidth = parseInt($results.css('border-width'), 10);
-            $results.css('min-width', (this.width - borderWidth * 2) + 'px');
+            this.$el.find('.HH-Suggest-Results').css('min-width', this.width + 'px');
+            console.log(this.width + 'px')
 
             return this;
         },

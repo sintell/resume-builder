@@ -1,4 +1,11 @@
-define(['jquery', 'underscore', 'backbone', 'models/metro', 'views/suggest'], function($, _, Backbone, MetroModel, Suggest) {
+define([
+    'jquery',
+    'underscore',
+    'backbone',
+    'models/metro',
+    'views/suggest',
+    'text!templates/metro.html'
+], function($, _, Backbone, MetroModel, Suggest, MetroTemplate) {
     'use strict';
 
     return Backbone.View.extend({
@@ -8,7 +15,7 @@ define(['jquery', 'underscore', 'backbone', 'models/metro', 'views/suggest'], fu
 
         componentName: 'metro',
 
-        template: _.template($('#HH-ResumeBuilder-Component-Metro').html()),
+        template: _.template(MetroTemplate),
 
         events: {
             'keyup .HH-ResumeBuilder-Component-Metro-Input': '_updateSuggest',

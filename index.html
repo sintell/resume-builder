@@ -44,7 +44,7 @@
             </ul>
 
             <div class="HH-ResumeBuilder-Component-CountryPicker"></div>
-        </dov>
+        </div>
     </script>
 
     <script type="text/template" id="HH-ResumeBuilder-Component-WorkTicket">
@@ -97,21 +97,6 @@
             </li>
             <% }); %>
         </ul>
-    </script>
-
-    <script type="text/template" id="HH-ResumeBuilder-Component-Metro">
-        <% if (hasMetro) { %>
-        <label class="control__label">Ближайшее метро</label>
-        <span class="control__value"><%= metro %></span>
-
-        <div class="control__input">
-            <input class="HH-ResumeBuilder-Component-Metro-Input"
-                   value="<%= metro %>"
-                   name="metro"/>
-
-            <div class="HH-ResumeBuilder-Component-Suggest"></div>
-        </div>
-        <% } %>
     </script>
 
     <script type="text/template" id="HH-ResumeBuilder-Component-Relocation">

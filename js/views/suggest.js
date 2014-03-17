@@ -1,4 +1,9 @@
-define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
+define([
+    'jquery',
+    'underscore',
+    'backbone',
+    'text!templates/suggest.html'
+], function($, _, Backbone, SuggestTemplate) {
     'use strict';
 
     return Backbone.View.extend({
@@ -14,7 +19,7 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             minInput: 2
         },
 
-        template: _.template($('#HH-ResumeBuilder-Component-Suggest').html()),
+        template: _.template(SuggestTemplate),
 
         events: {
             'click li': '_select'

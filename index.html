@@ -74,16 +74,6 @@
         </div>
     </script>
 
-    <script type="text/template" id="HH-ResumeBuilder-Component-Suggest">
-        <% if (suggest.length > 0) { %>
-        <ul class="HH-Suggest-Results suggest-list">
-            <% _.each(suggest, function(suggest) { %>
-            <li class="HH-ResumeBuilder-SuggestItem suggest-list__item"><%= suggest %></li>
-            <% }); %>
-        </ul>
-        <% } %>
-    </script>
-
     <script type="text/template" id="HH-ResumeBuilder-Component-CountryPicker">
         <ul class="checkbox-list">
             <% _.each(area, function(area) { %>

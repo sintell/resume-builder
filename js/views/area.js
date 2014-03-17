@@ -4,14 +4,16 @@ define([
     'backbone',
     'views/baseArea',
     'views/suggest',
-    'views/areaModal'
+    'views/areaModal',
+    'text!templates/area.html'
 ], function(
     $,
     _,
     Backbone,
     BaseArea,
     Suggest,
-    AreaModal
+    AreaModal,
+    AreaTemplate
 ) {
     'use strict';
 
@@ -23,7 +25,7 @@ define([
 
         componentName: 'area',
 
-        template: _.template($('#HH-ResumeBuilder-Component-Area').html()),
+        template: _.template(AreaTemplate),
 
         events: {
             'keyup .HH-ResumeBuilder-Component-Area-Input': '_updateSuggest',

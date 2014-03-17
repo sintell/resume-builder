@@ -23,10 +23,6 @@ module.exports = function(grunt) {
                 options: {
                     livereload: true,
                 }
-            },
-            server: {
-                files: ['server/*.js'],
-                tasks: ['oauth-server'],
             }
         },
 
@@ -34,19 +30,19 @@ module.exports = function(grunt) {
             default_option: {
                 options: {
                     port: 8081,
-                    server: 'server/app.js'
+                    server: 'server/app.js',
+                    serverreload: true
                 }
             }
         }
     });
 
 
-    grunt.loadNpmTasks('grunt-express');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-express');
     grunt.loadNpmTasks('grunt-contrib-connect');
 
-
     
-    grunt.registerTask('default', ['express','connect', 'watch']);
-    grunt.registerTask('oauth', ['express','express-keepalive']);
+    grunt.registerTask('default', ['express', 'connect', 'watch']);
+    grunt.registerTask('oauth', ['express', 'express-keepalive']);
 };

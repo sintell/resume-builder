@@ -3,13 +3,15 @@ define([
     'underscore',
     'backbone',
     'views/baseArea',
-    'views/checkboxGroup'
+    'views/checkboxGroup',
+    'text!templates/countryPicker.html'
 ], function(
     $,
     _,
     Backbone,
     BaseArea,
-    CheckboxGroup
+    CheckboxGroup,
+    CountryPickerTemplate
 ) {
     'use strict';
 
@@ -20,7 +22,7 @@ define([
 
         componentName: 'country-picker',
 
-        template: _.template($('#HH-ResumeBuilder-Component-CountryPicker').html()),
+        template: _.template(CountryPickerTemplate),
 
         events: {
             'change .HH-ResumeBuilder-Checkbox': '_select'

@@ -44,7 +44,6 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
 
             this.$el.html(this.template(data));
             this.$el.find('.HH-Suggest-Results').css('min-width', this.width + 'px');
-            console.log(this.width + 'px')
 
             return this;
         },

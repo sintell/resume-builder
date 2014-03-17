@@ -10,9 +10,9 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             var checkboxes = $el.find('.HH-ResumeBuilder-Checkbox');
 
             if (checkboxes.filter(':checked').length >= this.maxCount) {
-                checkboxes.filter(':not(:checked)').attr('disabled', true);
+                checkboxes.filter(':not(:checked)').prop('disabled', true);
             } else {
-                checkboxes.removeAttr('disabled');
+                checkboxes.prop('disabled', false);
             }
         }
     });

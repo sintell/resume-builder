@@ -34,11 +34,21 @@ module.exports = function(grunt) {
                     serverreload: true
                 }
             }
+        },
+
+        forever: {
+            oauth: {
+                options: {
+                    index: 'server/index.js',
+                    logDir: 'logs/'
+                }
+            }
         }
     });
 
 
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-forever');
     grunt.loadNpmTasks('grunt-express');
     grunt.loadNpmTasks('grunt-contrib-connect');
 

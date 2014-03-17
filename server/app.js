@@ -1,4 +1,4 @@
-var config = require('../config/config.js'),
+var config = require('../config/config.js').config,
     express = require('express'),
     https = require('https'),
     app = module.exports = express();
@@ -7,7 +7,9 @@ app.configure(function() {
     'use strict';
     app.set('client_id', config.clientId);
     app.set('client_secret', config.clientSecret);
-
+    app.set('responseRedirectUri', 
+            '' + config.responseRedirectUri +
+            (config.staticServerPort ? ':' + config.staticServerPort : ''));
     app.use(express.cookieParser('secret'));
     app.use(express.bodyParser());
     app.use(express.methodOverride());
@@ -74,7 +76,7 @@ app.get('/oauth', function(req, res) {
                 httpOnly: true
             });
 
-            res.redirect('http://0.0.0.0:' + config.staticServerPort);
+            res.redirect(app.set('responseRedirectUri'));
             return;
         });
     });
@@ -91,5 +93,5 @@ app.post('/oauth/logout', function(req, res) {
     'use strict';
     res.clearCookie('access_token');
     res.clearCookie('refresh_token');
-    res.redirect('http://0.0.0.0:' + config.staticServerPort);
+    res.redirect(app.set('responseRedirectUri'));
 });

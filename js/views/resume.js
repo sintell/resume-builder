@@ -5,9 +5,22 @@ define([
     'views/specialization',
     'views/birthDate',
     'views/area',
-    'views/citizenship',
-    'views/workTicket',
-], function($, _, Backbone, SpecializationView, BirthDateView, AreaView, CitizenshipView, WorkTicketView) {
+    'views/resumeCountryPicker',
+    'views/metro',
+    'views/relocation',
+    'views/relocationArea',
+], function(
+    $,
+    _,
+    Backbone,
+    SpecializationView,
+    BirthDateView,
+    AreaView,
+    ResumeCountryPicker,
+    MetroView,
+    RelocationView,
+    RelocationAreaView
+) {
     'use strict';
 
     return Backbone.View.extend({
@@ -24,12 +37,25 @@ define([
 
             this.listenTo(this.model, 'sync', this.render);
 
-            this.components = [];
+            _.extend(options, {resume: this.model});
 
+            this.components = [];
             this.components.push(new BirthDateView());
             this.components.push(new AreaView(options));
-            this.components.push(new CitizenshipView(options));
-            this.components.push(new WorkTicketView(options));
+            this.components.push(new ResumeCountryPicker(options, {
+                name: 'citizenship',
+                templateName: 'Citizenship',
+                componentName: 'citizenship'
+            }));
+
+            this.components.push(new ResumeCountryPicker(options, {
+                name: 'work_ticket',
+                templateName: 'WorkTicket',
+                componentName: 'work-ticket'
+            }));
+            this.components.push(new MetroView());
+            this.components.push(new RelocationView(options));
+            this.components.push(new RelocationAreaView(options));
         },
 
         render: function() {
@@ -37,6 +63,10 @@ define([
                 specializationsData,
                 templateData,
                 that = this;
+
+            if (!this.model.ready) {
+                return this;
+            }
 
             resumeData = $.extend(
                 {},
@@ -51,19 +81,30 @@ define([
             templateData = {
                 resume: resumeData,
                 dictionary: this.dictionary.attributes,
-                specializations: specializationsData
+                specializations: specializationsData,
+                conditions: this.model.conditions.attributes
             };
 
             this.$el.html(this.template(templateData));
             this._bindSelect();
 
-
-            _.each(this.components, function(component) {
+            this.components.forEach(function(component) {
                 var container = that.$el.find([
                     '.HH-ResumeSection-Component[data-hh-component="',
                     component.componentName,
                     '"]'
                 ].join(''));
+
+                if (container.data('hh-depends')) {
+                    var depends = container.data('hh-depends');
+                    _.each(depends, function(dependency) {
+                        var element = _.find(that.components, function(item) {
+                            return item.componentName === dependency.component;
+                        });
+
+                        component.listenTo(element, dependency.event, component[dependency.callback]);
+                    });
+                }
 
                 component.fill(that.model.attributes);
                 container.html(component.render().el);
@@ -82,7 +123,7 @@ define([
             $section = $(event.currentTarget).closest('.HH-Resume-ResumeSection');
             $section.find('.HH-ResumeSection-Switch').toggleClass('section__title-button_hidden');
             $controls = $section.find('.HH-ResumeSection-Control');
-            $controls.toggleClass('control_viewing').toggleClass('control_editing');
+            $controls.toggleClass('control_viewing control_editing');
         },
 
         _submit: function(event) {
@@ -114,9 +155,9 @@ define([
                 }
             });
 
-            for (var i in this.components) {
-                this.components[i].takeback(attributes);
-            }
+            this.components.forEach(function(component) {
+                component.takeback(attributes);
+            });
 
             $.when(this.model.save(attributes)).then(function() {
                 that.model.fetch();
@@ -157,7 +198,8 @@ define([
                     specialization = that.specializations.get(id);
                     specializationView = new SpecializationView({
                         model: specialization,
-                        specializationIds: that.model.specializationIds()
+                        specializationIds: that.model.specializationIds(),
+                        maxCount: that.model.conditions.get('specialization').max_count
                     });
                     that.$el.find('.HH-ResumeSection-SpecializationList').html(specializationView.render().el);
                 }

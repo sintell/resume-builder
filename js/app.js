@@ -5,15 +5,18 @@ define([
     'models/resume',
     'models/dictionary',
     'models/area',
-    'collections/resume_list',
-    'collections/specialization_list',
+    'collections/resumeList',
+    'collections/specializationList',
     'views/resume',
 ], function($, _, Backbone, Resume, Dictionary, Area, ResumeList, SpecializationList, ResumeView) {
     'use strict';
 
     $.ajaxSetup({
         beforeSend: function(xhr) {
-            xhr.setRequestHeader('Authorization', 'Bearer R2D3SLBP5JR1VO7JULE5R0BCMDBJFOC6RVFGOL0KDN37A1IRHAJRRSFLJLMO1BR8');
+            xhr.setRequestHeader(
+                'Authorization',
+                'Bearer MGDGK21AJ75KJP0VABVRU3RN1H883IQUTOPLNU715R9G34TOAQ93FIIEEV2DAV12'
+            );
         }
     });
 
@@ -32,10 +35,12 @@ define([
 
             this.listenTo(this.resumes, 'sync', this.render);
 
-            $.when(this.resumes.fetch(),
-                   this.dictionary.fetch(),
-                   this.area.fetch(),
-                   this.specializations.fetch()).then(function() {
+            $.when(
+                this.resumes.fetch(),
+                this.dictionary.fetch(),
+                this.area.fetch(),
+                this.specializations.fetch()
+            ).then(function() {
                 if (that.resumes.length) {
                     that.resumes.first().fetch();
                 } else {

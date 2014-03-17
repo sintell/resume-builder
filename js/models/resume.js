@@ -1,9 +1,10 @@
-define(['underscore', 'backbone', 'models/validator'], function(_, Backbone, Validator) {
+define(['underscore', 'backbone', 'models/conditions'], function(_, Backbone, Conditions) {
     'use strict';
 
     return Backbone.Model.extend({
         defaults: {
             area: {},
+            metro: {},
             gender: {},
             birth_date: '1993-01-01',
             salary: {},
@@ -31,11 +32,16 @@ define(['underscore', 'backbone', 'models/validator'], function(_, Backbone, Val
         initialize: function() {
             var that = this;
 
-            this.validator = new Validator({}, {
-                resume: this
-            });
+            this.ready = false;
+            this.conditions = new Conditions(
+                {},
+                {resume: this}
+            );
 
-            this.validator.fetch();
+            $.when(this.conditions.fetch()).then(function() {
+                that.ready = true;
+                that.trigger('sync');
+            });
         },
 
         url: function() {
@@ -44,14 +50,6 @@ define(['underscore', 'backbone', 'models/validator'], function(_, Backbone, Val
 
         toJSON: function() {
             return _.omit(this.attributes, this.readOnly);
-        },
-
-        validate: function(attributes, options) {
-            var errors = this.validator.validateResume(attributes);
-
-            if (errors.length) {
-                return errors;
-            }
         },
 
         specializationNames: function() {
@@ -65,13 +63,9 @@ define(['underscore', 'backbone', 'models/validator'], function(_, Backbone, Val
         },
 
         specializationIds: function() {
-            if (this.get('specialization').map) {
-                return this.get('specialization').map(function(specialization) {
-                    return specialization.id;
-                });
-            } else {
-                return [];
-            }
+            return this.get('specialization').map(function(specialization) {
+                return specialization.id;
+            });
         }
     });
 });

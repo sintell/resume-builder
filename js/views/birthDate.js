@@ -52,9 +52,9 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         },
 
         _updateValues: function() {
-            this.day = parseInt($('[name="birth_date-day"]').val(), 10);
-            this.month = parseInt($('[name="birth_date-month"]').val(), 10);
-            this.year = parseInt($('[name="birth_date-year"]').val(), 10);
+            this.day = parseInt(this.$('[name="birth_date-day"]').val(), 10);
+            this.month = parseInt(this.$('[name="birth_date-month"]').val(), 10);
+            this.year = parseInt(this.$('[name="birth_date-year"]').val(), 10);
         },
 
         _updateCalendar: function() {

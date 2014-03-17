@@ -1,7 +1,22 @@
-define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'], function($, _, Backbone, Suggest, AreaModal) {
+define([
+    'jquery',
+    'underscore',
+    'backbone',
+    'views/baseArea',
+    'views/suggest',
+    'views/areaModal'
+], function(
+    $,
+    _,
+    Backbone,
+    BaseArea,
+    Suggest,
+    AreaModal
+) {
     'use strict';
 
-    return Backbone.View.extend({
+    // Модуль, отвечающий за город проживания.
+    return BaseArea.extend({
         tagName: 'span',
 
         className: 'HH-ResumeSection-Component-Area',
@@ -12,7 +27,9 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
 
         events: {
             'keyup .HH-ResumeBuilder-Component-Area-Input': '_updateSuggest',
-            'click .HH-ResumeBuilder-Component-Area-ShowModal': '_toggleModal'
+            'keydown .HH-ResumeBuilder-Component-Area-Input': '_preventKeydown',
+            'click .HH-ResumeBuilder-Component-Area-ShowModal': '_toggleModal',
+            'change .HH-ResumeBuilder-Component-Area-Input': '_onChange'
         },
 
         initialize: function(options) {
@@ -52,11 +69,13 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
         onSelectSuggest: function(data) {
             this.$el.find('.HH-ResumeBuilder-Component-Area-Input').val(data.text);
             this.suggest.hide();
+            this._onChange();
         },
 
         onSelectModal: function(data) {
             this.$el.find('.HH-ResumeBuilder-Component-Area-Input').val(data.text);
             this.modal.hide();
+            this._onChange();
         },
 
         takeback: function(attributes) {
@@ -75,78 +94,31 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
             };
         },
 
-        _orderArea: function(area) {
-            if (!area) {
-                return ;
-            }
-
-            area.areas = _.sortBy(area.areas, function(area) {
-                var val = parseInt(area.id, 10);
-                return val > 1000 ? 999999999 : -val;
-            });
-
-            for (var i in area.areas){
-                this._orderArea(area.areas[i]);
-            }
-        },
-
-        _updateSuggest: function() {
+        _updateSuggest: function(event) {
             this._updateValues();
             this.suggest.updateSuggest(this.name, this.width);
+            this.suggest.processKey(event);
         },
 
         _updateValues: function() {
-            var input;
-
-            input = $('.HH-ResumeBuilder-Component-Area-Input');
+            var input = $('.HH-ResumeBuilder-Component-Area-Input');
 
             this.name = input.val();
-            this.width = input.outerWidth() - parseInt(input.css('border-left-width'), 10);
+            this.width = input.width();
         },
 
-        _findNodeByName: function(name, node) {
-            if (!node){
-                return null;
+        _onChange: function() {
+            this._updateValues();
+
+            var node = this._findNodeByName(this.name, this.area);
+
+            if (node) {
+                this.id = node.id;
+            } else {
+                this.id = 0;
             }
 
-            if (node.name && node.name.toLowerCase() === name.toLowerCase()) {
-                return node;
-            }
-
-            for (var i in node.areas){
-                var found = this._findNodeByName(name, node.areas[i]);
-                if (found) {
-                    return found;
-                }
-            }
-
-            return null;
-        },
-
-        _initializeSuggest: function() {
-            var data = [];
-            this._getDataForSuggest(this.area, data);
-
-            this.suggest = new Suggest(data, {
-                minInput: 3
-            });
-
-            this.listenTo(this.suggest, 'selectSuggest', this.onSelectSuggest);
-        },
-
-        _getDataForSuggest: function(node, result) {
-            if (!node){
-                return null;
-            }
-
-            if (node.name && node.areas.length === 0) {
-                result.push(node.name);
-                return;
-            }
-
-            for (var i in node.areas){
-                this._getDataForSuggest(node.areas[i], result);
-            }
+            this.trigger('selectArea', this.id);
         },
 
         _initializeModal: function() {
@@ -160,6 +132,10 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest', 'views/areaModal'],
 
             this._updateValues();
             this.modal.toggle(this.name);
+        },
+
+        _preventKeydown: function(event) {
+            this.suggest.preventKeydown(event);
         }
     });
 });

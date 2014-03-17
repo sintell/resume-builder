@@ -1,7 +1,9 @@
-define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
+define(['jquery', 'underscore', 'backbone', 'views/baseArea'], function($, _, Backbone, BaseArea) {
     'use strict';
 
-    return Backbone.View.extend({
+    // Модуль, отвечающий за отображение стран/городов в виде вложенного списка.
+    // Применяется для заполнения города проживания (area.js)
+    return BaseArea.extend({
         tagName: 'div',
 
         className: 'HH-ResumeSection-Component-AreaModal',
@@ -11,7 +13,7 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         template: _.template($('#HH-ResumeBuilder-Component-AreaModal').html()),
 
         events: {
-            'click li': '_selectOrOpen'
+            'click .HH-Component-AreaModal-Item': '_selectOrOpen'
         },
 
         initialize: function(area) {
@@ -48,7 +50,7 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         },
 
         toggle: function(name) {
-            if (!this.modalShow){
+            if (!this.modalShow) {
                 this.show(name);
             } else {
                 this.hide();
@@ -74,7 +76,9 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         _selectOrOpen: function(event) {
             event.stopPropagation();
 
-            var text = $(event.currentTarget).children().first().text();
+            // Без .first() jquery выбирает все элементы .HH-AreaModal-Text,
+            // в том числе и у раскрытых child в иерархии.
+            var text = $(event.currentTarget).find('.HH-AreaModal-Text').first().text();
             var node = this._findNodeByName(text, this.area);
 
             if (node.areas.length === 0) {
@@ -97,41 +101,6 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             if (node.parent_id) {
                 this._setNodeAndParentsOpen(this._findNodeById(node.parent_id, this.area));
             }
-        },
-
-        _findIdByData: function(data, node) {
-            if (!node) {
-                return null;
-            }
-
-            if (
-                data.id && node.id === data.id ||
-                data.name && node.name && node.name.toLowerCase() === data.name.toLowerCase()
-                )
-            {
-                return node;
-            }
-
-            for (var i in node.areas) {
-                var found = this._findIdByData(data, node.areas[i]);
-                if (found) {
-                    return found;
-                }
-            }
-
-            return null;
-        },
-
-        _findNodeById: function(id, node) {
-            return this._findIdByData({
-                id: id
-            }, node);
-        },
-
-        _findNodeByName: function(name, node) {
-            return this._findIdByData({
-                name: name
-            }, node);
         }
     });
 });

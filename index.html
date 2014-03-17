@@ -43,12 +43,14 @@
                 <div class="HH-ResumeSection-Control control control_viewing">
                     <label class="control__label">Фамилия</label>
                     <span class="control__value"><%= resume.last_name %></span>
-                    
+
                     <div class="control__input">
                         <input class="HH-ResumeSection-ControlTextbox"
                                type="text"
                                value="<%= resume.last_name %>"
                                name="last_name"
+                               maxlength="<%= conditions.last_name.max_length %>"
+                               pattern="<%= conditions.last_name.regexp %>"
                                data-hh-name="last_name"/>
                     </div>
                 </div>
@@ -56,12 +58,14 @@
                 <div class="HH-ResumeSection-Control control control_viewing">
                     <label class="control__label">Имя</label>
                     <span class="control__value"><%= resume.first_name %></span>
-                    
+
                     <div class="control__input">
                         <input class="HH-ResumeSection-ControlTextbox"
                                type="text"
                                value="<%= resume.first_name %>"
                                name="first_name"
+                               maxlength="<%= conditions.first_name.max_length %>"
+                               pattern="<%= conditions.first_name.regexp %>"
                                data-hh-name="first_name"/>
                     </div>
                 </div>
@@ -69,12 +73,14 @@
                 <div class="HH-ResumeSection-Control control control_viewing">
                     <label class="control__label">Отчество</label>
                     <span class="control__value"><%= resume.middle_name %></span>
-                    
+
                     <div class="control__input">
                         <input class="HH-ResumeSection-ControlTextbox"
                                type="text"
                                value="<%= resume.middle_name %>"
                                name="middle_name"
+                               maxlength="<%= conditions.middle_name.max_length %>"
+                               pattern="<%= conditions.middle_name.regexp %>"
                                data-hh-name="middle_name"/>
                     </div>
                 </div>
@@ -116,6 +122,12 @@
                 </div>
 
                 <div class="HH-ResumeSection-Control control control_viewing">
+                    <div class="HH-ResumeSection-Component"
+                         data-hh-component="metro"
+                         data-hh-depends='[{"component": "area", "event": "selectArea", "callback": "_onSelectArea"}]'></div>
+                </div>
+
+                <div class="HH-ResumeSection-Control control control_viewing">
                     <label class="control__label">Гражданство</label>
                     <span class="control__value">
                         <%= _.map(resume.citizenship, function(element) { return element.name; }).join(', ') %>
@@ -135,14 +147,12 @@
 
                 <div class="HH-ResumeSection-Control control control_viewing control_submit">
                     <label class="control__label"></label>
-                    
+
                     <div class="control__input">
                         <button type="button" class="HH-ResumeSection-Submit">Сохранить</button>
                     </div>
                 </div>
             </div>
-
-            <div></div>
 
             <div class="HH-Resume-ResumeSection">
                 <div class="section__title">
@@ -167,6 +177,7 @@
                                value="<%= resume.title %>"
                                name="title"
                                data-hh-name="title"
+                               maxlength="<%= conditions.title.max_length %>"
                                placeholder="Например, «Менеджер по продажам»"/>
                     </div>
                 </div>
@@ -197,7 +208,8 @@
                                type="text"
                                value="<%= resume.salary.amount %>"
                                name="amount"
-                               data-hh-name="salary.amount"/>
+                               data-hh-name="salary.amount"
+                               pattern="^[0-9]+$"/>
 
                         <ul class="checkbox-list">
                         <% _.each(dictionary.currency, function(currency) { %>
@@ -267,23 +279,13 @@
                     <label class="control__label">Переезд</label>
                     <span class="control__value"><%= resume.relocation.type.name %></span>
 
-                    <div class="control__input">
-                        <ul class="checkbox-list">
-                        <% _.each(dictionary.relocation_type, function(relocationType) { %>
-                            <li class="checkbox-list__item">
-                                <label>
-                                    <input class="HH-ResumeSection-ControlRadio"
-                                           type="radio"
-                                           value="<%= relocationType.id %>"
-                                           name="relocation"
-                                           data-hh-name="relocation.type.id"
-                                           <%= relocationType.id === resume.relocation.type.id ? 'checked' : '' %>/>
-                                    <%= relocationType.name %>
-                                </label>
-                            </li>
-                        <% }); %>
-                        </ul>
-                    </div>
+                    <div class="HH-ResumeSection-Component" data-hh-component="relocation"></div>
+                </div>
+
+                <div class="HH-ResumeSection-Control control control_viewing">
+                    <div class="HH-ResumeSection-Component"
+                         data-hh-component="relocation-area"
+                         data-hh-depends='[{"component": "relocation", "event": "selectRelocation", "callback": "_onSelectRelocation"}]'></div>
                 </div>
 
                 <div class="HH-ResumeSection-Control control control_viewing">
@@ -347,7 +349,7 @@
         <% _.each(specialization.specializations, function(specialization) { %>
             <li class="checkbox-list__item">
                 <label>
-                    <input class="HH-ResumeSection-ControlSpecialization"
+                    <input class="HH-ResumeBuilder-Checkbox HH-ResumeSection-ControlSpecialization"
                            type="checkbox"
                            value="<%= specialization.id %>"
                            name="specialization"
@@ -389,7 +391,8 @@
 
             <input class="HH-ResumeBuilder-Component-BirthDate-Year"
                    value="<%= date.year %>"
-                   name="birth_date-year"/>
+                   name="birth_date-year"
+                   pattern="^[0-9]{4}$"/>
         </div>
     </script>
 
@@ -463,7 +466,7 @@
         <% if (suggest.length > 0) { %>
         <ul class="HH-Suggest-Results suggest-list">
             <% _.each(suggest, function(suggest) { %>
-            <li class="suggest-list__item"><%= suggest %></li>
+            <li class="HH-ResumeBuilder-SuggestItem suggest-list__item"><%= suggest %></li>
             <% }); %>
         </ul>
         <% } %>
@@ -473,12 +476,18 @@
         <% if (area != null) { %>
         <ul class="area-list">
             <% _.each(area.areas, function(a) { %>
-            <li class="area-list__item">
+            <li class="area-list__item HH-Component-AreaModal-Item">
                 <% if (a.open) { %>
-                <span class="area-list__item-text area-list__item-text_active"><%= a.name %></span>
+                <label class="area-list__item-text area-list__item-text_active">
+                    <input type="radio" checked/>
+                    <span class="HH-AreaModal-Text"><%= a.name %></span>
+                </label>
                 <%= fntemplate({area: a, fntemplate: fntemplate}) %>
                 <% } else { %>
-                <span class="area-list__item-text"><%= a.name %></span>
+                <label class="area-list__item-text">
+                    <input type="radio"/>
+                    <span class="HH-AreaModal-Text"><%= a.name %></span>
+                </label>
                 <% } %>
             </li>
             <% }); %>
@@ -491,12 +500,65 @@
             <% _.each(area, function(area) { %>
             <li class="checkbox-list__item">
                 <label>
-                    <input type="checkbox" <%= selectedIds.indexOf(area.id) >=0 ? 'checked' : '' %>/>
+                    <input class="HH-ResumeBuilder-Checkbox"
+                           type="checkbox"
+                           <%= selectedIds.indexOf(area.id) >=0 ? 'checked' : '' %>/>
                     <%= area.name  %>
                 </label>
             </li>
             <% }); %>
         </ul>
+    </script>
+
+    <script type="text/template" id="HH-ResumeBuilder-Component-Metro">
+        <% if (hasMetro) { %>
+        <label class="control__label">Ближайшее метро</label>
+        <span class="control__value"><%= metro %></span>
+
+        <div class="control__input">
+            <input class="HH-ResumeBuilder-Component-Metro-Input"
+                   value="<%= metro %>"
+                   name="metro"/>
+
+            <div class="HH-ResumeBuilder-Component-Suggest"></div>
+        </div>
+        <% } %>
+    </script>
+
+    <script type="text/template" id="HH-ResumeBuilder-Component-Relocation">
+        <div class="control__input">
+            <ul class="checkbox-list">
+                <% _.each(relocation_type, function(relocationType) { %>
+                <li class="checkbox-list__item">
+                    <label>
+                        <input type="radio"
+                               value="<%= relocationType.id %>"
+                               name="relocation"
+                        <%= relocationType.id === relocation.type.id ? 'checked' : '' %>/>
+                        <%= relocationType.name %>
+                    </label>
+                </li>
+                <% }); %>
+            </ul>
+        </div>
+    </script>
+
+    <script type="text/template" id="HH-ResumeBuilder-Component-RelocationArea">
+        <% if (needArea) { %>
+        <label class="control__label">Города переезда</label>
+        <span class="control__value"><%= areas %></span>
+
+        <div class="control__input ">
+            <input  class="HH-ResumeBuilder-Component-RelocationArea-Input"
+                    type="text"
+                    value="<%= areas %>"
+                    name="relocation_areas"/>
+
+            <span>Укажите города переезда через запятую</span>
+
+            <div class="HH-ResumeBuilder-Component-Suggest"></div>
+        </div>
+        <% } %>
     </script>
 </body>
 </html>

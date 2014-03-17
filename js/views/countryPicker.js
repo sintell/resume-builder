@@ -1,7 +1,19 @@
-define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
+define([
+    'jquery',
+    'underscore',
+    'backbone',
+    'views/baseArea',
+    'views/checkboxGroup'
+], function(
+    $,
+    _,
+    Backbone,
+    BaseArea,
+    CheckboxGroup
+) {
     'use strict';
 
-    return Backbone.View.extend({
+    return BaseArea.extend({
         tagName: 'div',
 
         className: 'HH-ResumeSection-Component-CountryPicker',
@@ -11,12 +23,16 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         template: _.template($('#HH-ResumeBuilder-Component-CountryPicker').html()),
 
         events: {
-            'change input[type="checkbox"]': '_select'
+            'change .HH-ResumeBuilder-Checkbox': '_select'
         },
 
-        initialize: function(area) {
+        initialize: function(area, maxCount) {
             this.area = area;
             this.isShow = false;
+            this.maxCount = maxCount;
+            this.checkboxGroup = new CheckboxGroup({
+                maxCount: maxCount
+            });
         },
 
         setSelectedAreas: function(selectedAreas) {
@@ -36,6 +52,8 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             };
 
             this.$el.html(this.template(data));
+
+            this.checkboxGroup.validateCount(this.$el);
 
             return this;
         },
@@ -64,7 +82,9 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             var selected,
                 that = this;
 
-            selected = _.map(this.$el.find(':checked').parent().toArray(), function(item) {
+            this.checkboxGroup.validateCount(this.$el);
+
+            selected = _.map(this.$el.find('.HH-ResumeBuilder-Checkbox:checked').parent().toArray(), function(item) {
                 var name = $(item).text().trim();
 
                 return _.find(that.area, function(item) {
@@ -85,44 +105,6 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
             if (node.parent_id) {
                 this._setNodeAndParentsOpen(this._findNodeById(node.parent_id, this.area));
             }
-        },
-
-        _findNodeById: function(id, node) {
-            if (!node) {
-                return null;
-            }
-
-            if (node.id === id) {
-                return node;
-            }
-
-            for (var i in node.areas) {
-                var found = this._findNodeById(id, node.areas[i]);
-                if (found) {
-                    return found;
-                }
-            }
-
-            return null;
-        },
-
-        _findNodeByName: function(name, node) {
-            if (!node) {
-                return null;
-            }
-
-            if (node.name && node.name.toLowerCase() === name.toLowerCase()) {
-                return node;
-            }
-
-            for (var i in node.areas) {
-                var found = this._findNodeByName(name, node.areas[i]);
-                if (found) {
-                    return found;
-                }
-            }
-
-            return null;
         }
     });
 });

@@ -198,45 +198,41 @@ define(['jquery', 'underscore', 'backbone', 'models/metro', 'views/suggest'], fu
         },
 
         _getDataForSuggest: function() {
-            var data = [];
+            var stationsList = [];
+
+            var convert = function(station) {
+                station.name = station.name + ' (' + station.lineName + ')';
+                station.converted = true;
+            };
 
             this.model.attributes.lines.forEach(function(line) {
                 line.stations.forEach(function(station) {
-                    var result;
+                    var stationItem = {
+                        'name': station.name,
+                        'lineName': line.name,
+                        'converted': false
+                    };
 
-                    data.forEach(function(item) {
-                        if (result) {
-                            return;
-                        }
+                    stationsList.some(function(previousStation) {
+                        if (previousStation.name === stationItem.name) {
+                            convert(stationItem);
 
-                        if (item.name === station.name) {
-                            result = item;
+                            if (!previousStation.converted) {
+                                convert(previousStation);
+                            }
+
+                            return true;
                         }
                     });
 
-                    if (result) {
-                        data.push({
-                            name: station.name,
-                            fullName: station.name + ' (' + line.name +  ')',
-                            useFullName: true
-                        });
-
-                        result.useFullName = true;
-                    } else {
-                        data.push({
-                            name: station.name,
-                            fullName: station.name + ' (' + line.name +  ')',
-                            useFullName: false
-                        });
-                    }
+                    stationsList.push(stationItem);
                 });
             });
 
-            return _.map(data, function(item) {
-                return item.useFullName ? item.fullName : item.name;
+            return stationsList.map(function(station) {
+                return station.name;
             });
         },
-
         _preventKeydown: function(event) {
             this.suggest.preventKeydown(event);
         }

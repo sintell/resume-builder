@@ -1,8 +1,14 @@
-define(['jquery', 'underscore', 'backbone', 'views/checkboxGroup'], function($, _, Backbone, CheckboxGroup) {
+define([
+    'jquery',
+    'underscore',
+    'backbone',
+    'views/checkboxGroup',
+    'text!templates/specialization.html'
+], function($, _, Backbone, CheckboxGroup, SpecializationTemplate) {
     'use strict';
 
     return Backbone.View.extend({
-        template: _.template($('#HH-ResumeBuilder-SpecializationTemplate').html()),
+        template: _.template(SpecializationTemplate),
 
         events: {
             'change .HH-ResumeBuilder-Checkbox': '_validateCount'

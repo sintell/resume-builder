@@ -1,0 +1,15 @@
+<ul class="checkbox-list">
+<% _.each(specialization.specializations, function(specialization) { %>
+    <li class="checkbox-list__item">
+        <label>
+            <input class="HH-ResumeBuilder-Checkbox HH-ResumeSection-ControlSpecialization"
+                   type="checkbox"
+                   value="<%= specialization.id %>"
+                   name="specialization"
+                   data-hh-name="id"
+                   <%= (specializationIds.indexOf(specialization.id) !== -1) ? 'checked' : '' %>/>
+            <%= specialization.name %>
+        </label>
+    </li>
+<% }); %>
+</ul>

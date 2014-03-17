@@ -1,0 +1,15 @@
+<div class="control__input">
+    <ul class="checkbox-list">
+        <% _.each(relocation_type, function(relocationType) { %>
+        <li class="checkbox-list__item">
+            <label>
+                <input type="radio"
+                       value="<%= relocationType.id %>"
+                       name="relocation"
+                <%= relocationType.id === relocation.type.id ? 'checked' : '' %>/>
+                <%= relocationType.name %>
+            </label>
+        </li>
+        <% }); %>
+    </ul>
+</div>

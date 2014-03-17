@@ -88,41 +88,5 @@
             <% }); %>
         </ul>
     </script>
-
-    <script type="text/template" id="HH-ResumeBuilder-Component-Relocation">
-        <div class="control__input">
-            <ul class="checkbox-list">
-                <% _.each(relocation_type, function(relocationType) { %>
-                <li class="checkbox-list__item">
-                    <label>
-                        <input type="radio"
-                               value="<%= relocationType.id %>"
-                               name="relocation"
-                        <%= relocationType.id === relocation.type.id ? 'checked' : '' %>/>
-                        <%= relocationType.name %>
-                    </label>
-                </li>
-                <% }); %>
-            </ul>
-        </div>
-    </script>
-
-    <script type="text/template" id="HH-ResumeBuilder-Component-RelocationArea">
-        <% if (needArea) { %>
-        <label class="control__label">Города переезда</label>
-        <span class="control__value"><%= areas %></span>
-
-        <div class="control__input ">
-            <input  class="HH-ResumeBuilder-Component-RelocationArea-Input"
-                    type="text"
-                    value="<%= areas %>"
-                    name="relocation_areas"/>
-
-            <span>Укажите города переезда через запятую</span>
-
-            <div class="HH-ResumeBuilder-Component-Suggest"></div>
-        </div>
-        <% } %>
-    </script>
 </body>
 </html>

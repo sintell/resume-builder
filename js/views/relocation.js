@@ -1,4 +1,10 @@
-define(['jquery', 'underscore', 'backbone', 'views/suggest'], function($, _, Backbone, Suggest, AreaModal) {
+define([
+    'jquery',
+    'underscore',
+    'backbone',
+    'views/suggest',
+    'text!templates/relocation.html'
+], function($, _, Backbone, Suggest, RelocationTemplate) {
     'use strict';
 
     return Backbone.View.extend({
@@ -8,7 +14,7 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest'], function($, _, Bac
 
         componentName: 'relocation',
 
-        template: _.template($('#HH-ResumeBuilder-Component-Relocation').html()),
+        template: _.template(RelocationTemplate),
 
         events: {
             'click input[type="radio"]': '_onRadioClick'

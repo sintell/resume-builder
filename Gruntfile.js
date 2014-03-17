@@ -28,18 +28,25 @@ module.exports = function(grunt) {
                 files: ['server/*.js'],
                 tasks: ['oauth-server'],
             }
+        },
+
+        express: {
+            default_option: {
+                options: {
+                    port: 8081,
+                    server: 'server/app.js'
+                }
+            }
         }
     });
 
 
+    grunt.loadNpmTasks('grunt-express');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-connect');
-    
 
-    grunt.registerTask('oauth-server', 'Start the oauth server', function() {
-        grunt.log.writeln('Started oauth server on port: ' + config.oauthServerPort);
-        require('./server/app.js').listen(config.oauthServerPort);
-    });
+
+    grunt.registerTask('oauth-server', ['exress', 'express-keepalive']);
     
-    grunt.registerTask('default', ['oauth-server','connect', 'watch']);
+    grunt.registerTask('default', ['express','connect', 'watch']);
 };

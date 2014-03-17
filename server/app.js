@@ -95,3 +95,6 @@ app.post('/oauth/logout', function(req, res) {
     res.clearCookie('refresh_token');
     res.redirect(app.set('responseRedirectUri'));
 });
+
+
+module.exports = app;

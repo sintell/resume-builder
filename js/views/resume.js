@@ -9,6 +9,7 @@ define([
     'views/metro',
     'views/relocation',
     'views/relocationArea',
+    'text!templates/resume.html'
 ], function(
     $,
     _,
@@ -19,12 +20,13 @@ define([
     ResumeCountryPicker,
     MetroView,
     RelocationView,
-    RelocationAreaView
+    RelocationAreaView,
+    ResumeTemplate
 ) {
     'use strict';
 
     return Backbone.View.extend({
-        template: _.template($('#HH-ResumeBuilder-ResumeTemplate').html()),
+        template: _.template(ResumeTemplate),
 
         events: {
             'click .HH-ResumeSection-Switch': '_edit',

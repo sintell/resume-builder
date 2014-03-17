@@ -46,7 +46,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-connect');
 
 
-    grunt.registerTask('oauth-server', ['exress', 'express-keepalive']);
     
     grunt.registerTask('default', ['express','connect', 'watch']);
+    grunt.registerTask('oauth', ['express','express-keepalive']);
 };

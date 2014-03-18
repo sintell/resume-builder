@@ -57,7 +57,8 @@ define(['underscore', 'backbone'], function(_, Backbone) {
         htmlAttributes:{},
         
         parse: function(data) {
-            return flatten(data);
+            // return flatten(data);
+            return data;
         },
 
         initialize: function(options) {
@@ -73,8 +74,18 @@ define(['underscore', 'backbone'], function(_, Backbone) {
             }
         },
 
-        getRulesFor: function(attribute) {
-            return this.attributes[attribute];
+        getRulesFor: function(attributePath) {
+            console.log(this.get('salary.fields.amount'));
+            var path = attributePath.split('.');
+            var o = {};
+            for(var i = 0, size = path.length; i < size; i++) {
+                if(typeof(o.fields) !== 'undefined') {
+                    o = o.fields[path[i]] || this.get(path[i]);
+                } else {
+                    o = o[path[i]] || this.get(path[i]);
+                }
+            }
+            return o;
         },
 
         getRules: function() {

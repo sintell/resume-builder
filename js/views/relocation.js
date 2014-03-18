@@ -8,7 +8,7 @@ define([
     'use strict';
 
     return Backbone.View.extend({
-        tagName: 'span',
+        tagName: 'div',
 
         className: 'HH-ResumeSection-Component-Relocation',
 

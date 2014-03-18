@@ -2,7 +2,7 @@ define(['jquery', 'underscore', 'backbone', 'views/countryPicker'], function($, 
     'use strict';
 
     return Backbone.View.extend({
-        tagName: 'span',
+        tagName: 'div',
 
         className: function() {
             return 'HH-ResumeSection-Component-' + this.templateName;

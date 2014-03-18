@@ -10,9 +10,11 @@
 <body>
     <div class="header">
         <div class="user-name">Имя пользователя</div>
-        <div class="button button_login"><a class="oauth_port" href="http://localhost:<%OA_PORT%>/oauth">Войти</a></div>
+        <div class="button button_login">
+            <a class="oauth_link_login" href="/oauth">Войти</a>
+        </div>
         <div class="logout">
-            <form class="oauth_port" action="http://localhost:<%OA_PORT%>/oauth/logout" method="POST">
+            <form class="oauth_link_logout" action="/oauth/logout" method="POST">
                 <input type="submit" class="button button_logout" value="Выйти" />
             </form>
         </div>
@@ -21,14 +23,28 @@
     <div class="HH-ResumeBuilder-Container container"></div>
 
     <script src="config/config.js" type="text/javascript" charset="utf-8" ></script>
+    <script src="js/lib/underscore.js" type="text/javascript" charset="utf-8" ></script>
     <script type="text/javascript" charset="utf-8">
-        var links = document.querySelectorAll('.oauth_port');
-        Array.prototype.forEach.call(links, function(link) {
+        var linksLogin = document.querySelectorAll('.oauth_link_login');
+        var linksLogout = document.querySelectorAll('.oauth_link_logout');
+        var loginUrl = _.template('http://<%=serverHost%>:<%=oauthServerPort%>/oauth');
+        var logoutUrl = _.template('http://<%=serverHost%>:<%=oauthServerPort%>/oauth/logout');
+
+        Array.prototype.forEach.call(linksLogin, function(link) {
             if (typeof link.href !== 'undefined') {
-                link.href = link.href.replace('<%OA_PORT%>', APP_CONFIG.oauthServerPort);
+                link.href = loginUrl(APP_CONFIG);
             }
             if (typeof link.action !== 'undefined') {
-                link.action = link.action.replace('<%OA_PORT%>', APP_CONFIG.oauthServerPort);
+                link.action = loginUrl(APP_CONFIG);
+            }
+        });
+
+        Array.prototype.forEach.call(linksLogout, function(link) {
+            if (typeof link.href !== 'undefined') {
+                link.href = logoutUrl(APP_CONFIG);
+            }
+            if (typeof link.action !== 'undefined') {
+                link.action = logoutUrl(APP_CONFIG);
             }
         }); 
     </script>

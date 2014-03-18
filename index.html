@@ -27,8 +27,8 @@
     <script type="text/javascript" charset="utf-8">
         var linksLogin = document.querySelectorAll('.oauth_link_login');
         var linksLogout = document.querySelectorAll('.oauth_link_logout');
-        var loginUrl = _.template('http://<%=serverHost%>:<%=oauthServerPort%>/oauth');
-        var logoutUrl = _.template('http://<%=serverHost%>:<%=oauthServerPort%>/oauth/logout');
+        var loginUrl = _.template('<%=serverHost%>:<%=oauthServerPort%>/oauth');
+        var logoutUrl = _.template('<%=serverHost%>:<%=oauthServerPort%>/oauth/logout');
 
         Array.prototype.forEach.call(linksLogin, function(link) {
             if (typeof link.href !== 'undefined') {

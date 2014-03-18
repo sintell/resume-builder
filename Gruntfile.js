@@ -2,6 +2,7 @@ var config = require('./config/config.js').APP_CONFIG;
 
 module.exports = function(grunt) {
     'use strict';
+    
 
     // Конфигурация задач
     grunt.initConfig({
@@ -29,7 +30,7 @@ module.exports = function(grunt) {
         express: {
             default_option: {
                 options: {
-                    port: 8081,
+                    port: config.oauthServerPort,
                     server: 'server/app.js',
                     serverreload: true
                 }

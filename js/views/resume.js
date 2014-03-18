@@ -9,7 +9,9 @@ define([
     'views/metro',
     'views/relocation',
     'views/relocationArea',
-    'text!templates/resume.html'
+    'text!templates/resume.html',
+    'text!templates/citizenship.html',
+    'text!templates/workTicket.html'
 ], function(
     $,
     _,
@@ -21,7 +23,9 @@ define([
     MetroView,
     RelocationView,
     RelocationAreaView,
-    ResumeTemplate
+    ResumeTemplate,
+    CitizenshipTemplate,
+    WorkTicketTemplate
 ) {
     'use strict';
 
@@ -34,23 +38,28 @@ define([
         },
 
         initialize: function(attributes, options) {
+            var citizenshipOptions,
+                workTicketOptions;
+
             this.dictionary = options.dictionary;
             this.specializations = options.specializations;
 
             this.listenTo(this.model, 'sync', this.render);
 
-            _.extend(options, {resume: this.model});
+            $.extend(options, {resume: this.model});
+            citizenshipOptions = $.extend({}, options, {template: CitizenshipTemplate});
+            workTicketOptions = $.extend({}, options, {template: WorkTicketTemplate});
 
             this.components = [];
             this.components.push(new BirthDateView());
             this.components.push(new AreaView(options));
-            this.components.push(new ResumeCountryPicker(options, {
+            this.components.push(new ResumeCountryPicker(citizenshipOptions, {
                 name: 'citizenship',
                 templateName: 'Citizenship',
                 componentName: 'citizenship'
             }));
 
-            this.components.push(new ResumeCountryPicker(options, {
+            this.components.push(new ResumeCountryPicker(workTicketOptions, {
                 name: 'work_ticket',
                 templateName: 'WorkTicket',
                 componentName: 'work-ticket'

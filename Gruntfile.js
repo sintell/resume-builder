@@ -1,4 +1,4 @@
-var config = require('./config/config.js').config;
+var config = require('./config/config.js').APP_CONFIG;
 
 module.exports = function(grunt) {
     'use strict';

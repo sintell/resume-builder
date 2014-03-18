@@ -1,4 +1,4 @@
-var config = require('../config/config.js').config,
+var config = require('../config/config.js').APP_CONFIG,
     express = require('express'),
     https = require('https'),
     app = module.exports = express();
@@ -96,21 +96,6 @@ app.post('/oauth/logout', function(req, res) {
     res.clearCookie('access_token');
     res.clearCookie('refresh_token');
     res.redirect(app.set('responseRedirectUri'));
-});
-
-
-app.get('/test', function(req, res) {
-    'use strict';
-
-    res.cookie('test', true, {
-        maxAge: 900000,
-        httpOnly: false
-    });
-
-    res.cookie('testHttp', true, {
-        maxAge: 900000,
-        httpOnly: true
-    });
 });
 
 module.exports = app;

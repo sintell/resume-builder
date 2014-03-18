@@ -1,0 +1,12 @@
+<ul class="checkbox-list">
+    <% _.each(area, function(area) { %>
+    <li class="checkbox-list__item">
+        <label>
+            <input class="HH-ResumeBuilder-Checkbox"
+                   type="checkbox"
+                   <%= selectedIds.indexOf(area.id) >=0 ? 'checked' : '' %>/>
+            <%= area.name  %>
+        </label>
+    </li>
+    <% }); %>
+</ul>

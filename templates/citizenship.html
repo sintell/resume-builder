@@ -1,0 +1,24 @@
+<div class="control__input">
+    <ul class="checkbox-list">
+        <li class="checkbox-list__item">
+            <label>
+                <input type="radio"
+                       <%= selectedAreas.length === 1 && selectedAreas[0].id === RUSSIA ? 'checked' : ''  %>
+                       name="HH-ResumeBuilder-Component-Citizenship"
+                       class="HH-ResumeBuilder-Component-Citizenship-Russia" />
+                Россия
+            </label>
+        </li>
+        <li class="checkbox-list__item">
+            <label>
+                <input type="radio"
+                       <%= selectedAreas.length !== 1 || selectedAreas[0].id !== RUSSIA ? 'checked' : ''  %>
+                       name="HH-ResumeBuilder-Component-Citizenship"
+                       class="HH-ResumeBuilder-Component-Citizenship-Other" />
+                Другие страны
+            </label>
+        </li>
+    </ul>
+
+    <div class="HH-ResumeBuilder-Component-CountryPicker"></div>
+</div>

@@ -1,13 +1,19 @@
-define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
+define([
+    'jquery',
+    'underscore',
+    'backbone',
+    'text!templates/birthDate.html'
+], function($, _, Backbone, BirthDateTemplate) {
     'use strict';
 
     return Backbone.View.extend({
-        tagName: 'span',
+        tagName: 'div',
+
         className: 'HH-ResumeSection-Component-BirthDate',
 
         componentName: 'birth-date',
 
-        template: _.template($('#HH-ResumeBuilder-Component-BirthDate').html()),
+        template: _.template(BirthDateTemplate),
 
         events: {
             'change .HH-ResumeBuilder-Component-BirthDate-Month': '_change',

@@ -1,4 +1,10 @@
-define(['jquery', 'underscore', 'backbone', 'views/baseArea'], function($, _, Backbone, BaseArea) {
+define([
+    'jquery',
+    'underscore',
+    'backbone',
+    'views/baseArea',
+    'text!templates/areaModal.html'
+], function($, _, Backbone, BaseArea, AreaModalTemplate) {
     'use strict';
 
     // Модуль, отвечающий за отображение стран/городов в виде вложенного списка.
@@ -10,7 +16,7 @@ define(['jquery', 'underscore', 'backbone', 'views/baseArea'], function($, _, Ba
 
         componentName: 'area-modal',
 
-        template: _.template($('#HH-ResumeBuilder-Component-AreaModal').html()),
+        template: _.template(AreaModalTemplate),
 
         events: {
             'click .HH-Component-AreaModal-Item': '_selectOrOpen'

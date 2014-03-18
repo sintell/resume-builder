@@ -3,13 +3,15 @@ define([
     'underscore',
     'backbone',
     'views/baseArea',
-    'views/suggest'
+    'views/suggest',
+    'text!templates/relocationArea.html'
 ], function(
     $,
     _,
     Backbone,
     BaseArea,
-    Suggest
+    Suggest,
+    RelocationAreaTemplate
 ) {
     'use strict';
 
@@ -21,7 +23,7 @@ define([
 
         componentName: 'relocation-area',
 
-        template: _.template($('#HH-ResumeBuilder-Component-RelocationArea').html()),
+        template: _.template(RelocationAreaTemplate),
 
         events: {
             'keyup .HH-ResumeBuilder-Component-RelocationArea-Input': '_updateSuggest',

@@ -2,7 +2,7 @@ define(['jquery', 'underscore', 'backbone', 'views/countryPicker'], function($, 
     'use strict';
 
     return Backbone.View.extend({
-        tagName: 'span',
+        tagName: 'div',
 
         className: function() {
             return 'HH-ResumeSection-Component-' + this.templateName;
@@ -30,7 +30,7 @@ define(['jquery', 'underscore', 'backbone', 'views/countryPicker'], function($, 
             this.componentName = names.componentName;
             this.templateName = names.templateName;
 
-            this.template = _.template($('#HH-ResumeBuilder-Component-' + this.templateName).html());
+            this.template = _.template(options.template);
 
             this._setArea({
                 areas: options.area.attributes

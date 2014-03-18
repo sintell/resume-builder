@@ -1,0 +1,12 @@
+<% if (hasMetro) { %>
+<label class="control__label">Ближайшее метро</label>
+<span class="control__value"><%= metro %></span>
+
+<div class="control__input">
+    <input class="HH-ResumeBuilder-Component-Metro-Input"
+           value="<%= metro %>"
+           name="metro"/>
+
+    <div class="HH-ResumeBuilder-Component-Suggest"></div>
+</div>
+<% } %>

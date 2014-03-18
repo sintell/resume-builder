@@ -8,7 +8,8 @@ define([
     'collections/resumeList',
     'collections/specializationList',
     'views/resume',
-], function($, _, Backbone, Resume, Dictionary, Area, ResumeList, SpecializationList, ResumeView) {
+    'text!templates/app.html'
+], function($, _, Backbone, Resume, Dictionary, Area, ResumeList, SpecializationList, ResumeView, AppTemplate) {
     'use strict';
 
     $.ajaxSetup({
@@ -23,7 +24,7 @@ define([
     return Backbone.View.extend({
         el: '.HH-ResumeBuilder-Container',
 
-        template: _.template($('#HH-ResumeBuilder-AppTemplate').html()),
+        template: _.template(AppTemplate),
 
         initialize: function() {
             var that = this;

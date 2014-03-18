@@ -7,11 +7,7 @@ app.configure(function() {
     'use strict';
     app.set('client_id', config.clientId);
     app.set('client_secret', config.clientSecret);
-    app.set('responseRedirectUri', 
-            '' + config.responseRedirectUri +
-            (config.staticServerPort ? 
-                ':' + config.staticServerPort : 
-                ''));
+    app.set('responseRedirectUri', config.staticServerUrl);
     app.use(express.cookieParser('secret'));
     app.use(express.bodyParser());
     app.use(express.methodOverride());

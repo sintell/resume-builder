@@ -98,7 +98,7 @@ define([
 
         _updateSuggest: function(event) {
             this._updateValues();
-            this.suggest.updateSuggest(this.name, this.width);
+            this.suggest.update(this.name, this.width);
             this.suggest.processKey(event);
         },
 
@@ -111,6 +111,15 @@ define([
 
         _onChange: function() {
             this._updateValues();
+
+            // Суть в том, что при клике в саджесте, у нашего поля ввода с не до конца введённым значением
+            // срабатывает событие change. Из-за того, что поле не заполнено до конца, не находится id-шник города,
+            // в итоге, триггерится 'selectArea' с нулевым id, а потом, после срабатывания _onChange по
+            // выбору элемента из саджсеста, триггерится корректный id.
+            // В итоге, из-за этого страдал блок метро, который лишний раз скрывал себя.
+            if (this.suggest.isShow) {
+                return;
+            }
 
             var node = this._findNodeByName(this.name, this.area);
 

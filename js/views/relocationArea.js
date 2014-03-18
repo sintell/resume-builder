@@ -126,7 +126,7 @@ define([
                 return $.trim(item);
             });
 
-            this.suggest.updateSuggest(_.last(areas), this.width);
+            this.suggest.update(_.last(areas), this.width);
             this.suggest.processKey(event);
         },
 

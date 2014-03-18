@@ -5,7 +5,6 @@ var config = require('../config/config.js').APP_CONFIG,
 
 app.configure(function() {
     'use strict';
-    console.log(config);
     app.set('client_id', config.clientId);
     app.set('client_secret', config.clientSecret);
     app.set('responseRedirectUri', config.staticServerUrl);

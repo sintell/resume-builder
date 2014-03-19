@@ -1,0 +1,25 @@
+.area-list {
+    padding: 0px;
+    list-style: none;
+}
+
+    .area-list__item {
+        margin-left: 25px;        
+    }
+
+    .area-list__item-text {
+        height: 25px;
+        padding: 0px 10px;
+        background: #fff;
+        line-height: 25px;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+        .area-list__item-text_active {
+            background: #ccc;
+        }
+
+        .area-list__item-text:hover {
+            background: #ccc;
+        }

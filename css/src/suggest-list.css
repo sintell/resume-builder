@@ -1,0 +1,27 @@
+.suggest-list {
+    padding: 0px;
+    margin: 0px;
+    display: inline-block;
+    list-style: none;
+    border: 1px solid #ccc;
+    position: absolute;
+    z-index: 1000;
+}
+
+    .suggest-list__item {
+        height: 25px;
+        line-height: 25px;
+        padding: 0px 10px;
+        background: #fff;
+        cursor: pointer;
+        padding: 0px 2px;
+        min-width: inherit;
+    }
+
+        .suggest-list__item:hover {
+            background: #ccc;
+        }
+
+        .suggest-list__item_selected {
+            background: #ccc;
+        }

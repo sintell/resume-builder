@@ -1,0 +1,51 @@
+.control {
+    margin-top: 25px;
+}
+
+    .control:first-child {
+        margin-top: 0px;
+    }
+
+    .control:after {
+        display: block;
+        content: '';
+        clear: both;
+    }
+
+    .control_viewing {
+
+    }
+
+    .control_editing {
+
+    }
+
+    .control_submit {
+        
+    }
+
+    .control_viewing.control_submit {
+        display: none;
+    }
+
+    .control__label {
+        float: left;
+        width: 20%;
+        display: block;
+        min-height: 1px;
+    }
+
+    .control__value,
+    .control__input {
+        float: left;
+        width: 80%;
+        display: block;
+    }
+
+        .control_editing .control__value {
+            display: none;
+        }
+
+        .control_viewing .control__input {
+            display: none;
+        }

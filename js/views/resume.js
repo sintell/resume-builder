@@ -40,13 +40,23 @@ define([
         },
 
         initialize: function(attributes, options) {
-            var citizenshipOptions,
-                workTicketOptions;
+            var that = this;
 
             this.dictionary = options.dictionary;
             this.specializations = options.specializations;
 
             this.listenTo(this.model, 'sync', this.render);
+            this.listenTo(this.model, 'load', function() {
+                that.initializeComponents(options);
+                that.render();
+            });
+
+            this.model.load();
+        },
+
+        initializeComponents: function(options) {
+            var citizenshipOptions,
+                workTicketOptions;
 
             $.extend(options, {resume: this.model});
             citizenshipOptions = $.extend({}, options, {template: CitizenshipTemplate});
@@ -123,6 +133,7 @@ define([
                 }
 
                 component.fill(that.model.attributes);
+                component.delegateEvents();
                 container.html(component.render().el);
                 container.contents().unwrap();
             });

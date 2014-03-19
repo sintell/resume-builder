@@ -36,9 +36,7 @@ define(['jquery', 'underscore', 'backbone', 'views/countryPicker'], function($, 
                 areas: options.area.attributes
             });
 
-            if (options.resume.ready) {
-                this.maxCount = options.resume.conditions.get(this.name).max_count;
-            }
+            this.maxCount = options.resume.conditions.get(this.name).max_count;
 
             this._initializeCountryPicker();
         },

@@ -1,5 +1,6 @@
 (function() {
     var config = {
+        apiUrl: 'http://api.hh.ru',
         serverHost: 'http://0.0.0.0',
         staticServerUrl: 'http://0.0.0.0:8080',
         staticServerPort: 8080,

@@ -1,4 +1,4 @@
-    define([
+define([
     'jquery',
     'underscore',
     'backbone',
@@ -24,7 +24,10 @@
 
         render: function() {
             this.$el.html(this.template({
-                fio: [this.model.get('last_name'), this.model.get('first_name')].join(' '),
+                fio: [
+                    this.model.get('last_name'),
+                    this.model.get('first_name')
+                ].join(' '),
                 serverHost: APP_CONFIG.serverHost,
                 oauthServerPort: APP_CONFIG.oauthServerPort
             }));

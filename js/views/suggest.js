@@ -48,7 +48,7 @@ define([
             };
 
             this.$el.html(this.template(data));
-            this.$el.find('.HH-Suggest-Results').css('min-width', this.width + 'px');
+            this.$el.find('.HH-Suggest-Results').css('width', this.width + 'px');
 
             return this;
         },

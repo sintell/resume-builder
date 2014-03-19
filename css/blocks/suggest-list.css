@@ -9,13 +9,11 @@
 }
 
     .suggest-list__item {
-        height: 25px;
-        line-height: 25px;
+        line-height: 16px;
         padding: 0px 10px;
         background: #fff;
         cursor: pointer;
-        padding: 0px 2px;
-        min-width: inherit;
+        padding: 4px 2px;
     }
 
         .suggest-list__item:hover {

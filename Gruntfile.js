@@ -1,9 +1,8 @@
-var config = require('./config/config.js').APP_CONFIG;
+var config = require('./config/config.js');
 
 module.exports = function(grunt) {
     'use strict';
     
-
     // Конфигурация задач
     grunt.initConfig({
 

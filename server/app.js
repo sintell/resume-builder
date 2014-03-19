@@ -1,4 +1,4 @@
-var config = require('../config/config.js').APP_CONFIG,
+var config = require('../config/config.js'),
     express = require('express'),
     https = require('https'),
     app = module.exports = express();

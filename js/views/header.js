@@ -28,8 +28,8 @@ define([
                     this.model.get('last_name'),
                     this.model.get('first_name')
                 ].join(' '),
-                serverHost: APP_CONFIG.serverHost,
-                oauthServerPort: APP_CONFIG.oauthServerPort
+                serverHost: Config.serverHost,
+                oauthServerPort: Config.oauthServerPort
             }));
         }
     });

@@ -8,45 +8,7 @@
     <script data-main="js/main" src="js/lib/require.js"></script>
 </head>
 <body>
-    <div class="header">
-        <div class="user-name">Имя пользователя</div>
-        <div class="button button_login">
-            <a class="oauth_link_login" href="/oauth">Войти</a>
-        </div>
-        <div class="logout">
-            <form class="oauth_link_logout" action="/oauth/logout" method="POST">
-                <input type="submit" class="button button_logout" value="Выйти" />
-            </form>
-        </div>
-    </div>
-
+    <div class="HH-ResumeBuilder-Header header"></div>
     <div class="HH-ResumeBuilder-Container container"></div>
-
-    <script src="config/config.js" type="text/javascript" charset="utf-8" ></script>
-    <script src="js/lib/underscore.js" type="text/javascript" charset="utf-8" ></script>
-    <script type="text/javascript" charset="utf-8">
-        var linksLogin = document.querySelectorAll('.oauth_link_login');
-        var linksLogout = document.querySelectorAll('.oauth_link_logout');
-        var loginUrl = _.template('<%=serverHost%>:<%=oauthServerPort%>/oauth');
-        var logoutUrl = _.template('<%=serverHost%>:<%=oauthServerPort%>/oauth/logout');
-
-        Array.prototype.forEach.call(linksLogin, function(link) {
-            if (typeof link.href !== 'undefined') {
-                link.href = loginUrl(APP_CONFIG);
-            }
-            if (typeof link.action !== 'undefined') {
-                link.action = loginUrl(APP_CONFIG);
-            }
-        });
-
-        Array.prototype.forEach.call(linksLogout, function(link) {
-            if (typeof link.href !== 'undefined') {
-                link.href = logoutUrl(APP_CONFIG);
-            }
-            if (typeof link.action !== 'undefined') {
-                link.action = logoutUrl(APP_CONFIG);
-            }
-        }); 
-    </script>
 </body>
 </html>

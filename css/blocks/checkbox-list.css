@@ -1,0 +1,10 @@
+.checkbox-list {
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+}
+
+    .checkbox-list__item {
+        line-height: 25px;
+        height: 25px;
+    }

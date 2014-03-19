@@ -1,0 +1,21 @@
+.section {
+
+}
+
+    .section__title {
+        margin-top: 25px;
+    }
+
+    .section__title-text {
+        height: 25px;
+        line-height: 25px;
+        display: inline-block;
+    }
+
+    .section__title-button {
+
+    }
+
+        .section__title-button_hidden {
+            display: none;
+        }

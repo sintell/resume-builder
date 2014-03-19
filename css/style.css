@@ -1,8 +1,8 @@
-@import "./src/container.css";
-@import "./src/resume.css";
-@import "./src/section.css";
-@import "./src/control.css";
-@import "./src/suggest-list.css";
-@import "./src/areas-wrapper.css";
-@import "./src/area-list.css";
-@import "./src/checkbox-list.css";
+@import "./blocks/container.css";
+@import "./blocks/resume.css";
+@import "./blocks/section.css";
+@import "./blocks/control.css";
+@import "./blocks/suggest-list.css";
+@import "./blocks/areas-wrapper.css";
+@import "./blocks/area-list.css";
+@import "./blocks/checkbox-list.css";

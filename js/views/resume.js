@@ -44,6 +44,9 @@ define([
 
             this.dictionary = options.dictionary;
             this.specializations = options.specializations;
+            new HeaderView({
+                model: this.model
+            });
 
             this.listenTo(this.model, 'sync', this.render);
             this.listenTo(this.model, 'load', function() {
@@ -63,9 +66,6 @@ define([
             workTicketOptions = $.extend({}, options, {template: WorkTicketTemplate});
 
             this.components = [];
-            new HeaderView({
-                model: this.model
-            });
             this.components.push(new BirthDateView());
             this.components.push(new AreaView(options));
             this.components.push(new ResumeCountryPicker(citizenshipOptions, {

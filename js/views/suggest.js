@@ -55,9 +55,10 @@ define([
 
         hide: function() {
             this.$el.empty();
+            this.isShow = false;
         },
 
-        updateSuggest: function(text, width) {
+        update: function(text, width) {
             var prevLength;
 
             this.width = width;
@@ -65,12 +66,15 @@ define([
             if (text.length >= this.minInput) {
                 prevLength = this.suggest.length;
                 this.suggest = this._getSuggest(text);
+
                 if (prevLength !== this.suggest.length) {
                     this.selected = null;
                 }
             } else {
                 this.suggest = [];
             }
+
+            this.isShow = this.suggest.length > 0;
 
             this.render();
         },

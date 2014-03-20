@@ -86,6 +86,7 @@ define([
 
         _onSelectArea: function(id) {
             var that = this;
+
             if (!id) {
                 that._noMetro();
                 that.render();
@@ -138,7 +139,7 @@ define([
 
         _updateSuggest: function(event) {
             this._updateValues();
-            this.suggest.updateSuggest(this.metroName, this.width);
+            this.suggest.update(this.metroName, this.width);
             this.suggest.processKey(event);
         },
 

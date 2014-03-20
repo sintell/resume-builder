@@ -1,11 +1,9 @@
 define([
-    'jquery',
     'underscore',
     'backbone',
     'config/config.js',
     'text!templates/header.html'
 ], function(
-    $,
     _,
     Backbone,
     Config,

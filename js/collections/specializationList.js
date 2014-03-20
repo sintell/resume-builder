@@ -4,6 +4,6 @@ define(['underscore', 'backbone', 'models/specialization', 'config/config'], fun
     return Backbone.Collection.extend({
         model: Specialization,
 
-        url: [Config.apiUrl, '/specializations'].join('/')
+        url: [Config.apiUrl, 'specializations'].join('/')
     });
 });

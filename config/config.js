@@ -17,5 +17,4 @@
     } else {
         module.exports = config;
     }
-    return config;
 }());

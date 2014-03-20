@@ -1,4 +1,4 @@
-define(['underscore', 'backbone', 'models/resume', 'config/config'], function(_, Backbone, Resume, Config) {
+define(['underscore', 'backbone', 'models/resume', 'config'], function(_, Backbone, Resume, Config) {
     'use strict';
 
     return Backbone.Collection.extend({

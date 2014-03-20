@@ -2,7 +2,7 @@ define([
     'underscore',
     'backbone',
     'models/specialization',
-    'config/config'
+    'config'
 ], function(_, Backbone, Specialization, Config) {
     'use strict';
 

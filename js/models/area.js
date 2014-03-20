@@ -1,4 +1,4 @@
-define(['underscore', 'backbone', 'config/config'], function(_, Backbone, Config) {
+define(['underscore', 'backbone', 'config'], function(_, Backbone, Config) {
     'use strict';
 
     return Backbone.Model.extend({

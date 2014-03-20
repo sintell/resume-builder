@@ -5,7 +5,7 @@ requirejs.config({
         backbone: 'lib/backbone',
         text: 'lib/text',
         templates: '../templates',
-        config: '../config'
+        config: '../config/config'
     }
 });
 

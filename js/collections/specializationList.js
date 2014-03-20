@@ -1,9 +1,14 @@
-define(['underscore', 'backbone', 'models/specialization'], function(_, Backbone, Specialization) {
+define([
+    'underscore',
+    'backbone',
+    'models/specialization',
+    'config'
+], function(_, Backbone, Specialization, Config) {
     'use strict';
 
     return Backbone.Collection.extend({
         model: Specialization,
 
-        url: 'https://api.hh.ru/specializations'
+        url: [Config.apiUrl, 'specializations'].join('/')
     });
 });

@@ -1,4 +1,9 @@
-define(['underscore', 'backbone', 'models/specialization', 'config/config'], function(_, Backbone, Specialization, Config) {
+define([
+    'underscore',
+    'backbone',
+    'models/specialization',
+    'config/config'
+], function(_, Backbone, Specialization, Config) {
     'use strict';
 
     return Backbone.Collection.extend({

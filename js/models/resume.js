@@ -71,9 +71,7 @@ define([
                 that.trigger('load');
             });
 
-            $.when(this.valrul.fetch()).then(function(){
-                console.log(that.valrul.getRules());
-            })
+            this.validator = new Validator(this.get('id')?this.get('id'):null);
         },
 
         url: function() {
@@ -94,7 +92,7 @@ define([
         },
 
         validate: function(attributes, options) {
-            
+           this.validator.validate(_.omit(this.attributes, this.readOnly));
         },
 
         specializationNames: function() {

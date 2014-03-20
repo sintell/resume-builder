@@ -100,17 +100,19 @@ define([
         },
 
         _validateInput: function(event) {
-            var name = $(event.target).data('hh-name');
+            var target = $(event.target);
+            var name = target.data('hh-name');
             console.log(name);
-            var error = this.validator.validateField({
+            // Возможно нудно возвращать массив ошибок?
+            var error = this.model.validator.validateField({
                 name: name,
-                value: $(event.target).val()
+                value: target.val()
             });
             console.log(error);
             if(typeof error !== 'undefined') {
-                $(event.target).addClass('with_error');
+                target.addClass('with_error');
             } else {
-                $(event.target).removeClass('with_error');
+                target.removeClass('with_error');
             }
         }
     });

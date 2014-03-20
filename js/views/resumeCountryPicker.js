@@ -101,18 +101,16 @@ define(['jquery', 'underscore', 'backbone', 'views/countryPicker'], function($, 
                 });
             }
 
-            var russia;
             that.area = _.sortBy(that.area, function(area) {
                 if (area.id === that.const.RUSSIA) {
-                    russia = area;
+                    // Выводим Россию на первую позицию в списке
+                    return '';
                 }
+
+
+
                 return area.name;
             });
-
-            if (that.area.length) {
-                that.area.splice(this.area.indexOf(russia), 1);
-                that.area.unshift(russia);
-            }
         },
 
         _initializeCountryPicker: function() {

@@ -30,6 +30,10 @@ define(['underscore', 'backbone', 'models/conditions'], function(_, Backbone, Co
         ],
 
         initialize: function() {
+
+        },
+
+        load: function() {
             var that = this;
 
             this.ready = false;
@@ -38,9 +42,9 @@ define(['underscore', 'backbone', 'models/conditions'], function(_, Backbone, Co
                 {resume: this}
             );
 
-            $.when(this.conditions.fetch()).then(function() {
+            $.when(this.fetch(), this.conditions.fetch()).then(function() {
                 that.ready = true;
-                that.trigger('sync');
+                that.trigger('load');
             });
         },
 

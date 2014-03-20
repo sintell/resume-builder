@@ -34,19 +34,14 @@ define([
             this.area = new Area();
             this.specializations = new SpecializationList();
 
-            this.listenTo(this.resumes, 'sync', this.render);
-
             $.when(
                 this.resumes.fetch(),
                 this.dictionary.fetch(),
                 this.area.fetch(),
                 this.specializations.fetch()
             ).then(function() {
-                if (that.resumes.length) {
-                    that.resumes.first().fetch();
-                } else {
-                    // TODO создать новое резюме
-                }
+                // TODO создать новое резюме
+                that.render();
             });
         },
 

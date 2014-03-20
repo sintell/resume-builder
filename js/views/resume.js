@@ -9,6 +9,7 @@ define([
     'views/metro',
     'views/relocation',
     'views/relocationArea',
+    'views/header',
     'text!templates/resume.html',
     'text!templates/citizenship.html',
     'text!templates/workTicket.html'
@@ -23,6 +24,7 @@ define([
     MetroView,
     RelocationView,
     RelocationAreaView,
+    HeaderView,
     ResumeTemplate,
     CitizenshipTemplate,
     WorkTicketTemplate
@@ -51,6 +53,9 @@ define([
             workTicketOptions = $.extend({}, options, {template: WorkTicketTemplate});
 
             this.components = [];
+            new HeaderView({
+                model: this.model
+            });
             this.components.push(new BirthDateView());
             this.components.push(new AreaView(options));
             this.components.push(new ResumeCountryPicker(citizenshipOptions, {

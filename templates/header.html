@@ -1,0 +1,9 @@
+<div class="user-name"><%-fio%></div>
+<div class="button button_login">
+    <a class="oauth_link_login" href="<%=serverHost%>:<%=oauthServerPort%>/oauth">Войти</a>
+</div>
+<div class="logout">
+    <form class="oauth_link_logout" action="<%=serverHost%>:<%=oauthServerPort%>/oauth/logout" method="POST">
+        <input type="submit" class="button button_logout" value="Выйти" />
+    </form>
+</div>

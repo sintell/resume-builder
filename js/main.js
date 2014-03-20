@@ -4,7 +4,8 @@ requirejs.config({
         underscore: 'lib/underscore',
         backbone: 'lib/backbone',
         text: 'lib/text',
-        templates: '../templates'
+        templates: '../templates',
+        config: '../config'
     }
 });
 

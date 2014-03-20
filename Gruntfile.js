@@ -2,7 +2,7 @@ var config = require('./config/config.js');
 
 module.exports = function(grunt) {
     'use strict';
-
+    
     // Конфигурация задач
     grunt.initConfig({
 
@@ -23,24 +23,36 @@ module.exports = function(grunt) {
                 options: {
                     livereload: true,
                 }
-            },
-            server: {
-                files: ['server/*.js'],
-                tasks: ['oauth-server'],
+            }
+        },
+
+        express: {
+            default_option: {
+                options: {
+                    port: config.oauthServerPort,
+                    server: 'server/app.js',
+                    serverreload: true
+                }
+            }
+        },
+
+        forever: {
+            oauth: {
+                options: {
+                    index: 'server/index.js',
+                    logDir: 'logs/'
+                }
             }
         }
     });
 
 
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-forever');
+    grunt.loadNpmTasks('grunt-express');
     grunt.loadNpmTasks('grunt-contrib-connect');
 
-
-
-    grunt.registerTask('oauth-server', 'Start the oauth server', function() {
-        grunt.log.writeln('Started oauth server on port: ' + config.oauthServerPort);
-        require('./server/app.js').listen(config.oauthServerPort);
-    });
     
-    grunt.registerTask('default', ['oauth-server','connect', 'watch']);
+    grunt.registerTask('default', ['express', 'connect', 'watch']);
+    grunt.registerTask('oauth', ['express', 'express-keepalive']);
 };

@@ -7,7 +7,7 @@ app.configure(function() {
     'use strict';
     app.set('client_id', config.clientId);
     app.set('client_secret', config.clientSecret);
-
+    app.set('responseRedirectUri', config.staticServerUrl);
     app.use(express.cookieParser('secret'));
     app.use(express.bodyParser());
     app.use(express.methodOverride());
@@ -28,7 +28,7 @@ app.get('/oauth', function(req, res) {
     if (typeof(authCode) === 'undefined') {
         res.redirect([
             'https://m.hh.ru/oauth/authorize?',
-            'response_type=','code',
+            'response_type=', 'code',
             '&client_id=', app.set('client_id'),
             config.redirectUri
         ].join(''));  
@@ -74,7 +74,7 @@ app.get('/oauth', function(req, res) {
                 httpOnly: true
             });
 
-            res.redirect('http://0.0.0.0:' + config.staticServerPort);
+            res.redirect(app.set('responseRedirectUri'));
             return;
         });
     });
@@ -91,5 +91,7 @@ app.post('/oauth/logout', function(req, res) {
     'use strict';
     res.clearCookie('access_token');
     res.clearCookie('refresh_token');
-    res.redirect('http://0.0.0.0:' + config.staticServerPort);
+    res.redirect(app.set('responseRedirectUri'));
 });
+
+module.exports = app;

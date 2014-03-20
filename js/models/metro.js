@@ -1,4 +1,4 @@
-define(['underscore', 'backbone'], function(_, Backbone) {
+define(['underscore', 'backbone', 'config/config'], function(_, Backbone, Config) {
     'use strict';
 
     return Backbone.Model.extend({
@@ -7,7 +7,7 @@ define(['underscore', 'backbone'], function(_, Backbone) {
         },
 
         url: function() {
-            return 'https://api.hh.ru/metro/' + this.id;
+            return [Config.apiUrl, 'metro', this.id].join('/')
         },
 
         parse: function(responce) {

@@ -1,4 +1,4 @@
-define(['underscore', 'backbone'], function(_, Backbone) {
+define(['underscore', 'backbone', 'config/config'], function(_, Backbone, Config) {
     'use strict';
 
     return Backbone.Model.extend({
@@ -8,9 +8,9 @@ define(['underscore', 'backbone'], function(_, Backbone) {
 
         url: function() {
             if (this.resume && !this.resume.isNew()) {
-                return ['https://api.hh.ru/resumes', this.resume.id, 'conditions'].join('/');
+                return [Config.apiUrl, 'resumes', this.resume.id, 'conditions'].join('/');
             } else {
-                return 'https://api.hh.ru/resume_conditions';
+                return [Config.apiUrl,'resume_conditions'].join('/');
             }
         }
     });

@@ -1,7 +1,7 @@
-define(['underscore', 'backbone'], function(_, Backbone) {
+define(['underscore', 'backbone', 'config/config'], function(_, Backbone, Config) {
     'use strict';
 
     return Backbone.Model.extend({
-        url: 'https://api.hh.ru/areas'
+        url: [Config.apiUrl, 'areas'].join('/')
     });
 });

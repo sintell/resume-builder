@@ -1,10 +1,10 @@
-define(['underscore', 'backbone', 'models/resume'], function(_, Backbone, Resume) {
+define(['underscore', 'backbone', 'models/resume', 'config/config'], function(_, Backbone, Resume, Config) {
     'use strict';
 
     return Backbone.Collection.extend({
         model: Resume,
 
-        url: 'https://api.hh.ru/resumes/mine',
+        url: [Config.apiUrl, 'resumes/mine'].join('/'),
 
         parse: function(response) {
             return response.items;

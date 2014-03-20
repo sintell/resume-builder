@@ -7,12 +7,15 @@ define(['underscore', 'backbone', 'models/validationRules'], function(_, Backbon
         return {
             bind : function(){},
             unbind: function(){},
-            validate: function(){},
+            validate: function(attributes) {
+                var attributesToTest = _.pick(attributes, Object.keys(that.rules.attributes));
+                console.log(attributesToTest); 
+            },
             validateField: function(field) {
                 // Выбираем из модели правил все правила применимые к полю field
                 // Для каждого правила вызываем соотвествующий валидатор
                 // Если валидатор вернул не пустую строку, то значит произошла ошибка и строка содержит ее описание
-                var rules = that.rules.get(field.name);
+                var rules = that.rules.getRulesFor(field.name);
                 for(var ruleName in rules) {
                     var rule = rules[ruleName];
                     var errorText = Validator.prototype.validators[ruleName](field.value, rule);

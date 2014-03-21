@@ -31,7 +31,8 @@ define([
             'keyup .HH-ResumeBuilder-Component-Area-Input': '_updateSuggest',
             'keydown .HH-ResumeBuilder-Component-Area-Input': '_preventKeydown',
             'click .HH-ResumeBuilder-Component-Area-ShowModal': '_toggleModal',
-            'change .HH-ResumeBuilder-Component-Area-Input': '_onChange'
+            'change .HH-ResumeBuilder-Component-Area-Input': '_onChange',
+            'focusout .HH-ResumeBuilder-Component-Area-Input': '_onFocusOut'
         },
 
         initialize: function(options) {
@@ -147,6 +148,11 @@ define([
 
         _preventKeydown: function(event) {
             this.suggest.preventKeydown(event);
+        },
+
+        _onFocusOut: function(event) {
+            this.suggest.hide();
+            this._onChange();
         }
     });
 });

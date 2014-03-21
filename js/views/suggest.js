@@ -22,7 +22,7 @@ define([
         template: _.template(SuggestTemplate),
 
         events: {
-            'click li': '_select'
+            'mousedown li': '_select'
         },
 
         initialize: function(data, options) {

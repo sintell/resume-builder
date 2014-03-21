@@ -17,7 +17,7 @@ define([
 
         initialize: function(options) {
             this.model = options.model;
-            this.listenToOnce(this.model, 'sync', this.render);
+            this.listenToOnce(this.model, 'load', this.render);
         },
 
         render: function() {

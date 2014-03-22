@@ -1,0 +1,43 @@
+<% if (isShow) { %>
+    <div class="control__input">
+        <div>
+            <input type="text"
+                   value="<%- text %>"
+                   class="HH-AccessTypeCompanyList-Input" />
+
+            <button class="HH-AccessTypeCompanyList-Search">
+                Найти
+            </button>
+
+            <ul>
+                <% _.each(suggest, function(item) { %>
+                <li>
+                    <input type="checkbox"
+                           name="HH-AccessTypeCompanyList-Item"
+                           <%= item.checked ? 'checked' : '' %>
+                           value="<%- item.id %>">
+                    <span class="HH-AccessTypeCompanyList-Item-Name"><%- item.name %></span>
+                </li>
+                <% }); %>
+            </ul>
+        </div>
+
+        <div>
+            <ul>
+                <% _.each(companies, function(company) { %>
+                    <li>
+                        <%- company.name %>
+                        <span class="HH-AccessTypeCompanyList-Remove"
+                              data-hh-company-id="<%- company.id %>">
+                            &times;
+                        </span>
+                    </li>
+                <% }); %>
+            </ul>
+        </div>
+
+        <div class="">
+            <button class="HH-AccessTypeCompanyList-Close">Закрыть</button>
+        </div>
+    </div>
+<% } %>

@@ -22,7 +22,7 @@ define([
         template: _.template(SuggestTemplate),
 
         events: {
-            'mousedown li': '_select'
+            'mousedown .HH-ResumeBuilder-SuggestItem': '_select'
         },
 
         initialize: function(data, options) {

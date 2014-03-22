@@ -101,18 +101,22 @@ define([
 
         _validateInput: function(event) {
             var target = $(event.target);
+            var section = $(event.currentTarget);
             var name = target.data('hh-name');
-            console.log(name);
-            // Возможно нудно возвращать массив ошибок?
+
             var error = this.model.validator.validateField({
                 name: name,
                 value: target.val()
             });
-            console.log(error);
+
+            section.find('.error-text').remove();
             if(typeof error !== 'undefined') {
-                target.addClass('with_error');
+                section.addClass('section_with_error');
+                target.addClass('control_with_error');
+                section.append('<div class="error-text">' + error + '</div>');
             } else {
-                target.removeClass('with_error');
+                section.removeClass('section_with_error');
+                target.removeClass('control_with_error');
             }
         }
     });

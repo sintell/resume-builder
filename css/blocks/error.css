@@ -1,3 +1,16 @@
-.with_error {
-    background-color: #faa;
+.section_with_error {
+    background: #FEE;
+    box-shadow: 0px 0 2px #F77;
+}
+
+.control_with_error {
+    border: 1px solid #F88;
+}
+
+.error-text {
+    margin-left: 20%;
+    clear: both;
+    font-size: 0.8em;
+    color: #933;
+    padding: 5px 0;
 }

@@ -1,0 +1,19 @@
+<label class="control__label">Видимость</label>
+<span class="control__value"><%= access.type.name %></span>
+
+<div class="control__input">
+    <ul class="checkbox-list">
+        <% _.each(accessTypes, function(type) { %>
+        <li class="checkbox-list__item">
+            <label>
+                <input class="HH-AccessType-Radio"
+                       type="radio"
+                       value="<%= type.id %>"
+                       name="access_type"
+                <%= type.id === access.type.id ? 'checked' : '' %>/>
+                <%= type.name %>
+            </label>
+        </li>
+        <% }); %>
+    </ul>
+</div>

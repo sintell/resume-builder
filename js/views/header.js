@@ -18,8 +18,12 @@ define([
 
         template: _.template(HeaderTemplate),
 
-        initialize: function(attributes, options) {
+        events: {
+            'click .HH-ResumeBuilder-ButtonCreate': '_createResume'
+        },
 
+        initialize: function(options) {
+            this.parent = options.parent;
         },
 
         render: function() {
@@ -33,6 +37,10 @@ define([
             };
 
             this.$el.html(this.template(data));
+        },
+
+        _createResume: function() {
+            this.parent.createResume();
         }
     });
 });

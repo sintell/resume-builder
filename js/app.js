@@ -92,15 +92,14 @@ define([
                 resumeView;
 
             headerView = new HeaderView({
-                model: this.user
+                model: this.user,
+                parent: this
             });
             headerView.render();
 
             if (this.user.authenticated) {
                 if (!this.resumes.length) {
-                    this.resumes.add(new Resume({
-                        url: [Config.apiUrl, 'resumes'].join('/')
-                    }));
+                    this.createResume();
                 }
 
                 resumeView = new ResumeView({
@@ -114,6 +113,12 @@ define([
                 this.$el.html(this.template());
                 this.$el.find('.HH-ResumeBuilder-ResumeList').append(resumeView.render().el);
             }
+        },
+
+        createResume: function() {
+            this.resumes.add(new Resume({
+                url: [Config.apiUrl, 'resumes'].join('/')
+            }));
         }
     });
 });

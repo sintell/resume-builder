@@ -71,7 +71,11 @@ define([
                 that.trigger('load');
             });
 
-            this.validator = new Validator(this.get('id')?this.get('id'):null);
+            this.validator = new Validator({
+                id: this.get('id') ?
+                    this.get('id') :
+                    null
+            });
         },
 
         url: function() {

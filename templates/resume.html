@@ -1,5 +1,5 @@
 <div class="resume">
-    <div class="HH-Resume-ResumeSection section">
+    <div class="HH-Resume-ResumeSection section" data-hh-namespace="personal_info">
         <div class="section__title">
             <h3 class="section__title-text">Персональная информация</h3>
             <button class="HH-ResumeSection-Switch section__title-button"
@@ -23,6 +23,7 @@
                        name="last_name"
                        maxlength="<%= conditions.last_name.max_length %>"
                        pattern="<%= conditions.last_name.regexp %>"
+                       data-hh-namespace="personal_info"
                        data-hh-name="last_name"/>
             </div>
         </div>
@@ -38,6 +39,7 @@
                        name="first_name"
                        maxlength="<%= conditions.first_name.max_length %>"
                        pattern="<%= conditions.first_name.regexp %>"
+                       data-hh-namespace="personal_info"
                        data-hh-name="first_name"/>
             </div>
         </div>
@@ -53,6 +55,7 @@
                        name="middle_name"
                        maxlength="<%= conditions.middle_name.max_length %>"
                        pattern="<%= conditions.middle_name.regexp %>"
+                       data-hh-namespace="personal_info"
                        data-hh-name="middle_name"/>
             </div>
         </div>
@@ -71,6 +74,7 @@
                                    value="<%= gender.id %>"
                                    name="gender"
                                    data-hh-name="gender.id"
+                                   data-hh-namespace="personal_info"
                                    <%= gender.id === resume.gender.id ? 'checked' : '' %>/>
                             <%= gender.name %>
                         </label>
@@ -83,19 +87,24 @@
         <div class="HH-ResumeSection-Control control control_viewing">
             <label class="control__label">Дата рождения</label>
 
-            <div class="HH-ResumeSection-Component" data-hh-component="birth-date"></div>
+            <div class="HH-ResumeSection-Component"
+                 data-hh-component="birth-date"
+                 data-hh-namespace="personal_info"></div>
         </div>
 
         <div class="HH-ResumeSection-Control control control_viewing">
             <label class="control__label">Город проживания</label>
             <span class="control__value"><%= resume.area.name %></span>
 
-            <div class="HH-ResumeSection-Component" data-hh-component="area"></div>
+            <div class="HH-ResumeSection-Component"
+                 data-hh-component="area"
+                 data-hh-namespace="personal_info"></div>
         </div>
 
         <div class="HH-ResumeSection-Control control control_viewing">
             <div class="HH-ResumeSection-Component"
                  data-hh-component="metro"
+                 data-hh-namespace="personal_info"
                  data-hh-depends='[{"component": "area", "event": "selectArea", "callback": "_onSelectArea"}]'></div>
         </div>
 
@@ -105,7 +114,9 @@
                 <%= _.map(resume.citizenship, function(element) { return element.name; }).join(', ') %>
             </span>
 
-            <div class="HH-ResumeSection-Component" data-hh-component="citizenship"></div>
+            <div class="HH-ResumeSection-Component"
+                 data-hh-component="citizenship"
+                 data-hh-namespace="personal_info"></div>
         </div>
 
         <div class="HH-ResumeSection-Control control control_viewing">
@@ -114,7 +125,9 @@
                 <%= _.map(resume.work_ticket, function(element) { return element.name; }).join(', ') %>
             </span>
 
-            <div class="HH-ResumeSection-Component" data-hh-component="work-ticket"></div>
+            <div class="HH-ResumeSection-Component"
+                 data-hh-component="work-ticket"
+                 data-hh-namespace="personal_info"></div>
         </div>
 
         <div class="HH-ResumeSection-Control control control_viewing control_submit">
@@ -126,7 +139,7 @@
         </div>
     </div>
 
-    <div class="HH-Resume-ResumeSection">
+    <div class="HH-Resume-ResumeSection" data-hh-namespace="salary_and_job">
         <div class="section__title">
             <h3 class="section__title-text">Желаемая должность и зарплата</h3>
             <button class="HH-ResumeSection-Switch section__title-button"
@@ -149,6 +162,7 @@
                        value="<%= resume.title %>"
                        name="title"
                        data-hh-name="title"
+                       data-hh-namespace="salary_and_job"
                        maxlength="<%= conditions.title.max_length %>"
                        placeholder="Например, «Менеджер по продажам»"/>
             </div>
@@ -181,6 +195,7 @@
                        value="<%= resume.salary.amount %>"
                        name="amount"
                        data-hh-name="salary.amount"
+                       data-hh-namespace="salary_and_job"
                        pattern="^[0-9]+$"/>
 
                 <ul class="checkbox-list">
@@ -192,6 +207,7 @@
                                    value="<%= currency.code %>"
                                    name="currency"
                                    data-hh-name="salary.currency"
+                                   data-hh-namespace="salary_and_job"
                                    <%= currency.code === resume.salary.currency ? 'checked' : '' %>/>
                             <%= currency.abbr %>
                         </label>
@@ -215,6 +231,7 @@
                                    value="<%= employment.id %>"
                                    name="employment"
                                    data-hh-name="employment.id"
+                                   data-hh-namespace="salary_and_job"
                                    <%= employment.id === resume.employment.id ? 'checked' : '' %>/>
                             <%= employment.name %>
                         </label>
@@ -238,6 +255,7 @@
                                    value="<%= schedule.id %>"
                                    name="schedule"
                                    data-hh-name="schedule.id"
+                                   data-hh-namespace="salary_and_job"
                                    <%= schedule.id === resume.schedule.id ? 'checked' : '' %>/>
                             <%= schedule.name %>
                         </label>
@@ -251,12 +269,15 @@
             <label class="control__label">Переезд</label>
             <span class="control__value"><%= resume.relocation.type.name %></span>
 
-            <div class="HH-ResumeSection-Component" data-hh-component="relocation"></div>
+            <div class="HH-ResumeSection-Component"
+                 data-hh-component="relocation"
+                 data-hh-namespace="salary_and_job"></div>
         </div>
 
         <div class="HH-ResumeSection-Control control control_viewing">
             <div class="HH-ResumeSection-Component"
                  data-hh-component="relocation-area"
+                 data-hh-namespace="salary_and_job"
                  data-hh-depends='[{"component": "relocation", "event": "selectRelocation", "callback": "_onSelectRelocation"}]'></div>
         </div>
 
@@ -274,6 +295,7 @@
                                    value="<%= readiness.id %>"
                                    name="business_trip_readiness"
                                    data-hh-name="business_trip_readiness.id"
+                                   data-hh-namespace="salary_and_job"
                                    <%= readiness.id === resume.business_trip_readiness.id ? 'checked' : '' %>/>
                             <%= readiness.name %>
                         <label>
@@ -297,6 +319,7 @@
                                    value="<%= time.id %>"
                                    name="travel_time"
                                    data-hh-name="travel_time.id"
+                                   data-hh-namespace="salary_and_job"
                                    <%= time.id === resume.travel_time.id ? 'checked' : '' %>/>
                             <%= time.name %>
                         </label>

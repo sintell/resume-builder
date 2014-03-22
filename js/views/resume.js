@@ -132,6 +132,7 @@ define([
                     });
                 }
 
+                component.namespace = container.data('hh-namespace');
                 component.fill(that.model.attributes);
                 component.delegateEvents();
                 container.html(component.render().el);
@@ -154,23 +155,30 @@ define([
         },
 
         _submit: function(event) {
-            var $section,
+            var $controls,
+                $section,
                 $specializations,
                 attributes = {},
+                namespace,
                 that = this;
 
             event.preventDefault();
 
             $section = $(event.currentTarget).closest('.HH-Resume-ResumeSection');
-            $section.find('.HH-ResumeSection-ControlTextbox').each(function(index, textbox) {
+            namespace = $section.data('hh-namespace');
+            $controls = $section.find('[data-hh-namespace=' + namespace + ']');
+
+            $controls.filter('.HH-ResumeSection-ControlTextbox').each(function(index, textbox) {
                 that._saveAttribute(attributes, textbox.getAttribute('data-hh-name'), textbox.value);
             });
-            $section.find('.HH-ResumeSection-ControlRadio').each(function(index, radio) {
+
+            $controls.filter('.HH-ResumeSection-ControlRadio').each(function(index, radio) {
                 if (radio.checked) {
                     that._saveAttribute(attributes, radio.getAttribute('data-hh-name'), radio.value);
                 }
             });
-            $specializations = $section.find('.HH-ResumeSection-ControlSpecialization');
+
+            $specializations = $controls.filter('.HH-ResumeSection-ControlSpecialization');
             if ($specializations.length) {
                 attributes.specialization = [];
             }
@@ -183,7 +191,9 @@ define([
             });
 
             this.components.forEach(function(component) {
-                component.takeback(attributes);
+                if (component.namespace === namespace) {
+                    component.takeback(attributes);
+                }
             });
 
             $.when(this.model.save(attributes)).then(function() {

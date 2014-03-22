@@ -12,11 +12,23 @@ define([
 ], function($, _, Backbone, Resume, Dictionary, Area, ResumeList, SpecializationList, ResumeView, AppTemplate) {
     'use strict';
 
+    var getCookie = function(cookieName) {
+        var cookieValue = '';
+        document.cookie.split(';').forEach(function(cookie) {
+            var cookieData = cookie.split('=');
+            if ( cookieData[0] === cookieName ) {
+                cookieValue = cookieData[1];
+            }
+        }, this);
+        return cookieValue;
+    };
+
+    var ACCESS_TOKEN = getCookie('access_token');
     $.ajaxSetup({
         beforeSend: function(xhr) {
             xhr.setRequestHeader(
                 'Authorization',
-                'Bearer MGDGK21AJ75KJP0VABVRU3RN1H883IQUTOPLNU715R9G34TOAQ93FIIEEV2DAV12'
+                ['Bearer ', ACCESS_TOKEN].join(' ')
             );
         }
     });
@@ -28,6 +40,7 @@ define([
 
         initialize: function() {
             var that = this;
+
 
             this.resumes = new ResumeList();
             this.dictionary = new Dictionary();

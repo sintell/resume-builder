@@ -10,6 +10,7 @@ define([
     'collections/specializationList',
     'views/resume',
     'views/header',
+    'config',
     'text!templates/app.html'
 ], function(
     $,
@@ -23,6 +24,7 @@ define([
     SpecializationList,
     ResumeView,
     HeaderView,
+    Config,
     AppTemplate
 ) {
     'use strict';
@@ -54,13 +56,18 @@ define([
         template: _.template(AppTemplate),
 
         initialize: function() {
-            var that = this;
-
             this.user = new User();
             this.resumes = new ResumeList();
             this.dictionary = new Dictionary();
             this.area = new Area();
             this.specializations = new SpecializationList();
+
+            this.listenTo(this.resumes, 'added', this.load);
+            this.load();
+        },
+
+        load: function() {
+            var that = this;
 
             this.user.fetch({
                 success: function() {
@@ -90,6 +97,12 @@ define([
             headerView.render();
 
             if (this.user.authenticated) {
+                if (!this.resumes.length) {
+                    this.resumes.add(new Resume({
+                        url: [Config.apiUrl, 'resumes'].join('/')
+                    }));
+                }
+
                 resumeView = new ResumeView({
                     model: this.resumes.first()
                 }, {

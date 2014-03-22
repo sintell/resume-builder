@@ -176,7 +176,7 @@
                 <select class="HH-SpecializationControl-Select">
                     <% _.each(specializations, function(specialization) { %>
                     <option value="<%= specialization.id %>"
-                            <%= resume.specialization[0].profarea_id === specialization.id ? 'selected' : '' %>>
+                            <%= _.find(resume.specialization, function(s) {s.profarea_id === specialization.id}) ? 'selected' : '' %>>
                         <%= specialization.name %>
                     </option>
                     <% }); %>

@@ -12,7 +12,7 @@ define(['underscore', 'backbone', 'models/conditions'], function(_, Backbone, Co
             schedule: {},
             business_trip_readiness: {},
             travel_time: {},
-            specialization: [{profarea_id: null}],
+            specialization: [],
             relocation: {type:{}}
         },
 
@@ -27,6 +27,11 @@ define(['underscore', 'backbone', 'models/conditions'], function(_, Backbone, Co
             'skills',
             'skill_set',
             'experience'
+        ],
+
+        systemAttributes: [
+            'id',
+            'url'
         ],
 
         initialize: function() {
@@ -53,7 +58,12 @@ define(['underscore', 'backbone', 'models/conditions'], function(_, Backbone, Co
         },
 
         toJSON: function() {
-            return _.omit(this.attributes, this.readOnly);
+            var attributes;
+
+            attributes = _.omit(this.attributes, this.readOnly);
+            attributes = _.pick(attributes, this.systemAttributes.concat(this.attributesToSave));
+
+            return attributes;
         },
 
         specializationNames: function() {
@@ -70,6 +80,16 @@ define(['underscore', 'backbone', 'models/conditions'], function(_, Backbone, Co
             return this.get('specialization').map(function(specialization) {
                 return specialization.id;
             });
+        },
+
+        parse: function(response) {
+            for (var key in response) {
+                if (!response[key]) {
+                    response[key] = this.defaults[key];
+                }
+            }
+
+            return response;
         }
     });
 });

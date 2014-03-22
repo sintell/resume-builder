@@ -191,8 +191,17 @@ define([
                 }
             });
 
-            $.when(this.model.save(attributes)).then(function() {
-                that.model.fetch();
+            this.model.attributesToSave = _.keys(attributes);
+            this.model.save(attributes, {
+                wait: true,
+
+                success: function() {
+                    that.model.fetch();
+                },
+
+                error: function() {
+                    that.model.collection.trigger('added');
+                }
             });
         },
 

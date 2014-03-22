@@ -1,0 +1,14 @@
+.header {
+    border-bottom: 1px solid #ccc;
+}
+
+    .header__text {
+        height: 25px;
+        line-height: 25px;
+        margin: 20px 0px;
+        display: inline-block;
+    }
+
+    .header__form {
+        display: inline-block;
+    }

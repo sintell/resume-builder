@@ -9,7 +9,6 @@ define([
     'views/metro',
     'views/relocation',
     'views/relocationArea',
-    'views/header',
     'text!templates/resume.html',
     'text!templates/citizenship.html',
     'text!templates/workTicket.html'
@@ -24,7 +23,6 @@ define([
     MetroView,
     RelocationView,
     RelocationAreaView,
-    HeaderView,
     ResumeTemplate,
     CitizenshipTemplate,
     WorkTicketTemplate
@@ -44,9 +42,6 @@ define([
 
             this.dictionary = options.dictionary;
             this.specializations = options.specializations;
-            new HeaderView({
-                model: this.model
-            });
 
             this.listenTo(this.model, 'sync', this.render);
             this.listenTo(this.model, 'load', function() {

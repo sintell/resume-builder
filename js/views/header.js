@@ -10,25 +10,29 @@ define([
     HeaderTemplate
 ) {
     'use strict';
+
     return Backbone.View.extend({
         tagName: 'div',
+
         el: '.HH-ResumeBuilder-Header',
+
         template: _.template(HeaderTemplate),
 
-        initialize: function(options) {
-            this.model = options.model;
-            this.listenToOnce(this.model, 'load', this.render);
+        initialize: function(attributes, options) {
+
         },
 
         render: function() {
-            this.$el.html(this.template({
-                fio: [
-                    this.model.get('last_name'),
-                    this.model.get('first_name')
-                ].join(' '),
+            var data;
+
+            data = {
+                authenticated: this.model.authenticated,
+                user: this.model.attributes,
                 serverHost: Config.serverHost,
                 oauthServerPort: Config.oauthServerPort
-            }));
+            };
+
+            this.$el.html(this.template(data));
         }
     });
 });

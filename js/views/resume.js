@@ -199,6 +199,7 @@ define([
                     that.model.fetch();
                 },
 
+                // HH API возвращает пустой ответ на запрос POST /resumes, поэтому срабатывает колбэк error
                 error: function() {
                     that.model.collection.trigger('added');
                 }

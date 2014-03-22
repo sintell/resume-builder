@@ -31,7 +31,7 @@ define([
         var cookieValue = '';
         document.cookie.split(';').forEach(function(cookie) {
             var cookieData = cookie.split('=');
-            if ( cookieData[0] === cookieName ) {
+            if (cookieData[0].trim() === cookieName) {
                 cookieValue = cookieData[1];
             }
         }, this);

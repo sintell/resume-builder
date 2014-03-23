@@ -2,11 +2,15 @@ define([
     'jquery',
     'underscore',
     'backbone',
+    'config',
+    'models/resume',
     'text!templates/resumeListItem.html',
 ], function(
     $,
     _,
     Backbone,
+    Config,
+    Resume,
     ResumeListItemTemplate
 ) {
     'use strict';
@@ -32,9 +36,14 @@ define([
 
     return Backbone.View.extend({
         tagName: 'li',
+
         className: 'HH-Resume-ResumeListItem resume-list__item',
 
         template: _.template(ResumeListItemTemplate),
+
+        events: {
+            'click .HH-ResumeBuilder-ButtonClone': '_clone'
+        },
 
         initialize: function() {
             this.render();
@@ -53,6 +62,24 @@ define([
             
             this.$el.html(this.template(data));
             return this;
+        },
+
+        _clone: function() {
+            var that = this;
+
+            $.ajax({
+                type: 'POST',
+
+                url: [Config.apiUrl, '/resumes?source_resume_id=', this.model.id].join(''),
+
+                success: function(data, status, xhr) {
+                    var resume = new Resume({
+                        url: [Config.apiUrl, xhr.getResponseHeader('Location')].join('')
+                    });
+                    that.model.collection.add(resume);
+                    // TODO делать that.model.collection.trigger('added') после мержа HH-47 в мастер
+                }
+            });
         }
     });
 });

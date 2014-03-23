@@ -34,7 +34,6 @@ requirejs([
                 collection: resumes
             });
             resumes.fetch();
-            console.log(resumeListView.render().el)
             $('.HH-ResumeBuilder-Container').append(resumeListView.render().el)
         },
 

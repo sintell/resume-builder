@@ -7,7 +7,6 @@ define(['underscore', 'backbone', 'models/resumeListItem', 'config'], function(_
         url: [Config.apiUrl, 'resumes/mine'].join('/'),
 
         parse: function(response) {
-            console.log(response)
             return response.items;
         }
     });

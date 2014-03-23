@@ -2,11 +2,13 @@ define([
     'jquery',
     'underscore',
     'backbone',
+    'config',
     'text!templates/accessTypeCompanyList.html'
 ], function(
     $,
     _,
     Backbone,
+    Config,
     AccessTypeCompanyListTemplate
     ) {
     'use strict';
@@ -18,13 +20,15 @@ define([
 
         componentName: 'access-type-company-list',
 
-        suggestUrl: 'https://api.hh.ru/employers/?per_page=2000&text=',
+        suggestUrl: Config.employerSuggestUrl,
+
 
         consts: {
             WHITE_LIST: 'whitelist',
             BLACK_LIST: 'blacklist',
             TIME_OUT: 500,
-            SUGGEST_MIN_INPUT: 3
+            SUGGEST_MIN_INPUT: 3,
+            ENTER_KEY: 13
         },
 
         events: {
@@ -187,7 +191,7 @@ define([
         },
 
         _onEnter: function(event) {
-            if(event.keyCode == 13){
+            if(event.keyCode === this.consts.ENTER_KEY) {
                 this._search();
             }
         },

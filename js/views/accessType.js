@@ -25,7 +25,7 @@ define([
 
         events: {
             'change .HH-AccessType-Radio': '_select',
-            'click button': '_showModal'
+            'click .HH-AccessType-ShowModal': '_showModal'
         },
 
         template: _.template(AccessTypeTemplate),
@@ -34,7 +34,7 @@ define([
             this.accessTypes = options.dictionary.attributes.resume_access_type;
             this.modal = modal;
 
-            this.listenTo(this.modal, 'selectData', this.onSelectModal)
+            this.listenTo(this.modal, 'selectData', this.onSelectModal);
         },
 
         fill: function(attributes) {

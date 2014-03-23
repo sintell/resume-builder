@@ -6,6 +6,8 @@
             <input type="submit" class="button button_logout" value="Выйти" />
         </form>
     <% } else { %>
-       <a class="header__text link link_login" href="<%=serverHost%>:<%=oauthServerPort%>/oauth">Войти</a> 
+        <span class="header__text">
+            <a href="<%=serverHost%>:<%=oauthServerPort%>/oauth" class="link link_login">Войти</a>
+        </span>
     <% } %>
 </div>

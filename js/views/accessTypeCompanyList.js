@@ -42,6 +42,7 @@ define([
             this.companies = [];
             this.suggest = [];
             this.input = '';
+            this.searched = false;
         },
 
         fill: function() {
@@ -91,7 +92,8 @@ define([
                 isShow: this.isShow,
                 companies: this.companies,
                 suggest: this.suggest,
-                text: this.input
+                text: this.input,
+                searched: this.searched
             };
 
             this.$el.html(this.template(data));
@@ -138,6 +140,8 @@ define([
             );
 
             that.input = text;
+
+            this.searched = true;
 
             $.when(ajax).then(function(responce) {
                 that.suggest = responce.items.map(function(item) {

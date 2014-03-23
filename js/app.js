@@ -108,10 +108,6 @@ define([
 
             var resumeView, resumeListView;
 
-            resumeListView = new ResumeListView({
-                collection: this.resumes
-            });
-
             resumeView = new ResumeView({
                 model: this.resume
             }, {
@@ -148,7 +144,6 @@ define([
             this.$el.html(this.template());
             this.$el.find('.HH-ResumeBuilder-Resume').append(resumeView.render().el);
 
-            this.$el.find('.HH-ResumeBuilder-ResumeList').append(resumeListView.render().el)
         }
     });
 });

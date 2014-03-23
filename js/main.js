@@ -9,8 +9,42 @@ requirejs.config({
     }
 });
 
-requirejs(['app'], function(App) {
+requirejs([
+    'jquery',
+    'backbone',
+    'app',
+    'collections/resumeList',
+    'views/resumeList'
+], function($, Backbone, App, ResumeList, ResumeListView) {
     'use strict';
 
-    var app = new App();
+    var router = Backbone.Router.extend({
+        routes: {
+            '': 'index',
+            'resumes': 'resumeList',
+            '/resumes/:id': 'resume'
+        },
+        index: function() {
+            var app = new App();    
+        },
+
+        resumeList: function() {
+            var resumes = new ResumeList();
+            var resumeListView = new ResumeListView({
+                collection: resumes
+            });
+            resumes.fetch();
+            console.log(resumeListView.render().el)
+            $('.HH-ResumeBuilder-Container').append(resumeListView.render().el)
+        },
+
+        resume: function(id) {
+            console.log(id)
+        }
+    });
+
+    new router;
+    Backbone.history.start();
+
+    
 });

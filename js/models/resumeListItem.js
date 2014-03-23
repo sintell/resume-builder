@@ -1,12 +1,7 @@
-define(['underscore', 'backbone', 'models/resume','config'], function(_, Backbone, Resume, Config) {
+define(['underscore', 'backbone','config'], function(_, Backbone, Config) {
     'use strict';
 
     return Backbone.Model.extend({
 
-        initialize: function() {
-
-        },
-
-        url: [Config.apiUrl, 'resumes/mine'].join('/'),
     });
 });

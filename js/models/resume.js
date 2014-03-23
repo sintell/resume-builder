@@ -84,7 +84,7 @@ define(['underscore', 'backbone', 'models/conditions'], function(_, Backbone, Co
 
         parse: function(response) {
             for (var key in response) {
-                if (!response[key]) {
+                if (typeof(response[key]) === 'undefined' || response[key] === null) {
                     response[key] = this.defaults[key];
                 }
             }

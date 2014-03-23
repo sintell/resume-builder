@@ -199,9 +199,11 @@ define([
                     that.model.fetch();
                 },
 
-                // HH API возвращает пустой ответ на запрос POST /resumes, поэтому срабатывает колбэк error
-                error: function() {
-                    that.model.collection.trigger('added');
+                // HH API отвечает пустым 201 Webpage Created на запрос POST /resumes, поэтому срабатывает колбэк error
+                error: function(model, response, options) {
+                    if (response.status === 201) {
+                        that.model.collection.trigger('added');
+                    }
                 }
             });
         },

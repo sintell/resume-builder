@@ -15,9 +15,12 @@ define([
 
     return Backbone.View.extend({
         tagName: 'ul',
+        className: 'resume-list__container',
 
         initialize: function() {
-
+            this.collection.on('load', this.render, this)
+            this.collection.on('sync', this.render, this)
+            this.collection.on('reset', this.render, this)
         },
         render: function() {
             this.collection.each(function(resumeListItem){

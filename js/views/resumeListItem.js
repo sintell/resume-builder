@@ -18,7 +18,7 @@ define([
             HOUR = MINUTE * 60;
         var dateString = "";
 
-        if ( new Date() - date > 24 * HOUR) {
+        if ( new Date() - date < 24 * HOUR) {
             dateString = [Math.round((new Date() - date)/HOUR), 'часов назад'].join(' ');
         }  else {
             dateString = [
@@ -32,7 +32,7 @@ define([
 
     return Backbone.View.extend({
         tagName: 'li',
-        className: 'HH-Resume-ResumeListItem',
+        className: 'HH-Resume-ResumeListItem resume-list__item',
 
         template: _.template(ResumeListItemTemplate),
 

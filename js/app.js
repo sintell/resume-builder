@@ -31,10 +31,11 @@ define([
 
     var getCookie = function(cookieName) {
         var cookieValue = '';
-        document.cookie.split(';').forEach(function(cookie) {
+        document.cookie.split(';').some(function(cookie) {
             var cookieData = cookie.split('=');
             if (cookieData[0].trim() === cookieName) {
                 cookieValue = cookieData[1];
+                return true;
             }
         }, this);
         return cookieValue;

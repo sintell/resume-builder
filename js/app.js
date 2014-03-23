@@ -46,7 +46,7 @@ define([
         beforeSend: function(xhr) {
             xhr.setRequestHeader(
                 'Authorization',
-                ['Bearer ', ACCESS_TOKEN].join(' ')
+                ['Bearer', ACCESS_TOKEN].join(' ')
             );
         }
     });

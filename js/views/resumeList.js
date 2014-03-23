@@ -4,7 +4,6 @@ define([
     'backbone',
     'collections/resumeList',
     'views/resumeListItem',
-    'text!templates/resumeList.html',
 ], function(
     $,
     _,
@@ -16,8 +15,6 @@ define([
 
     return Backbone.View.extend({
         tagName: 'ul',
-
-        template: _.template(ResumeListTemplate),
 
         initialize: function() {
 

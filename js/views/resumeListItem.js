@@ -13,9 +13,9 @@ define([
 
     var formatUpdateTime = function(updateTime) {
         var date = new Date(updateTime);
-        var SECOND = 1000,
-            MINUTE = SECOND * 60,
-            HOUR = MINUTE * 60;
+        var SECOND = 1000;
+        var MINUTE = SECOND * 60;
+        var HOUR = MINUTE * 60;
         var dateString = "";
 
         if ( new Date() - date < 24 * HOUR) {

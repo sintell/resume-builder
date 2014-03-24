@@ -1,0 +1,9 @@
+.side-bar {
+    float: right;
+    width: 280px;
+}
+    .side-bar:after {
+        display: block;
+        content: '';
+        clear: both;
+    }

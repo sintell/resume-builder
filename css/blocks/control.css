@@ -30,7 +30,7 @@
 
     .control__label {
         float: left;
-        width: 20%;
+        width: 30%;
         display: block;
         min-height: 1px;
     }
@@ -38,7 +38,7 @@
     .control__value,
     .control__input {
         float: left;
-        width: 80%;
+        width: 70%;
         display: block;
     }
 

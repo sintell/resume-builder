@@ -1,0 +1,49 @@
+.modal {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: 600px;
+    height: 300px;
+    border: 1px solid black;
+    margin-left: -300px;
+    margin-top: -150px;
+    background: white;
+    z-index: 200;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+    .modal__body {
+        height: 90%;
+    }
+
+    .modal__block {
+        width: 47%;
+        margin-left: 3%;
+        height: 100%;
+        float: left;
+    }
+
+    .modal__block:first-child {
+        width: 50%;
+        margin-left: 0;
+    }
+
+    .modal__footer {
+        height: 10%;
+    }
+
+    .modal__close {
+        float: right;
+    }
+
+    .modal__list {
+        list-style: none;
+        padding: 0;
+        height: 80%;
+        overflow: auto;
+    }
+
+    .modal__remove-element {
+        cursor: pointer;
+    }

@@ -1,6 +1,7 @@
 (function() {
     var config = {
         apiUrl: 'https://api.hh.ru',
+        employerSuggestUrl: 'https://api.hh.ru/employers',
         serverHost: 'http://0.0.0.0',
         staticServerUrl: 'http://0.0.0.0:8080',
         staticServerPort: 8080,

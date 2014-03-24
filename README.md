@@ -8,6 +8,11 @@
 
 ---
 
+`apiUrl` - базовый адрес api
+
+`employerSuggestUrl` - адрес, по которому доступен список компаний, зарегистрированных на HH
+(поподробне [тут](https://github.com/hhru/api/blob/7f443c4548e4d5b98371600d9061746eea610eff/docs/employers.md))
+
 `staticServerUrl` - строка, полный url сервера статики
 (по-умолчанию `'http://0.0.0.0:8080'`)
 

@@ -9,6 +9,9 @@ define([
     'views/metro',
     'views/relocation',
     'views/relocationArea',
+    'views/header',
+    'views/accessType',
+    'views/accessTypeCompanyList',
     'text!templates/resume.html',
     'text!templates/citizenship.html',
     'text!templates/workTicket.html'
@@ -23,6 +26,9 @@ define([
     MetroView,
     RelocationView,
     RelocationAreaView,
+    HeaderView,
+    AccessTypeView,
+    AccessTypeCompanyListModal,
     ResumeTemplate,
     CitizenshipTemplate,
     WorkTicketTemplate
@@ -77,6 +83,11 @@ define([
             this.components.push(new MetroView());
             this.components.push(new RelocationView(options));
             this.components.push(new RelocationAreaView(options));
+
+            var modal = new AccessTypeCompanyListModal();
+            this.components.push(modal);
+
+            this.components.push(new AccessTypeView(options, modal));
         },
 
         render: function() {

@@ -65,7 +65,7 @@ app.get('/oauth', function(req, res) {
             }
 
             res.cookie('access_token', data.access_token, {
-                maxAge: data.expires_in,
+                maxAge: data.expires_in * 1000,
             });
             
             res.cookie('refresh_token', data.refresh_token, {

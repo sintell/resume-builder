@@ -10,6 +10,10 @@ define([
     SideBarTemplate
 ) {
     'use strict';
+
+    var documentObject = $(document);
+    var DEFAULT_TOP_MARGIN = 10;
+
     return Backbone.View.extend({
         tagName: 'div',
         className: 'HH-ResumeBuilder-SideBar side-bar',
@@ -19,7 +23,6 @@ define([
         initialize: function(options) {
             this.model = options.model;
             this.listenToOnce(this.model, 'load', this.render);
-            this.positionFromTop = 60;
 
              _.bindAll(this, 'switchFloat');
             $(window).scroll(this.switchFloat);
@@ -31,14 +34,17 @@ define([
             }));
             $('.HH-ResumeBuilder-SideBar').append(this.el);
 
-            this.positionFromTop = this.$el.find('.resume__status').position().top -10;
+            this.$statusBlock = this.$el.find('.HH-SideBar-Block-Status');
+            // Вычитаем то расстояние, на которое сдвигается фиксированный блок от верхнего края,
+            // по умолчанию - 10px
+            this.positionFromTop = this.$statusBlock.position().top - DEFAULT_TOP_MARGIN;
         },
 
         switchFloat: function() {
-            if ($(document).scrollTop() < this.positionFromTop) { 
-                this.$el.find('.resume__status').removeClass('block_fixed');
+            if (documentObject.scrollTop() < this.positionFromTop) { 
+                this.$statusBlock.removeClass('block_fixed');
             } else {
-                this.$el.find('.resume__status').addClass('block_fixed');
+                this.$statusBlock.addClass('block_fixed');
             }
         }
     });

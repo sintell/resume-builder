@@ -1,15 +1,16 @@
 .section {
-
+    margin-bottom: 50px;
 }
 
     .section__title {
-        margin-top: 25px;
     }
 
     .section__title-text {
         height: 25px;
         line-height: 25px;
         display: inline-block;
+        padding: 0;
+        margin: 0;
     }
 
     .section__title-button {

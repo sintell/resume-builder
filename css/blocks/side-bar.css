@@ -1,0 +1,33 @@
+.side-bar {
+    float: right;
+    width: 30%;
+}
+    .side-bar:after {
+        display: block;
+        content: '';
+        clear: both;
+    }
+    .side-bar__container {
+
+    }
+        .block {
+            margin-bottom: 50px;
+            min-width: 200px;
+            padding: 10px 20px;
+        }
+            .block__title {
+                font-size: 1.2em;
+                color: #555;
+                margin-bottom: 15px;
+            }
+            .block__data {
+                padding-left: 10px;
+            }
+
+        .block_fixed {
+            position: fixed;
+            top: 10px;
+
+            box-shadow: 2px 0 4px #333;
+        }
+            

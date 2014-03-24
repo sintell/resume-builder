@@ -39,6 +39,7 @@ define([
         initialize: function() {
             this.render();
         },
+
         render: function() {
             var data = {
                 title: this.model.get('title'),
@@ -52,6 +53,4 @@ define([
             return this;
         }
     });
-    
-
 });

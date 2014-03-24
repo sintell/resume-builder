@@ -22,6 +22,7 @@ define([
             this.collection.on('sync', this.render, this)
             this.collection.on('reset', this.render, this)
         },
+
         render: function() {
             this.collection.each(function(resumeListItem){
                 var resumeListItemView = new ResumeListItemView({ 
@@ -30,9 +31,8 @@ define([
 
                 this.$el.append(resumeListItemView.render().el);
             }, this);
+
             return this;
         }
     });
-    
-
 });

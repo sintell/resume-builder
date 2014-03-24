@@ -24,7 +24,6 @@ define([
     SpecializationList,
     ResumeView,
     HeaderView,
-    ResumeListView,
     Config,
     AppTemplate
 ) {
@@ -107,14 +106,6 @@ define([
             });
 
             var resumeView, resumeListView;
-
-            resumeView = new ResumeView({
-                model: this.resume
-            }, {
-                dictionary: this.dictionary,
-                area: this.area,
-                specializations: this.specializations
-            });
 
             headerView.render();
 

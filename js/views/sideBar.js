@@ -16,8 +16,6 @@ define([
     var DEFAULT_TOP_MARGIN = 10;
 
     return Backbone.View.extend({
-        tagName: 'div',
-        className: 'HH-ResumeBuilder-SideBar side-bar',
 
         template: _.template(SideBarTemplate),
 
@@ -33,11 +31,12 @@ define([
                
             }));
 
-            $('.HH-ResumeBuilder-SideBar').append(this.el);
+            this.$statusBlock = $('.HH-SideBar-Block-Status');
 
-            this.$statusBlock = this.$el.find('.HH-SideBar-Block-Status');
+            $('.HH-SideBar-Block-Status').html(this.el);
             
             this.setProgressBar(this.model.get('_progress').percentage);
+
             // Вычитаем то расстояние, на которое сдвигается фиксированный блок от верхнего края,
             // по умолчанию - 10px
             this.positionFromTop = this.$statusBlock.position().top - DEFAULT_TOP_MARGIN;

@@ -1,6 +1,6 @@
 .side-bar {
-    float: right;
-    width: 280px;
+    float: left;
+    width: 240px;
 }
     .side-bar:after {
         display: block;

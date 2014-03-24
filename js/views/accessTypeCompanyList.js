@@ -28,7 +28,8 @@ define([
             BLACK_LIST: 'blacklist',
             TIME_OUT: 500,
             SUGGEST_MIN_INPUT: 3,
-            ENTER_KEY: 13
+            ENTER_KEY: 13,
+            ITEMS_PER_PAGE: 2000
         },
 
         events: {
@@ -70,8 +71,8 @@ define([
 
                 if (!item.name) {
                     promises.push(
-                        $.when($.get(item.url)).then(function(responce) {
-                            element.name = responce.name;
+                        $.get(item.url).done(function(response) {
+                            element.name = response.name;
                         }));
                 } else {
                     element.name = item.name;
@@ -139,16 +140,17 @@ define([
 
         _updateSuggest: function(text) {
             var that = this,
-                ajax = $.get(
-                [that.suggestUrl, text].join('')
-            );
+                ajax = $.get(that.suggestUrl, {
+                    text: text,
+                    per_page: that.consts.ITEMS_PER_PAGE
+                });
 
             that.input = text;
 
             this.searched = true;
 
-            $.when(ajax).then(function(responce) {
-                that.suggest = responce.items.map(function(item) {
+            ajax.done(function(response) {
+                that.suggest = response.items.map(function(item) {
                     return {
                         id: parseInt(item.id, 10),
                         name: item.name,
@@ -175,10 +177,10 @@ define([
         _select: function(event) {
             var element = $(event.currentTarget),
                 isSelected = element.is(':checked'),
-                id = parseInt(element.val(), 10),
-                name = $(element).parent().find('.HH-AccessTypeCompanyList-Item-Name').text();
+                id = parseInt(element.val(), 10);
 
             if (isSelected) {
+                var name = $(element).siblings('.HH-AccessTypeCompanyList-Item-Name').text();
                 this._addCompany(id, name);
             } else {
                 this._removeCompany(id);
@@ -191,16 +193,14 @@ define([
         },
 
         _onEnter: function(event) {
-            if(event.keyCode === this.consts.ENTER_KEY) {
+            if (event.keyCode === this.consts.ENTER_KEY) {
                 this._search();
             }
         },
 
         _search: function() {
-            var text = $('.HH-AccessTypeCompanyList-Input').val(),
-                that = this;
-
-            that._updateSuggest(text);
+            var text = $('.HH-AccessTypeCompanyList-Input').val();
+            this._updateSuggest(text);
         },
 
         _ok: function(event) {

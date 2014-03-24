@@ -23,10 +23,9 @@ define([
 
         initialize: function(options) {
             this.model = options.model;
-            this.listenToOnce(this.model, 'load', this.render);
+            this.listenTo(this.model, 'load', this.render);
 
              _.bindAll(this, 'switchFloat');
-            $(window).scroll(this.switchFloat);
         },
 
         render: function() {
@@ -39,6 +38,7 @@ define([
             // Вычитаем то расстояние, на которое сдвигается фиксированный блок от верхнего края,
             // по умолчанию - 10px
             this.positionFromTop = this.$statusBlock.position().top - DEFAULT_TOP_MARGIN;
+            $(window).scroll(this.switchFloat);
         },
 
         switchFloat: function() {

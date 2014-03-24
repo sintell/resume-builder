@@ -25,13 +25,15 @@ define([
             this.model = options.model;
             this.listenTo(this.model, 'load', this.render);
 
-             _.bindAll(this, 'switchFloat');
+             _.bindAll(this, 'switchFloat', 'setProgressBar');
         },
 
         render: function() {
             this.$el.html(this.template({
                
             }));
+
+            this.setProgressBar(this.model.get('_progress').percentage);
             $('.HH-ResumeBuilder-SideBar').append(this.el);
 
             this.$statusBlock = this.$el.find('.HH-SideBar-Block-Status');
@@ -47,6 +49,12 @@ define([
             } else {
                 this.$statusBlock.addClass('block_fixed');
             }
+        },
+
+        setProgressBar: function(progressPercent) {
+            this.$el.find('.resume__status .progress__bar').width(progressPercent + '%');
+            this.$el.find('.resume__status .progress__text').text(progressPercent + '%');
+
         }
     });
 });

@@ -51,24 +51,20 @@ define([
             this.dictionary = options.dictionary;
             this.specializations = options.specializations;
 
-            new SideBarView({
-                model: this.model
-            });
-
-            new SideBarView({
-                model: this.model
-            });
-
             this.listenTo(this.model, 'sync', this.render);
             this.listenTo(this.model, 'load', function() {
                 that.initializeComponents(options);
                 that.render();
             });
 
+            new SideBarView({
+                model: this.model
+            });
             this.model.load();
         },
 
         initializeComponents: function(options) {
+            
             var citizenshipOptions,
                 workTicketOptions;
 

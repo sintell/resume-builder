@@ -55,6 +55,10 @@ define([
                 model: this.model
             });
 
+            new SideBarView({
+                model: this.model
+            });
+
             this.listenTo(this.model, 'sync', this.render);
             this.listenTo(this.model, 'load', function() {
                 that.initializeComponents(options);

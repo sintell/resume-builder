@@ -33,10 +33,11 @@ define([
                
             }));
 
-            this.setProgressBar(this.model.get('_progress').percentage);
             $('.HH-ResumeBuilder-SideBar').append(this.el);
 
             this.$statusBlock = this.$el.find('.HH-SideBar-Block-Status');
+            
+            this.setProgressBar(this.model.get('_progress').percentage);
             // Вычитаем то расстояние, на которое сдвигается фиксированный блок от верхнего края,
             // по умолчанию - 10px
             this.positionFromTop = this.$statusBlock.position().top - DEFAULT_TOP_MARGIN;
@@ -52,9 +53,8 @@ define([
         },
 
         setProgressBar: function(progressPercent) {
-            this.$el.find('.resume__status .progress__bar').width(progressPercent + '%');
-            this.$el.find('.resume__status .progress__text').text(progressPercent + '%');
-
+            this.$statusBlock.find('.HH-Block-Status-ProgressBar').width(progressPercent + '%');
+            this.$statusBlock.find('.HH-Block-Status-ProgressText').text(progressPercent + '%');
         }
     });
 });

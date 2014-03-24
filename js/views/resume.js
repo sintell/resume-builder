@@ -12,6 +12,7 @@ define([
     'views/header',
     'views/accessType',
     'views/accessTypeCompanyList',
+    'views/sideBar',
     'text!templates/resume.html',
     'text!templates/citizenship.html',
     'text!templates/workTicket.html'
@@ -29,6 +30,7 @@ define([
     HeaderView,
     AccessTypeView,
     AccessTypeCompanyListModal,
+    SideBarView,
     ResumeTemplate,
     CitizenshipTemplate,
     WorkTicketTemplate
@@ -48,6 +50,10 @@ define([
 
             this.dictionary = options.dictionary;
             this.specializations = options.specializations;
+
+            new SideBarView({
+                model: this.model
+            });
 
             this.listenTo(this.model, 'sync', this.render);
             this.listenTo(this.model, 'load', function() {

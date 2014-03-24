@@ -7,7 +7,7 @@ define([
     $,
     _,
     Backbone,
-    AreaTemplate
+    AccessTypeTemplate
 ) {
     'use strict';
 
@@ -18,14 +18,23 @@ define([
 
         componentName: 'access-type',
 
-        events: {
-            'change .HH-AccessType-Radio': '_select'
+        consts: {
+            WHITE_LIST: 'whitelist',
+            BLACK_LIST: 'blacklist'
         },
 
-        template: _.template(AreaTemplate),
+        events: {
+            'change .HH-AccessType-Radio': '_select',
+            'click .HH-AccessType-ShowModal': '_showModal'
+        },
 
-        initialize: function(options) {
+        template: _.template(AccessTypeTemplate),
+
+        initialize: function(options, modal) {
             this.accessTypes = options.dictionary.attributes.resume_access_type;
+            this.modal = modal;
+
+            this.listenTo(this.modal, 'selectData', this.onSelectModal);
         },
 
         fill: function(attributes) {
@@ -37,7 +46,8 @@ define([
 
             data = {
                 access: this.access,
-                accessTypes: this.accessTypes
+                accessTypes: this.accessTypes,
+                consts: this.consts
             };
 
             this.$el.html(this.template(data));
@@ -46,17 +56,26 @@ define([
         },
 
         takeback: function(attributes) {
-            attributes.access = {
-                type: {}
-            };
+            this.modal.hide();
 
-            attributes.access.type.id = this.selectedId;
+            attributes.access= this.access;
+        },
+
+        onSelectModal: function(data) {
+            this.access[this.editingList] = data;
+            this.editingList = undefined;
+            this.render();
         },
 
         _select: function(event) {
             event.preventDefault();
 
-            this.selectedId = $(event.currentTarget).val();
+            this.access.type.id = $(event.currentTarget).val();
+        },
+
+        _showModal: function(event) {
+            this.editingList = $(event.currentTarget).data('hh-list');
+            this.modal.show(this.access[this.editingList]);
         }
     });
 });

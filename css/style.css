@@ -6,4 +6,6 @@
 @import "./blocks/areas-wrapper.css";
 @import "./blocks/area-list.css";
 @import "./blocks/checkbox-list.css";
-@import "./blocks/header.css"
+@import "./blocks/header.css";
+@import "./blocks/modal.css";
+@import "./blocks/overlay.css";

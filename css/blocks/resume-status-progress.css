@@ -1,0 +1,26 @@
+.resume-status-progress {
+    background: linear-gradient(0deg, #DDD 0%, #EEE 50%, #DDD 100%);
+    box-shadow: inset 0 0 6px #777;
+    border-radius: 5px;
+    position: relative;
+    height: 20px;
+    width: 100%;
+    overflow: hidden;
+    margin: 10px 0;
+}
+    .resume-status-progress__text {
+        position: absolute;
+        margin: auto;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        line-height: 20px;
+    }
+    .resume-status-progress__bar {
+        width: 50%;
+        height: 100%;
+        background: #385;
+        box-shadow: 0 0 2px #333;
+    }

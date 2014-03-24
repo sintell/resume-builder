@@ -12,6 +12,7 @@ define([
     'use strict';
 
     var documentObject = $(document);
+    var isiOs = /(iPad|iPhone|iPod)/g.test(navigator.userAgent);
     var DEFAULT_TOP_MARGIN = 10;
 
     return Backbone.View.extend({
@@ -41,7 +42,7 @@ define([
         },
 
         switchFloat: function() {
-            if (documentObject.scrollTop() < this.positionFromTop) { 
+            if (!isiOs && documentObject.scrollTop() < this.positionFromTop) { 
                 this.$statusBlock.removeClass('block_fixed');
             } else {
                 this.$statusBlock.addClass('block_fixed');

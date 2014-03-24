@@ -66,12 +66,10 @@ app.get('/oauth', function(req, res) {
 
             res.cookie('access_token', data.access_token, {
                 maxAge: data.expires_in,
-                httpOnly: true
             });
             
             res.cookie('refresh_token', data.refresh_token, {
                 maxAge: 900000,
-                httpOnly: true
             });
 
             res.redirect(app.set('responseRedirectUri'));

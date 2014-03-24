@@ -9,7 +9,6 @@ define([
     'views/metro',
     'views/relocation',
     'views/relocationArea',
-    'views/header',
     'text!templates/resume.html',
     'text!templates/citizenship.html',
     'text!templates/workTicket.html'
@@ -24,7 +23,6 @@ define([
     MetroView,
     RelocationView,
     RelocationAreaView,
-    HeaderView,
     ResumeTemplate,
     CitizenshipTemplate,
     WorkTicketTemplate
@@ -44,9 +42,6 @@ define([
 
             this.dictionary = options.dictionary;
             this.specializations = options.specializations;
-            new HeaderView({
-                model: this.model
-            });
 
             this.listenTo(this.model, 'sync', this.render);
             this.listenTo(this.model, 'load', function() {
@@ -132,6 +127,7 @@ define([
                     });
                 }
 
+                component.namespace = container.data('hh-namespace');
                 component.fill(that.model.attributes);
                 component.delegateEvents();
                 container.html(component.render().el);
@@ -154,23 +150,30 @@ define([
         },
 
         _submit: function(event) {
-            var $section,
+            var $controls,
+                $section,
                 $specializations,
                 attributes = {},
+                namespace,
                 that = this;
 
             event.preventDefault();
 
             $section = $(event.currentTarget).closest('.HH-Resume-ResumeSection');
-            $section.find('.HH-ResumeSection-ControlTextbox').each(function(index, textbox) {
+            namespace = $section.data('hh-namespace');
+            $controls = $section.find('[data-hh-namespace=' + namespace + ']');
+
+            $controls.filter('.HH-ResumeSection-ControlTextbox').each(function(index, textbox) {
                 that._saveAttribute(attributes, textbox.getAttribute('data-hh-name'), textbox.value);
             });
-            $section.find('.HH-ResumeSection-ControlRadio').each(function(index, radio) {
+
+            $controls.filter('.HH-ResumeSection-ControlRadio').each(function(index, radio) {
                 if (radio.checked) {
                     that._saveAttribute(attributes, radio.getAttribute('data-hh-name'), radio.value);
                 }
             });
-            $specializations = $section.find('.HH-ResumeSection-ControlSpecialization');
+
+            $specializations = $controls.filter('.HH-ResumeSection-ControlSpecialization');
             if ($specializations.length) {
                 attributes.specialization = [];
             }
@@ -183,11 +186,25 @@ define([
             });
 
             this.components.forEach(function(component) {
-                component.takeback(attributes);
+                if (component.namespace === namespace) {
+                    component.takeback(attributes);
+                }
             });
 
-            $.when(this.model.save(attributes)).then(function() {
-                that.model.fetch();
+            this.model.attributesToSave = _.keys(attributes);
+            this.model.save(attributes, {
+                wait: true,
+
+                success: function() {
+                    that.model.fetch();
+                },
+
+                // HH API отвечает пустым 201 Webpage Created на запрос POST /resumes, поэтому срабатывает колбэк error
+                error: function(model, response, options) {
+                    if (response.status === 201) {
+                        that.model.collection.trigger('added');
+                    }
+                }
             });
         },
 

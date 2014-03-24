@@ -1,2 +1,2 @@
-var config = require('../config/config.js').config;
+var config = require('../config/config.js');
 require('./app.js').listen(config.oauthServerPort);

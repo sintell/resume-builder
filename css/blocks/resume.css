@@ -1,7 +1,7 @@
 .resume {
     margin-bottom: 50px;
 }
-.HH-ResumeBuilder-ResumeList {
+.resume__list {
     float: left;
     width: 70%;
 }

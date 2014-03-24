@@ -15,7 +15,7 @@ define([
 
     return Backbone.View.extend({
         tagName: 'ul',
-        className: 'resume-list__container',
+        className: 'resume-list',
 
         initialize: function() {
             this.collection.on('load', this.render, this)

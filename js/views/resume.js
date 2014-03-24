@@ -64,7 +64,6 @@ define([
         },
 
         initializeComponents: function(options) {
-            
             var citizenshipOptions,
                 workTicketOptions;
 

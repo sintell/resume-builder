@@ -33,13 +33,9 @@ define([
 
             this.$statusBlock = $('.HH-SideBar-Block-Status');
 
-            console.log(this.$el)
-            console.log(this.$statusBlock)
             $('.HH-SideBar-Block-Status').html(this.el);
             
             this.setProgressBar(this.model.get('_progress').percentage);
-
-            console.log(this.$statusBlock.position());
 
             // Вычитаем то расстояние, на которое сдвигается фиксированный блок от верхнего края,
             // по умолчанию - 10px

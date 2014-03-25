@@ -56,15 +56,15 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest'], function($, _, Bac
         _findIdByData: function(data, node) {
             var that = this,
                 result;
+
             if (!node) {
                 return null;
             }
 
             if (
                 (data.id && node.id === data.id) ||
-                (data.name && node.name && node.name.toLowerCase() === data.name.toLowerCase())
-                )
-            {
+                (data.name && node.name && node.name.toLowerCase().replace('ё', 'е') === data.name.toLowerCase().replace('ё', 'е'))
+            ) {
                 return node;
             }
 

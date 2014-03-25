@@ -19,7 +19,8 @@ define([
 
         events: {
             'keyup .HH-ResumeBuilder-Component-Metro-Input': '_updateSuggest',
-            'keydown .HH-ResumeBuilder-Component-Metro-Input': '_preventKeydown'
+            'keydown .HH-ResumeBuilder-Component-Metro-Input': '_preventKeydown',
+            'focusout .HH-ResumeBuilder-Component-Metro-Input': '_onFocusOut'
         },
 
         initialize: function(options) {
@@ -241,8 +242,13 @@ define([
                 return station.name;
             });
         },
+
         _preventKeydown: function(event) {
             this.suggest.preventKeydown(event);
+        },
+
+        _onFocusOut: function(event) {
+            this.suggest.hide();
         }
     });
 });

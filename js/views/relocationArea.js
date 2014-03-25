@@ -28,6 +28,7 @@ define([
         events: {
             'keyup .HH-ResumeBuilder-Component-RelocationArea-Input': '_updateSuggest',
             'keydown .HH-ResumeBuilder-Component-RelocationArea-Input': '_preventKeydown',
+            'focusout .HH-ResumeBuilder-Component-RelocationArea-Input': '_onFocusOut'
         },
 
         initialize: function(options) {
@@ -135,6 +136,10 @@ define([
                 this.needArea = id !== this.const.NO_RELOCATION;
                 this.render();
             }
+        },
+
+        _onFocusOut: function(event) {
+            this.suggest.hide();
         }
     });
 });

@@ -1,7 +1,9 @@
 <div class="header">
-    <% if (authenticated) { %>
+    <% if (user.isAuthenticated) { %>
         <h3 class="header__text"><%- user.first_name %> <%- user.last_name %></h3>
-        <input type="submit" class="HH-ResumeBuilder-ButtonCreate button button_create-resume" value="Создать резюме" />
+        <% if (user.isEmployee) { %>
+            <input type="submit" class="HH-ResumeBuilder-ButtonCreate button button_create-resume" value="Создать резюме" />
+        <% } %>
         <form class="header__form" action="<%=serverHost%>:<%=oauthServerPort%>/oauth/logout" method="POST">
             <input type="submit" class="button button_logout" value="Выйти" />
         </form>

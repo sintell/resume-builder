@@ -9,8 +9,8 @@
     .section__title-text {
         height: 25px;
         line-height: 25px;
-        display: inline-block;
         margin: 20px 0px;
+        display: inline-block;
     }
 
     .section__title-button {

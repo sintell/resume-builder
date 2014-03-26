@@ -16,7 +16,6 @@ define([
     var DEFAULT_TOP_MARGIN = 10;
 
     return Backbone.View.extend({
-
         template: _.template(SideBarTemplate),
 
         initialize: function(options) {

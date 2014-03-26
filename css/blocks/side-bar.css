@@ -2,6 +2,7 @@
     float: left;
     width: 240px;
 }
+
     .side-bar:after {
         display: block;
         content: '';

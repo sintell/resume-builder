@@ -12,3 +12,7 @@
     .header__form {
         display: inline-block;
     }
+
+    .header__warning {
+        padding: 0px 10px;
+    }

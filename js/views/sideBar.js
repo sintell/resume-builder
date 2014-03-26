@@ -23,12 +23,13 @@ define([
             this.model = options.model;
             this.listenTo(this.model, 'load', this.render);
 
+
              _.bindAll(this, 'switchFloat', 'setProgressBar');
         },
 
         render: function() {
             this.$el.html(this.template({
-               
+               data: this.model.attributes
             }));
 
             this.$statusBlock = $('.HH-SideBar-Block-Status');

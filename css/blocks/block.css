@@ -2,20 +2,16 @@
     margin-bottom: 50px;
     min-width: 220px;
     padding: 10px 10px;
-    transition: box-shadow 0.1s ease-in;
 }
     .block__title {
-        font-size: 1.2em;
-        color: #555;
-        margin-bottom: 15px;
+
     }
     .block__data {
-        padding-left: 10px;
+
     }
 
 .block_fixed {
     position: fixed;
     top: 10px;
     border: dashed 1px #aaa;
-    box-shadow: 3px 3px 1px #aaa;
 }

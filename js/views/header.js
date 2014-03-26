@@ -30,8 +30,7 @@ define([
             var data;
 
             data = {
-                authenticated: this.model.authenticated,
-                user: this.model.attributes,
+                user: this.model.data(),
                 serverHost: Config.serverHost,
                 oauthServerPort: Config.oauthServerPort
             };

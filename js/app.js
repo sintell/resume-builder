@@ -73,7 +73,12 @@ define([
             this.user.fetch({
                 success: function() {
                     $.when(
-                        that.resumes.fetch(),
+                        that.resumes.fetch({
+                            error: function() {
+                                that.user.isEmployee = false;
+                                that.render();
+                            }
+                        }),
                         that.dictionary.fetch(),
                         that.area.fetch(),
                         that.specializations.fetch()
@@ -98,7 +103,7 @@ define([
             });
             headerView.render();
 
-            if (this.user.authenticated) {
+            if (this.user.isAuthenticated && this.user.isEmployee) {
                 if (!this.resumes.length) {
                     this.createResume();
                 }

@@ -34,7 +34,7 @@ define([
         document.cookie.split(';').some(function(cookie) {
             var cookieData = cookie.split('=');
             if (cookieData[0].trim() === cookieName) {
-                cookieValue = cookieData[1];
+                cookieValue = cookieData[1].trim();
                 return true;
             }
         }, this);
@@ -56,13 +56,19 @@ define([
 
         template: _.template(AppTemplate),
 
-        initialize: function() {
+        initialize: function(options) {
+            this.resumeId = options.id;
             this.user = new User();
             this.resumes = new ResumeList();
             this.dictionary = new Dictionary();
             this.area = new Area();
             this.specializations = new SpecializationList();
-            this.resume = {};
+
+            if (this.resumeId !== 'new') {
+                this.resume = new Resume({id: this.resumeId}); 
+            } else {
+                this.createResume();
+            }
 
             this.listenTo(this.resumes, 'added', this.load);
             this.load();
@@ -84,8 +90,6 @@ define([
                         that.area.fetch(),
                         that.specializations.fetch()
                     ).then(function() {
-                        that.resume = _.extend(new Resume(), _.omit(that.resumes.first().attributes, ['id']));
-                        that.resume.set('url', that.resumes.first().get('url'));
                         that.render();
                     });
                 },
@@ -97,15 +101,10 @@ define([
         },
 
         render: function() {
-            var headerView,
-                resumeView;
-
-            headerView = new HeaderView({
+            var headerView = new HeaderView({
                 model: this.user,
                 parent: this
             });
-
-            var resumeView, resumeListView;
 
             headerView.render();
 
@@ -114,8 +113,8 @@ define([
                     this.createResume();
                 }
 
-                resumeView = new ResumeView({
-                    model: this.resumes.first()
+                var resumeView = new ResumeView({
+                    model: this.resume
                 }, {
                     dictionary: this.dictionary,
                     area: this.area,
@@ -128,13 +127,21 @@ define([
         },
 
         createResume: function() {
-            this.resumes.add(new Resume({
+            this.resume = new Resume({
                 url: [Config.apiUrl, 'resumes'].join('/')
-            }));
+            });
+            this.resumes.add(this.resume);
+
+            var resumeView = new ResumeView({
+                model: this.resume
+            }, {
+                dictionary: this.dictionary,
+                area: this.area,
+                specializations: this.specializations
+            });
 
             this.$el.html(this.template());
             this.$el.find('.HH-ResumeBuilder-Resume').append(resumeView.render().el);
-
         }
     });
 });

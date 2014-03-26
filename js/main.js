@@ -14,35 +14,56 @@ requirejs([
     'backbone',
     'app',
     'collections/resumeList',
-    'views/resumeList'
-], function($, Backbone, App, ResumeList, ResumeListView) {
+    'views/resumeList',
+    'views/header',
+    'models/user',
+    'models/resume',
+    'config'
+], function($, Backbone, App, ResumeList, ResumeListView, HeaderView, User, Resume, Config) {
     'use strict';
 
     var router = Backbone.Router.extend({
         routes: {
-            '': 'index',
-            'resumes': 'resumeList',
-            '/resumes/:id': 'resume'
-        },
-        index: function() {
-            var app = new App();    
+            '': 'resumeList',
+            ':id': 'resume',
+            // 'new': 'newResume',
         },
 
         resumeList: function() {
+            var user = new User();
             var resumes = new ResumeList();
             var resumeListView = new ResumeListView({
                 collection: resumes
             });
-            resumes.fetch();
-            $('.HH-ResumeBuilder-Container').append(resumeListView.render().el)
+            var headerView = new HeaderView({
+                model: user,
+                parent: this
+            });
+            user.fetch({
+                success: function() {
+                    $.when(resumes.fetch()).then(function() {
+                        headerView.render();
+                        $('.HH-ResumeBuilder-Container').html(resumeListView.render().el);                        
+                    });
+                },
+
+                error: function() {
+                    headerView.render();
+                }
+            });
+
         },
 
         resume: function(id) {
-            console.log(id)
+            var app = new App({id: id});    
+        },
+
+        createResume: function() {
+            this.navigate("new", {trigger: true});
         }
     });
 
-    new router;
+    new router();
     Backbone.history.start();
 
     

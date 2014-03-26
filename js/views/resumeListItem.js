@@ -42,6 +42,7 @@ define([
 
         render: function() {
             var data = {
+                id: this.model.get('id'),
                 title: this.model.get('title'),
                 status: this.model.get('status').name,
                 access: this.model.get('access').type.name,

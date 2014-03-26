@@ -29,7 +29,7 @@ define([
                     model: resumeListItem
                 });
 
-                this.$el.append(resumeListItemView.render().el);
+                this.$el.html(resumeListItemView.render().el);
             }, this);
 
             return this;

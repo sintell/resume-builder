@@ -31,7 +31,9 @@ define([
 
             data = {
                 user: this.model.data(),
-                serverHost: Config.serverHost
+                serverHost: Config.serverHost,
+                serverPort: Config.staticServerPort,
+                oauthServerPort: Config.oauthServerPort
             };
 
             this.$el.html(this.template(data));

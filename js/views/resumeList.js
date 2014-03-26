@@ -26,7 +26,6 @@ define([
         render: function() {
             this.$el.empty();
             this.collection.each(function(resumeListItem){
-                console.log(resumeListItem)
                 var resumeListItemView = new ResumeListItemView({ 
                     model: resumeListItem
                 });

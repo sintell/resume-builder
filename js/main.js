@@ -19,10 +19,10 @@ requirejs([
     'models/user',
     'models/resume',
     'config'
-], function($, Backbone, App, ResumeList, ResumeListView, HeaderView, User, Resume, Config) {
+], function($, Backbone, App, ResumeList, ResumeListView, HeaderView, User) {
     'use strict';
 
-    var router = Backbone.Router.extend({
+    var Router = Backbone.Router.extend({
         routes: {
             '': 'resumeList',
             ':id': 'resume',
@@ -62,7 +62,7 @@ requirejs([
         }
     });
 
-    new router();
+    new Router();
     Backbone.history.start();
 
     

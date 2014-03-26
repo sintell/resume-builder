@@ -26,7 +26,6 @@ requirejs([
         routes: {
             '': 'resumeList',
             ':id': 'resume',
-            // 'new': 'newResume',
         },
 
         resumeList: function() {

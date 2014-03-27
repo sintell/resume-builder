@@ -170,19 +170,10 @@
 
         <div class="HH-ResumeSection-Control control control_viewing">
             <label class="control__label">Профессиональная область</label>
-            <span class="control__value"><%= resume.specializationNames %></span>
 
-            <div class="control__input">
-                <select class="HH-SpecializationControl-Select">
-                    <% _.each(specializations, function(specialization) { %>
-                    <option value="<%= specialization.id %>"
-                            <%= resume.specialization.some(function(s) {return s.profarea_id == specialization.id}) ? 'selected' : '' %>>
-                        <%= specialization.name %>
-                    </option>
-                    <% }); %>
-                </select>
-                <div class="HH-ResumeSection-SpecializationList"></div>
-            </div>
+            <div class="HH-ResumeSection-Component"
+                 data-hh-component="profarea"
+                 data-hh-namespace="salary_and_job"></div>
         </div>
 
         <div class="HH-ResumeSection-Control control control_viewing">

@@ -13,6 +13,7 @@ define([
     'views/accessType',
     'views/accessTypeCompanyList',
     'views/sideBar',
+    'views/additionalInfo',
     'text!templates/resume.html',
     'text!templates/citizenship.html',
     'text!templates/workTicket.html'
@@ -31,6 +32,7 @@ define([
     AccessTypeView,
     AccessTypeCompanyListModal,
     SideBarView,
+    AdditionalInfoView,
     ResumeTemplate,
     CitizenshipTemplate,
     WorkTicketTemplate
@@ -58,6 +60,9 @@ define([
             });
 
             new SideBarView({
+                model: this.model
+            });
+            new AdditionalInfoView({
                 model: this.model
             });
             this.model.load();

@@ -69,6 +69,7 @@ define([
                     '"]'
                 ].join(''));
 
+                section.title = container.data('hh-title');
                 container.html(section.render(data).el);
                 container.contents().unwrap();
             });

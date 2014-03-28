@@ -1,16 +1,20 @@
 define([
     'jquery',
     'underscore',
-    'backbone'
+    'backbone',
+    'text!templates/resumeSection.html'
 ], function(
     $,
     _,
-    Backbone
+    Backbone,
+    ResumeSectionTemplate
 ) {
     'use strict';
 
     return Backbone.View.extend({
         className: 'HH-Resume-ResumeSection',
+
+        baseTemplate: _.template(ResumeSectionTemplate),
 
         events: {
             'click .HH-ResumeSection-Switch': '_edit',
@@ -25,7 +29,8 @@ define([
         render: function(data) {
             var that = this;
 
-            this.$el.html(this.template(data));
+            this.$el.html(this.baseTemplate({title: this.title}));
+            this.$el.find('.HH-ResumeSection-Content').replaceWith(this.template(data));
 
             this.components.forEach(function(component) {
                 var container = that.$el.find([

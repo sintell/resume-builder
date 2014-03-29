@@ -17,13 +17,14 @@ define([
         baseTemplate: _.template(ResumeSectionTemplate),
 
         events: {
-            'click .HH-ResumeSection-Switch': '_edit',
+            'click .HH-ResumeSection-Switch': '_switch',
             'click .HH-ResumeSection-Submit': '_submit'
         },
 
         initialize: function(options) {
             this.components = [];
             this.parent = options.parent;
+            this.editMode = false;
         },
 
         render: function(data) {
@@ -60,14 +61,20 @@ define([
             return this;
         },
 
-        _edit: function(event) {
+        _switch: function(event) {
             var $controls;
 
             event.preventDefault();
 
-            this.$el.find('.HH-ResumeSection-Switch').toggleClass('section__title-button_hidden');
-            $controls = this.$el.find('.HH-ResumeSection-Control');
-            $controls.toggleClass('control_viewing control_editing');
+            this.editMode = !this.editMode;
+
+            if (this.editMode) {
+                this.$el.find('.HH-ResumeSection-Switch').toggleClass('section__title-button_hidden');
+                $controls = this.$el.find('.HH-ResumeSection-Control');
+                $controls.toggleClass('control_viewing control_editing');
+            } else {
+                this.render(this.parent.data());
+            }
         },
 
         _submit: function(event) {
@@ -93,6 +100,8 @@ define([
             this.components.forEach(function(component) {
                 component.takeback(attributes);
             });
+
+            this.editMode = !this.editMode;
 
             this.model.attributesToSave = _.keys(attributes);
             this.model.save(attributes, {

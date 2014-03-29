@@ -62,16 +62,13 @@ define([
         },
 
         _switch: function(event) {
-            var $controls;
-
             event.preventDefault();
 
             this.editMode = !this.editMode;
 
             if (this.editMode) {
-                this.$el.find('.HH-ResumeSection-Switch').toggleClass('section__title-button_hidden');
-                $controls = this.$el.find('.HH-ResumeSection-Control');
-                $controls.toggleClass('control_viewing control_editing');
+                this.$el.find('.HH-ResumeSection-Inner').toggleClass('section_viewing section_editing');
+                this.$el.find('.HH-ResumeSection-Control').toggleClass('control_viewing control_editing');
             } else {
                 this.render(this.data());
             }
@@ -103,6 +100,8 @@ define([
 
             this.editMode = !this.editMode;
 
+            this.$el.find('.HH-ResumeSection-Inner').toggleClass('section_loading');
+
             this.model.attributesToSave = _.keys(attributes);
             this.model.save(attributes, {
                 wait: true,
@@ -120,6 +119,8 @@ define([
                     if (response.status === 201) {
                         that.model.collection.trigger('added');
                     }
+
+                    that.$el.find('.HH-ResumeSection-Inner').toggleClass('section_loading');
                 }
             });
         },

@@ -77,7 +77,7 @@ define([
                         url: [Config.apiUrl, xhr.getResponseHeader('Location')].join('')
                     });
                     that.model.collection.add(resume);
-                    // TODO делать that.model.collection.trigger('added') после мержа HH-47 в мастер
+                    that.model.collection.trigger('added');
                 }
             });
         }

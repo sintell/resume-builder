@@ -122,7 +122,7 @@ define([
                 });
 
                 this.$el.html(this.template());
-                this.$el.find('.HH-ResumeBuilder-ResumeList').append(resumeView.render().el);
+                $('.HH-ResumeBuilder-ResumeList').append(resumeView.render().el);
             }
         },
 
@@ -141,7 +141,7 @@ define([
             });
 
             this.$el.html(this.template());
-            this.$el.find('.HH-ResumeBuilder-Resume').append(resumeView.render().el);
+            $('.HH-ResumeBuilder-Resume').append(resumeView.render().el);
         }
     });
 });

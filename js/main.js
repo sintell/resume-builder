@@ -58,7 +58,7 @@ requirejs([
         },
 
         createResume: function() {
-            this.navigate("new", {trigger: true});
+            this.navigate('new', {trigger: true});
         }
     });
 

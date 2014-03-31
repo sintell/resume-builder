@@ -43,13 +43,14 @@ define([
         render: function() {
             var data = {
                 id: this.model.get('id'),
-                title: this.model.get('title'),
+                title: this.model.get('title') || 'Без названия',
                 status: this.model.get('status').name,
                 access: this.model.get('access').type.name,
                 updatedAt: formatUpdateTime(this.model.get('updated')),
                 totalViews: this.model.get('total_views'),
                 newViews: this.model.get('new_views')
             };
+            
             this.$el.html(this.template(data));
             return this;
         }

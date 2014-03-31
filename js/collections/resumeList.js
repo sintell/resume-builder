@@ -1,8 +1,8 @@
-define(['underscore', 'backbone', 'models/resumeListItem', 'config'], function(_, Backbone, ResumeListItem, Config) {
+define(['underscore', 'backbone', 'models/resume', 'config'], function(_, Backbone, Resume, Config) {
     'use strict';
 
     return Backbone.Collection.extend({
-        model: ResumeListItem,
+        model: Resume,
 
         url: [Config.apiUrl, 'resumes/mine'].join('/'),
 

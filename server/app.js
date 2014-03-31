@@ -5,6 +5,7 @@ var config = require('../config/config.js'),
 
 app.configure(function() {
     'use strict';
+
     app.set('client_id', config.clientId);
     app.set('client_secret', config.clientSecret);
     app.set('responseRedirectUri', config.staticServerUrl);
@@ -82,7 +83,6 @@ app.get('/oauth', function(req, res) {
 
     postRequest.write(postString);
     postRequest.end();
-
 });
 
 app.post('/oauth/logout', function(req, res) {

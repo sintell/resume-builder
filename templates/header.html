@@ -6,12 +6,12 @@
         <% } else { %>
             <span class="header__warning">Только соискатели могут создавать резюме</span>
         <% } %>
-        <form class="header__form" action="<%=serverHost%>:<%=oauthServerPort%>/oauth/logout" method="POST">
+        <form class="header__form" action="<%= serverHost %>/oauth/logout" method="POST">
             <input type="submit" class="button button_logout" value="Выйти" />
         </form>
     <% } else { %>
         <span class="header__text">
-            <a href="<%=serverHost%>:<%=oauthServerPort%>/oauth" class="link link_login">Войти</a>
+            <a href="<%= serverHost %>/oauth" class="link link_login">Войти</a>
         </span>
     <% } %>
 </div>

@@ -27,8 +27,9 @@ define([
 
         render: function() {
             this.$el.html(this.template(this.model.attributes));
+            console.log('render', arguments);
 
-            $('.HH-ResumeBuilder-AdditionalInfo').append(this.$el);
+            $('.HH-ResumeBuilder-AdditionalInfo').html(this.$el);
 
             return this;
         },

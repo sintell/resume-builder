@@ -1,4 +1,4 @@
-define(['underscore', 'backbone', 'models/conditions'], function(_, Backbone, Conditions) {
+define(['underscore', 'backbone', 'models/conditions', 'config'], function(_, Backbone, Conditions, Config) {
     'use strict';
 
     return Backbone.Model.extend({
@@ -41,7 +41,6 @@ define(['underscore', 'backbone', 'models/conditions'], function(_, Backbone, Co
         ],
 
         initialize: function() {
-
         },
 
         load: function() {
@@ -60,7 +59,11 @@ define(['underscore', 'backbone', 'models/conditions'], function(_, Backbone, Co
         },
 
         url: function() {
-            return this.get('url');
+            if (this.isNew()) {
+                return [Config.apiUrl, 'resumes'].join('/');
+            } else {
+                return [Config.apiUrl, 'resumes', this.get('id')].join('/');
+            }
         },
 
         toJSON: function() {

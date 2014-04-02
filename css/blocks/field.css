@@ -1,0 +1,17 @@
+.field {
+    display: table-cell;
+    padding: 5px 5px;
+}
+
+    .field:first-child {
+        padding-left: 0;       
+    }
+
+    .field__title {
+        font-size: 0.8em;
+        color: #555;
+    }
+
+    .field__data {
+        font-size: 0.9em;
+    }

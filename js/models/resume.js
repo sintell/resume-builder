@@ -13,7 +13,13 @@ define(['underscore', 'backbone', 'models/conditions'], function(_, Backbone, Co
             business_trip_readiness: {},
             travel_time: {},
             specialization: [],
-            relocation: {type:{}}
+            relocation: {type:{}},
+            updated_at: '',
+            total_views: 0,
+            new_views: 0,
+            access: {type:{}},
+            status: {},
+            _progress: {}
         },
 
         readOnly: [

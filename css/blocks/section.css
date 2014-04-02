@@ -17,6 +17,28 @@
 
     }
 
-        .section__title-button_hidden {
-            display: none;
-        }
+    .section_viewing .section__title-button_cancel {
+        display: none;
+    }
+
+    .section_editing .section__title-button_edit {
+        display: none;
+    }
+
+    .section__content {
+        position: relative;
+    }
+
+    .section__overlay {
+        display: none;
+    }
+
+    .section_loading .section__overlay {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(255, 255, 255, 0.8);
+    }

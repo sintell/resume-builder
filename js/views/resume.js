@@ -2,7 +2,7 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'models/validator'
+    'models/validator',
     'views/header',
     'views/statusSidebar',
     'views/infoSidebar',
@@ -114,9 +114,11 @@ define([
                 section.addClass('section_with_error');
                 target.addClass('control_with_error');
                 section.append('<div class="error-text">' + error + '</div>');
+                $('.HH-ResumeSection-Submit:visible').attr('disabled', true);
             } else {
                 section.removeClass('section_with_error');
                 target.removeClass('control_with_error');
+                $('.HH-ResumeSection-Submit:visible').attr('disabled', true);
             }
         }
     });

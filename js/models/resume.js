@@ -1,14 +1,12 @@
 define([
     'underscore',
     'backbone',
-    'models/conditions',
     'models/validator',
     'config',
     'utils'
 ], function(
     _,
     Backbone,
-    Conditions,
     Validator,
     Config,
     Utils
@@ -93,10 +91,6 @@ define([
             attributes = _.pick(attributes, this.systemAttributes.concat(this.attributesToSave));
 
             return attributes;
-        },
-
-        validate: function(attributes, options) {
-           this.validator.validate(_.omit(this.attributes, this.readOnly));
         },
 
         specializationNames: function() {

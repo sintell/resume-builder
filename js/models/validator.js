@@ -5,12 +5,6 @@ define(['underscore', 'backbone', 'models/validationRules'], function(_, Backbon
         this.rules = new ValidationRules({resume:{id:options}});
         var that = this;
         return {
-            bind : function(){},
-            unbind: function(){},
-            validate: function(attributes) {
-                var attributesToTest = _.pick(attributes, Object.keys(that.rules.attributes));
-                console.log(attributesToTest); 
-            },
             validateField: function(field) {
                 // Выбираем из модели правил все правила применимые к полю field
                 // Для каждого правила вызываем соотвествующий валидатор
@@ -19,7 +13,6 @@ define(['underscore', 'backbone', 'models/validationRules'], function(_, Backbon
                 for(var ruleName in rules) {
                     var rule = rules[ruleName];
                     var errorText = Validator.prototype.validators[ruleName](field.value, rule);
-                    console.log(errorText);
                     if( !_.isUndefined(errorText) ) {
                         return errorText;
                     }
@@ -65,9 +58,6 @@ define(['underscore', 'backbone', 'models/validationRules'], function(_, Backbon
                 } 
             },
             min_value: function(value, minValue) {
-                // console.log(parseFloat(value, 10), "<", minValue)
-                // console.log(parseFloat(value, 10) < minValue)
-                // console.log(isNumber(value))
                 if (isNumber(value) && parseFloat(value, 10) < minValue) {
                     return "Минимальное значение";
                 } 

@@ -67,8 +67,9 @@ define(['underscore', 'backbone'], function(_, Backbone) {
         },
 
         url: function () {
+            console.log(this.resume)
             if (this.resume ) {
-                return ['https://api.hh.ru/resumes', this.resume.id, 'conditions'].join('/');
+                return ['https://api.hh.ru/resumes', , 'conditions'].join('/');
             } else {
                 return 'https://api.hh.ru/resume_conditions';
             }

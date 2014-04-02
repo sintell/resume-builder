@@ -139,7 +139,7 @@
         </div>
     </div>
 
-    <div class="HH-Resume-ResumeSection" data-hh-namespace="salary_and_job">
+    <div class="HH-Resume-ResumeSection section" data-hh-namespace="salary_and_job">
         <div class="section__title">
             <h3 class="section__title-text">Желаемая должность и зарплата</h3>
             <button class="HH-ResumeSection-Switch section__title-button"
@@ -170,19 +170,10 @@
 
         <div class="HH-ResumeSection-Control control control_viewing">
             <label class="control__label">Профессиональная область</label>
-            <span class="control__value"><%= resume.specializationNames %></span>
 
-            <div class="control__input">
-                <select class="HH-SpecializationControl-Select">
-                    <% _.each(specializations, function(specialization) { %>
-                    <option value="<%= specialization.id %>"
-                            <%= resume.specialization.some(function(s) {return s.profarea_id == specialization.id}) ? 'selected' : '' %>>
-                        <%= specialization.name %>
-                    </option>
-                    <% }); %>
-                </select>
-                <div class="HH-ResumeSection-SpecializationList"></div>
-            </div>
+            <div class="HH-ResumeSection-Component"
+                 data-hh-component="profarea"
+                 data-hh-namespace="salary_and_job"></div>
         </div>
 
         <div class="HH-ResumeSection-Control control control_viewing">
@@ -338,7 +329,7 @@
     </div>
 
 
-    <div class="HH-Resume-ResumeSection HH-Resume-ResumeSectionAccess">
+    <div class="HH-Resume-ResumeSection HH-Resume-ResumeSectionAccess section">
         <div class="section__title">
             <h3 class="section__title-text">Видимость</h3>
             <button class="HH-ResumeSection-Switch HH-ResumeSection-SwitchEdit section__title-button"

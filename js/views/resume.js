@@ -2,7 +2,7 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'views/specialization',
+    'views/profarea',
     'views/birthDate',
     'views/area',
     'views/resumeCountryPicker',
@@ -21,7 +21,7 @@ define([
     $,
     _,
     Backbone,
-    SpecializationView,
+    ProfareaView,
     BirthDateView,
     AreaView,
     ResumeCountryPicker,
@@ -51,7 +51,6 @@ define([
             var that = this;
 
             this.dictionary = options.dictionary;
-            this.specializations = options.specializations;
 
             this.listenTo(this.model, 'sync', this.render);
             this.listenTo(this.model, 'load', function() {
@@ -94,6 +93,8 @@ define([
             this.components.push(new RelocationView(options));
             this.components.push(new RelocationAreaView(options));
 
+            this.components.push(new ProfareaView(options));
+
             var modal = new AccessTypeCompanyListModal();
             this.components.push(modal);
 
@@ -101,34 +102,20 @@ define([
         },
 
         render: function() {
-            var resumeData,
-                specializationsData,
-                templateData,
+            var data,
                 that = this;
 
             if (!this.model.ready) {
                 return this;
             }
 
-            resumeData = $.extend(
-                {},
-                this.model.attributes,
-                {specializationNames: this.model.specializationNames()}
-            );
-
-            specializationsData = this.specializations.map(function(specialization) {
-                return specialization.attributes;
-            });
-
-            templateData = {
-                resume: resumeData,
+            data = {
+                resume: this.model.attributes,
                 dictionary: this.dictionary.attributes,
-                specializations: specializationsData,
                 conditions: this.model.conditions.attributes
             };
 
-            this.$el.html(this.template(templateData));
-            this._bindSelect();
+            this.$el.html(this.template(data));
 
             this.components.forEach(function(component) {
                 var container = that.$el.find([
@@ -173,7 +160,6 @@ define([
         _submit: function(event) {
             var $controls,
                 $section,
-                $specializations,
                 attributes = {},
                 namespace,
                 that = this;
@@ -191,18 +177,6 @@ define([
             $controls.filter('.HH-ResumeSection-ControlRadio').each(function(index, radio) {
                 if (radio.checked) {
                     that._saveAttribute(attributes, radio.getAttribute('data-hh-name'), radio.value);
-                }
-            });
-
-            $specializations = $controls.filter('.HH-ResumeSection-ControlSpecialization');
-            if ($specializations.length) {
-                attributes.specialization = [];
-            }
-            $specializations.each(function(index, checkbox) {
-                if (checkbox.checked) {
-                    var obj = {};
-                    obj[checkbox.getAttribute('data-hh-name')] = checkbox.value;
-                    attributes.specialization.push(obj);
                 }
             });
 
@@ -247,29 +221,6 @@ define([
                     attributes = attributes[key];
                 }
             }
-        },
-
-        _bindSelect: function() {
-            var id,
-                specialization,
-                specializationView,
-                that = this,
-                $select;
-
-            $select = this.$el.find('.HH-SpecializationControl-Select');
-            $select.off('change').on('change', function() {
-                if (this.selectedIndex !== -1) {
-                    id = this[this.selectedIndex].value;
-                    specialization = that.specializations.get(id);
-                    specializationView = new SpecializationView({
-                        model: specialization,
-                        specializationIds: that.model.specializationIds(),
-                        maxCount: that.model.conditions.get('specialization').max_count
-                    });
-                    that.$el.find('.HH-ResumeSection-SpecializationList').html(specializationView.render().el);
-                }
-            });
-            $select.trigger('change');
         }
     });
 });

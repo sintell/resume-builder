@@ -29,8 +29,8 @@ define([
         template: _.template(ResumeTemplate),
 
         events: {
-            'blur *[data-hh-name]': '_validateInput',
-            'change *[data-hh-name]': '_validateInput'
+            'blur .HH-ResumeSection-Control': '_validateInput',
+            // 'change *[data-hh-name]': '_validateInput'
         },
 
         initialize: function(attributes, options) {
@@ -102,6 +102,7 @@ define([
         _validateInput: function(event) {
             var target = $(event.target);
             var section = $(event.currentTarget);
+
             var name = target.data('hh-name');
 
             var error = this.model.validator.validateField({

@@ -1,19 +1,40 @@
 define(['underscore', 'backbone', 'models/validationRules'], function(_, Backbone, ValidationRules) {
     'use strict';
 
+    var hasValue = function(value) {
+        return !(_.isNull(value) || _.isUndefined(value) || (_.isString(value) && value.trim() === ''));
+    };
+
+    var isNumber = function(value) {
+        return _.isNumber(value) || (_.isString(value) && /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test(value));
+    };
+
+  
     var Validator = function(options){
-        this.rules = new ValidationRules({resume:{id:options}});
+        this.rules = new ValidationRules({id: options.model.get('id')});
         var that = this;
         return {
             validateField: function(field) {
                 // Выбираем из модели правил все правила применимые к полю field
                 // Для каждого правила вызываем соотвествующий валидатор
-                // Если валидатор вернул не пустую строку, то значит произошла ошибка и строка содержит ее описание
-                var rules = that.rules.getRulesFor(field.name);
+                // Если валидатор вернул непустую строку, то значит произошла ошибка и строка содержит ее описание
+                var rules = that.rules.getRulesFor(field.name), errorText;
+
+                if (Object.keys(rules).indexOf('required') !== -1) {
+                    if (hasValue(field.value) || rules.required) {
+                        errorText = Validator.prototype.validators.required(field.value, rules.required); 
+                        if(!_.isUndefined(errorText)) {
+                            return errorText;
+                        }
+                    } else {
+                        return
+                    }
+                }
+                
                 for(var ruleName in rules) {
                     var rule = rules[ruleName];
-                    var errorText = Validator.prototype.validators[ruleName](field.value, rule);
-                    if( !_.isUndefined(errorText) ) {
+                    errorText = Validator.prototype.validators[ruleName](field.value, rule);
+                    if(!_.isUndefined(errorText)) {
                         return errorText;
                     }
                 }
@@ -23,14 +44,6 @@ define(['underscore', 'backbone', 'models/validationRules'], function(_, Backbon
 
     Validator.prototype.validators = (function(){
 
-        var hasValue = function(value) {
-            return !(_.isNull(value) || _.isUndefined(value) || (_.isString(value) && value.trim() === ''));
-        };
-
-        var isNumber = function(value) {
-            return _.isNumber(value) || (_.isString(value) && /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test(value));
-        };
-
         return {
             required: function(value, isRequired) {
                 if (isRequired && !hasValue(value)) {
@@ -39,42 +52,42 @@ define(['underscore', 'backbone', 'models/validationRules'], function(_, Backbon
             },
             min_length: function(value, minLength) {
                 if (_.isString(value) && value.length < minLength) {
-                    return "В этом поле не может быть менее символов";
+                    return "Минимальное количество символов в этом поле: " + minLength;
                 } 
             },
             max_length: function(value, maxLength) {
                 if (_.isString(value) && value.length > maxLength) {
-                    return "В этом поле не может быть более символов";
+                    return "Максимальное количество символов в этом поле: " + maxLength;
                 } 
             },
             min_count: function(value, minCount) {
                 if (_.isArray(value) && value.length < minCount) {
-                    return "Необходимо выбрать минимум значений";
+                    return "Минимальное количество выбраных элементов: " + minCount;
                 }
             },
             max_count: function(value, maxCount) {
                 if (maxCount && _.isArray(value) && value.length > maxCount) {
-                    return "Необходимо выбрать максимум значений";
+                    return "Максимальное количество выбраных элементов: " + maxCount;
                 } 
             },
             min_value: function(value, minValue) {
                 if (isNumber(value) && parseFloat(value, 10) < minValue) {
-                    return "Минимальное значение";
+                    return "Значение не может быть меньше " + minValue;
                 } 
             },
             max_value: function(value, maxValue) {
                 if (maxValue && isNumber(value) && parseFloat(value, 10) > maxValue) {
-                    return "Максимальное значение";
+                    return "Значение не может быть больше " + maxValue;
                 } 
             },
             min_date: function(value, minDate) {
                 if (new Date(value) < new Date(minDate)) {
-                    return "Минимальная дата";
+                    return "Минимальная дата: " + minDate;
                 } 
             },
             max_date: function(value, maxDate) {
                 if (new Date(value) > new Date(maxDate)) {
-                    return "Максимальная дата";
+                    return "Максимальная дата: " + maxDate;
                 }
             },
             regexp: function(value, regexp) {

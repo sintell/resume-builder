@@ -20,6 +20,10 @@ define(['underscore', 'backbone', 'models/validationRules'], function(_, Backbon
                 // Если валидатор вернул непустую строку, то значит произошла ошибка и строка содержит ее описание
                 var rules = that.rules.getRulesFor(field.name), errorText;
 
+                if (typeof rules === 'undefined') {
+                    return;
+                }
+
                 if (Object.keys(rules).indexOf('required') !== -1) {
                     if (hasValue(field.value) || rules.required) {
                         errorText = Validator.prototype.validators.required(field.value, rules.required); 
@@ -27,7 +31,7 @@ define(['underscore', 'backbone', 'models/validationRules'], function(_, Backbon
                             return errorText;
                         }
                     } else {
-                        return
+                        return;
                     }
                 }
                 

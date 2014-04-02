@@ -1,39 +1,6 @@
 define(['underscore', 'backbone'], function(_, Backbone) {
     'use strict';
 
-
-    // Выранивает объект с правилами
-    // из O = {
-    //     "site": {
-    //         "required": false,
-    //         "fields":{
-    //             "type": {
-    //                 "rule1": "val1",
-    //                 "rule2": "val2"
-    //             },
-    //             "url": {
-    //                 "rule1": "val3",
-    //                 "rule2": "val4"
-    //             }
-    //         }
-    //     }
-    // }
-    // 
-    // получаем O = {
-    //     "site": {
-    //         "required": false
-    //     },
-    //     "site.type": {
-    //         "rule1": "val1",
-    //         "rule2": "val2"
-    //     },
-    //     "site.url": {
-    //         "rule1": "val3",
-    //         "rule2": "val4"
-    //     }
-    // }
-
-
     return Backbone.Model.extend({
         
         initialize: function(options) {
@@ -50,6 +17,9 @@ define(['underscore', 'backbone'], function(_, Backbone) {
         },
 
         getRulesFor: function(attributePath) {
+            if (typeof attributePath === 'undefined') {
+                return;
+            }
             var path = attributePath.split('.');
             var o = {};
             for(var i = 0, size = path.length; i < size; i++) {

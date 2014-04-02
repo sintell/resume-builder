@@ -119,7 +119,7 @@ define([
             } else {
                 section.removeClass('section_with_error');
                 target.removeClass('control_with_error');
-                $('.HH-ResumeSection-Submit:visible').attr('disabled', true);
+                $('.HH-ResumeSection-Submit:visible').attr('disabled', false);
             }
         }
     });

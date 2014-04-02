@@ -32,7 +32,7 @@ define([
             data = {
                 user: this.model.data(),
                 serverHost: Config.serverHost,
-                serverPort: Config.staticServerPort,
+                staticServerUrl: Config.staticServerUrl,
                 oauthServerPort: Config.oauthServerPort
             };
 

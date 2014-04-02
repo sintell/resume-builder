@@ -67,8 +67,8 @@ define([
             this.editMode = !this.editMode;
 
             if (this.editMode) {
-                this.$el.find('.HH-ResumeSection-Inner').toggleClass('section_viewing section_editing');
-                this.$el.find('.HH-ResumeSection-Control').toggleClass('control_viewing control_editing');
+                this.$('.HH-ResumeSection-Inner').toggleClass('section_viewing section_editing');
+                this.$('.HH-ResumeSection-Control').toggleClass('control_viewing control_editing');
             } else {
                 this.render(this.data());
             }
@@ -100,7 +100,7 @@ define([
 
             this.editMode = !this.editMode;
 
-            this.$el.find('.HH-ResumeSection-Inner').toggleClass('section_loading');
+            this.$('.HH-ResumeSection-Inner').toggleClass('section_loading');
 
             this.model.attributesToSave = _.keys(attributes);
             this.model.save(attributes, {
@@ -120,7 +120,7 @@ define([
                         that.model.collection.trigger('added');
                     }
 
-                    that.$el.find('.HH-ResumeSection-Inner').toggleClass('section_loading');
+                    that.$('.HH-ResumeSection-Inner').toggleClass('section_loading');
                 }
             });
         },

@@ -29,10 +29,12 @@ define([
         initialize: function(attributes, options) {
             var that = this;
 
+            _.bindAll(this, 'data');
+
             this.dictionary = options.dictionary;
 
             this.listenTo(this.model, 'load', function() {
-                that.initializeSections($.extend(options, {model: this.model, parent: this}));
+                that.initializeSections($.extend(options, {model: this.model, data: this.data}));
                 that.render();
             });
 

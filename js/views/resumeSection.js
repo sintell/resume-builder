@@ -23,7 +23,7 @@ define([
 
         initialize: function(options) {
             this.components = [];
-            this.parent = options.parent;
+            this.data = options.data;
             this.editMode = false;
         },
 
@@ -73,7 +73,7 @@ define([
                 $controls = this.$el.find('.HH-ResumeSection-Control');
                 $controls.toggleClass('control_viewing control_editing');
             } else {
-                this.render(this.parent.data());
+                this.render(this.data());
             }
         },
 
@@ -110,7 +110,7 @@ define([
                 success: function() {
                     that.model.fetch({
                         success: function() {
-                            that.render(that.parent.data());
+                            that.render(that.data());
                         }
                     });
                 },

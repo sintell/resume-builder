@@ -1,5 +1,5 @@
 <label class="control__label">Видимость</label>
-<span class="control__value"><%= access.type.name %></span>
+<span class="control__value"><%- access.type.name %></span>
 
 <div class="control__input">
     <ul class="checkbox-list">
@@ -8,10 +8,10 @@
             <label>
                 <input class="HH-AccessType-Radio"
                        type="radio"
-                       value="<%= type.id %>"
+                       value="<%- type.id %>"
                        name="access_type"
-                       <%= type.id === access.type.id ? 'checked' : '' %>/>
-                <%= type.name %>
+                       <%- type.id === access.type.id ? 'checked' : '' %>/>
+                <%- type.name %>
 
                 <li>
                     <% if (type.id === consts.WHITE_LIST || type.id === consts.BLACK_LIST) { %>

@@ -3,7 +3,7 @@
         <li class="checkbox-list__item">
             <label>
                 <input type="radio"
-                       <%= selectedAreas.length === 1 && selectedAreas[0].id === RUSSIA ? 'checked' : ''  %>
+                       <%- selectedAreas.length === 1 && selectedAreas[0].id === RUSSIA ? 'checked' : ''  %>
                        name="HH-ResumeBuilder-Component-Citizenship"
                        class="HH-ResumeBuilder-Component-Citizenship-Russia" />
                 Россия
@@ -12,7 +12,7 @@
         <li class="checkbox-list__item">
             <label>
                 <input type="radio"
-                       <%= selectedAreas.length !== 1 || selectedAreas[0].id !== RUSSIA ? 'checked' : ''  %>
+                       <%- selectedAreas.length !== 1 || selectedAreas[0].id !== RUSSIA ? 'checked' : ''  %>
                        name="HH-ResumeBuilder-Component-Citizenship"
                        class="HH-ResumeBuilder-Component-Citizenship-Other" />
                 Другие страны

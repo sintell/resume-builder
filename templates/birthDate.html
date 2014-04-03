@@ -1,15 +1,15 @@
 <span class="control__value">
-    <%= date.day %>
-    <%= calendar.months[date.month - 1] %>
-    <%= date.year %>
+    <%- date.day %>
+    <%- calendar.months[date.month - 1] %>
+    <%- date.year %>
 </span>
 
 <div class="control__input">
     <select name="birth_date-day">
         <% _.each(_.range(1,  calendar.days[date.month - 1] + 1), function(day) { %>
-        <option value="<%= day %>"
-        <%= date.day === day ? 'selected' : '' %>>
-        <%= day %>
+        <option value="<%- day %>"
+        <%- date.day === day ? 'selected' : '' %>>
+        <%- day %>
         </option>
         <% }); %>
     </select>
@@ -17,15 +17,15 @@
     <select class="HH-ResumeBuilder-Component-BirthDate-Month"
             name="birth_date-month">
         <% _.each(calendar.months, function(month, index) { %>
-        <option value="<%= index + 1 %>"
-        <%= date.month === index + 1 ? 'selected' : '' %>>
-        <%= month %>
+        <option value="<%- index + 1 %>"
+        <%- date.month === index + 1 ? 'selected' : '' %>>
+        <%- month %>
         </option>
         <% }); %>
     </select>
 
     <input class="HH-ResumeBuilder-Component-BirthDate-Year"
-           value="<%= date.year %>"
+           value="<%- date.year %>"
            name="birth_date-year"
            pattern="^[0-9]{4}$"/>
 </div>

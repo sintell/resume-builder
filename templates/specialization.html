@@ -4,12 +4,12 @@
         <label>
             <input class="HH-ResumeBuilder-Checkbox HH-ResumeSection-ControlSpecialization"
                    type="checkbox"
-                   value="<%= specialization.id %>"
+                   value="<%- specialization.id %>"
                    name="specialization"
                    data-hh-name="id"
                    data-hh-namespace="job_and_salary"
-                   <%= (specializationIds.indexOf(specialization.id) !== -1) ? 'checked' : '' %>/>
-            <%= specialization.name %>
+                   <%- (specializationIds.indexOf(specialization.id) !== -1) ? 'checked' : '' %>/>
+            <%- specialization.name %>
         </label>
     </li>
 <% }); %>

@@ -4,8 +4,8 @@
         <label>
             <input class="HH-ResumeBuilder-Checkbox"
                    type="checkbox"
-                   <%= selectedIds.indexOf(area.id) >=0 ? 'checked' : '' %>/>
-            <%= area.name  %>
+                   <%- selectedIds.indexOf(area.id) >=0 ? 'checked' : '' %>/>
+            <%- area.name  %>
         </label>
     </li>
     <% }); %>

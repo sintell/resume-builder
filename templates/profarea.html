@@ -1,11 +1,11 @@
-<span class="control__value"><%= resume.specializationNames %></span>
+<span class="control__value"><%- resume.specializationNames %></span>
 
 <div class="control__input">
     <select class="HH-SpecializationControl-Select">
         <% _.each(specializations, function(specialization) { %>
-        <option value="<%= specialization.id %>"
-                <%= resume.specialization.some(function(s) {return s.profarea_id == specialization.id}) ? 'selected' : '' %>>
-            <%= specialization.name %>
+        <option value="<%- specialization.id %>"
+                <%- resume.specialization.some(function(s) {return s.profarea_id == specialization.id}) ? 'selected' : '' %>>
+            <%- specialization.name %>
         </option>
         <% }); %>
     </select>

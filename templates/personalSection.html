@@ -1,14 +1,14 @@
 <div class="HH-ResumeSection-Control control control_viewing">
     <label class="control__label">Фамилия</label>
-    <span class="control__value"><%= resume.last_name %></span>
+    <span class="control__value"><%- resume.last_name %></span>
 
     <div class="control__input">
         <input class="HH-ResumeSection-ControlTextbox"
                type="text"
-               value="<%= resume.last_name %>"
+               value="<%- resume.last_name %>"
                name="last_name"
-               maxlength="<%= conditions.last_name.max_length %>"
-               pattern="<%= conditions.last_name.regexp %>"
+               maxlength="<%- conditions.last_name.max_length %>"
+               pattern="<%- conditions.last_name.regexp %>"
                data-hh-namespace="personal_info"
                data-hh-name="last_name"/>
     </div>
@@ -16,15 +16,15 @@
 
 <div class="HH-ResumeSection-Control control control_viewing">
     <label class="control__label">Имя</label>
-    <span class="control__value"><%= resume.first_name %></span>
+    <span class="control__value"><%- resume.first_name %></span>
 
     <div class="control__input">
         <input class="HH-ResumeSection-ControlTextbox"
                type="text"
-               value="<%= resume.first_name %>"
+               value="<%- resume.first_name %>"
                name="first_name"
-               maxlength="<%= conditions.first_name.max_length %>"
-               pattern="<%= conditions.first_name.regexp %>"
+               maxlength="<%- conditions.first_name.max_length %>"
+               pattern="<%- conditions.first_name.regexp %>"
                data-hh-namespace="personal_info"
                data-hh-name="first_name"/>
     </div>
@@ -32,15 +32,15 @@
 
 <div class="HH-ResumeSection-Control control control_viewing">
     <label class="control__label">Отчество</label>
-    <span class="control__value"><%= resume.middle_name %></span>
+    <span class="control__value"><%- resume.middle_name %></span>
 
     <div class="control__input">
         <input class="HH-ResumeSection-ControlTextbox"
                type="text"
-               value="<%= resume.middle_name %>"
+               value="<%- resume.middle_name %>"
                name="middle_name"
-               maxlength="<%= conditions.middle_name.max_length %>"
-               pattern="<%= conditions.middle_name.regexp %>"
+               maxlength="<%- conditions.middle_name.max_length %>"
+               pattern="<%- conditions.middle_name.regexp %>"
                data-hh-namespace="personal_info"
                data-hh-name="middle_name"/>
     </div>
@@ -48,7 +48,7 @@
 
 <div class="HH-ResumeSection-Control control control_viewing">
     <label class="control__label">Пол</label>
-    <span class="control__value"><%= resume.gender.name %></span>
+    <span class="control__value"><%- resume.gender.name %></span>
 
     <div class="control__input">
         <ul class="checkbox-list">
@@ -57,12 +57,12 @@
                 <label>
                     <input class="HH-ResumeSection-ControlRadio"
                            type="radio"
-                           value="<%= gender.id %>"
+                           value="<%- gender.id %>"
                            name="gender"
                            data-hh-name="gender.id"
                            data-hh-namespace="personal_info"
-                           <%= gender.id === resume.gender.id ? 'checked' : '' %>/>
-                    <%= gender.name %>
+                           <%- gender.id === resume.gender.id ? 'checked' : '' %>/>
+                    <%- gender.name %>
                 </label>
             </li>
         <% }); %>
@@ -80,7 +80,7 @@
 
 <div class="HH-ResumeSection-Control control control_viewing">
     <label class="control__label">Город проживания</label>
-    <span class="control__value"><%= resume.area.name %></span>
+    <span class="control__value"><%- resume.area.name %></span>
 
     <div class="HH-ResumeSection-Component"
          data-hh-component="area"
@@ -97,7 +97,7 @@
 <div class="HH-ResumeSection-Control control control_viewing">
     <label class="control__label">Гражданство</label>
     <span class="control__value">
-        <%= _.map(resume.citizenship, function(element) { return element.name; }).join(', ') %>
+        <%- _.map(resume.citizenship, function(element) { return element.name; }).join(', ') %>
     </span>
 
     <div class="HH-ResumeSection-Component"
@@ -108,7 +108,7 @@
 <div class="HH-ResumeSection-Control control control_viewing">
     <label class="control__label">Разрешение на работу</label>
     <span class="control__value">
-        <%= _.map(resume.work_ticket, function(element) { return element.name; }).join(', ') %>
+        <%- _.map(resume.work_ticket, function(element) { return element.name; }).join(', ') %>
     </span>
 
     <div class="HH-ResumeSection-Component"

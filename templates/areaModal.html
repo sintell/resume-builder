@@ -5,13 +5,13 @@
         <% if (a.open) { %>
         <label class="area-list__item-text area-list__item-text_active">
             <input type="radio" checked/>
-            <span class="HH-AreaModal-Text"><%= a.name %></span>
+            <span class="HH-AreaModal-Text"><%- a.name %></span>
         </label>
         <%= fntemplate({area: a, fntemplate: fntemplate}) %>
         <% } else { %>
         <label class="area-list__item-text">
             <input type="radio"/>
-            <span class="HH-AreaModal-Text"><%= a.name %></span>
+            <span class="HH-AreaModal-Text"><%- a.name %></span>
         </label>
         <% } %>
     </li>

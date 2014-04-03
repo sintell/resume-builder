@@ -4,10 +4,10 @@
         <li class="checkbox-list__item">
             <label>
                 <input type="radio"
-                       value="<%= relocationType.id %>"
+                       value="<%- relocationType.id %>"
                        name="relocation"
-                <%= relocationType.id === relocation.type.id ? 'checked' : '' %>/>
-                <%= relocationType.name %>
+                <%- relocationType.id === relocation.type.id ? 'checked' : '' %>/>
+                <%- relocationType.name %>
             </label>
         </li>
         <% }); %>

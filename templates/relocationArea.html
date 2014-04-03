@@ -1,11 +1,11 @@
 <% if (needArea) { %>
 <label class="control__label">Города переезда</label>
-<span class="control__value"><%= areas %></span>
+<span class="control__value"><%- areas %></span>
 
 <div class="control__input ">
     <input  class="HH-ResumeBuilder-Component-RelocationArea-Input"
             type="text"
-            value="<%= areas %>"
+            value="<%- areas %>"
             name="relocation_areas"/>
 
     <span>Укажите города переезда через запятую</span>

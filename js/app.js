@@ -47,7 +47,6 @@ define([
     var Router = Backbone.Router.extend({
         routes: {
             '': 'resumeList',
-            'list': 'resumeList',
             ':id': 'resume'
         },
 
@@ -59,34 +58,32 @@ define([
                 parent: this
             });
 
+            var that = this;
+
             $.when(this.user.fetch()).then(function() {
-                console.log('User authenticated', +new Date())
                 headerView.render();
 
                 $.when(
-                    this.resumes = new ResumeList(),
-                    this.dictionary = new Dictionary(),
-                    this.area = new Area(),
-                    this.specializations = new SpecializationList()
+                    that.resumes = new ResumeList(),
+                    that.dictionary = new Dictionary(),
+                    that.area = new Area(),
+                    that.specializations = new SpecializationList()
                 ).then(function() {
                     Backbone.history.start();
                 });
-            }.bind(this), function() {
-                console.log('User isn\'t authenticated', +new Date())
+            }, function() {
                 headerView.render();
             });
            
         },
 
         resumeList: function() {
-            console.log('Request: resumeList', +new Date())
             if (this.user.isAuthenticated && this.user.isEmployee) {
                 var resumeListView = new ResumeListView({
                     collection: this.resumes
                 });
 
                 $.when(this.resumes.fetch()).then(function() {
-                    console.log(resumeListView.render().el);
                     $('.HH-ResumeBuilder-Container')
                         .html(resumeListView.render().el);
                 });
@@ -94,7 +91,6 @@ define([
         },
 
         resume: function(id) {
-            console.log('Request: resume', +new Date())
             if (this.user.isAuthenticated && this.user.isEmployee) {                
 
                 if (id !== 'new') {
@@ -110,7 +106,6 @@ define([
                     area: this.area,
                     specializations: this.specializations
                 });
-                console.log(resumeView)
                 $('.HH-ResumeBuilder-Container')
                     .html(resumeView.render().el);
             }
@@ -119,6 +114,19 @@ define([
         createResume: function() {
             console.log('Request: createResume', +new Date());
 
+            this.resume = new Resume();
+            this.resumes.add(this.resume);
+
+            var resumeView = new ResumeView({
+                model: this.resume
+            }, {
+                dictionary: this.dictionary,
+                area: this.area,
+                specializations: this.specializations
+            });
+
+            $('.HH-ResumeBuilder-Container')
+                    .html(resumeView.render().el);
         }
 
     });

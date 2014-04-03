@@ -2,17 +2,17 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'text!templates/additionalInfo.html'
+    'text!templates/infoSidebar.html'
 ], function(
     $,
     _,
     Backbone,
-    AdditionalInfoTemplate
+    InfoSidebarTemplate
 ) {
     'use strict';
 
     return Backbone.View.extend({
-        template: _.template(AdditionalInfoTemplate),
+        template: _.template(InfoSidebarTemplate),
 
         events: {
             'click .HH-ResumeInfo-ButtonUpdate': '_update',
@@ -29,7 +29,7 @@ define([
             this.$el.html(this.template(this.model.attributes));
             console.log('render', arguments);
 
-            $('.HH-ResumeBuilder-AdditionalInfo').html(this.$el);
+            $('.HH-Sidebar-Info').html(this.$el);
 
             return this;
         },

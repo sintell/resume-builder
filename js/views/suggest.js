@@ -2,8 +2,9 @@ define([
     'jquery',
     'underscore',
     'backbone',
+    'utils',
     'text!templates/suggest.html'
-], function($, _, Backbone, SuggestTemplate) {
+], function($, _, Backbone, Utils, SuggestTemplate) {
     'use strict';
 
     return Backbone.View.extend({
@@ -132,51 +133,12 @@ define([
             var result = [],
                 that = this;
 
-            var keyboard = {
-                'q' : 'й',
-                'w' : 'ц',
-                'e' : 'у',
-                'r' : 'к',
-                't' : 'е',
-                'y' : 'н',
-                'u' : 'г',
-                'i' : 'ш',
-                'o' : 'щ',
-                'p' : 'з',
-                '[' : 'х',
-                ']' : 'ъ',
-                'a' : 'ф',
-                's' : 'ы',
-                'd' : 'в',
-                'f' : 'а',
-                'g' : 'п',
-                'h' : 'р',
-                'j' : 'о',
-                'k' : 'л',
-                'l' : 'д',
-                ';' : 'ж',
-                '\'' : 'э',
-                'z' : 'я',
-                'x' : 'ч',
-                'c' : 'с',
-                'v' : 'м',
-                'b' : 'и',
-                'n' : 'т',
-                'm' : 'ь',
-                ',' : 'б',
-                '.' : 'ю',
-                '`' : 'ё'
-            };
-
-            var textPreprocessing = function(str) {
+            var textPreprocessing = function(str, debug) {
                 // toLowerCase
                 // to russian keyboard
                 // replace ё to e
-                var s =  _.reduce(str.toLowerCase(), function(memo, c) {
-                    return memo + (keyboard[c] || c);
-                }, '');
-
-                return s.replace('ё','е');
+                var rus = Utils.toRussianKeyboard(str.toLowerCase());
+                return Utils.replaceRussianE(rus);
             };
 
             var processedText = textPreprocessing(text);
@@ -186,8 +148,7 @@ define([
                     // Аналогично str.startWith(substr)
                     textPreprocessing(area).indexOf(processedText) === 0 &&
                     result.length < that.maxElements
-                    )
-                {
+                ) {
                     result.push(area);
                 }
             });
@@ -195,8 +156,7 @@ define([
             if (
                 result.length === 1 &&
                 textPreprocessing(result[0]) === processedText
-                )
-            {
+            ) {
                 return [];
             }
 

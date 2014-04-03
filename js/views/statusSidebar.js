@@ -2,17 +2,19 @@ define([
     'underscore',
     'backbone',
     'config/config.js',
-    'text!templates/statusSidebar.html'
+    'utils',
+    'text!templates/sideBar.html'
 ], function(
     _,
     Backbone,
     Config,
-    StatusSidebarTemplate
+    Utils,
+    SideBarTemplate
 ) {
     'use strict';
 
     var documentObject = $(document);
-    var isiOs = /(iPad|iPhone|iPod)/g.test(navigator.userAgent);
+    var isiOs = Utils.isIOS();
     var DEFAULT_TOP_MARGIN = 10;
 
     return Backbone.View.extend({
@@ -22,7 +24,6 @@ define([
             this.model = options.model;
             this.listenTo(this.model, 'load', this.render);
 
-
              _.bindAll(this, 'switchFloat', 'setProgressBar');
         },
 
@@ -30,6 +31,7 @@ define([
             this.$el.html(this.template(this.model.attributes));
 
             this.$statusBlock = $('.HH-Sidebar-Status');
+
             this.$statusBlock.html(this.el);
             
             this.setProgressBar(this.model.get('_progress').percentage);

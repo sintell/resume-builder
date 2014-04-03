@@ -11,6 +11,7 @@ define([
     'views/resume',
     'views/header',
     'config',
+    'utils',
     'text!templates/app.html'
 ], function(
     $,
@@ -25,23 +26,12 @@ define([
     ResumeView,
     HeaderView,
     Config,
+    Utils,
     AppTemplate
 ) {
     'use strict';
 
-    var getCookie = function(cookieName) {
-        var cookieValue = '';
-        document.cookie.split(';').some(function(cookie) {
-            var cookieData = cookie.split('=');
-            if (cookieData[0].trim() === cookieName) {
-                cookieValue = cookieData[1].trim();
-                return true;
-            }
-        }, this);
-        return cookieValue;
-    };
-
-    var ACCESS_TOKEN = getCookie('access_token');
+    var ACCESS_TOKEN = Utils.getCookie('access_token');
     $.ajaxSetup({
         beforeSend: function(xhr) {
             xhr.setRequestHeader(

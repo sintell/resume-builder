@@ -43,7 +43,6 @@ define([
         }
     });
 
-
     var Router = Backbone.Router.extend({
         routes: {
             '': 'resumeList',
@@ -51,7 +50,6 @@ define([
         },
 
         initialize: function(options) {
-            console.log('Starting router', +new Date())
             this.user = new User();
             var headerView = new HeaderView({
                 model: this.user,
@@ -112,7 +110,6 @@ define([
         },
 
         createResume: function() {
-            console.log('Request: createResume', +new Date());
             this.navigate('new');
             this.resume = new Resume();
             this.resumes.add(this.resume);
@@ -132,5 +129,4 @@ define([
     });
 
     return Router;
-
 });

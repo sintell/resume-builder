@@ -12,5 +12,4 @@ requirejs.config({
 requirejs(['backbone', 'app'], function(Backbone, App) {
     'use strict';
     new App();
-    Backbone.history.start();
 });

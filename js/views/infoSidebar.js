@@ -26,10 +26,9 @@ define([
         },
 
         render: function() {
-            this.$el.html(this.template(this.model.attributes));
-            console.log('render', arguments);
+            this.$el.html(this.template(this.model.data()));
 
-            $('.HH-Sidebar-Info').html(this.$el);
+            $('.HH-Sidebar-Info').append(this.$el);
 
             return this;
         },
@@ -43,11 +42,15 @@ define([
         },
 
         _destroy: function() {
-            var $section;
+            if (confirm('Вы уверены, что хотите удалить это резюме?')) {
+                this.model.destroy({
+                    wait: true,
 
-            $section = $('.HH-Resume-ResumeSectionAccess');
-            $section.find('.HH-ResumeSection-SwitchEdit:visible').trigger('click');
-            $(window).scrollTop($section.offset().top);
+                    success: function() {
+                        window.location = '/';
+                    }
+                });
+            }
         }
     });
 });

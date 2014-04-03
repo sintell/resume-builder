@@ -99,6 +99,16 @@ define(['underscore', 'backbone', 'models/conditions', 'config'], function(_, Ba
             }
 
             return response;
+        },
+
+        data: function() {
+            var flags;
+
+            flags = {
+                isNew: this.isNew()
+            };
+
+            return $.extend({}, this.attributes, flags);
         }
     });
 });

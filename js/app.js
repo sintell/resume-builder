@@ -67,7 +67,7 @@ define([
                     that.area = new Area(),
                     that.specializations = new SpecializationList()
                 ).then(function() {
-                    Backbone.history.start();
+                    Backbone.history.start({pushState: true});
                     that.listenTo(that.resumes, 'added', that.resumeList);
 
                 });

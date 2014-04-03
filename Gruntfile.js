@@ -1,5 +1,5 @@
 var config = require('./config/config.js');
-
+var modRewrite = require('connect-modrewrite')
 module.exports = function(grunt) {
     'use strict';
     
@@ -11,8 +11,17 @@ module.exports = function(grunt) {
             server: {
                 options: {
                     port: config.staticServerPort,
-                    base: '.',
-                    livereload: true
+                    base: ['.'],
+                    livereload: true,
+                    middleware: function(connect, options) {
+                        var middlewares;
+                        middlewares = [];
+                        middlewares.push(modRewrite(['^[^\\.]*$ /index.html [L]']));
+                        options.base.forEach(function(base) {
+                          return middlewares.push(connect["static"](base));
+                        });
+                        return middlewares;
+                      }
                 }
             }
         },

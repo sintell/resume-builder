@@ -68,11 +68,14 @@ define([
                     that.specializations = new SpecializationList()
                 ).then(function() {
                     Backbone.history.start();
+                    that.listenTo(that.resumes, 'added', that.resumeList);
+
                 });
             }, function() {
                 headerView.render();
             });
-           
+
+
         },
 
         resumeList: function() {

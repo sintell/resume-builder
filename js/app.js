@@ -56,16 +56,21 @@ define([
                 parent: this
             });
 
+            this.resumes = new ResumeList();
+            this.dictionary = new Dictionary();
+            this.area = new Area();
+            this.specializations = new SpecializationList();
+
             var that = this;
 
             $.when(this.user.fetch()).then(function() {
                 headerView.render();
 
                 $.when(
-                    that.resumes = new ResumeList(),
-                    that.dictionary = new Dictionary(),
-                    that.area = new Area(),
-                    that.specializations = new SpecializationList()
+                    that.resumes.fetch(),
+                    that.dictionary.fetch(),
+                    that.area.fetch(),
+                    that.specializations.fetch()
                 ).then(function() {
                     Backbone.history.start({pushState: true});
                     that.listenTo(that.resumes, 'added', that.resumeList);

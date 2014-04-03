@@ -31,12 +31,7 @@ define([
 
             data = {
                 user: this.model.data(),
-<<<<<<< HEAD
                 serverHost: Config.serverHost
-=======
-                serverHost: Config.serverHost,
-                staticServerUrl: Config.staticServerUrl
->>>>>>> Грязная версия реализации роутера в app.js
             };
 
             this.$el.html(this.template(data));

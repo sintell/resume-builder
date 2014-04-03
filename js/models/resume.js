@@ -32,7 +32,9 @@ define([
             travel_time: {},
             specialization: [],
             relocation: {type:{}},
-            updated_at: '',
+
+            // Добавлены что бы не было ошибок при создании нового резюме.
+            updated_at: 'Никогда',
             total_views: 0,
             new_views: 0,
             access: {

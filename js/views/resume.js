@@ -44,6 +44,12 @@ define([
 
             this.listenTo(this.model, 'load', function() {
                 that.initializeSections($.extend(options, {model: this.model, data: this.data}));
+                new SideBarView({
+                    model: this.model
+                });
+                new AdditionalInfoView({
+                    model: this.model
+                });
                 that.render();
             });
 
@@ -56,6 +62,7 @@ define([
             });
 
             this.model.load();
+            
         },
 
         initializeSections: function(options) {

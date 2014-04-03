@@ -94,7 +94,7 @@ define([
             if (this.user.isAuthenticated && this.user.isEmployee) {                
 
                 if (id !== 'new') {
-                    this.resume = new Resume({id: id}); 
+                    this.resume = new Resume({id: id});
                 } else {
                     this.createResume();
                 }
@@ -113,7 +113,7 @@ define([
 
         createResume: function() {
             console.log('Request: createResume', +new Date());
-
+            this.navigate('new');
             this.resume = new Resume();
             this.resumes.add(this.resume);
 

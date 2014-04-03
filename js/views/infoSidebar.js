@@ -15,9 +15,9 @@ define([
         template: _.template(InfoSidebarTemplate),
 
         events: {
-            'click .HH-ResumeInfo-ButtonUpdate': '_update',
-            'click .HH-ResumeInfo-ButtonClone': '_clone',
-            'click .HH-ResumeInfo-ButtonDestroy': '_destroy'
+            'click .HH-Sidebar-ButtonUpdate': '_update',
+            'click .HH-Sidebar-ButtonClone': '_clone',
+            'click .HH-Sidebar-ButtonDestroy': '_destroy'
         },
 
         initialize: function(options) {

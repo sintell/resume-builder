@@ -73,7 +73,7 @@ define([
                     that.specializations.fetch()
                 ).then(function() {
                     Backbone.history.start({pushState: true});
-                    that.listenTo(that.resumes, 'added', that.resumeList);
+                    that.listenTo(that.resumes, 'added', that.handleAdded);
 
                 });
             }, function() {
@@ -132,6 +132,23 @@ define([
 
             $('.HH-ResumeBuilder-Container')
                     .html(resumeView.render().el);
+        },
+
+        handleAdded: function(event, options) {
+            console.log(arguments);
+            switch(event) {
+                case 'new': {
+                    this.resume.set('id', options.newUrl.split('/')[2]);
+                    this.navigate(options.newUrl.split('/')[2], {trigger:true});
+                    break;
+                }
+
+                case 'clone': {
+
+                    this.navigate('/');
+                    this.resumeList();
+                }
+            }
         }
 
     });

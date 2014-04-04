@@ -60,7 +60,10 @@ define([
                         url: [Config.apiUrl, xhr.getResponseHeader('Location')].join('')
                     });
                     that.model.collection.add(resume);
-                    that.model.collection.trigger('added');
+                    that.model.collection.trigger(
+                        'added',
+                        'clone'
+                    );
                 }
             });
         }

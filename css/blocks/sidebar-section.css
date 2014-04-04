@@ -6,8 +6,8 @@
 
     .sidebar-section_fixed {
         position: fixed;
-        top: 10px;
-        border: dashed 1px #aaa;
+        top: 0;
+        box-shadow: 0 2px 4px 2px rgba(0,0,0,0.3);
     }
 
     .sidebar-section__item {

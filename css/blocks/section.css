@@ -25,6 +25,11 @@
         display: none;
     }
 
+    .section_editing .section_with_error {
+        background: #FEE;
+        box-shadow: 0px 0 2px #F77;
+    }
+
     .section__content {
         position: relative;
     }

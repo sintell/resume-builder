@@ -50,6 +50,8 @@ define([
         },
 
         initialize: function(options) {
+            var that = this;
+            
             this.user = new User();
             var headerView = new HeaderView({
                 model: this.user,
@@ -61,7 +63,6 @@ define([
             this.area = new Area();
             this.specializations = new SpecializationList();
 
-            var that = this;
 
             $.when(this.user.fetch()).then(function() {
                 headerView.render();

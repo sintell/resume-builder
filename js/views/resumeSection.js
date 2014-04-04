@@ -120,7 +120,6 @@ define([
                 // HH API отвечает пустым 201 Webpage Created на запрос POST /resumes, поэтому срабатывает колбэк error
                 error: function(model, response, options) {
                     if (response.status === 201) {
-                        console.log(response);
                         that.model.collection.trigger(
                             'added',
                             'new',

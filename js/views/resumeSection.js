@@ -112,6 +112,7 @@ define([
                     that.model.fetch({
                         success: function() {
                             that.sidebar.setProgressBar(that.model.get('_progress').percentage);
+                            that.model.trigger('saveEnd');
                             that.render(that.data());
                         }
                     });

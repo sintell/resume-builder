@@ -9,7 +9,8 @@ define([
     'views/personalSection',
     'views/jobSection',
     'views/accessSection',
-    'text!templates/resume.html'
+    'text!templates/resume.html',
+    'text!templates/errorText.html'
 ], function(
     $,
     _,
@@ -21,12 +22,14 @@ define([
     PersonalSection,
     JobSection,
     AccessSection,
-    ResumeTemplate
+    ResumeTemplate,
+    ErrorTextTemplate
 ) {
     'use strict';
 
     return Backbone.View.extend({
         template: _.template(ResumeTemplate),
+        errorTemplate: _.template(ErrorTextTemplate),
 
         events: {
             'blur .HH-ResumeSection-Control': '_validateInput',
@@ -114,7 +117,9 @@ define([
             if(typeof error !== 'undefined') {
                 section.addClass('section_with_error');
                 target.addClass('control_with_error');
-                section.append('<div class="error-text">' + error + '</div>');
+                section.append(this.errorTemplate({
+                    errorText: error
+                }));
                 $('.HH-ResumeSection-Submit:visible').attr('disabled', true);
             } else {
                 section.removeClass('section_with_error');

@@ -135,18 +135,19 @@ define([
         },
 
         handleAdded: function(event, options) {
-            console.log(arguments);
             switch(event) {
                 case 'new': {
-                    this.resume.set('id', options.newUrl.split('/')[2]);
-                    this.navigate(options.newUrl.split('/')[2], {trigger:true});
+                    var id = options.newUrl.split('/')[2];
+                    this.resume.set('id', id);
+                    this.navigate(id, {trigger:true});
                     break;
                 }
 
                 case 'clone': {
-
                     this.navigate('/');
-                    this.resumeList();
+                    if (typeof options === 'undefined' || !(options.silent || false)) {
+                        this.resumeList();
+                    }
                 }
             }
         }

@@ -2,12 +2,14 @@ define([
     'underscore',
     'backbone',
     'models/validator',
+    'models/conditions',
     'config',
     'utils'
 ], function(
     _,
     Backbone,
     Validator,
+    Conditions,
     Config,
     Utils
 ) {
@@ -53,9 +55,6 @@ define([
         ],
 
         initialize: function() {
-            this.validator = new Validator({
-                model: this
-            });
         },
 
         load: function() {
@@ -68,6 +67,9 @@ define([
             );
 
             $.when(this.fetch(), this.conditions.fetch()).then(function() {
+                that.validator = new Validator({
+                    model: that
+                });
                 that.ready = true;
                 that.trigger('load');
             });

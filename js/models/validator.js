@@ -1,4 +1,4 @@
-define(['underscore', 'backbone', 'models/validationRules'], function(_, Backbone, ValidationRules) {
+define(['underscore', 'backbone'], function(_, Backbone) {
     'use strict';
 
     var hasValue = function(value) {
@@ -11,7 +11,8 @@ define(['underscore', 'backbone', 'models/validationRules'], function(_, Backbon
 
   
     var Validator = function(options){
-        this.rules = new ValidationRules({id: options.model.get('id')});
+        this.model = options.model;
+        this.rules = this.model.conditions;
         var that = this;
         return {
             validateField: function(field) {

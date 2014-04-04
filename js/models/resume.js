@@ -80,7 +80,7 @@ define([
             if (this.isNew()) {
                 return [Config.apiUrl, 'resumes'].join('/');
             } else {
-                return [Config.apiUrl, 'resumes', this.get('id')].join('/');
+                return [Config.apiUrl, 'resumes', this.id].join('/');
             }
         },
 

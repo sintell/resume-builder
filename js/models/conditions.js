@@ -8,7 +8,7 @@ define(['underscore', 'backbone', 'config'], function(_, Backbone, Config) {
 
         url: function() {
             if (this.resume && !this.resume.isNew()) {
-                return [Config.apiUrl, 'resumes', this.resume.get('id'), 'conditions'].join('/');
+                return [Config.apiUrl, 'resumes', this.resume.id, 'conditions'].join('/');
             } else {
                 return [Config.apiUrl,'resume_conditions'].join('/');
             }

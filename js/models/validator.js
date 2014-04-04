@@ -21,7 +21,7 @@ define(['underscore', 'backbone'], function(_, Backbone) {
                 // Если валидатор вернул непустую строку, то значит произошла ошибка и строка содержит ее описание
                 var rules = that.rules.getRulesFor(field.name), errorText;
 
-                if (typeof rules === 'undefined') {
+                if (_.isUndefined(rules)) {
                     return;
                 }
 

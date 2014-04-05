@@ -38,7 +38,7 @@ define([
                 that.render();
             });
 
-            new StatusSidebarView({
+            this.sidebar = new SideBarView({
                 model: this.model
             });
             new InfoSidebarView({
@@ -49,10 +49,14 @@ define([
         },
 
         initializeSections: function(options) {
+            var extraOptions = $.extend({}, options, {
+                    sidebar: this.sidebar
+            });
+
             this.sections = [];
-            this.sections.push(new PersonalSection(options));
-            this.sections.push(new JobSection(options));
-            this.sections.push(new AccessSection(options));
+            this.sections.push(new PersonalSection(extraOptions));
+            this.sections.push(new JobSection(extraOptions));
+            this.sections.push(new AccessSection(extraOptions));
         },
 
         render: function() {

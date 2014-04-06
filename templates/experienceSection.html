@@ -2,4 +2,21 @@
     <div class="HH-ResumeSection-Component"
          data-hh-component="skill-set"
          data-hh-namespace="experience"></div>
+
+    <div class="HH-ResumeBuilder-Component-Suggest"></div>
 </div>
+
+<div class="HH-ResumeSection-Control control control_viewing">
+    <label class="control__label">Дополнительная информация</label>
+    <span class="control__value"><%-  resume.skills %></span>
+
+    <div class="control__input">
+        <input class="HH-ResumeSection-ControlTextbox"
+               type="text"
+               value="<%- resume.skills %>"
+               name="skills"
+               data-hh-namespace="experience"
+               data-hh-name="skills"/>
+    </div>
+</div>
+

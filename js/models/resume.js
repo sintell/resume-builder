@@ -60,7 +60,6 @@ define([
             'blocked',
             'finished',
             // TODO удалить строки ниже после реализации соответствующих секций
-            'skills',
             'experience'
         ],
 

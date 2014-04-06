@@ -10,6 +10,7 @@ define([
     'views/jobSection',
     'views/accessSection',
     'views/educationSection',
+    'views/contactSection',
     'text!templates/resume.html',
     'text!templates/errorText.html'
 ], function(
@@ -24,6 +25,7 @@ define([
     JobSection,
     AccessSection,
     EducationSection,
+    ContactSection,
     ResumeTemplate,
     ErrorTextTemplate
 ) {
@@ -62,7 +64,7 @@ define([
 
         initializeSections: function(options) {
             var extraOptions = $.extend({}, options, {
-                    sidebar: this.sidebar
+                sidebar: this.sidebar
             });
 
             this.sections = [];
@@ -70,6 +72,7 @@ define([
             this.sections.push(new JobSection(extraOptions));
             this.sections.push(new AccessSection(extraOptions));
             this.sections.push(new EducationSection(extraOptions));
+            this.sections.push(new ContactSection(extraOptions));
         },
 
         render: function() {

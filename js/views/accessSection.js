@@ -18,7 +18,7 @@ define([
     'use strict';
 
     return ResumeSection.extend({
-        className: 'HH-Resume-ResumeSection HH-Resume-ResumeSectionAccess',
+        className: 'HH-Resume-ResumeSection',
 
         namespace: 'access',
 

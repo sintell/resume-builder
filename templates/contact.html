@@ -1,0 +1,44 @@
+<div class="HH-ResumeSection-Control control control_viewing">
+    <label class="control__label"><%- contact.verboseName %></label>
+    <span class="control__value"><%- contact.value %></span>
+
+    <div class="control__input">
+        <input class="HH-Contact-Value"
+               type="text"
+               value="<%- contact.value %>"
+               name="comment.value"
+               data-hh-namespace="contact"
+               data-hh-name="contact.value"/>
+    </div>
+</div>
+
+<% if (contact.name !== 'email') { %>
+<div class="HH-ResumeSection-Control control control_viewing">
+    <label class="control__label">Комментарий</label>
+    <span class="control__value"><%- contact.comment %></span>
+
+    <div class="control__input">
+        <input class="HH-Contact-Comment"
+               type="text"
+               value="<%- contact.comment %>"
+               name="contact.comment"
+               data-hh-namespace="contact"
+               data-hh-name="contact.comment"/>
+    </div>
+</div>
+<% } %>
+
+<div class="HH-ResumeSection-Control control control_viewing control_collapsing">
+    <label class="control__label"></label>
+    <span class="control__value"></span>
+
+    <div class="control__input">
+        <label>
+            <input class="HH-Contact-Preferred"
+                   type="radio"
+                   name="comment.preferred"
+                   <%- contact.preferred ? 'checked' : '' %>/>
+            Предпочитаемый способ связи
+        </label>
+    </div>
+</div>

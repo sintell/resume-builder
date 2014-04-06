@@ -54,6 +54,7 @@ define([
                 }
 
                 component.namespace = container.data('hh-namespace');
+                component.verboseName = container.data('hh-verbose');
                 component.fill(that.model.attributes);
                 component.delegateEvents();
                 container.html(component.render().el);

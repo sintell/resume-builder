@@ -35,11 +35,13 @@ define([
 
     var ACCESS_TOKEN = Utils.getCookie('access_token');
     $.ajaxSetup({
-        beforeSend: function(xhr) {
-            xhr.setRequestHeader(
-                'Authorization',
-                ['Bearer', ACCESS_TOKEN].join(' ')
-            );
+        beforeSend: function(xhr, settings) {
+            if (settings.url.indexOf(Config.apiUrl) === 0) {
+                xhr.setRequestHeader(
+                    'Authorization',
+                    ['Bearer', ACCESS_TOKEN].join(' ')
+                );
+            }
         }
     });
 

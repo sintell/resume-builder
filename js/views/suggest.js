@@ -37,8 +37,12 @@ define([
             this.selected = null;
         },
 
-        setData: function(data) {
+        setData: function(data, forceUpdate) {
             this.data = data;
+
+            if (forceUpdate) {
+                this.update(this.text, this.width);
+            }
         },
 
         render: function() {
@@ -63,6 +67,7 @@ define([
             var prevLength;
 
             this.width = width;
+            this.text = text;
 
             if (text.length >= this.minInput) {
                 prevLength = this.suggest.length;

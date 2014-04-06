@@ -61,7 +61,6 @@ define([
             'finished',
             // TODO удалить строки ниже после реализации соответствующих секций
             'skills',
-            'skill_set',
             'experience'
         ],
 

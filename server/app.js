@@ -1,7 +1,18 @@
 var config = require('../config/config.js'),
     express = require('express'),
     https = require('https'),
+    http = require('http'),
+    url = require("url"),
     app = module.exports = express();
+
+//CORS middleware
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+    next();
+};
 
 app.configure(function() {
     'use strict';
@@ -9,6 +20,7 @@ app.configure(function() {
     app.set('client_id', config.clientId);
     app.set('client_secret', config.clientSecret);
     app.set('responseRedirectUri', config.staticServerUrl);
+    app.use(allowCrossDomain);
     app.use(express.cookieParser('secret'));
     app.use(express.bodyParser());
     app.use(express.methodOverride());
@@ -83,6 +95,24 @@ app.get('/oauth', function(req, res) {
 
     postRequest.write(postString);
     postRequest.end();
+});
+
+app.get('/autosuggest*', function(req, res) {
+    var path = url.parse(req.url).path;
+
+    var options = {
+        host:   'hh.ru',
+        port:   80,
+        path:   path,
+        header: req.header,
+        headers: {
+            Host: 'hh.ru'
+        }
+    };
+
+    http.get(options, function(cres) {
+        cres.pipe(res);
+    });
 });
 
 app.post('/oauth/logout', function(req, res) {

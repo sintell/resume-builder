@@ -11,6 +11,7 @@ define([
     'views/accessSection',
     'views/educationSection',
     'views/contactSection',
+    'views/experienceSection',
     'text!templates/resume.html',
     'text!templates/errorText.html'
 ], function(
@@ -26,6 +27,7 @@ define([
     AccessSection,
     EducationSection,
     ContactSection,
+    ExperienceSection,
     ResumeTemplate,
     ErrorTextTemplate
 ) {
@@ -73,6 +75,7 @@ define([
             this.sections.push(new AccessSection(extraOptions));
             this.sections.push(new EducationSection(extraOptions));
             this.sections.push(new ContactSection(extraOptions));
+            this.sections.push(new ExperienceSection(extraOptions));
         },
 
         render: function() {

@@ -9,6 +9,7 @@ define([
     'views/personalSection',
     'views/jobSection',
     'views/accessSection',
+    'views/educationSection',
     'text!templates/resume.html',
     'text!templates/errorText.html'
 ], function(
@@ -22,6 +23,7 @@ define([
     PersonalSection,
     JobSection,
     AccessSection,
+    EducationSection,
     ResumeTemplate,
     ErrorTextTemplate
 ) {
@@ -67,6 +69,7 @@ define([
             this.sections.push(new PersonalSection(extraOptions));
             this.sections.push(new JobSection(extraOptions));
             this.sections.push(new AccessSection(extraOptions));
+            this.sections.push(new EducationSection(extraOptions));
         },
 
         render: function() {

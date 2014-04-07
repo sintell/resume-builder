@@ -15,7 +15,7 @@ define([
     $,
     _,
     Backbone,
-    Validator
+    Validator,
     HeaderView,
     StatusSidebarView,
     InfoSidebarView,

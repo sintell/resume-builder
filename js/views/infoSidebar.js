@@ -2,22 +2,22 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'text!templates/additionalInfo.html'
+    'text!templates/infoSidebar.html'
 ], function(
     $,
     _,
     Backbone,
-    AdditionalInfoTemplate
+    InfoSidebarTemplate
 ) {
     'use strict';
 
     return Backbone.View.extend({
-        template: _.template(AdditionalInfoTemplate),
+        template: _.template(InfoSidebarTemplate),
 
         events: {
-            'click .HH-ResumeInfo-ButtonUpdate': '_update',
-            'click .HH-ResumeInfo-ButtonClone': '_clone',
-            'click .HH-ResumeInfo-ButtonDestroy': '_destroy'
+            'click .HH-Sidebar-ButtonUpdate': '_update',
+            'click .HH-Sidebar-ButtonClone': '_clone',
+            'click .HH-Sidebar-ButtonDestroy': '_destroy'
         },
 
         initialize: function(options) {
@@ -29,7 +29,7 @@ define([
             this.$el.html(this.template(this.model.attributes));
             console.log('render', arguments);
 
-            $('.HH-ResumeBuilder-AdditionalInfo').html(this.$el);
+            $('.HH-Sidebar-Info').html(this.$el);
 
             return this;
         },

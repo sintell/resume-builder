@@ -3,8 +3,8 @@ define([
     'underscore',
     'backbone',
     'views/header',
-    'views/sideBar',
-    'views/additionalInfo',
+    'views/statusSidebar',
+    'views/infoSidebar',
     'views/personalSection',
     'views/jobSection',
     'views/accessSection',
@@ -14,8 +14,8 @@ define([
     _,
     Backbone,
     HeaderView,
-    SideBarView,
-    AdditionalInfoView,
+    StatusSidebarView,
+    InfoSidebarView,
     PersonalSection,
     JobSection,
     AccessSection,
@@ -38,10 +38,10 @@ define([
                 that.render();
             });
 
-            new SideBarView({
+            new StatusSidebarView({
                 model: this.model
             });
-            new AdditionalInfoView({
+            new InfoSidebarView({
                 model: this.model
             });
 

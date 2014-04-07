@@ -1,0 +1,23 @@
+.sidebar-section {
+    min-width: 220px;
+    padding: 10px 10px;
+    background: #fff;
+}
+
+    .sidebar-section_fixed {
+        position: fixed;
+        top: 10px;
+        border: dashed 1px #aaa;
+    }
+
+    .sidebar-section__item {
+        margin: 20px 0px;
+    }
+
+    .sidebar-section__item-title {
+        margin: 0px 0px 20px 0px;
+    }
+
+    .sidebar-section__item-value {
+
+    }

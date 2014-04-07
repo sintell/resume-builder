@@ -1,9 +1,9 @@
-.side-bar {
+.sidebar {
     float: left;
     width: 240px;
 }
 
-    .side-bar:after {
+    .sidebar:after {
         display: block;
         content: '';
         clear: both;

@@ -2,12 +2,12 @@ define([
     'underscore',
     'backbone',
     'config/config.js',
-    'text!templates/sideBar.html'
+    'text!templates/statusSidebar.html'
 ], function(
     _,
     Backbone,
     Config,
-    SideBarTemplate
+    StatusSidebarTemplate
 ) {
     'use strict';
 
@@ -16,7 +16,7 @@ define([
     var DEFAULT_TOP_MARGIN = 10;
 
     return Backbone.View.extend({
-        template: _.template(SideBarTemplate),
+        template: _.template(StatusSidebarTemplate),
 
         initialize: function(options) {
             this.model = options.model;
@@ -27,13 +27,10 @@ define([
         },
 
         render: function() {
-            this.$el.html(this.template({
-               data: this.model.attributes
-            }));
+            this.$el.html(this.template(this.model.attributes));
 
-            this.$statusBlock = $('.HH-SideBar-Block-Status');
-
-            $('.HH-SideBar-Block-Status').html(this.el);
+            this.$statusBlock = $('.HH-Sidebar-Status');
+            this.$statusBlock.html(this.el);
             
             this.setProgressBar(this.model.get('_progress').percentage);
 
@@ -45,15 +42,15 @@ define([
 
         switchFloat: function() {
             if (!isiOs && documentObject.scrollTop() < this.positionFromTop) { 
-                this.$statusBlock.removeClass('block_fixed');
+                this.$statusBlock.removeClass('sidebar-section_fixed');
             } else {
-                this.$statusBlock.addClass('block_fixed');
+                this.$statusBlock.addClass('sidebar-section_fixed');
             }
         },
 
         setProgressBar: function(progressPercent) {
-            this.$statusBlock.find('.HH-Block-Status-ProgressBar').width(progressPercent + '%');
-            this.$statusBlock.find('.HH-Block-Status-ProgressText').text(progressPercent + '%');
+            this.$statusBlock.find('.HH-Sidebar-ProgressBar').width(progressPercent + '%');
+            this.$statusBlock.find('.HH-Sidebar-ProgressText').text(progressPercent + '%');
         }
     });
 });

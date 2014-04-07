@@ -25,6 +25,8 @@ define([
             this.components = [];
             this.data = options.data;
             this.editMode = false;
+
+            this.sidebar = options.sidebar;
         },
 
         render: function(data) {
@@ -109,6 +111,7 @@ define([
                 success: function() {
                     that.model.fetch({
                         success: function() {
+                            that.sidebar.setProgressBar(that.model.get('_progress').percentage);
                             that.render(that.data());
                         }
                     });

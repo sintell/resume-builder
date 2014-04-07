@@ -33,17 +33,17 @@ define([
             specialization: [],
             relocation: {type:{}},
 
-            // Добавлены что бы не было ошибок при создании нового резюме.
+            // Добавлены чтобы не было ошибок при создании нового резюме.
             updated_at: 'Никогда',
             total_views: 0,
             new_views: 0,
             access: {
                 type: {
-                    name: 'Никому'
+                    name: 'закрытое (резюме не видно никому)'
                 }
             },
             status: {
-                name: 'Неопубликовано'
+                name: 'не опубликовано'
             },
             _progress: {
                 percentage: 0

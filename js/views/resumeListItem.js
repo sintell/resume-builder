@@ -4,6 +4,7 @@ define([
     'backbone',
     'config',
     'models/resume',
+    'utils',
     'text!templates/resumeListItem.html',
 ], function(
     $,
@@ -11,28 +12,10 @@ define([
     Backbone,
     Config,
     Resume,
+    Utils,
     ResumeListItemTemplate
 ) {
     'use strict';
-
-    var formatUpdateTime = function(updateTime) {
-        var date = new Date(updateTime);
-        var SECOND = 1000;
-        var MINUTE = SECOND * 60;
-        var HOUR = MINUTE * 60;
-        var dateString = "";
-
-        if ( new Date() - date < 24 * HOUR) {
-            dateString = [Math.round((new Date() - date)/HOUR), 'часов назад'].join(' ');
-        }  else {
-            dateString = [
-                [date.getDate(), date.getMonth()+1, date.getFullYear()].join('.'),
-                [date.getHours(), date.getMinutes()].join(':')
-            ].join(' ');
-        }
-
-        return dateString;
-    };
 
     return Backbone.View.extend({
         tagName: 'li',
@@ -55,7 +38,7 @@ define([
                 title: this.model.get('title') || 'Без названия',
                 status: this.model.get('status').name,
                 access: this.model.get('access').type.name,
-                updatedAt: formatUpdateTime(this.model.get('updated')),
+                updatedAt: Utils.formatUpdateTime(this.model.get('updated')),
                 totalViews: this.model.get('total_views'),
                 newViews: this.model.get('new_views')
             };

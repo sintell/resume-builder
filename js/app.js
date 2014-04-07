@@ -13,7 +13,6 @@ define([
     'views/header',
     'config',
     'utils',
-    'text!templates/app.html'
 ], function(
     $,
     _,
@@ -28,8 +27,7 @@ define([
     ResumeListView,
     HeaderView,
     Config,
-    Utils,
-    AppTemplate
+    Utils
 ) {
     'use strict';
 
@@ -43,7 +41,7 @@ define([
         }
     });
 
-    var Router = Backbone.Router.extend({
+    return Backbone.Router.extend({
         routes: {
             '': 'resumeList',
             ':id': 'resume'
@@ -132,7 +130,7 @@ define([
             });
 
             $('.HH-ResumeBuilder-Container')
-                    .html(resumeView.render().el);
+                .html(resumeView.render().el);
         },
 
         handleAdded: function(event, options) {
@@ -140,13 +138,13 @@ define([
                 case 'new': {
                     var id = options.newUrl.split('/')[2];
                     this.resume.set('id', id);
-                    this.navigate(id, {trigger:true});
+                    this.navigate(id, {trigger: true});
                     break;
                 }
 
                 case 'clone': {
                     this.navigate('/');
-                    if (typeof options === 'undefined' || !(options.silent)) {
+                    if (typeof options === 'undefined' || !options.silent) {
                         this.resumeList();
                     }
                 }
@@ -154,6 +152,4 @@ define([
         }
 
     });
-
-    return Router;
 });

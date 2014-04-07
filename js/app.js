@@ -101,7 +101,7 @@ define([
                 if (id !== 'new') {
                     this.resume = new Resume({id: id});
                 } else {
-                    this.createResume();
+                    return this.createResume();
                 }
 
                 var resumeView = new ResumeView({

@@ -53,7 +53,7 @@ define([
             $checkbox.off('change').on('change', function(event) {
                 that.model.set('careerStart', this.checked);
                 if (this.checked) {
-                    that.profareaView.updateSpecializationList(true, that.model.const.CAREER_START_PROFAREA);
+                    that.profareaView.updateSpecializationList(that.model.const.CAREER_START_PROFAREA, true);
                 }
             });
 

@@ -67,7 +67,7 @@ define([
             return this;
         },
 
-        updateSpecializationList: function(force, id) {
+        updateSpecializationList: function(id, force) {
             var specialization,
                 specializationView;
 
@@ -93,7 +93,7 @@ define([
             $select = this.$('.HH-SpecializationControl-Select');
             $select.off('change').on('change', function() {
                 if (this.selectedIndex !== -1) {
-                    that.updateSpecializationList(false, this[this.selectedIndex].value);
+                    that.updateSpecializationList(this[this.selectedIndex].value);
                 }
             });
             $select.trigger('change');

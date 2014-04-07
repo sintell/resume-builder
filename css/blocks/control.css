@@ -47,7 +47,7 @@
             display: none;
         }
 
-        .control_editing .control_with_error {
+        .control_editing .control_with-error {
             border: 1px solid #F88;
         }
 

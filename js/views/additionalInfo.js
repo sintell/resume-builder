@@ -33,7 +33,6 @@ define([
             });
 
             this.$el.html(this.template(data));
-            console.log('render', arguments);
 
             $('.HH-ResumeBuilder-AdditionalInfo').html(this.$el);
 

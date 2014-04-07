@@ -1,5 +1,8 @@
 define(['underscore'],function(_) {
    var Utils = function() {
+
+       var isIOS =  /(iPad|iPhone|iPod)/g.test(navigator.userAgent);
+
        // Данный метот применим только для входного текста в нижнем регистре,
        // т.к. символ '`' при нажатом капс-логе выглядит и одинаково.
        // В итоге, при написании слова RJHJK`D - (КОРОЛЁВ) мы
@@ -105,8 +108,18 @@ define(['underscore'],function(_) {
        // it`s a king of magic
        // использование: numeralToRussian(число обьектов, массив значений строки для 1, 4 и 5 обьектов)
        this.numeralToRussian = function(number, titles) {
-           var cases = [2, 0, 1, 1, 1, 2];
-           return titles[((number % 100 > 4) && (number % 100 < 20)) ? 2 : cases[(number % 10 < 5) ? (number % 10) : 5]];
+           var cases = [2, 0, 1, 1, 1, 2],
+               twoDigits = number % 100,
+               oneDigit = number % 10,
+               index;
+
+           if ((twoDigits > 4) && (twoDigits < 20)) {
+                index = 2;
+           } else {
+               index = cases[(oneDigit < 5) ? oneDigit : 5];
+           }
+
+           return titles[index];
        };
 
        this.secondsToRussian = function(val) {
@@ -130,7 +143,7 @@ define(['underscore'],function(_) {
        };
 
        this.isIOS = function() {
-           return /(iPad|iPhone|iPod)/g.test(navigator.userAgent);
+           return isIOS;
        }
 
        this.monthNameByNum = function(val) {

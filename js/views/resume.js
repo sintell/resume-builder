@@ -38,9 +38,10 @@ define([
                 that.render();
             });
 
-            this.sidebar = new SideBarView({
+            this.sidebar = new StatusSidebarView({
                 model: this.model
             });
+            
             new InfoSidebarView({
                 model: this.model
             });

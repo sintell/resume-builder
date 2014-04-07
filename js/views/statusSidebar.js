@@ -14,7 +14,6 @@ define([
     'use strict';
 
     var documentObject = $(document);
-    var DEFAULT_TOP_MARGIN = 10;
 
     return Backbone.View.extend({
         template: _.template(SideBarTemplate),
@@ -37,9 +36,7 @@ define([
             
             this.setProgressBar(this.model.get('_progress').percentage);
 
-            // Вычитаем то расстояние, на которое сдвигается фиксированный блок от верхнего края,
-            // по умолчанию - 10px
-            this.positionFromTop = this.$statusBlock.position().top - DEFAULT_TOP_MARGIN;
+            this.positionFromTop = this.$statusBlock.position().top;
 
             if (!Utils.isIOS()) {
                 $(window).scroll(this.switchFloat);

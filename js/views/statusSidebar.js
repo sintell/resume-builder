@@ -3,7 +3,7 @@ define([
     'backbone',
     'config/config.js',
     'utils',
-    'text!templates/sideBar.html'
+    'text!templates/statusSidebar.html'
 ], function(
     _,
     Backbone,
@@ -17,7 +17,7 @@ define([
     var DEFAULT_TOP_MARGIN = 10;
 
     return Backbone.View.extend({
-        template: _.template(StatusSidebarTemplate),
+        template: _.template(SideBarTemplate),
 
         initialize: function(options) {
             this.model = options.model;
@@ -38,11 +38,14 @@ define([
             // Вычитаем то расстояние, на которое сдвигается фиксированный блок от верхнего края,
             // по умолчанию - 10px
             this.positionFromTop = this.$statusBlock.position().top - DEFAULT_TOP_MARGIN;
-            $(window).scroll(this.switchFloat);
+
+            if (!Utils.isIOS()) {
+                $(window).scroll(this.switchFloat);
+            }
         },
 
         switchFloat: function() {
-            if (!Utils.isIOS() && documentObject.scrollTop() < this.positionFromTop) {
+            if (documentObject.scrollTop() < this.positionFromTop) {
                 this.$statusBlock.removeClass('block_fixed');
             } else {
                 this.$statusBlock.addClass('sidebar-section_fixed');

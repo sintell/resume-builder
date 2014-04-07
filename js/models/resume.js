@@ -15,9 +15,11 @@ define([
 ) {
     'use strict';
 
-    var CAREER_START_PROFAREA = '15';
-
     return Backbone.Model.extend({
+        const: {
+            CAREER_START_PROFAREA: '15'
+        },
+
         defaults: {
             area: {},
             metro: {},
@@ -122,6 +124,8 @@ define([
         },
 
         parse: function(response) {
+            var that = this;
+
             for (var key in response) {
                 if (typeof(response[key]) === 'undefined' || response[key] === null) {
                     response[key] = this.defaults[key];
@@ -130,7 +134,7 @@ define([
 
             if (response && response.specialization) {
                 response.careerStart = response.specialization.some(function(s) {
-                    return s.profarea_id === CAREER_START_PROFAREA;
+                    return s.profarea_id === that.const.CAREER_START_PROFAREA;
                 });
             }
 

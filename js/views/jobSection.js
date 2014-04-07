@@ -19,8 +19,6 @@ define([
 ) {
     'use strict';
 
-    var CAREER_START_PROFAREA = '15';
-
     return ResumeSection.extend({
         namespace: 'job_and_salary',
 
@@ -55,13 +53,13 @@ define([
             $checkbox.off('change').on('change', function(event) {
                 that.model.set('careerStart', this.checked);
                 if (this.checked) {
-                    that.profareaView.updateSpecializationList(true, CAREER_START_PROFAREA);
+                    that.profareaView.updateSpecializationList(true, that.model.const.CAREER_START_PROFAREA);
                 }
             });
 
             this.listenTo(this.profareaView, 'profarea:change', function(id) {
-                that.model.set('careerStart', id === CAREER_START_PROFAREA);
-                $checkbox.prop('checked', id === CAREER_START_PROFAREA);
+                that.model.set('careerStart', id === that.model.const.CAREER_START_PROFAREA);
+                $checkbox.prop('checked', id === that.model.const.CAREER_START_PROFAREA);
             });
         }
     });

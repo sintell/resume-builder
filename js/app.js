@@ -64,7 +64,7 @@ define([
             this.specializations = new SpecializationList();
 
 
-            $.when(this.user.fetch()).then(function() {
+            this.user.fetch().then(function() {
                 headerView.render();
 
                 $.when(
@@ -146,7 +146,7 @@ define([
 
                 case 'clone': {
                     this.navigate('/');
-                    if (typeof options === 'undefined' || !(options.silent || false)) {
+                    if (typeof options === 'undefined' || !(options.silent)) {
                         this.resumeList();
                     }
                 }

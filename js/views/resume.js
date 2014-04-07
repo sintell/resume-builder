@@ -32,8 +32,7 @@ define([
         errorTemplate: _.template(ErrorTextTemplate),
 
         events: {
-            'blur .HH-ResumeSection-Control': '_validateInput',
-            // 'change *[data-hh-name]': '_validateInput'
+            'blur .HH-ResumeSection-Control': '_validateInput'
         },
 
         initialize: function(attributes, options) {
@@ -114,7 +113,7 @@ define([
             });
 
             section.find('.error-text').remove();
-            if(typeof error !== 'undefined') {
+            if (typeof error !== 'undefined') {
                 section.addClass('section_with-error');
                 target.addClass('control_with-error');
                 section.append(this.errorTemplate({

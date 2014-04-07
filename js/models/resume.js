@@ -68,7 +68,7 @@ define([
 
             $.when(this.fetch(), this.conditions.fetch()).then(function() {
                 that.validator = new Validator({
-                    model: that
+                    conditions: that.conditions
                 });
                 that.ready = true;
                 that.trigger('load');

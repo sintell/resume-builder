@@ -11,8 +11,7 @@ define(['underscore', 'backbone'], function(_, Backbone) {
 
   
     var Validator = function(options){
-        this.model = options.model;
-        this.rules = this.model.conditions;
+        this.rules = options.conditions;
         var that = this;
         return {
             validateField: function(field) {
@@ -23,8 +22,6 @@ define(['underscore', 'backbone'], function(_, Backbone) {
                     errorText;
 
                 if (typeof rules === 'undefined') {
-                    console.log('1');
-
                     return;
                 }
 

@@ -14,7 +14,6 @@ define([
     'use strict';
 
     var documentObject = $(document);
-    var isiOs = Utils.isIOS();
     var DEFAULT_TOP_MARGIN = 10;
 
     return Backbone.View.extend({
@@ -43,8 +42,8 @@ define([
         },
 
         switchFloat: function() {
-            if (!isiOs && documentObject.scrollTop() < this.positionFromTop) { 
-                this.$statusBlock.removeClass('sidebar-section_fixed');
+            if (!Utils.isIOS() && documentObject.scrollTop() < this.positionFromTop) {
+                this.$statusBlock.removeClass('block_fixed');
             } else {
                 this.$statusBlock.addClass('sidebar-section_fixed');
             }

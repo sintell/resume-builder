@@ -115,16 +115,16 @@ define([
 
             section.find('.error-text').remove();
             if(typeof error !== 'undefined') {
-                section.addClass('section_with_error');
-                target.addClass('control_with_error');
+                section.addClass('section_with-error');
+                target.addClass('control_with-error');
                 section.append(this.errorTemplate({
                     errorText: error
                 }));
-                $('.HH-ResumeSection-Submit:visible').attr('disabled', true);
+                $('.HH-ResumeSection-Submit:visible').prop('disabled', true);
             } else {
-                section.removeClass('section_with_error');
-                target.removeClass('control_with_error');
-                $('.HH-ResumeSection-Submit:visible').attr('disabled', false);
+                section.removeClass('section_with-error');
+                target.removeClass('control_with-error');
+                $('.HH-ResumeSection-Submit:visible').prop('disabled', false);
             }
         }
     });

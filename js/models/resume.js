@@ -15,6 +15,8 @@ define([
 ) {
     'use strict';
 
+    var CAREER_START_PROFAREA = '15';
+
     return Backbone.Model.extend({
         defaults: {
             area: {},
@@ -31,9 +33,18 @@ define([
             updated_at: '',
             total_views: 0,
             new_views: 0,
-            access: {type:{}},
-            status: {},
-            _progress: {}
+            access: {
+                type: {
+                    name: 'Никому'
+                }
+            },
+            status: {
+                name: 'Неопубликовано'
+            },
+            _progress: {
+                percentage: 0
+            },
+            careerStart: false
         },
 
         readOnly: [
@@ -55,6 +66,7 @@ define([
         ],
 
         initialize: function() {
+
         },
 
         load: function() {
@@ -114,6 +126,12 @@ define([
                 if (typeof(response[key]) === 'undefined' || response[key] === null) {
                     response[key] = this.defaults[key];
                 }
+            }
+
+            if (response && response.specialization) {
+                response.careerStart = response.specialization.some(function(s) {
+                    return s.profarea_id === CAREER_START_PROFAREA;
+                });
             }
 
             return response;

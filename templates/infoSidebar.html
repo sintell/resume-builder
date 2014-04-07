@@ -1,21 +1,20 @@
 <div class="sidebar-section">
-    <div class="sidebar-section__item">
-        <h4 class="sidebar-section__item-title">Последнее изменение</h4>
-        <!-- TODO HH-87 -->
-        <div class="sidebar-section__item-value"><%- updated_at %></div>
-    </div>
-
-    <div class="sidebar-section__item">
-        <h4 class="sidebar-section__item-title">Всего просмотров</h4>
-        <div class="sidebar-section__item-value"><%- total_views %></div>
-    </div>
-
-    <div class="sidebar-section__item">
-        <h4 class="sidebar-section__item-title">Новых просмотров</h4>
-        <div class="sidebar-section__item-value"><%- new_views %></div>
-    </div>
-
     <% if (isPublished) { %>
+        <div class="sidebar-section__item">
+            <h4 class="sidebar-section__item-title">Последнее изменение</h4>
+            <div class="sidebar-section__item-value"><%- updated_at %></div>
+        </div>
+
+        <div class="sidebar-section__item">
+            <h4 class="sidebar-section__item-title">Всего просмотров</h4>
+            <div class="sidebar-section__item-value"><%- total_views %></div>
+        </div>
+
+        <div class="sidebar-section__item">
+            <h4 class="sidebar-section__item-title">Новых просмотров</h4>
+            <div class="sidebar-section__item-value"><%- new_views %></div>
+        </div>
+
         <div class="sidebar-section__item">
             <% if (updated) { %>
                 Дата обновлена. Обновить резюме можно будет через 4 часа

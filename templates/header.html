@@ -9,7 +9,7 @@
         <form class="header__form" action="<%- serverHost %>/oauth/logout" method="POST">
             <input type="submit" class="button button_logout" value="Выйти" />
         </form>
-        <a href="/" class="button button_logout">К списку</a>
+        <a href="/" class="button">К списку</a>
     <% } else { %>
         <span class="header__text">
             <a href="<%- serverHost %>/oauth" class="link link_login">Войти</a>

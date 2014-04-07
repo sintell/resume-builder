@@ -3,12 +3,14 @@ define([
     'underscore',
     'backbone',
     'config',
+    'utils',
     'text!templates/infoSidebar.html'
 ], function(
     $,
     _,
     Backbone,
     Config,
+    Utils,
     InfoSidebarTemplate
 ) {
     'use strict';
@@ -29,10 +31,14 @@ define([
         },
 
         render: function() {
-            this.$el.html(this.template($.extend(this.model.data(), {updated: this.updated})));
+            var data = $.extend({}, this.model.data(), {
+                updated: this.updated,
+                updated_at: Utils.formatUpdateTime(this.model.get('updated_at'))
+            });
 
-            $('.HH-Sidebar-Info').append(this.$el);
-            this.updated = false;
+            this.$el.html(this.template(data));
+
+            $('.HH-Sidebar-Info').html(this.$el);
 
             return this;
         },

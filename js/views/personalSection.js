@@ -55,7 +55,7 @@ define([
             this.components.push(new MetroView());
         },
 
-        render: function(data) {
+        render: function() {
             return ResumeSection.prototype.render.apply(this, arguments);
         }
     });

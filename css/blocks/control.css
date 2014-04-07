@@ -29,6 +29,14 @@
         display: none;
     }
 
+    .control_collapsing {
+
+    }
+
+    .control_collapsing.control_viewing {
+        margin-top: 0px;
+    }
+
     .control__label {
         float: left;
         width: 30%;

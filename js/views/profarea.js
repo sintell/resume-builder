@@ -31,7 +31,7 @@ define([
         takeback: function(attributes) {
             var $specializations;
 
-            $specializations = this.$el.find('.HH-ResumeSection-ControlSpecialization');
+            $specializations = this.$('.HH-ResumeSection-ControlSpecialization');
             if ($specializations.length) {
                 attributes.specialization = [];
             }
@@ -62,29 +62,38 @@ define([
 
             this.$el.html(this.template(data));
 
-            this._bindSelect();
+            this.bindSpecializationSelect();
 
             return this;
         },
 
-        _bindSelect: function() {
-            var id,
-                specialization,
-                specializationView,
-                that = this,
+        updateSpecializationList: function(id, force) {
+            var specialization,
+                specializationView;
+
+            if (force) {
+                this.$('.HH-SpecializationControl-Select').val(id);
+            }
+
+            specialization = this.specializations.get(id);
+            specializationView = new SpecializationView({
+                model: specialization,
+                specializationIds: this.resume.specializationIds(),
+                maxCount: this.maxCount
+            });
+            this.$('.HH-ResumeSection-SpecializationList').html(specializationView.render().el);
+
+            this.trigger('profarea:change', id);
+        },
+
+        bindSpecializationSelect: function() {
+            var that = this,
                 $select;
 
-            $select = this.$el.find('.HH-SpecializationControl-Select');
+            $select = this.$('.HH-SpecializationControl-Select');
             $select.off('change').on('change', function() {
                 if (this.selectedIndex !== -1) {
-                    id = this[this.selectedIndex].value;
-                    specialization = that.specializations.get(id);
-                    specializationView = new SpecializationView({
-                        model: specialization,
-                        specializationIds: that.resume.specializationIds(),
-                        maxCount: that.maxCount
-                    });
-                    that.$el.find('.HH-ResumeSection-SpecializationList').html(specializationView.render().el);
+                    that.updateSpecializationList(this[this.selectedIndex].value);
                 }
             });
             $select.trigger('change');

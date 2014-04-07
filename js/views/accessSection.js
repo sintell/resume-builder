@@ -36,7 +36,7 @@ define([
             this.components.push(new AccessTypeView(options, modal));
         },
 
-        render: function(data) {
+        render: function() {
             return ResumeSection.prototype.render.apply(this, arguments);
         }
     });

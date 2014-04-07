@@ -35,7 +35,7 @@ define([
             this.components.push(new RelocationAreaView(options));
         },
 
-        render: function(data) {
+        render: function() {
             var result;
 
             result = ResumeSection.prototype.render.apply(this, arguments);

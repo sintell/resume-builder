@@ -31,7 +31,7 @@ define([
         takeback: function(attributes) {
             var $specializations;
 
-            $specializations = this.$el.find('.HH-ResumeSection-ControlSpecialization');
+            $specializations = this.$('.HH-ResumeSection-ControlSpecialization');
             if ($specializations.length) {
                 attributes.specialization = [];
             }
@@ -81,7 +81,7 @@ define([
                 specializationIds: this.resume.specializationIds(),
                 maxCount: this.maxCount
             });
-            this.$el.find('.HH-ResumeSection-SpecializationList').html(specializationView.render().el);
+            this.$('.HH-ResumeSection-SpecializationList').html(specializationView.render().el);
 
             this.trigger('profarea:change', id);
         },

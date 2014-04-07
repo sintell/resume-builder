@@ -2,29 +2,38 @@ define([
     'jquery',
     'underscore',
     'backbone',
+    'models/validator',
     'views/header',
     'views/statusSidebar',
     'views/infoSidebar',
     'views/personalSection',
     'views/jobSection',
     'views/accessSection',
-    'text!templates/resume.html'
+    'text!templates/resume.html',
+    'text!templates/errorText.html'
 ], function(
     $,
     _,
     Backbone,
+    Validator,
     HeaderView,
     StatusSidebarView,
     InfoSidebarView,
     PersonalSection,
     JobSection,
     AccessSection,
-    ResumeTemplate
+    ResumeTemplate,
+    ErrorTextTemplate
 ) {
     'use strict';
 
     return Backbone.View.extend({
         template: _.template(ResumeTemplate),
+        errorTemplate: _.template(ErrorTextTemplate),
+
+        events: {
+            'blur .HH-ResumeSection-Control': '_validateInput'
+        },
 
         initialize: function(attributes, options) {
             var that = this;
@@ -90,6 +99,32 @@ define([
                 dictionary: this.dictionary.attributes,
                 conditions: this.model.conditions.attributes
             };
+        },
+
+        _validateInput: function(event) {
+            var target = $(event.target);
+            var section = $(event.currentTarget);
+
+            var name = target.data('hh-name');
+
+            var error = this.model.validator.validateField({
+                name: name,
+                value: target.val()
+            });
+
+            section.find('.error-text').remove();
+            if (typeof error !== 'undefined') {
+                section.addClass('section_with-error');
+                target.addClass('control_with-error');
+                section.append(this.errorTemplate({
+                    errorText: error
+                }));
+                $('.HH-ResumeSection-Submit:visible').prop('disabled', true);
+            } else {
+                section.removeClass('section_with-error');
+                target.removeClass('control_with-error');
+                $('.HH-ResumeSection-Submit:visible').prop('disabled', false);
+            }
         }
     });
 });

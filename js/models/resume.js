@@ -1,12 +1,14 @@
 define([
     'underscore',
     'backbone',
+    'models/validator',
     'models/conditions',
     'config',
     'utils'
 ], function(
     _,
     Backbone,
+    Validator,
     Conditions,
     Config,
     Utils
@@ -65,16 +67,20 @@ define([
             );
 
             $.when(this.fetch(), this.conditions.fetch()).then(function() {
+                that.validator = new Validator({
+                    conditions: that.conditions
+                });
                 that.ready = true;
                 that.trigger('load');
             });
+
         },
 
         url: function() {
             if (this.isNew()) {
                 return [Config.apiUrl, 'resumes'].join('/');
             } else {
-                return [Config.apiUrl, 'resumes', this.get('id')].join('/');
+                return [Config.apiUrl, 'resumes', this.id].join('/');
             }
         },
 

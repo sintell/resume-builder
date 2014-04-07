@@ -12,6 +12,7 @@
         clear: both;
     }
 
+
     .control_viewing {
 
     }
@@ -44,6 +45,10 @@
 
         .control_editing .control__value {
             display: none;
+        }
+
+        .control_editing .control_with-error {
+            border: 1px solid #F88;
         }
 
         .control_viewing .control__input {

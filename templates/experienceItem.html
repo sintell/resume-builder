@@ -1,0 +1,95 @@
+
+<p>
+    Организация
+</p>
+<input type="text"
+       class="HH-Experience-Item-Company"
+       value="<%- experience.company %>" />
+<div class="HH-ResumeBuilder-Component-Suggest HH-Suggest-Company"></div>
+<p>
+    Отрасль
+</p>
+<select class="HH-Experience-Item-Industry">
+    <% _.each(industries, function(industry) { %>
+        <option value="<%- industry.id %>"
+            <%- industry.id === (experience.industry && experience.industry.id) ? 'selected' : '' %>>
+            <%- industry.name %>
+        </option>
+    <% }); %>
+</select>
+
+<p>
+    Регион
+</p>
+<input type="text"
+       class="HH-Experience-Item-Area"
+       value="<%- experience.area && experience.area.name %>" />
+
+<div class="HH-ResumeBuilder-Component-Suggest HH-Suggest-Area"></div>
+<p>
+    Сайт
+</p>
+<input type="text"
+       class="HH-Experience-Item-CompanyUrl"
+       value="<%- experience.company_url %>" />
+<p>
+    Должность
+</p>
+<input type="text"
+       class="HH-Experience-Item-Position"
+       value="<%- experience.position %>" />
+<p>
+    Начало работы
+</p>
+
+<select class="HH-Experience-Item-Start-Month"
+        name="birth_date-month">
+    <% _.each(months, function(month, index) { %>
+    <option value="<%- index + 1 %>"
+    <%- experience.startDate.month === index + 1 ? 'selected' : '' %>>
+    <%- month %>
+    </option>
+    <% }); %>
+</select>
+
+<input class="HH-Experience-Item-Start-Year"
+       value="<%- experience.startDate.year %>"
+       name="birth_date-year"
+       pattern="^[0-9]{4}$"/>
+<p>
+    Конец работы
+</p>
+<select class="HH-Experience-Item-End-Month"
+    <%- !experience.end ? 'disabled' : '' %>>
+    <% _.each(months, function(month, index) { %>
+    <option value="<%- index + 1 %>"
+    <%- experience.endDate.month === index + 1 ? 'selected' : '' %>>
+    <%- month %>
+    </option>
+    <% }); %>
+</select>
+
+<input class="HH-Experience-Item-End-Year"
+       <%- !experience.end ? 'disabled' : '' %>
+       value="<%- experience.endDate.year %>"
+       name="birth_date-year"
+       pattern="^[0-9]{4}$"/>
+
+<label>
+    <input type="checkbox"
+           class="HH-Experience-Item-Current"
+           <%- !experience.end ? 'checked' : '' %>/>
+    по настоящее время
+</label>
+
+<p>
+    Обязанности
+</p>
+<input type="text"
+       class="HH-Experience-Item-Description"
+       value="<%- experience.description %>" />
+
+<div>
+    <button class="HH-Experience-Item-Remove" data-hh-index="<%- experienceIndex %>">Удалить работу</button>
+</div>
+

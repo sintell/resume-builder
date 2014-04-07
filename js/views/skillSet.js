@@ -3,9 +3,10 @@ define([
     'underscore',
     'backbone',
     'views/suggest',
-    'config/config.js',
+    'config',
+    'utils',
     'text!templates/skillSet.html'
-], function($, _, Backbone, Suggest, Config, SkillSetTemplate) {
+], function($, _, Backbone, Suggest, Config, Utils, SkillSetTemplate) {
     'use strict';
 
     return Backbone.View.extend({
@@ -34,7 +35,11 @@ define([
         },
 
         fill: function(attributes) {
-            this.skills = attributes.skill_set.join(this.const.DELIMITER + ' ');
+            if (attributes.skill_set) {
+                this.skills = attributes.skill_set.join(this.const.DELIMITER + ' ');
+            } else {
+                this.skills = '';
+            }
         },
 
         render: function() {
@@ -87,16 +92,6 @@ define([
             this.width = input.outerWidth();
         },
 
-        _ignoreKeys: function(keyCode) {
-            var IGNORING_KEYS = [
-                40, // ARROW_DOWN
-                38, // ARROW_UP
-                13, // Enter
-            ];
-
-            return IGNORING_KEYS.indexOf(keyCode) != -1;
-        },
-
         _updateSuggest: function(event) {
             var that = this;
 
@@ -108,7 +103,7 @@ define([
 
             var lastSkill = _.last(skills);
 
-            if (!this._ignoreKeys(event.keyCode)) {
+            if (!Utils.isIgnoringSuggestKeys(event.keyCode)) {
                 $.getJSON(this.suggestUrl + lastSkill).success(function(data) {
                     if (!data) {
                         return;

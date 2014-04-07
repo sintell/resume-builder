@@ -4,6 +4,7 @@ define([
     'backbone',
     'views/resumeSection',
     'views/skillSet',
+    'views/experience',
     'text!templates/experienceSection.html',
 ], function(
     $,
@@ -11,6 +12,7 @@ define([
     Backbone,
     ResumeSection,
     SkillSetView,
+    ExperienceView,
     ExperienceSectionTemplate
 ) {
     'use strict';
@@ -26,6 +28,7 @@ define([
             $.extend(options, {resume: this.model});
 
             this.components.push(new SkillSetView(options));
+            this.components.push(new ExperienceView(options));
         },
 
         render: function(data) {

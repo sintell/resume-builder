@@ -46,7 +46,7 @@ define([
 
         switchFloat: function() {
             if (documentObject.scrollTop() < this.positionFromTop) {
-                this.$statusBlock.removeClass('block_fixed');
+                this.$statusBlock.removeClass('sidebar-section_fixed');
             } else {
                 this.$statusBlock.addClass('sidebar-section_fixed');
             }

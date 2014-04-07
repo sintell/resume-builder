@@ -1,4 +1,16 @@
-define(['underscore', 'backbone', 'models/conditions', 'config'], function(_, Backbone, Conditions, Config) {
+define([
+    'underscore',
+    'backbone',
+    'models/conditions',
+    'config',
+    'utils'
+], function(
+    _,
+    Backbone,
+    Conditions,
+    Config,
+    Utils
+) {
     'use strict';
 
     return Backbone.Model.extend({
@@ -102,13 +114,41 @@ define(['underscore', 'backbone', 'models/conditions', 'config'], function(_, Ba
         },
 
         data: function() {
-            var flags;
+            var data,
+                that = this,
+                MS_IN_HOURS = 3600000,
+                MS_IN_MINUTES = 60000,
+                HOURS_BETWEEN_UPDATES = 4;
 
-            flags = {
-                isNew: this.isNew()
+            data = {
+                isNew: this.isNew(),
+
+                isPublished: this.has('status') && this.get('status').id === 'published',
+
+                canBeUpdated: this.has('updated_at') &&
+                              new Date() - new Date(this.get('updated_at')) > MS_IN_HOURS * HOURS_BETWEEN_UPDATES,
+
+                timeBeforeUpdate: (function() {
+                    var ms,
+                        hours,
+                        minutes;
+
+                    if (that.has('updated_at')) {
+                        ms = MS_IN_HOURS * HOURS_BETWEEN_UPDATES - (new Date() - new Date(that.get('updated_at')));
+                        hours = Math.floor(ms / MS_IN_HOURS);
+                        minutes = Math.floor((ms - hours * MS_IN_HOURS) / MS_IN_MINUTES);
+
+                        return {
+                            hours: hours > 0 ? [hours, Utils.hoursToRussian(hours)].join(' ') : null,
+                            minutes: minutes > 0 ? [minutes, Utils.minutesToRussian(minutes)].join(' ') : null,
+                        };
+                    } else {
+                        return 0;
+                    }
+                })()
             };
 
-            return $.extend({}, this.attributes, flags);
+            return $.extend({}, this.attributes, data);
         }
     });
 });

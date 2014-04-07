@@ -15,9 +15,23 @@
         <div class="sidebar-section__item-value"><%- new_views %></div>
     </div>
 
-    <div class="sidebar-section__item">
-        <button type="button" class="HH-Sidebar-ButtonUpdate">Обновить дату</button>
-    </div>
+    <% if (isPublished) { %>
+        <div class="sidebar-section__item">
+            <% if (updated) { %>
+                Дата обновлена. Обновить резюме можно будет через 4 часа
+            <% } else if (canBeUpdated) { %>
+                <button type="button" class="HH-Sidebar-ButtonUpdate">Обновить дату</button>
+            <% } else { %>
+                Обновить резюме можно будет через
+                <% if (timeBeforeUpdate.hours) { %>
+                    <%- timeBeforeUpdate.hours %>
+                <% } %>
+                <% if (timeBeforeUpdate.minutes) { %>
+                    <%- timeBeforeUpdate.minutes %>
+                <% } %>
+            <% } %>
+        </div>
+    <% } %>
 
     <div class="sidebar-section__item">
         <button type="button" class="HH-Sidebar-ButtonClone">Дублировать</button>

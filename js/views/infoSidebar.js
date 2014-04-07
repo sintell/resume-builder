@@ -2,11 +2,13 @@ define([
     'jquery',
     'underscore',
     'backbone',
+    'config',
     'text!templates/infoSidebar.html'
 ], function(
     $,
     _,
     Backbone,
+    Config,
     InfoSidebarTemplate
 ) {
     'use strict';
@@ -21,20 +23,33 @@ define([
         },
 
         initialize: function(options) {
+            this.updated = false;
             this.listenTo(this.model, 'load', this.render);
             this.listenTo(this.model, 'sync', this.render);
         },
 
         render: function() {
-            this.$el.html(this.template(this.model.data()));
+            this.$el.html(this.template($.extend(this.model.data(), {updated: this.updated})));
 
             $('.HH-Sidebar-Info').append(this.$el);
+            this.updated = false;
 
             return this;
         },
 
         _update: function() {
-            // TODO сначала реализовать публикацию резюме
+            var that = this;
+
+            $.ajax({
+                type: 'POST',
+
+                url: [Config.apiUrl, 'resumes', this.model.id, 'publish'].join('/'),
+
+                success: function(data, status, xhr) {
+                    that.updated = true;
+                    that.render();
+                }
+            });
         },
 
         _clone: function() {

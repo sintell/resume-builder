@@ -2,11 +2,11 @@ define(['underscore', 'backbone'], function(_, Backbone) {
     'use strict';
 
     var hasValue = function(value) {
-        return !(_.isNull(value) || _.isUndefined(value) || (_.isString(value) && value.trim() === ''));
+        return !(_.isNull(value) || typeof value === 'undefined' || (_.isString(value) && value.trim() === ''));
     };
 
-    var isNumber = function(value) {
-        return _.isNumber(value) || (_.isString(value) && /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test(value));
+    var isPositiveInteger = function(value) {
+        return  /^[0-9]+$/.test(value);
     };
 
   
@@ -19,16 +19,19 @@ define(['underscore', 'backbone'], function(_, Backbone) {
                 // Выбираем из модели правил все правила применимые к полю field
                 // Для каждого правила вызываем соотвествующий валидатор
                 // Если валидатор вернул непустую строку, то значит произошла ошибка и строка содержит ее описание
-                var rules = that.rules.getRulesFor(field.name), errorText;
+                var rules = that.rules.getRulesFor(field.name),
+                    errorText;
 
-                if (_.isUndefined(rules)) {
+                if (typeof rules === 'undefined') {
+                    console.log('1');
+
                     return;
                 }
 
                 if (Object.keys(rules).indexOf('required') !== -1) {
                     if (hasValue(field.value) || rules.required) {
-                        errorText = Validator.prototype.validators.required(field.value, rules.required); 
-                        if(!_.isUndefined(errorText)) {
+                        errorText = that.validators.required(field.value, rules.required); 
+                        if (typeof errorText !== 'undefined') {
                             return errorText;
                         }
                     } else {
@@ -36,10 +39,10 @@ define(['underscore', 'backbone'], function(_, Backbone) {
                     }
                 }
                 
-                for(var ruleName in rules) {
+                for (var ruleName in rules) {
                     var rule = rules[ruleName];
-                    errorText = Validator.prototype.validators[ruleName](field.value, rule);
-                    if(!_.isUndefined(errorText)) {
+                    errorText = that.validators[ruleName](field.value, rule);
+                    if (typeof errorText !== 'undefined') {
                         return errorText;
                     }
                 }
@@ -76,12 +79,12 @@ define(['underscore', 'backbone'], function(_, Backbone) {
                 } 
             },
             min_value: function(value, minValue) {
-                if (isNumber(value) && parseFloat(value, 10) < minValue) {
+                if (isPositiveInteger(value) && parseFloat(value, 10) < minValue) {
                     return "Значение не может быть меньше " + minValue;
                 } 
             },
             max_value: function(value, maxValue) {
-                if (maxValue && isNumber(value) && parseFloat(value, 10) > maxValue) {
+                if (maxValue && isPositiveInteger(value) && parseFloat(value, 10) > maxValue) {
                     return "Значение не может быть больше " + maxValue;
                 } 
             },

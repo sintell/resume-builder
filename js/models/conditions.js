@@ -20,8 +20,8 @@ define(['underscore', 'backbone', 'config'], function(_, Backbone, Config) {
             }
             var path = attributePath.split('.');
             var o = {};
-            for(var i = 0, size = path.length; i < size; i++) {
-                if(typeof(o.fields) !== 'undefined') {
+            for (var i = 0, size = path.length; i < size; i++) {
+                if (typeof(o.fields) !== 'undefined') {
                     o = o.fields[path[i]] || this.get(path[i]);
                 } else {
                     o = o[path[i]] || this.get(path[i]);

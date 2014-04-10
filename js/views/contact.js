@@ -27,8 +27,6 @@ define([
         },
 
         initialize: function(options) {
-            var that = this;
-
             this.componentName = options.componentName;
             this.contactType = options.contactType;
             this.verboseName = options.verboseName;
@@ -57,9 +55,9 @@ define([
             var contact,
                 that = this;
 
-            contact = _.find(attributes.contact, (function(c) {
+            contact = _.find(attributes.contact, function(c) {
                 return c.type.id === that.componentName;
-            }));
+            });
 
             if (contact !== void 0) {
                 if (this.contactType === 'phone') {

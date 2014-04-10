@@ -70,7 +70,6 @@ define([
             }
 
             this._updateValues();
-            var areas = this._getAreas();
 
             attributes.relocation = attributes.relocation || {};
             attributes.relocation.area = this._getAreas();

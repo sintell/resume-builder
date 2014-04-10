@@ -80,7 +80,6 @@ define([
         _submit: function(event) {
             var $controls,
                 attributes = {},
-                namespace,
                 that = this;
 
             event.preventDefault();

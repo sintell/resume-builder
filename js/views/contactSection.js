@@ -4,7 +4,7 @@ define([
     'backbone',
     'views/resumeSection',
     'views/contact',
-    'text!templates/contactSection.html',
+    'text!templates/contactSection.html'
 ], function(
     $,
     _,
@@ -51,7 +51,7 @@ define([
             });
         },
 
-        render: function(data) {
+        render: function() {
             return ResumeSection.prototype.render.apply(this, arguments);
         },
 

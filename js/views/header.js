@@ -1,7 +1,7 @@
 define([
     'underscore',
     'backbone',
-    'config/config.js',
+    'config',
     'text!templates/header.html'
 ], function(
     _,

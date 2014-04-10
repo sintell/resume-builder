@@ -133,7 +133,7 @@ define([
             var result = [],
                 that = this;
 
-            var textPreprocessing = function(str, debug) {
+            var textPreprocessing = function(str) {
                 // toLowerCase
                 // to russian keyboard
                 // replace ё to e

@@ -59,7 +59,7 @@ define([
         },
 
         _clone: function() {
-            // TODO реализовать после мержа HH-55 и HH-53
+            this.model.clone();
         },
 
         _destroy: function() {

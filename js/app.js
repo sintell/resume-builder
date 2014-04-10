@@ -61,7 +61,6 @@ define([
             this.area = new Area();
             this.specializations = new SpecializationList();
 
-
             this.user.fetch().then(function() {
                 headerView.render();
 
@@ -78,8 +77,6 @@ define([
             }, function() {
                 headerView.render();
             });
-
-
         },
 
         resumeList: function() {
@@ -99,7 +96,7 @@ define([
             if (this.user.isAuthenticated && this.user.isEmployee) {                
 
                 if (id !== 'new') {
-                    this.resume = new Resume({id: id});
+                    this.resume = new Resume({id: id}, {collection: this.resumes});
                 } else {
                     return this.createResume();
                 }
@@ -134,22 +131,22 @@ define([
         },
 
         handleAdded: function(event, options) {
+            var id;
+
             switch(event) {
                 case 'new': {
-                    var id = options.newUrl.split('/')[2];
+                    id = options.newUrl.split('/')[2];
                     this.resume.set('id', id);
                     this.navigate(id, {trigger: true});
                     break;
                 }
 
                 case 'clone': {
-                    this.navigate('/');
-                    if (typeof options === 'undefined' || !options.silent) {
-                        this.resumeList();
-                    }
+                    id = options.newUrl.split('/')[2];
+                    this.navigate(id, {trigger: true});
+                    break;
                 }
             }
         }
-
     });
 });

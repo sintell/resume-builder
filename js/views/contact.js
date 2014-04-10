@@ -102,7 +102,14 @@ define([
         },
 
         _switch: function(event) {
+            var $checkbox;
+
             event.preventDefault();
+
+            $checkbox = this.$('.HH-Contact-Preferred');
+            if ($checkbox.length && $checkbox.get(0).checked) {
+                this.trigger('preferredRemoved');
+            }
 
             this.isPresented = !this.isPresented;
             this.value = null;

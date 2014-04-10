@@ -23,6 +23,8 @@ define([
         template: _.template(ContactsSectionTemplate),
 
         initialize: function(options) {
+            var that = this;
+
             ResumeSection.prototype.initialize.apply(this, [options]);
 
             $.extend(options, {resume: this.model});
@@ -43,10 +45,18 @@ define([
                 componentName: 'email',
                 contactType: 'email'
             })));
+
+            this.components.forEach(function(component) {
+                that.listenTo(component, 'preferredRemoved', that.resetPreferred);
+            });
         },
 
         render: function(data) {
             return ResumeSection.prototype.render.apply(this, arguments);
+        },
+
+        resetPreferred: function() {
+            this.$('.HH-Contact-Preferred:first').get(0).checked = true;
         }
     });
 });

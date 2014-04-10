@@ -96,8 +96,7 @@ define([
         },
 
         resume: function(id) {
-            if (this.user.isAuthenticated && this.user.isEmployee) {                
-
+            if (this.user.isAuthenticated && this.user.isEmployee) {
                 if (id !== 'new') {
                     this.resume = new Resume({id: id}, {collection: this.resumes});
                 } else {
@@ -119,7 +118,13 @@ define([
 
         createResume: function() {
             this.navigate('new');
-            this.resume = new Resume();
+            this.resume = new Resume({
+                contact: [{
+                    type: {id: 'email'},
+                    value: this.user.get('email'),
+                    preferred: true
+                }]
+            });
             this.resumes.add(this.resume);
 
             var resumeView = new ResumeView({

@@ -14,7 +14,13 @@ define([
     return Backbone.View.extend({
         template: _.template(ContactTemplate),
 
+        events: {
+            'click .HH-Contact-Button': '_switch'
+        },
+
         initialize: function(options) {
+            var that = this;
+
             this.componentName = options.componentName;
             this.contactType = options.contactType;
             this.verboseName = options.verboseName;
@@ -29,7 +35,8 @@ define([
                     name: this.componentName,
                     preferred: this.preferred,
                     value: this.value,
-                    verboseName: this.verboseName
+                    verboseName: this.verboseName,
+                    isPresented: this.isPresented
                 }
             });
 
@@ -54,12 +61,19 @@ define([
                 }
                 this.comment = contact.comment;
                 this.preferred = contact.preferred;
+                this.isPresented = true;
+            } else {
+                this.isPresented = false;
             }
         },
 
         takeback: function(attributes) {
             var contact,
                 phone;
+
+            if (!this.isPresented) {
+                return;
+            }
 
             contact = {
                 type: {
@@ -85,6 +99,18 @@ define([
             }
 
             attributes.contact.push(contact);
+        },
+
+        _switch: function(event) {
+            event.preventDefault();
+
+            this.isPresented = !this.isPresented;
+            this.value = null;
+            this.comment = null;
+            this.preferred = false;
+            this.render();
+            this.$('.HH-ResumeSection-Inner').toggleClass('section_viewing section_editing');
+            this.$('.HH-ResumeSection-Control').toggleClass('control_viewing control_editing');
         }
     });
 });

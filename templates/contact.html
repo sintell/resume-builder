@@ -1,3 +1,4 @@
+<% if (contact.isPresented) { %>
 <div class="HH-ResumeSection-Control control control_viewing">
     <label class="control__label"><%- contact.verboseName %></label>
     <span class="control__value"><%- contact.value %></span>
@@ -9,6 +10,9 @@
                name="comment.value"
                data-hh-namespace="contact"
                data-hh-name="contact.value"/>
+        <% if (contact.name !== 'email') { %>
+            <a href="#" class="HH-Contact-Button">Удалить</a>
+        <% } %>
     </div>
 </div>
 
@@ -30,7 +34,6 @@
 
 <div class="HH-ResumeSection-Control control control_viewing control_collapsing">
     <label class="control__label"></label>
-    <span class="control__value"></span>
 
     <div class="control__input">
         <label>
@@ -42,3 +45,12 @@
         </label>
     </div>
 </div>
+<% } else { %>
+<div class="HH-ResumeSection-Control control control_viewing control_collapsing">
+    <label class="control__label"></label>
+
+    <div class="control__input">
+        <a href=#"" class="HH-Contact-Button">Указать <%- contact.verboseName %></a>
+    </div>
+</div>
+<% } %>

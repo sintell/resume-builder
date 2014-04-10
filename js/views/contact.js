@@ -18,6 +18,14 @@ define([
             'click .HH-Contact-Button': '_switch'
         },
 
+        const: {
+            COUNTRY_START: 0,
+            COUNTRY_END: 1,
+            CITY_START: 1,
+            CITY_END: 3,
+            NUMBER_START: 4
+        },
+
         initialize: function(options) {
             var that = this;
 
@@ -90,9 +98,9 @@ define([
             if (this.contactType === 'phone') {
                 phone = this.$('.HH-Contact-Value').val();
                 contact.value = {
-                    country: phone.substr(0, 1),
-                    city: phone.substr(1, 3),
-                    number: phone.substr(4)
+                    country: phone.substr(this.const.COUNTRY_START, this.const.COUNTRY_END),
+                    city: phone.substr(this.const.CITY_START, this.const.CITY_END),
+                    number: phone.substr(this.const.NUMBER_START)
                 };
             } else if (this.contactType === 'email') {
                 contact.value = this.$('.HH-Contact-Value').val();

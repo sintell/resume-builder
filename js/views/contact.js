@@ -85,10 +85,8 @@ define([
             attributes.contact.push(contact);
         },
 
-        _switch: function(event) {
+        _switch: function() {
             var $checkbox;
-
-            event.preventDefault();
 
             $checkbox = this.$('.HH-Contact-Preferred');
             if ($checkbox.length && $checkbox.prop('checked')) {

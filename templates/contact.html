@@ -11,7 +11,7 @@
                data-hh-namespace="contact"
                data-hh-name="contact.value"/>
         <% if (contact.name !== 'email') { %>
-            <a href="#" class="HH-Contact-Button">Удалить</a>
+            <input type="button" class="HH-Contact-Button" value="Удалить" />
         <% } %>
     </div>
 </div>
@@ -50,7 +50,7 @@
     <label class="control__label"></label>
 
     <div class="control__input">
-        <a href="#" class="HH-Contact-Button">Указать <%- contact.verboseName %></a>
+        <input type="button" class="HH-Contact-Button" value="Указать <%- contact.verboseName %>" />
     </div>
 </div>
 <% } %>

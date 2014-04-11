@@ -27,7 +27,7 @@ define([
         saveContact: function(contact) {
             var phone;
 
-            phone = this.$('.HH-Contact-Value').val();
+            phone = this.$('.HH-Contact-Value').val().match(/\d+/g).join('');
             contact.value = {
                 country: phone.substr(this.const.COUNTRY_START, this.const.COUNTRY_END),
                 city: phone.substr(this.const.CITY_START, this.const.CITY_END),

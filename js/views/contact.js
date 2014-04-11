@@ -51,7 +51,7 @@ define([
                 return c.type.id === that.componentName;
             });
 
-            if (contact !== void 0) {
+            if (typeof contact !== 'undefined') {
                 this.fillContact(contact);
                 this.comment = contact.comment;
                 this.preferred = contact.preferred;

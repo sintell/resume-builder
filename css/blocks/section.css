@@ -47,13 +47,3 @@
         left: 0;
         background: rgba(255, 255, 255, 0.8);
     }
-
-    .section_viewing .section__separator {
-        display: none;
-    }
-
-    .section_editing .section__separator {
-        height: 1px;
-        background: #ccc;
-        margin: 25px 0px;
-    }

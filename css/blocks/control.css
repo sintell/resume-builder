@@ -17,6 +17,12 @@
 
     }
 
+    .control_editing.control_with-border {
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 25px;
+        margin-bottom: 25px;
+    }
+
     .control_submit {
         
     }

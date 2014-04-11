@@ -18,14 +18,6 @@ define([
             'click .HH-Contact-Button': '_switch'
         },
 
-        const: {
-            COUNTRY_START: 0,
-            COUNTRY_END: 1,
-            CITY_START: 1,
-            CITY_END: 3,
-            NUMBER_START: 4
-        },
-
         initialize: function(options) {
             this.componentName = options.componentName;
             this.contactType = options.contactType;
@@ -60,11 +52,7 @@ define([
             });
 
             if (contact !== void 0) {
-                if (this.contactType === 'phone') {
-                    this.value = contact.value.country + contact.value.city + contact.value.number;
-                } else if (this.contactType === 'email') {
-                    this.value = contact.value;
-                }
+                this.fillContact(contact);
                 this.comment = contact.comment;
                 this.preferred = contact.preferred;
                 this.isPresented = true;
@@ -74,8 +62,7 @@ define([
         },
 
         takeback: function(attributes) {
-            var contact,
-                phone;
+            var contact;
 
             if (!this.isPresented) {
                 return;
@@ -93,16 +80,7 @@ define([
                 attributes.contact = [];
             }
 
-            if (this.contactType === 'phone') {
-                phone = this.$('.HH-Contact-Value').val();
-                contact.value = {
-                    country: phone.substr(this.const.COUNTRY_START, this.const.COUNTRY_END),
-                    city: phone.substr(this.const.CITY_START, this.const.CITY_END),
-                    number: phone.substr(this.const.NUMBER_START)
-                };
-            } else if (this.contactType === 'email') {
-                contact.value = this.$('.HH-Contact-Value').val();
-            }
+            this.saveContact(contact);
 
             attributes.contact.push(contact);
         },

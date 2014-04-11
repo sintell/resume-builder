@@ -3,14 +3,16 @@ define([
     'underscore',
     'backbone',
     'views/resumeSection',
-    'views/contact',
+    'views/phone',
+    'views/email',
     'text!templates/contactSection.html'
 ], function(
     $,
     _,
     Backbone,
     ResumeSection,
-    Contact,
+    Phone,
+    Email,
     ContactsSectionTemplate
 ) {
     'use strict';
@@ -29,22 +31,16 @@ define([
 
             $.extend(options, {resume: this.model});
 
-            this.components.push(new Contact($.extend({}, options, {
-                componentName: 'cell',
-                contactType: 'phone'
-            })));
-            this.components.push(new Contact($.extend({}, options, {
-                componentName: 'home',
-                contactType: 'phone'
-            })));
-            this.components.push(new Contact($.extend({}, options, {
-                componentName: 'work',
-                contactType: 'phone'
-            })));
-            this.components.push(new Contact($.extend({}, options, {
+            this.components.push(new Email($.extend({}, options, {
                 componentName: 'email',
                 contactType: 'email'
             })));
+            ['cell', 'home', 'work'].forEach(function(phone) {
+                that.components.push(new Phone($.extend({}, options, {
+                    componentName: phone,
+                    contactType: 'phone'
+                })));
+            });
 
             this.components.forEach(function(component) {
                 that.listenTo(component, 'preferredRemoved', that.resetPreferred);

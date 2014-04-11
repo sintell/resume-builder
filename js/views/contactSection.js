@@ -52,7 +52,7 @@ define([
         },
 
         resetPreferred: function() {
-            this.$('.HH-Contact-Preferred:first').get(0).checked = true;
+            this.$('.HH-Contact-Preferred:first').prop('checked', true);
         }
     });
 });

@@ -73,7 +73,7 @@ define([
                     id: this.componentName
                 },
                 comment: this.$('.HH-Contact-Comment').val(),
-                preferred: this.$('.HH-Contact-Preferred').get(0).checked
+                preferred: this.$('.HH-Contact-Preferred').prop('checked')
             };
 
             if (!attributes.contact) {
@@ -91,7 +91,7 @@ define([
             event.preventDefault();
 
             $checkbox = this.$('.HH-Contact-Preferred');
-            if ($checkbox.length && $checkbox.get(0).checked) {
+            if ($checkbox.length && $checkbox.prop('checked')) {
                 this.trigger('preferredRemoved');
             }
 

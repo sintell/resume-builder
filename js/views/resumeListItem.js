@@ -48,24 +48,7 @@ define([
         },
 
         _clone: function() {
-            var that = this;
-
-            $.ajax({
-                type: 'POST',
-
-                url: [Config.apiUrl, '/resumes?source_resume_id=', this.model.id].join(''),
-
-                success: function(data, status, xhr) {
-                    var resume = new Resume({
-                        url: [Config.apiUrl, xhr.getResponseHeader('Location')].join('')
-                    });
-                    that.model.collection.add(resume);
-                    that.model.collection.trigger(
-                        'added',
-                        'clone'
-                    );
-                }
-            });
+            this.model.clone();
         }
     });
 });

@@ -15,7 +15,7 @@ define([
 ) {
     'use strict';
 
-    return Backbone.Model.extend({
+    var Resume = Backbone.Model.extend({
         const: {
             CAREER_START_PROFAREA: '15'
         },
@@ -179,6 +179,34 @@ define([
             };
 
             return $.extend({}, this.attributes, data);
+        },
+
+        clone: function() {
+            var that = this;
+
+            $.ajax({
+                type: 'POST',
+
+                url: [Config.apiUrl, '/resumes?source_resume_id=', this.id].join(''),
+
+                success: function(data, status, xhr) {
+                    var location,
+                        resume;
+
+                    location = xhr.getResponseHeader('Location');
+                    resume = new Resume({
+                        url: [Config.apiUrl, location].join('')
+                    });
+                    that.collection.add(resume);
+                    that.collection.trigger(
+                        'added',
+                        'clone',
+                        {newUrl: location}
+                    );
+                }
+            });
         }
     });
+
+    return Resume;
 });

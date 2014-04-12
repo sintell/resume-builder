@@ -170,7 +170,7 @@ define([
 
                         return {
                             hours: hours > 0 ? [hours, Utils.hoursToRussian(hours)].join(' ') : null,
-                            minutes: minutes > 0 ? [minutes, Utils.minutesToRussian(minutes)].join(' ') : null,
+                            minutes: minutes > 0 ? [minutes, Utils.minutesToRussian(minutes)].join(' ') : null
                         };
                     } else {
                         return 0;

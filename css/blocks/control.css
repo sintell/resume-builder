@@ -2,10 +2,6 @@
     margin-top: 25px;
 }
 
-    .control:first-child {
-        margin-top: 0px;
-    }
-
     .control:after {
         display: block;
         content: '';

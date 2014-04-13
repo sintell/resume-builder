@@ -97,15 +97,15 @@ define([
             });
 
             // Удаляет из списка доступых языков те, которые уже сохранены в резюме
-            languages = _.reject(languages, function(language) {
-                return that.languages.some(function(unavailableLanguage) {
+            languages = languages.filter(function(language) {
+                return !that.languages.some(function(unavailableLanguage) {
                     return language.id === unavailableLanguage.model.id;
                 });
             });
 
-            // Удаляет из списка доступных языков те, которые выбраны в выпадающем списке
-            languages = _.reject(languages, function(language) {
-                return $.makeArray(that.$('.HH-LanguageControl-IdSelect')).some(function(unavailableLanguage) {
+            // Удаляет из списка доступных языков те, которые уже выбраны в селекте
+            languages = languages.filter(function(language) {
+                return !$.makeArray(that.$('.HH-LanguageControl-IdSelect')).some(function(unavailableLanguage) {
                     return language.id === unavailableLanguage.value;
                 });
             });

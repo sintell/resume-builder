@@ -27,14 +27,11 @@ define([
         },
 
         render: function() {
-            var $languages;
-
             this.$el.html(this.template());
 
-            $languages = this.$('.HH-ResumeSection-Languages');
-            this.languages.forEach(function(language) {
-                $languages.append(language.render().el);
-            });
+            this.$('.HH-ResumeSection-Languages').append(this.languages.map(function(language) {
+                return language.render().el;
+            }));
 
             return this;
         },

@@ -9,8 +9,6 @@ define([
     'use strict';
 
     return Backbone.View.extend({
-        tagName: 'div',
-
         className: 'HH-ResumeSection-Component-Experience',
 
         componentName: 'experience',
@@ -32,28 +30,30 @@ define([
         },
 
         fill: function(attributes) {
+            var that = this;
             this.experienceItems = [];
 
             this.experiences = attributes.experience || [];
 
             this.experiences.forEach(function(item, index) {
-                this.experienceItems.push(new ExperienceItem(item, this.options, index))
-            }.bind(this));
+                that.experienceItems.push(new ExperienceItem(item, that.options, index))
+            });
         },
 
         render: function() {
-            var data = {
+            var that = this,
+                data = {
                 experiences: this.experiences,
                 industries: this.industries
             };
 
             this.$el.html(this.template(data));
 
-            this.container = this.$('.control__input');
+            this.container = this.$('.HH-Experience-Item-Container');
 
             this.experienceItems.forEach(function(experienceItem, index) {
-                this._bindAndRenderExperience(experienceItem, index);
-            }.bind(this));
+                that._bindAndRenderExperience(experienceItem, index);
+            });
 
             return this;
         },
@@ -67,6 +67,8 @@ define([
         },
 
         _bindAndRenderExperience: function(experience, index) {
+            var that = this;
+
             var $elementContainer = $(this.containerTemplate({
                 index: index
             }));
@@ -79,9 +81,9 @@ define([
             experience.$('.HH-Experience-Item-Remove').on('click', function(event) {
                 var index = $(event.currentTarget).data('hh-index');
 
-                this.experienceItems.splice(index, 1);
-                this.$('div[data-hh-index=' + index +']').remove();
-            }.bind(this));
+                that.experienceItems.splice(index, 1);
+                that.$('div[data-hh-index=' + index +']').remove();
+            });
         },
 
         _addExperience: function() {

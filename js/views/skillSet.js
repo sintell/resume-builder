@@ -10,8 +10,6 @@ define([
     'use strict';
 
     return Backbone.View.extend({
-        tagName: 'div',
-
         className: 'HH-ResumeSection-Component-SkillSetTemplate',
 
         componentName: 'skill-set',

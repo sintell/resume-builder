@@ -11,8 +11,6 @@ define([
     'use strict';
 
     return BaseArea.extend({
-        tagName: 'div',
-
         className: 'HH-ResumeSection-Component-ExperienceItem',
 
         companySuggestUrl: Config.serverHost + '/autosuggest/multiprefix/v2?d=companies_RU&q=',

@@ -195,7 +195,7 @@ define(['underscore'],function(_) {
                this.keycodes.ENTER
            ];
 
-           return IGNORING_KEYS.indexOf(keyCode) != -1;
+           return IGNORING_KEYS.indexOf(keyCode) !== -1;
        };
    };
 

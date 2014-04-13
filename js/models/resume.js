@@ -59,7 +59,6 @@ define([
             'moderation_note',
             'blocked',
             'finished',
-            // TODO удалить строки ниже после реализации соответствующих секций
         ],
 
         systemAttributes: [

@@ -44,10 +44,8 @@ define([
 
             this.experience = data;
 
-            if (data) {
-                this.experience.startDate = this._parseDate(this.experience.start);
-                this.experience.endDate = this._parseDate(this.experience.end);
-            }
+            this.experience.startDate = this._parseDate(this.experience.start);
+            this.experience.endDate = this._parseDate(this.experience.end);
         },
 
         _parseDate: function(text) {

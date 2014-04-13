@@ -35,25 +35,23 @@ define([
 
             this.experiences = attributes.experience || [];
 
-            this.experiences.forEach(function(item, index) {
-                that.experienceItems.push(new ExperienceItem(item, that.options, index))
+            this.experienceItems = this.experiences.map(function(item, index) {
+                return new ExperienceItem(item, that.options, index);
             });
         },
 
         render: function() {
             var that = this,
                 data = {
-                experiences: this.experiences,
-                industries: this.industries
-            };
+                    experiences: this.experiences,
+                    industries: this.industries
+                };
 
             this.$el.html(this.template(data));
 
             this.container = this.$('.HH-Experience-Item-Container');
 
-            this.experienceItems.forEach(function(experienceItem, index) {
-                that._bindAndRenderExperience(experienceItem, index);
-            });
+            this.experienceItems.forEach(that._bindAndRenderExperience.bind(that));
 
             return this;
         },
@@ -82,7 +80,7 @@ define([
                 var index = $(event.currentTarget).data('hh-index');
 
                 that.experienceItems.splice(index, 1);
-                that.$('div[data-hh-index=' + index +']').remove();
+                that.$('[data-hh-experience-index=' + index +']').remove();
             });
         },
 

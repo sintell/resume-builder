@@ -61,7 +61,7 @@ define([
                     return $.trim(item);
                 })
                 .filter(function(item) {
-                    return item != '';
+                    return item !== '';
                 });
         },
 
@@ -95,9 +95,7 @@ define([
 
             this._updateValues();
 
-            var skills =  this.skills.split(this.const.DELIMITER).map(function(item) {
-                return $.trim(item);
-            });
+            var skills =  this.skills.split(this.const.DELIMITER).map($.trim);
 
             var lastSkill = _.last(skills);
 

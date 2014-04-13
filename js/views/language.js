@@ -31,9 +31,9 @@ define([
         },
 
         render: function() {
-            var fntemplate = this.model.isNew() ? this.newTemplate : this.template;
+            var templateFunction = this.model.isNew() ? this.newTemplate : this.template;
 
-            this.$el.html(fntemplate({
+            this.$el.html(templateFunction({
                 language: this.model.attributes,
                 languages: this.availableLanguages,
                 levels: this.levels

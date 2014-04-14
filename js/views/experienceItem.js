@@ -13,7 +13,7 @@ define([
     return BaseArea.extend({
         className: 'HH-ResumeSection-Component-ExperienceItem',
 
-        companySuggestUrl: Config.serverHost + '/autosuggest/multiprefix/v2?d=companies_RU&q=',
+        companySuggestUrl: 'http://hh.ru/autosuggest/multiprefix/v2?d=companies_RU&q=',
 
         template: _.template(ExperienceItemTemplate),
 
@@ -121,7 +121,11 @@ define([
             this._updateCompanySuggestValues();
 
             if (!Utils.isIgnoringSuggestKeys(event.keyCode)) {
-                $.getJSON(this.companySuggestUrl + this.companyName).success(function(data) {
+                $.ajax({
+                    url: this.companySuggestUrl + this.companyName,
+                    dataType: 'jsonp',
+                    jsonp: 'p'
+                }).success(function(data) {
                     if (!data) {
                         return;
                     }

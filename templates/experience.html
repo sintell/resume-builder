@@ -3,13 +3,13 @@
 <% if (!experiences.length) { %>
     <div class="control__value">Опыт не указан</div>
 <% } else { %>
-<ul class="control__value">
+    <ul class="control__value">
         <% experiences.forEach(function(experience) { %>
             <li><%- experience.company %>, <%- experience.position %> -
                 c <%- experience.startDate.text %>
                 по <%- !experience.endDate.text ? 'настоящее время' : experience.endDate.text %></li>
         <% }); %>
-</ul>
+    </ul>
 <% } %>
 
 

@@ -20,7 +20,7 @@ define([
            DELIMITER: ','
         },
 
-        suggestUrl: Config.serverHost + '/autosuggest/multiprefix/v2?d=key_skill&q=',
+        suggestUrl: 'http://hh.ru/autosuggest/multiprefix/v2?d=key_skill&q=',
 
         events: {
             'keyup .HH-SkillSet-Input': '_updateSuggest',
@@ -57,9 +57,7 @@ define([
 
             attributes.skill_set = this.skills
                 .split(this.const.DELIMITER)
-                .map(function(item) {
-                    return $.trim(item);
-                })
+                .map($.trim)
                 .filter(function(item) {
                     return item !== '';
                 });
@@ -68,19 +66,19 @@ define([
         onSelectSuggest: function(data) {
             this._updateValues();
 
-            var skills = this.skills.split(this.const.DELIMITER).map(function(item) {
-                return $.trim(item);
-            });
+            var skills = this.skills.split(this.const.DELIMITER).map($.trim);
 
             if (skills.length) {
                 skills[skills.length - 1] = data.text;
             }
 
-            this.$('.HH-SkillSet-Input').val(skills.join(this.const.DELIMITER + ' '));
+            var $input = this.$('.HH-SkillSet-Input');
+
+            $input.val(skills.join(this.const.DELIMITER + ' '));
 
             this.suggest.hide();
 
-            this.$('.HH-SkillSet-Input').focus();
+            $input.focus();
         },
 
         _updateValues: function() {
@@ -97,10 +95,14 @@ define([
 
             var skills =  this.skills.split(this.const.DELIMITER).map($.trim);
 
-            var lastSkill = _.last(skills);
+            var lastSkill = skills[skills.length - 1];
 
             if (!Utils.isIgnoringSuggestKeys(event.keyCode)) {
-                $.getJSON(this.suggestUrl + lastSkill).success(function(data) {
+                $.ajax({
+                    url: this.suggestUrl + lastSkill,
+                    dataType: 'jsonp',
+                    jsonp: 'p'
+                }).success(function(data) {
                     if (!data) {
                         return;
                     }

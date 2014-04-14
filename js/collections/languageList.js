@@ -10,6 +10,6 @@ define([
     return Backbone.Collection.extend({
         model: Backbone.Model,
 
-        url: [Config.apiUrl, 'specializations'].join('/')
+        url: [Config.apiUrl, 'languages'].join('/')
     });
 });

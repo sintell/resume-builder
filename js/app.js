@@ -8,11 +8,12 @@ define([
     'models/user',
     'collections/resumeList',
     'collections/specializationList',
+    'collections/languageList',
     'views/resume',
     'views/resumeList',
     'views/header',
     'config',
-    'utils',
+    'utils'
 ], function(
     $,
     _,
@@ -23,6 +24,7 @@ define([
     User,
     ResumeList,
     SpecializationList,
+    LanguageList,
     ResumeView,
     ResumeListView,
     HeaderView,
@@ -47,7 +49,7 @@ define([
             ':id': 'resume'
         },
 
-        initialize: function(options) {
+        initialize: function() {
             var that = this;
             
             this.user = new User();
@@ -60,6 +62,7 @@ define([
             this.dictionary = new Dictionary();
             this.area = new Area();
             this.specializations = new SpecializationList();
+            this.languages = new LanguageList();
 
             this.user.fetch().then(function() {
                 headerView.render();
@@ -68,11 +71,11 @@ define([
                     that.resumes.fetch(),
                     that.dictionary.fetch(),
                     that.area.fetch(),
-                    that.specializations.fetch()
+                    that.specializations.fetch(),
+                    that.languages.fetch()
                 ).then(function() {
                     Backbone.history.start({pushState: true});
                     that.listenTo(that.resumes, 'added', that.handleAdded);
-
                 });
             }, function() {
                 headerView.render();
@@ -106,7 +109,8 @@ define([
                 }, {
                     dictionary: this.dictionary,
                     area: this.area,
-                    specializations: this.specializations
+                    specializations: this.specializations,
+                    languages: this.languages
                 });
                 $('.HH-ResumeBuilder-Container')
                     .html(resumeView.render().el);
@@ -123,7 +127,8 @@ define([
             }, {
                 dictionary: this.dictionary,
                 area: this.area,
-                specializations: this.specializations
+                specializations: this.specializations,
+                languages: this.languages
             });
 
             $('.HH-ResumeBuilder-Container')

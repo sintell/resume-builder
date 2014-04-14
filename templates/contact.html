@@ -1,56 +1,11 @@
-<% if (contact.isPresented) { %>
-<div class="HH-ResumeSection-Control control control_viewing">
-    <label class="control__label"><%- contact.verboseName %></label>
-    <span class="control__value"><%- contact.value %></span>
+<div class="HH-Contact-Content"></div>
 
-    <div class="control__input">
-        <input class="HH-Contact-Value"
-               type="text"
-               value="<%- contact.value %>"
-               name="comment.value"
-               data-hh-namespace="contact"
-               data-hh-name="contact.value"/>
-        <% if (contact.name !== 'email') { %>
-            <input type="button" class="HH-Contact-Button" value="Удалить" />
-        <% } %>
-    </div>
-</div>
-
-<% if (contact.name !== 'email') { %>
-<div class="HH-ResumeSection-Control control control_viewing">
-    <label class="control__label">Комментарий</label>
-    <span class="control__value"><%- contact.comment %></span>
-
-    <div class="control__input">
-        <input class="HH-Contact-Comment"
-               type="text"
-               value="<%- contact.comment %>"
-               name="contact.comment"
-               data-hh-namespace="contact"
-               data-hh-name="contact.comment"/>
-    </div>
-</div>
-<% } %>
-
+<% if (!contact.isPresented) { %>
 <div class="HH-ResumeSection-Control control control_viewing control_collapsing control_with-border">
     <label class="control__label"></label>
 
     <div class="control__input">
-        <label>
-            <input class="HH-Contact-Preferred"
-                   type="radio"
-                   name="comment.preferred"
-                   <%- contact.preferred ? 'checked' : '' %>/>
-            Предпочитаемый способ связи
-        </label>
-    </div>
-</div>
-<% } else { %>
-<div class="HH-ResumeSection-Control control control_viewing control_collapsing control_with-border">
-    <label class="control__label"></label>
-
-    <div class="control__input">
-        <input type="button" class="HH-Contact-Button" value="Указать <%- contact.verboseName %>" />
+        <input type="button" class="HH-Contact-Button" value="Указать <%- contact.verboseName.toLowerCase() %>" />
     </div>
 </div>
 <% } %>

@@ -2,37 +2,46 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'views/contact'
+    'views/contact',
+    'text!templates/phone.html'
 ], function(
     $,
     _,
     Backbone,
-    Contact
+    Contact,
+    PhoneTemplate
 ) {
     'use strict';
 
     return Contact.extend({
-        const: {
-            COUNTRY_START: 0,
-            COUNTRY_END: 1,
-            CITY_START: 1,
-            CITY_END: 3,
-            NUMBER_START: 4
-        },
+        template: _.template(PhoneTemplate),
 
         fillContact: function(contact) {
-            this.value = contact.value.country + contact.value.city + contact.value.number;
+            this.value = {
+                country: contact.value.country,
+                city: contact.value.city,
+                number: contact.value.number
+            };
         },
 
         saveContact: function(contact) {
-            var phone;
-
-            phone = this.$('.HH-Contact-Value').val().match(/\d+/g).join('');
             contact.value = {
-                country: phone.substr(this.const.COUNTRY_START, this.const.COUNTRY_END),
-                city: phone.substr(this.const.CITY_START, this.const.CITY_END),
-                number: phone.substr(this.const.NUMBER_START)
+                country: this._filterNumbers(this.$('.HH-Phone-Country').val()),
+                city: this._filterNumbers( this.$('.HH-Phone-City').val()),
+                number: this._filterNumbers(this.$('.HH-Phone-Number').val())
             };
+        },
+
+        emptyValue: function() {
+            return {
+                country: null,
+                city: null,
+                number: null
+            };
+        },
+
+        _filterNumbers: function(str) {
+            return str.match(/\d+/g).join('');
         }
     });
 });

@@ -1,0 +1,29 @@
+<% if (contact.isPresented) { %>
+<div class="HH-ResumeSection-Control control control_viewing">
+    <label class="control__label"><%- contact.verboseName %></label>
+    <span class="control__value"><%- contact.value %></span>
+
+    <div class="control__input">
+        <input class="HH-Contact-Value"
+               type="text"
+               value="<%- contact.value %>"
+               name="comment.value"
+               data-hh-namespace="contact"
+               data-hh-name="contact.value"/>
+    </div>
+</div>
+
+<div class="HH-ResumeSection-Control control control_viewing control_collapsing control_with-border">
+    <label class="control__label"></label>
+
+    <div class="control__input">
+        <label>
+            <input class="HH-Contact-Preferred"
+                   type="radio"
+                   name="comment.preferred"
+                   <%- contact.preferred ? 'checked' : '' %>/>
+            Предпочитаемый способ связи
+        </label>
+    </div>
+</div>
+<% } %>

@@ -12,7 +12,7 @@ define([
     'use strict';
 
     return Backbone.View.extend({
-        template: _.template(ContactTemplate),
+        baseTemplate: _.template(ContactTemplate),
 
         events: {
             'click .HH-Contact-Button': '_switch'
@@ -38,7 +38,8 @@ define([
                 }
             });
 
-            this.$el.html(this.template(data));
+            this.$el.html(this.baseTemplate(data));
+            this.$('.HH-Contact-Content').replaceWith(this.template(data));
 
             return this;
         },
@@ -94,7 +95,7 @@ define([
             }
 
             this.isPresented = !this.isPresented;
-            this.value = null;
+            this.value = this.emptyValue();
             this.comment = null;
             this.preferred = false;
             this.render();

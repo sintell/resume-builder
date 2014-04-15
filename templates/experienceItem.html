@@ -4,6 +4,7 @@
 </p>
 <input type="text"
        class="HH-Experience-Item-Company"
+       data-hh-name="experience.company"
        value="<%- experience.company %>" />
 <div class="HH-ResumeBuilder-Component-Suggest HH-Suggest-Company"></div>
 <p>
@@ -23,6 +24,7 @@
 </p>
 <input type="text"
        class="HH-Experience-Item-Area"
+       data-hh-name="experience.area"
        value="<%- experience.area && experience.area.name %>" />
 
 <div class="HH-ResumeBuilder-Component-Suggest HH-Suggest-Area"></div>
@@ -30,12 +32,14 @@
     Сайт
 </p>
 <input type="text"
+       data-hh-name="experience.company_url"
        class="HH-Experience-Item-CompanyUrl"
        value="<%- experience.company_url %>" />
 <p>
     Должность
 </p>
 <input type="text"
+       data-hh-name="experience.position"
        class="HH-Experience-Item-Position"
        value="<%- experience.position %>" />
 <p>
@@ -86,6 +90,7 @@
     Обязанности
 </p>
 <input type="text"
+       data-hh-name="experience.description"
        class="HH-Experience-Item-Description"
        value="<%- experience.description %>" />
 

@@ -37,19 +37,21 @@ define([
             this.selected = null;
         },
 
-        setData: function(data) {
+        setData: function(data, forceUpdate) {
             this.data = data;
+
+            if (forceUpdate) {
+                this.update(this.text, this.width);
+            }
         },
 
         render: function() {
-            var data;
-
-            data = {
+            var data = {
                 suggest: this.suggest
             };
 
             this.$el.html(this.template(data));
-            this.$el.find('.HH-Suggest-Results').css('width', this.width + 'px');
+            this.$('.HH-Suggest-Results').css('width', this.width + 'px');
 
             return this;
         },
@@ -63,6 +65,7 @@ define([
             var prevLength;
 
             this.width = width;
+            this.text = text;
 
             if (text.length >= this.minInput) {
                 prevLength = this.suggest.length;
@@ -154,6 +157,7 @@ define([
             });
 
             if (
+                !this.options.showOnSingle &&
                 result.length === 1 &&
                 textPreprocessing(result[0]) === processedText
             ) {

@@ -105,6 +105,7 @@ define([
             this.$('.HH-ResumeSection-Inner').toggleClass('section_loading');
 
             this.model.attributesToSave = _.keys(attributes);
+
             this.model.save(attributes, {
                 wait: true,
 

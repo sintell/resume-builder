@@ -3,6 +3,12 @@ define(['underscore'],function(_) {
 
        var isIOS =  /(iPad|iPhone|iPod)/g.test(navigator.userAgent);
 
+       this.keycodes = {
+           ARROW_DOWN: 40,
+           ARROW_UP: 38,
+           ENTER: 13
+       };
+
        // Данный метот применим только для входного текста в нижнем регистре,
        // т.к. символ '`' при нажатом капс-логе выглядит и одинаково.
        // В итоге, при написании слова RJHJK`D - (КОРОЛЁВ) мы
@@ -146,6 +152,25 @@ define(['underscore'],function(_) {
            return isIOS;
        }
 
+       var months = [
+           'Январь',
+           'Февраль',
+           'Март',
+           'Апрель',
+           'Май',
+           'Июнь',
+           'Июль',
+           'Август',
+           'Сентябрь',
+           'Октябрь',
+           'Ноябрь',
+           'Декабрь'
+       ];
+
+       this.getMonths = function() {
+           return months;
+       },
+
        this.monthNameByNum = function(val) {
             var dict = [
                 'января',
@@ -161,6 +186,16 @@ define(['underscore'],function(_) {
                 'декабря'];
 
            return dict[val];
+       };
+
+       this.isIgnoringSuggestKeys = function(keyCode) {
+           var IGNORING_KEYS = [
+               this.keycodes.ARROW_DOWN,
+               this.keycodes.ARROW_UP,
+               this.keycodes.ENTER
+           ];
+
+           return IGNORING_KEYS.indexOf(keyCode) !== -1;
        };
    };
 

@@ -9,6 +9,7 @@ define([
     'collections/resumeList',
     'collections/specializationList',
     'collections/languageList',
+    'collections/industryList',
     'views/resume',
     'views/resumeList',
     'views/header',
@@ -25,6 +26,7 @@ define([
     ResumeList,
     SpecializationList,
     LanguageList,
+    IndustryList,
     ResumeView,
     ResumeListView,
     HeaderView,
@@ -35,7 +37,7 @@ define([
 
     var ACCESS_TOKEN = Utils.getCookie('access_token');
     $.ajaxSetup({
-        beforeSend: function(xhr) {
+        beforeSend: function(xhr, settings) {
             xhr.setRequestHeader(
                 'Authorization',
                 ['Bearer', ACCESS_TOKEN].join(' ')
@@ -63,6 +65,7 @@ define([
             this.area = new Area();
             this.specializations = new SpecializationList();
             this.languages = new LanguageList();
+            this.industries = new IndustryList();
 
             this.user.fetch().then(function() {
                 headerView.render();
@@ -72,7 +75,8 @@ define([
                     that.dictionary.fetch(),
                     that.area.fetch(),
                     that.specializations.fetch(),
-                    that.languages.fetch()
+                    that.languages.fetch(),
+                    that.industries.fetch()
                 ).then(function() {
                     Backbone.history.start({pushState: true});
                     that.listenTo(that.resumes, 'added', that.handleAdded);
@@ -109,7 +113,8 @@ define([
                     dictionary: this.dictionary,
                     area: this.area,
                     specializations: this.specializations,
-                    languages: this.languages
+                    languages: this.languages,
+                    industries: this.industries
                 });
                 $('.HH-ResumeBuilder-Container')
                     .html(resumeView.render().el);
@@ -133,7 +138,8 @@ define([
                 dictionary: this.dictionary,
                 area: this.area,
                 specializations: this.specializations,
-                languages: this.languages
+                languages: this.languages,
+                industries: this.industries
             });
 
             $('.HH-ResumeBuilder-Container')

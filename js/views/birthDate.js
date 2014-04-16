@@ -2,8 +2,9 @@ define([
     'jquery',
     'underscore',
     'backbone',
+    'utils',
     'text!templates/birthDate.html'
-], function($, _, Backbone, BirthDateTemplate) {
+], function($, _, Backbone, Utils, BirthDateTemplate) {
     'use strict';
 
     return Backbone.View.extend({
@@ -65,20 +66,7 @@ define([
 
         _updateCalendar: function() {
             this.calendar = {
-                months: [
-                    'Январь',
-                    'Февраль',
-                    'Март',
-                    'Апрель',
-                    'Май',
-                    'Июнь',
-                    'Июль',
-                    'Август',
-                    'Сентябрь',
-                    'Октябрь',
-                    'Ноябрь',
-                    'Декабрь'
-                ],
+                months: Utils.getMonths(),
                 days: this._daysInMonth()
             };
         },

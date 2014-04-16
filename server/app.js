@@ -1,6 +1,8 @@
 var config = require('../config/config.js'),
     express = require('express'),
     https = require('https'),
+    http = require('http'),
+    url = require("url"),
     app = module.exports = express();
 
 app.configure(function() {

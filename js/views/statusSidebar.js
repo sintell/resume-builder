@@ -1,7 +1,7 @@
 define([
     'underscore',
     'backbone',
-    'config/config.js',
+    'config',
     'utils',
     'text!templates/statusSidebar.html'
 ], function(
@@ -22,7 +22,7 @@ define([
             this.model = options.model;
             this.listenTo(this.model, 'load', this.render);
 
-             _.bindAll(this, 'switchFloat', 'setProgressBar');
+            _.bindAll(this, 'switchFloat', 'setProgressBar');
         },
 
         render: function() {

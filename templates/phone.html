@@ -1,0 +1,56 @@
+<% if (contact.isPresented) { %>
+<div class="HH-ResumeSection-Control control control_viewing">
+    <label class="control__label"><%- contact.verboseName %></label>
+    <span class="control__value"><%- [contact.value.country, contact.value.city, contact.value.number].join('') %></span>
+
+    <div class="control__input">
+        <input class="HH-Phone-Country textbox textbox_small"
+               type="text"
+               value="<%- contact.value.country %>"
+               name="comment.value.country"
+               data-hh-namespace="contact"
+               data-hh-name="contact.value.country"/>
+        <input class="HH-Phone-City textbox textbox_small"
+               type="text"
+               value="<%- contact.value.city %>"
+               name="comment.value.city"
+               data-hh-namespace="contact"
+               data-hh-name="contact.value.city"/>
+        <input class="HH-Phone-Number textbox"
+               type="text"
+               value="<%- contact.value.number %>"
+               name="comment.value.number"
+               data-hh-namespace="contact"
+               data-hh-name="contact.value.number"/>
+        <input type="button" class="HH-Contact-Button" value="Удалить" />
+    </div>
+</div>
+
+<div class="HH-ResumeSection-Control control control_viewing">
+    <label class="control__label">Комментарий</label>
+    <span class="control__value"><%- contact.comment %></span>
+
+    <div class="control__input">
+        <input class="HH-Contact-Comment"
+               type="text"
+               value="<%- contact.comment %>"
+               name="contact.comment"
+               data-hh-namespace="contact"
+               data-hh-name="contact.comment"/>
+    </div>
+</div>
+
+<div class="HH-ResumeSection-Control control control_viewing control_collapsing control_with-border">
+    <label class="control__label"></label>
+
+    <div class="control__input">
+        <label>
+            <input class="HH-Contact-Preferred"
+                   type="radio"
+                   name="comment.preferred"
+                   <%- contact.preferred ? 'checked' : '' %>/>
+            Предпочитаемый способ связи
+        </label>
+    </div>
+</div>
+<% } %>

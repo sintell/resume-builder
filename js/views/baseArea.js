@@ -52,7 +52,6 @@ define(['jquery', 'underscore', 'backbone', 'views/suggest'], function($, _, Bac
             }
         },
 
-
         _findIdByData: function(data, node) {
             var that = this,
                 result;

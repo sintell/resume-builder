@@ -23,7 +23,7 @@ define([
             'focusout .HH-ResumeBuilder-Component-Metro-Input': '_onFocusOut'
         },
 
-        initialize: function(options) {
+        initialize: function() {
             this.model = new MetroModel();
             this.hasMetro = false;
 

@@ -24,7 +24,7 @@ define([
             'click .HH-Sidebar-ButtonDestroy': '_destroy'
         },
 
-        initialize: function(options) {
+        initialize: function() {
             this.updated = false;
             this.listenTo(this.model, 'load', this.render);
             this.listenTo(this.model, 'sync', this.render);

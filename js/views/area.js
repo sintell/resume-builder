@@ -150,7 +150,7 @@ define([
             this.suggest.preventKeydown(event);
         },
 
-        _onFocusOut: function(event) {
+        _onFocusOut: function() {
             this.suggest.hide();
             this._onChange();
         }

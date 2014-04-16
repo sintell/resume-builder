@@ -1,0 +1,11 @@
+<div class="HH-Contact-Content"></div>
+
+<% if (!contact.isPresented) { %>
+<div class="HH-ResumeSection-Control control control_viewing control_collapsing control_with-border">
+    <label class="control__label"></label>
+
+    <div class="control__input">
+        <input type="button" class="HH-Contact-Button" value="Указать <%- contact.verboseName.toLowerCase() %>" />
+    </div>
+</div>
+<% } %>

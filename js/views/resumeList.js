@@ -3,7 +3,7 @@ define([
     'underscore',
     'backbone',
     'collections/resumeList',
-    'views/resumeListItem',
+    'views/resumeListItem'
 ], function(
     $,
     _,

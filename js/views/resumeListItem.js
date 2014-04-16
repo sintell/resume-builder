@@ -5,7 +5,7 @@ define([
     'config',
     'models/resume',
     'utils',
-    'text!templates/resumeListItem.html',
+    'text!templates/resumeListItem.html'
 ], function(
     $,
     _,

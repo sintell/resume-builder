@@ -37,7 +37,7 @@ define([
 
     var ACCESS_TOKEN = Utils.getCookie('access_token');
     $.ajaxSetup({
-        beforeSend: function(xhr, settings) {
+        beforeSend: function(xhr) {
             xhr.setRequestHeader(
                 'Authorization',
                 ['Bearer', ACCESS_TOKEN].join(' ')
@@ -47,19 +47,16 @@ define([
 
     return Backbone.Router.extend({
         routes: {
-            '': 'resumeList',
-            ':id': 'resume'
+            '': 'showResumeList',
+            ':id': 'showResume'
         },
 
         initialize: function() {
             var that = this;
             
             this.user = new User();
-            var headerView = new HeaderView({
-                model: this.user,
-                parent: this
-            });
-
+            this.headerView = new HeaderView({model: this.user});
+            this.listenTo(this.headerView, 'createResume', this.createResume);
             this.resumes = new ResumeList();
             this.dictionary = new Dictionary();
             this.area = new Area();
@@ -68,8 +65,6 @@ define([
             this.industries = new IndustryList();
 
             this.user.fetch().then(function() {
-                headerView.render();
-
                 $.when(
                     that.resumes.fetch(),
                     that.dictionary.fetch(),
@@ -82,30 +77,39 @@ define([
                     that.listenTo(that.resumes, 'added', that.handleAdded);
                 });
             }, function() {
-                headerView.render();
+                that.user.isEmployee = false;
             });
         },
 
-        resumeList: function() {
+        showResumeList: function() {
+            var that = this;
+
             if (this.user.isAuthenticated && this.user.isEmployee) {
                 var resumeListView = new ResumeListView({
                     collection: this.resumes
                 });
 
                 $.when(this.resumes.fetch()).then(function() {
-                    $('.HH-ResumeBuilder-Container')
-                        .html(resumeListView.render().el);
+                    if (that.resumes.length === 1) {
+                        that.navigate(that.resumes.first().id, {trigger: true});
+                    } else {
+                        that.headerView.render();
+
+                        $('.HH-ResumeBuilder-Container').html(resumeListView.render().el);
+                    }
                 });
             }               
         },
 
-        resume: function(id) {
+        showResume: function(id) {
             if (this.user.isAuthenticated && this.user.isEmployee) {
                 if (id !== 'new') {
                     this.resume = new Resume({id: id}, {collection: this.resumes});
                 } else {
                     return this.createResume();
                 }
+
+                this.headerView.render({linkToList: (this.resumes.length > 1)});
 
                 var resumeView = new ResumeView({
                     model: this.resume
@@ -116,8 +120,8 @@ define([
                     languages: this.languages,
                     industries: this.industries
                 });
-                $('.HH-ResumeBuilder-Container')
-                    .html(resumeView.render().el);
+
+                $('.HH-ResumeBuilder-Container').html(resumeView.render().el);
             }
         },
 
@@ -132,6 +136,8 @@ define([
             });
             this.resumes.add(this.resume);
 
+            this.headerView.render({linkToList: true});
+
             var resumeView = new ResumeView({
                 model: this.resume
             }, {
@@ -142,8 +148,7 @@ define([
                 industries: this.industries
             });
 
-            $('.HH-ResumeBuilder-Container')
-                .html(resumeView.render().el);
+            $('.HH-ResumeBuilder-Container').html(resumeView.render().el);
         },
 
         handleAdded: function(event, options) {

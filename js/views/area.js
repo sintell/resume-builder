@@ -4,7 +4,6 @@ define([
     'backbone',
     'views/baseArea',
     'views/suggest',
-    'views/areaModal',
     'text!templates/area.html'
 ], function(
     $,
@@ -12,7 +11,6 @@ define([
     Backbone,
     BaseArea,
     Suggest,
-    AreaModal,
     AreaTemplate
 ) {
     'use strict';
@@ -30,7 +28,6 @@ define([
         events: {
             'keyup .HH-ResumeBuilder-Component-Area-Input': '_updateSuggest',
             'keydown .HH-ResumeBuilder-Component-Area-Input': '_preventKeydown',
-            'click .HH-ResumeBuilder-Component-Area-ShowModal': '_toggleModal',
             'change .HH-ResumeBuilder-Component-Area-Input': '_onChange',
             'focusout .HH-ResumeBuilder-Component-Area-Input': '_onFocusOut'
         },
@@ -43,7 +40,6 @@ define([
             this._orderArea(this.area);
 
             this._initializeSuggest();
-            this._initializeModal();
         },
 
         fill: function(attributes) {
@@ -64,7 +60,6 @@ define([
             this.$el.html(this.template(data));
 
             this.suggest.setElement(this.$el.find('.HH-ResumeBuilder-Component-Suggest'));
-            this.modal.setElement(this.$el.find('.HH-ResumeBuilder-Component-AreaModal'));
 
             return this;
         },
@@ -72,12 +67,6 @@ define([
         onSelectSuggest: function(data) {
             this.$el.find('.HH-ResumeBuilder-Component-Area-Input').val(data.text);
             this.suggest.hide();
-            this._onChange();
-        },
-
-        onSelectModal: function(data) {
-            this.$el.find('.HH-ResumeBuilder-Component-Area-Input').val(data.text);
-            this.modal.hide();
             this._onChange();
         },
 
@@ -131,19 +120,6 @@ define([
             }
 
             this.trigger('selectArea', this.id);
-        },
-
-        _initializeModal: function() {
-            this.modal = new AreaModal(this.area);
-
-            this.listenTo(this.modal, 'selectAreaModal', this.onSelectModal);
-        },
-
-        _toggleModal: function(event) {
-            event.preventDefault();
-
-            this._updateValues();
-            this.modal.toggle(this.name);
         },
 
         _preventKeydown: function(event) {

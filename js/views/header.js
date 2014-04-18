@@ -22,23 +22,24 @@ define([
             'click .HH-ResumeBuilder-ButtonCreate': '_createResume'
         },
 
-        initialize: function(options) {
-            this.parent = options.parent;
-        },
+        render: function(options) {
+            var data,
+                defaults;
 
-        render: function() {
-            var data;
+            defaults = {
+                linkToList: false
+            };
 
-            data = {
+            data = $.extend({}, defaults, options, {
                 user: this.model.data(),
                 serverHost: Config.serverHost
-            };
+            });
 
             this.$el.html(this.template(data));
         },
 
         _createResume: function() {
-            this.parent.createResume();
+            this.trigger('createResume');
         }
     });
 });

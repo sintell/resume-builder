@@ -76,11 +76,16 @@ define([
                 }
             } else {
                 this.suggest = [];
+                this.selected = null;
             }
 
             this.isShow = this.suggest.length > 0;
 
             this.render();
+        },
+
+        getSelected: function() {
+            return this.selected;
         },
 
         processKey: function(event) {

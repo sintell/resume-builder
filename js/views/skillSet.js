@@ -95,7 +95,7 @@ define([
 
             this._updateValues();
 
-            var tags = this.skills
+            this.skills
                 .split(this.const.DELIMITER)
                 .map($.trim)
                 .forEach(function(item) {
@@ -118,11 +118,6 @@ define([
 
             this._updateValues();
 
-            var skills = this.skills.split(this.const.DELIMITER)
-                .map($.trim);
-
-            var lastSkill = skills[skills.length - 1];
-
             if (
                 event.keyCode === Utils.keycodes.ENTER &&
                 this.suggest.getSelected() === null
@@ -131,6 +126,11 @@ define([
                 this.suggest.hide();
                 return;
             }
+
+            var skills = this.skills.split(this.const.DELIMITER)
+                .map($.trim);
+
+            var lastSkill = skills[skills.length - 1];
 
             if (!Utils.isIgnoringSuggestKeys(event.keyCode)) {
                 $.ajax({

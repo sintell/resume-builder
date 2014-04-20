@@ -4,19 +4,19 @@
     <span class="control__value"><%- [contact.value.country, contact.value.city, contact.value.number].join('') %></span>
 
     <div class="control__input">
-        <input class="HH-Phone-Country textbox textbox_small"
+        <input class="HH-Phone-Country textbox textbox_very-small"
                type="text"
                value="<%- contact.value.country %>"
                name="comment.value.country"
                data-hh-namespace="contact"
                data-hh-name="contact.value.country"/>
-        <input class="HH-Phone-City textbox textbox_small"
+        <input class="HH-Phone-City textbox textbox_very-small"
                type="text"
                value="<%- contact.value.city %>"
                name="comment.value.city"
                data-hh-namespace="contact"
                data-hh-name="contact.value.city"/>
-        <input class="HH-Phone-Number textbox"
+        <input class="HH-Phone-Number textbox textbox_small"
                type="text"
                value="<%- contact.value.number %>"
                name="comment.value.number"
@@ -31,7 +31,7 @@
     <span class="control__value"><%- contact.comment %></span>
 
     <div class="control__input">
-        <input class="HH-Contact-Comment"
+        <input class="HH-Contact-Comment textbox textbox_large"
                type="text"
                value="<%- contact.comment %>"
                name="contact.comment"

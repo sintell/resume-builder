@@ -3,7 +3,7 @@
 
     <div class="control__input">
         <input type="text"
-           class="HH-Experience-Item-Company"
+           class="HH-Experience-Item-Company textbox textbox_large"
            data-hh-name="experience.company"
            value="<%- experience.company %>" />
         <div class="HH-ResumeBuilder-Component-Suggest HH-Suggest-Company"></div>
@@ -14,7 +14,7 @@
     <label class="control__label">Отрасль</label>
 
     <div class="control__input">
-        <select class="HH-Experience-Item-Industry">
+        <select class="HH-Experience-Item-Industry select select_large">
         <% _.each(industries, function(industry) { %>
             <option value="<%- industry.id %>"
                 <%- industry.id === (experience.industry && experience.industry.id) ? 'selected' : '' %>>
@@ -30,7 +30,7 @@
 
     <div class="control__input">
         <input type="text"
-               class="HH-Experience-Item-Area"
+               class="HH-Experience-Item-Area textbox textbox_large"
                data-hh-name="experience.area"
                value="<%- experience.area && experience.area.name %>" />
     </div>
@@ -43,7 +43,7 @@
     <div class="control__input">
         <input type="text"
                data-hh-name="experience.company_url"
-               class="HH-Experience-Item-CompanyUrl"
+               class="HH-Experience-Item-CompanyUrl textbox textbox_large"
                value="<%- experience.company_url %>" />
     </div>
 </div>
@@ -54,7 +54,7 @@
     <div class="control__input">
         <input type="text"
                data-hh-name="experience.position"
-               class="HH-Experience-Item-Position"
+               class="HH-Experience-Item-Position textbox textbox_large"
                value="<%- experience.position %>" />
     </div>
 </div>
@@ -73,7 +73,7 @@
             <% }); %>
         </select>
 
-        <input class="HH-Experience-Item-Start-Year"
+        <input class="HH-Experience-Item-Start-Year textbox textbox_very-small"
                value="<%- experience.startDate.year %>"
                name="birth_date-year"
                pattern="^[0-9]{4}$"/>
@@ -94,7 +94,7 @@
             <% }); %>
         </select>
 
-        <input class="HH-Experience-Item-End-Year"
+        <input class="HH-Experience-Item-End-Year textbox textbox_very-small"
                <%- !experience.end ? 'disabled' : '' %>
                value="<%- experience.endDate.year %>"
                name="birth_date-year"
@@ -113,10 +113,8 @@
     <label class="control__label">Обязанности</label>
 
     <div class="control__input">
-        <input type="text"
-               data-hh-name="experience.description"
-               class="HH-Experience-Item-Description"
-               value="<%- experience.description %>" />
+        <textarea data-hh-name="experience.description"
+                  class="HH-Experience-Item-Description textbox textbox_very-large"><%- experience.description %></textarea>
     </div>
 </div>
 

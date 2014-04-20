@@ -64,6 +64,6 @@
 
     }
 
-    .section__item:last-child {
+    .section_editing .section__item:last-child {
         padding-bottom: 20px;
     }

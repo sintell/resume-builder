@@ -1,9 +1,23 @@
-define(['jquery', 'underscore', 'backbone', 'views/countryPicker'], function($, _, Backbone, CountryPicker) {
+define([
+    'jquery',
+    'underscore',
+    'backbone',
+    'views/baseArea',
+    'views/tags',
+    'views/suggest',
+    'utils'
+], function(
+    $,
+    _,
+    Backbone,
+    BaseArea,
+    Tags,
+    Suggest,
+    Utils
+) {
     'use strict';
 
     return Backbone.View.extend({
-        tagName: 'div',
-
         className: function() {
             return 'HH-ResumeSection-Component-' + this.templateName;
         },
@@ -11,15 +25,17 @@ define(['jquery', 'underscore', 'backbone', 'views/countryPicker'], function($, 
         events: function() {
             var e = {};
 
-            e['change .HH-ResumeBuilder-Component-' + this.templateName + '-Other'] = '_change';
-            e['change .HH-ResumeBuilder-Component-' + this.templateName + '-Russia'] = '_change';
+            e['keyup .HH-' + this.templateName + '-Input'] = '_updateSuggest';
+            e['keydown .HH-' + this.templateName + '-Input'] = '_preventKeydown';
+            e['click .HH-' + this.templateName + '-Add'] = '_addTags';
 
             return e;
         },
 
         const: {
             RUSSIA: 113,
-            OTHER_COUNTRIES: 1001
+            OTHER_COUNTRIES: 1001,
+            DELIMITER: ','
         },
 
         initialize: function(options, names) {
@@ -32,48 +48,93 @@ define(['jquery', 'underscore', 'backbone', 'views/countryPicker'], function($, 
 
             this.template = _.template(options.template);
 
-            this._setArea({
+            this._initializeContries({
                 areas: options.area.attributes
             });
 
             this.maxCount = options.resume.conditions.get(this.name).max_count;
 
-            this._initializeCountryPicker();
+            this._initializeTags();
+            this._initializeSuggest();
         },
 
         fill: function(attributes) {
-            this.selectedAreas = _.map(attributes[this.name], function(item) {
-                return { id:  parseInt(item.id, 10) };
+            var that = this;
+
+            attributes[this.name].map(function(item) {
+                var data = {
+                    id:  parseInt(item.id, 10),
+                    name: item.name
+                };
+
+                that.tags.addTag(data.name, data, false);
             });
         },
 
         render: function() {
-            var data;
+            this.$el.html(this.template());
 
-            data = {
-                area: this.area,
-                RUSSIA: this.const.RUSSIA,
-                selectedAreas: this.selectedAreas
-            };
+            this.suggest.setElement(this.$('.HH-ResumeBuilder-Component-Suggest'));
+            this.tags.setElement(this.$('.HH-ResumeBuilder-Component-Tags'));
 
-            this.$el.html(this.template(data));
+            this.tags.render();
 
-            this.countryPicker.setSelectedAreas(this.selectedAreas);
+            this.$input = this.$('.HH-'+ this.templateName + '-Input');
+            this.$add = this.$('.HH-'+ this.templateName + '-Add');
 
-            this.countryPicker.setElement(this.$el.find('.HH-ResumeBuilder-Component-CountryPicker'));
-
-            if (this.selectedAreas.length !== 1 || this.selectedAreas[0].id !== this.const.RUSSIA) {
-                this.countryPicker.show();
-            }
+            this.toggleInput();
 
             return this;
         },
 
         takeback: function(attributes) {
-            attributes[this.name] = this.selectedAreas;
+            attributes[this.name] = this.tags.takeback().map(function(item) {
+                return item.data;
+            });
         },
 
-        _setArea: function(areas) {
+        toggleInput: function() {
+            if (this.tags.getCount() >= this.maxCount) {
+                this.$input.hide();
+                this.$add.hide();
+            } else {
+                this.$input.show();
+                this.$add.show();
+            }
+        },
+
+        _addTags: function() {
+            var that = this;
+
+            this._updateValues();
+
+            this.inputAreas
+                .split(this.const.DELIMITER)
+                .map($.trim)
+                .forEach(function(item) {
+                    if (that.tags.getCount() >= that.maxCount) {
+                        return;
+                    }
+
+                    if (!item) {
+                        return;
+                    }
+
+                    var node = that._findNodeByName(item);
+
+                    if (!node) {
+                        return;
+                    }
+
+                    that.tags.addTag(item, {id: node.id}, false);
+                });
+
+            this.$input.val('');
+            this.tags.render();
+            this.toggleInput();
+        },
+
+        _initializeContries: function(areas) {
             var that = this;
             var otherCountries;
 
@@ -100,39 +161,94 @@ define(['jquery', 'underscore', 'backbone', 'views/countryPicker'], function($, 
                     });
                 });
             }
+        },
 
-            that.area = _.sortBy(that.area, function(area) {
-                if (area.id === that.const.RUSSIA) {
-                    // Выводим Россию на первую позицию в списке
-                    return '';
+        onRemoveTag: function() {
+            this.toggleInput();
+        },
+
+        onSelectSuggest: function(data) {
+            this._updateValues();
+
+            if (this.inputAreas.indexOf(this.const.DELIMITER) > 0) {
+                var areas = this.inputAreas.split(this.const.DELIMITER).map($.trim);
+
+                if (areas.length) {
+                    areas[areas.length - 1] = data.text;
                 }
 
+                this.$input.val(areas.join(this.const.DELIMITER + ' '));
+            } else {
+                this.$input.val('');
 
+                var node = this._findNodeByName(data.text);
 
-                return area.name;
-            });
-        },
+                if (!node) {
+                    return;
+                }
 
-        _initializeCountryPicker: function() {
-            this.countryPicker = new CountryPicker(this.area, this.maxCount);
-
-            this.listenTo(this.countryPicker, 'countryPicked', this._onCountryPicked);
-        },
-
-        _onCountryPicked: function(selectedAreas) {
-            this.selectedAreas = selectedAreas;
-        },
-
-        _change: function(event) {
-            if ($(event.currentTarget).is('.HH-ResumeBuilder-Component-' + this.templateName +'-Russia')) {
-                this.selectedAreas = [
-                    {
-                        id: this.const.RUSSIA
-                    }
-                ];
+                this.tags.addTag(data.text, node);
             }
 
-            this.countryPicker.toggle();
+
+            this.suggest.hide();
+            this.$input.focus();
+            this.toggleInput();
+        },
+
+        _updateValues: function() {
+            this.inputAreas = this.$input.val();
+            this.width =this.$input.outerWidth();
+        },
+
+        _updateSuggest: function(event) {
+            var that = this;
+
+            this._updateValues();
+
+            if (
+                event.keyCode === Utils.keycodes.ENTER &&
+                this.suggest.getSelected() === null
+                ) {
+                this._addTags();
+                this.suggest.hide();
+                return;
+            }
+
+            var areas = this.inputAreas
+                .split(this.const.DELIMITER)
+                .map($.trim);
+
+            var lastArea = areas[areas.length - 1];
+
+            this.suggest.update(lastArea, this.width);
+
+            this.suggest.processKey(event);
+        },
+
+        _preventKeydown: function(event) {
+            this.suggest.preventKeydown(event);
+        },
+
+        _initializeSuggest: function() {
+            var names = this.area.map(function(item) {
+                return item.name;
+            });
+
+            this.suggest = new Suggest();
+            this.listenTo(this.suggest, 'selectSuggest', this.onSelectSuggest);
+            this.suggest.setData(names);
+        },
+
+        _initializeTags: function() {
+            this.tags = new Tags();
+            this.listenTo(this.tags, 'remove', this.onRemoveTag);
+        },
+
+        _findNodeByName: function(name) {
+            return _.find(this.area, function(item) {
+                return item.name === name;
+            });
         }
     });
 });

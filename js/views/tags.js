@@ -40,6 +40,12 @@ define([
             });
 
             this.render();
+
+            this.trigger('remove');
+        },
+
+        getCount: function(item) {
+            return this.tags.length;
         },
 
         initialize: function(data, options) {

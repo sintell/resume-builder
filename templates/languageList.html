@@ -1,10 +1,17 @@
-<h4>Владение языками</h4>
+<div class="HH-ResumeSection-Control control control_viewing">
+    <label class="control__label">Владение языками</label>
+
+    <% if (!language.length) { %>
+    <span class="control__value">не указано</span>
+    <% } %>
+</div>
 
 <div class="HH-ResumeSection-Languages"></div>
 
-<div class="HH-ResumeSection-Control control control_viewing">
+<div class="HH-ResumeSection-Control control control_viewing control_add-btn">
     <label class="control__label"></label>
+
     <div class="control__input">
-        <input type="button" class="HH-ResumeSection-AddLanguage" value="Указать еще один язык" />
+        <input type="button" class="HH-ResumeSection-AddLanguage" value="Добавить язык" />
     </div>
 </div>

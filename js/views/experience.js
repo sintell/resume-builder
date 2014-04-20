@@ -71,7 +71,7 @@ define([
                 index: index
             }));
 
-            $elementContainer.insertBefore(this.$('.HH-Experience-Add'));
+            this.container.append($elementContainer);
 
             experience.setElement($elementContainer);
             experience.render();

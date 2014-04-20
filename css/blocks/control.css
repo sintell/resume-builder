@@ -53,6 +53,8 @@
         float: left;
         width: 500px;
         display: block;
+        margin: 0px;
+        padding: 0px;
     }
 
         .control_editing .control__value {
@@ -66,3 +68,7 @@
         .control_viewing .control__input {
             display: none;
         }
+
+    .control_add-btn.control_editing {
+        margin-top: -20px;
+    }

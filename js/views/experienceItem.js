@@ -34,7 +34,7 @@ define([
 
             this._orderArea(this.area);
 
-            // инизиализирем саджсест списка городов
+            // инициализирем саджсест списка городов
             this._initializeAreaSuggest();
             this._initializeCompanySuggest();
 

@@ -11,18 +11,14 @@
     <span class="control__value"><%-  resume.skills %></span>
 
     <div class="control__input">
-        <input class="HH-ResumeSection-ControlTextbox"
-               type="text"
-               value="<%- resume.skills %>"
-               name="skills"
-               data-hh-namespace="experience"
-               data-hh-name="skills"/>
+        <textarea class="HH-ResumeSection-ControlTextbox"
+                  type="text"
+                  name="skills"
+                  data-hh-namespace="experience"
+                  data-hh-name="skills"><%- resume.skills %></textarea>
     </div>
 </div>
 
-
-<div class="HH-ResumeSection-Control control control_viewing">
-    <div class="HH-ResumeSection-Component"
-         data-hh-component="experience"
-         data-hh-namespace="experience"></div>
-</div>
+<div class="HH-ResumeSection-Component"
+     data-hh-component="experience"
+     data-hh-namespace="experience"></div>

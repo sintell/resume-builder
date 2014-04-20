@@ -27,7 +27,7 @@ define([
         },
 
         render: function() {
-            this.$el.html(this.template());
+            this.$el.html(this.template(this.model.attributes));
 
             this.$('.HH-ResumeSection-Languages').append(this.languages.map(function(language) {
                 return language.render().el;

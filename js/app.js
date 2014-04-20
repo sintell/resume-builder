@@ -56,7 +56,6 @@ define([
             
             this.user = new User();
             this.headerView = new HeaderView({model: this.user});
-            this.headerView.render();
             this.listenTo(this.headerView, 'createResume', this.createResume);
             this.resumes = new ResumeList();
             this.dictionary = new Dictionary();
@@ -66,6 +65,8 @@ define([
             this.industries = new IndustryList();
 
             this.user.fetch().then(function() {
+                that.headerView.render();
+
                 $.when(
                     that.resumes.fetch(),
                     that.dictionary.fetch(),
@@ -78,6 +79,8 @@ define([
                     that.listenTo(that.resumes, 'added', that.handleAdded);
                 });
             }, function() {
+                that.headerView.render();
+
                 that.user.isEmployee = false;
             });
         },

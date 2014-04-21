@@ -18,6 +18,11 @@
             border-color: #86cb86;
         }
 
+        .button_main:active {
+            background-color: #62bc62;
+            border-color: #62bc62;
+        }
+
     .button_primary {
         background: #5bb3ee;
         border-color: #5bb3ee;
@@ -31,6 +36,11 @@
             border-color: #60bcfa;
         }
 
+        .button_primary:active {
+            background: #3ca5eb;
+            border-color: #3ca5eb;
+        }
+
     .button_secondary {
         background: #f0f0f0;
         border-color: #ccc;
@@ -40,4 +50,8 @@
 
         .button_secondary:hover {
             background-color: #f8f8f8;
+        }
+
+        .button_secondary:active {
+            background: #e8e8e8;
         }

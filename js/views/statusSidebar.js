@@ -3,13 +3,15 @@ define([
     'backbone',
     'config',
     'utils',
-    'text!templates/statusSidebar.html'
+    'text!templates/statusSidebar.html',
+    'text!templates/suggestedFields.html'
 ], function(
     _,
     Backbone,
     Config,
     Utils,
-    SideBarTemplate
+    SideBarTemplate,
+    SuggestedFieldsTemplate
 ) {
     'use strict';
 
@@ -17,15 +19,33 @@ define([
 
     return Backbone.View.extend({
         template: _.template(SideBarTemplate),
+        suggestedFieldsTemplate: _.template(SuggestedFieldsTemplate),
 
         initialize: function(options) {
             this.model = options.model;
+
+            this.fieldsNameMap = {
+                'specialization': 'специализация',
+                'language': 'язык',
+                'title': 'название',
+                'skills': 'профессиональная область',
+                'experience': 'опыт',
+                'contact': 'контактная информация',
+                'skill_set': 'навыки',
+                'education': 'образование',
+                'salary': 'желаемая зарплата',
+                'metro': 'ближайшее метро',
+                'site': 'веб-сайт',
+                'recommendation': 'рекомендации'
+            }
+
             this.listenTo(this.model, 'load', this.render);
 
             _.bindAll(this, 'switchFloat', 'setProgressBar');
         },
 
         render: function() {
+
             this.$el.html(this.template(this.model.attributes));
 
             this.$statusBlock = $('.HH-Sidebar-Status');
@@ -34,9 +54,15 @@ define([
 
             this.$infoSidebar = $('.HH-Sidebar-Info');
             
+            this.$suggestedFields = $('.HH-Sidebar-SuggestedFields');
+            
             this.setProgressBar(this.model.get('_progress').percentage);
 
             this.positionFromTop = this.$statusBlock.position().top;
+
+            this.$suggestedFields.html(this.suggestedFieldsTemplate({
+                suggestedFields: this.getSuggestedFields()
+            }));
 
             if (!Utils.isIOS()) {
                 $(window).scroll(this.switchFloat);
@@ -63,6 +89,25 @@ define([
         setProgressBar: function(progressPercent) {
             this.$statusBlock.find('.HH-Sidebar-ProgressBar').width(progressPercent + '%');
             this.$statusBlock.find('.HH-Sidebar-ProgressText').text(progressPercent + '%');
+        },
+
+        getSuggestedFields: function() {
+            var that = this;
+            var mandatory = this.model.get('_progress').mandatory;
+            var recomended = this.model.get('_progress').recomended;
+            var fields;
+
+            if (mandatory.length > 0) {
+                fields = mandatory;
+            } else if (recomended.length > 0) {
+                fields = recomended;
+            }
+
+            return fields.map(function(fieldName) {
+                return that.fieldsNameMap[fieldName]
+            }).sort(function(a,b) {
+                return (a > b)? 1 : -1
+            })
         }
     });
 });

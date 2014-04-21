@@ -48,8 +48,7 @@ define([
     return Backbone.Router.extend({
         routes: {
             '': 'showResumeList',
-            ':id-:section-:field': 'showResume',
-            ':id-:section': 'showResume',
+            ':id-(s:section)(-f:field)': 'showResume',
             ':id': 'showResume'
         },
 

@@ -22,23 +22,36 @@ define([
         },
 
         initialize: function(options) {
-            var that = this;
             this.components = [];
             this.data = options.data;
             this.editMode = false;
 
             this.sidebar = options.sidebar;
             this.model.on('editMode', function(editModeOn) {
-                if (that.sectionName === editModeOn.section) {
-                    that._switch();
-                    var t = $('[data-hh-sectionName="'+ editModeOn.section +'"]').offset().top;                    
-
+                if (typeof editModeOn.section !== 'undefined' &&
+                    this.sectionName === editModeOn.section) {
+                    this._switch();
+                    
+                    var t = this.$el.offset().top;                    
                     window.scrollTo(0, t);
                 };
+
                 if( typeof editModeOn.field !== 'undefined') {
-                    that.$el.find('[data-hh-name="'+ editModeOn.field +'"]').focus();                        
+                    var field = $('[data-hh-name="'+ editModeOn.field +'"]').first(); 
+
+                    if (!editModeOn.section) {
+                        var section = $(field).closest('.HH-ResumeSection-Inner').data('hh-section-name');
+                        if (section === this.sectionName) {
+                            this._switch();
+                            
+                            var t = this.$el.offset().top;                    
+                            window.scrollTo(0, t);
+                        };
+                    };    
+
+                    field.focus();               
                 }
-            })
+            }, this)
         },
 
         render: function(data) {

@@ -5,6 +5,11 @@
     outline: none;
 }
 
+    .button:focus {
+        border: 1px solid #a2d8fc;
+        box-shadow: 0 0 4px 2px #1d97e8;
+    }
+
     .button_main {
         background: #7ac67a;
         border-color: #7ac67a;

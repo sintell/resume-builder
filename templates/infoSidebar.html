@@ -19,7 +19,7 @@
             <% if (updated) { %>
                 Дата обновлена. Обновить резюме можно будет через 4 часа
             <% } else if (canBeUpdated) { %>
-                <input type="button" class="HH-Sidebar-ButtonUpdate" value="Обновить дату" />
+                <input type="button" class="HH-Sidebar-ButtonUpdate button button_primary" value="Обновить дату" />
             <% } else { %>
                 Обновить резюме можно будет через
                 <% if (timeBeforeUpdate.hours) { %>

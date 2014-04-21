@@ -51,6 +51,9 @@ define([
             this.listenTo(this.model, 'load', function() {
                 that.initializeSections($.extend(options, {model: this.model, data: this.data}));
                 that.render();
+                if (typeof options.editModeOn !== 'undefined') {
+                    that.model.trigger('editMode', options.editModeOn);
+                }
             });
 
             this.sidebar = new StatusSidebarView({
@@ -95,6 +98,7 @@ define([
                 ].join(''));
 
                 section.title = container.data('hh-title');
+                section.sectionName = container.data('hh-namespace');
                 container.html(section.render(data).el);
                 container.contents().unwrap();
             });
@@ -134,6 +138,10 @@ define([
                 target.removeClass('control_with-error');
                 $('.HH-ResumeSection-Submit:visible').prop('disabled', false);
             }
+        },
+
+        switchSection: function(section, field) {
+            console.log(section, field)
         }
     });
 });

@@ -22,17 +22,32 @@ define([
         },
 
         initialize: function(options) {
+            var that = this;
             this.components = [];
             this.data = options.data;
             this.editMode = false;
 
             this.sidebar = options.sidebar;
+            this.model.on('editMode', function(editModeOn) {
+                if (that.sectionName === editModeOn.section) {
+                    that._switch();
+                    var t = $('[data-hh-sectionName="'+ editModeOn.section +'"]').offset().top;                    
+
+                    window.scrollTo(0, t);
+                };
+                if( typeof editModeOn.field !== 'undefined') {
+                    that.$el.find('[data-hh-name="'+ editModeOn.field +'"]').focus();                        
+                }
+            })
         },
 
         render: function(data) {
             var that = this;
 
-            this.$el.html(this.baseTemplate({title: this.title}));
+            this.$el.html(this.baseTemplate({
+                    title: this.title,
+                    sectionName: this.sectionName
+            }));
             this.$el.find('.HH-ResumeSection-Content').replaceWith(this.template(data));
 
             this.components.forEach(function(component) {
@@ -60,12 +75,15 @@ define([
                 container.html(component.render().el);
                 container.contents().unwrap();
             });
+            
 
             return this;
         },
 
         _switch: function(event) {
-            event.preventDefault();
+            if (typeof event !== 'undefined') {
+                event.preventDefault();
+            }
 
             this.editMode = !this.editMode;
 

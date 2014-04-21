@@ -1,4 +1,8 @@
 <div class="HH-ResumeSection-Inner section section_viewing">
+    <div class="section__overlay">
+        <div class="ajax-spin"></div>
+    </div>
+
     <div class="section__title">
         <h3 class="section__title-text"><%- title %></h3>
         <button class="HH-ResumeSection-Switch section__title-button section__title-button_edit button button_primary"
@@ -11,18 +15,12 @@
         </button>
     </div>
 
-    <div class="section__content">
-        <div class="section__overlay">
-            <div class="ajax-spin"></div>
-        </div>
+    <div class="HH-ResumeSection-Content"></div>
 
-        <div class="HH-ResumeSection-Content"></div>
-
-        <div class="HH-ResumeSection-Control control control_viewing control_submit">
-            <label class="control__label"></label>
-            <div class="control__input">
-                <button type="button" class="HH-ResumeSection-Submit button button_main">Сохранить</button>
-            </div>
+    <div class="HH-ResumeSection-Control control control_viewing control_submit">
+        <label class="control__label"></label>
+        <div class="control__input">
+            <button type="button" class="HH-ResumeSection-Submit button button_main">Сохранить</button>
         </div>
     </div>
 </div>

@@ -18,7 +18,8 @@
     }
 
     .section__title-button {
-
+        margin: 17px 0px 18px 0px;
+        float: right;
     }
 
         .section_viewing .section__title-button_cancel {

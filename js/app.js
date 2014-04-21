@@ -56,7 +56,6 @@ define([
             
             this.user = new User();
             this.headerView = new HeaderView({model: this.user});
-            this.headerView.render();
             this.listenTo(this.headerView, 'createResume', this.createResume);
             this.resumes = new ResumeList();
             this.dictionary = new Dictionary();
@@ -79,6 +78,8 @@ define([
                 });
             }, function() {
                 that.user.isEmployee = false;
+            }).always(function() {
+                that.headerView.render();
             });
         },
 

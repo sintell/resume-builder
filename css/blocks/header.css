@@ -1,7 +1,7 @@
 .header {
-    width: 910px;
     margin: auto;
     padding: 0px 25px;
+    width: 910px;
 }
 
     .header__text {
@@ -13,6 +13,9 @@
 
     .header__form {
         display: inline-block;
+        float: right;
+        line-height: 65px;
+        height: 65px;
     }
 
     .header__warning {

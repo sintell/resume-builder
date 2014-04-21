@@ -8,9 +8,9 @@
                        placeholder="Название компании"
                        class="HH-AccessTypeCompanyList-Input" />
 
-                <button class="HH-AccessTypeCompanyList-Search">
-                    Найти
-                </button>
+                <input type="button"
+                       class="HH-AccessTypeCompanyList-Search button button_secondary"
+                       value="Найти" />
 
                 <% if (suggest.length) { %>
 
@@ -51,7 +51,9 @@
 
         </div>
         <div class="modal__footer">
-            <button class="modal__close HH-AccessTypeCompanyList-Close">Закрыть</button>
+            <input type="button"
+                   class="modal__close HH-AccessTypeCompanyList-Close button button_secondary"
+                   value="Закрыть" />
         </div>
     </div>
 <% } %>

@@ -17,11 +17,15 @@
                     <% if (type.id === consts.WHITE_LIST || type.id === consts.BLACK_LIST) { %>
                         <% if (access[type.id] && access[type.id].length) { %>
                             <span>В списке <%- access[type.id].length%> компаний</span>
-                            <button class="HH-AccessType-ShowModal"
-                                    data-hh-list="<%- type.id %>">Изменить список</button>
+                            <input type="button"
+                                   class="HH-AccessType-ShowModal button button_secondary"
+                                   data-hh-list="<%- type.id %>"
+                                   value="Изменить список" />
                         <% } else { %>
-                            <button class="HH-AccessType-ShowModal"
-                                    data-hh-list="<%- type.id %>">Добавить компании</button>
+                            <input type="button"
+                                   class="HH-AccessType-ShowModal button button_secondary"
+                                   data-hh-list="<%- type.id %>"
+                                   value="Добавить компании" />
                         <% } %>
                     <% } %>
                 </li>

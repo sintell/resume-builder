@@ -1,18 +1,25 @@
-<label class="control__label">Опыт работы</label>
+<div class="HH-ResumeSection-Control control control_viewing">
+    <label class="control__label">Опыт работы</label>
 
-<% if (!experiences.length) { %>
-    <div class="control__value">Опыт не указан</div>
-<% } else { %>
-    <ul class="control__value">
-        <% experiences.forEach(function(experience) { %>
+    <% if (experiences.length) { %>
+        <ul class="control__value section__value">
+            <% experiences.forEach(function(experience) { %>
             <li><%- experience.company %>, <%- experience.position %> -
                 c <%- experience.startDate.text %>
                 по <%- !experience.endDate.text ? 'настоящее время' : experience.endDate.text %></li>
-        <% }); %>
-    </ul>
-<% } %>
+            <% }); %>
+        </ul>
+    <% } else { %>
+        <span class="control__value">не указан</span>
+    <% } %>
+</div>
 
+<div class="HH-Experience-Item-Container section__controls"></div>
 
-<div class="control__input HH-Experience-Item-Container">
-    <button class="HH-Experience-Add">Добавить работу</button>
+<div class="HH-ResumeSection-Control control control_viewing control_collapsing control_add-button">
+    <label class="control__label"></label>
+
+    <div class="control__input">
+        <button class="HH-Experience-Add">Добавить работу</button>
+    </div>
 </div>

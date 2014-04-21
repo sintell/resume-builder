@@ -14,6 +14,8 @@ define([
     'use strict';
 
     return Backbone.View.extend({
+        className: 'section__item',
+
         template: _.template(LanguageTemplate),
 
         newTemplate: _.template(NewLanguageTemplate),

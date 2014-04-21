@@ -1,0 +1,11 @@
+.suggested-fields {
+    color: #7ad;
+}
+    .suggested-fields__wrapper {
+        margin: 4px 0;        
+    }
+        .suggested-fields__item {
+            border-bottom: 1px dotted #7ad;
+            cursor: pointer;
+            padding: 1px 0;
+        }

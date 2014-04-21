@@ -21,6 +21,10 @@ define([
         template: _.template(SideBarTemplate),
         suggestedFieldsTemplate: _.template(SuggestedFieldsTemplate),
 
+        events: {
+            'click .HH-SuggestedField': 'toggleEdit'
+        },
+
         initialize: function(options) {
             this.model = options.model;
 
@@ -40,6 +44,7 @@ define([
             }
 
             this.listenTo(this.model, 'load', this.render);
+            this.listenTo(this.model, 'saveEnd', this.render);
 
             _.bindAll(this, 'switchFloat', 'setProgressBar');
         },
@@ -94,20 +99,27 @@ define([
         getSuggestedFields: function() {
             var that = this;
             var mandatory = this.model.get('_progress').mandatory;
-            var recomended = this.model.get('_progress').recomended;
+            var recommended = this.model.get('_progress').recommended;
             var fields;
 
             if (mandatory.length > 0) {
                 fields = mandatory;
-            } else if (recomended.length > 0) {
-                fields = recomended;
+            } else if (recommended.length > 0) {
+                fields = recommended;
             }
 
             return fields.map(function(fieldName) {
-                return that.fieldsNameMap[fieldName]
+                return {id: fieldName, name: that.fieldsNameMap[fieldName]}
             }).sort(function(a,b) {
-                return (a > b)? 1 : -1
+                return (a.name > b.name)? 1 : -1
             })
+        },
+
+        toggleEdit: function(event) {
+            console.log(this.model)
+            this.model.trigger('editMode', {
+                field: $(event.currentTarget).data('hh-field-name')
+            });
         }
     });
 });

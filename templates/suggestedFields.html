@@ -1,5 +1,5 @@
 <% suggestedFields.forEach(function(field) { %>
     <div class="suggested-fields__wrapper">
-        <span class="suggested-fields__item"><%- field %></span>
+        <span class="suggested-fields__item HH-SuggestedField" data-hh-field-name="<%- field.id %>"><%- field.name %></span>
     </div>
 <% }) %>

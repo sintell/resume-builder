@@ -108,7 +108,7 @@ define([
 
         _updateValues: function() {
             this.skills = this.$input.val();
-            this.width =this.$input.outerWidth();
+            this.width = this.$input.outerWidth();
         },
 
         _updateSuggest: function(event) {

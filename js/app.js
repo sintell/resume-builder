@@ -65,8 +65,6 @@ define([
             this.industries = new IndustryList();
 
             this.user.fetch().then(function() {
-                that.headerView.render();
-
                 $.when(
                     that.resumes.fetch(),
                     that.dictionary.fetch(),
@@ -79,9 +77,9 @@ define([
                     that.listenTo(that.resumes, 'added', that.handleAdded);
                 });
             }, function() {
-                that.headerView.render();
-
                 that.user.isEmployee = false;
+            }).always(function() {
+                that.headerView.render();
             });
         },
 

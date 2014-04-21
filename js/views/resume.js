@@ -6,7 +6,6 @@ define([
     'views/header',
     'views/statusSidebar',
     'views/infoSidebar',
-    'views/infoSection',
     'views/personalSection',
     'views/jobSection',
     'views/accessSection',
@@ -23,7 +22,6 @@ define([
     HeaderView,
     StatusSidebarView,
     InfoSidebarView,
-    InfoSection,
     PersonalSection,
     JobSection,
     AccessSection,
@@ -72,7 +70,6 @@ define([
             });
 
             this.sections = [];
-            this.sections.push(new InfoSection(extraOptions));
             this.sections.push(new PersonalSection(extraOptions));
             this.sections.push(new JobSection(extraOptions));
             this.sections.push(new AccessSection(extraOptions));

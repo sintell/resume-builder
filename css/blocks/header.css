@@ -1,5 +1,7 @@
 .header {
-    border-bottom: 1px solid #ccc;
+    width: 910px;
+    margin: auto;
+    padding: 0px 25px;
 }
 
     .header__text {

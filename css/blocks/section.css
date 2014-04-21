@@ -1,9 +1,17 @@
 .section {
+    padding: 0px 25px;
+    padding-bottom: 20px;
+    margin-top: 20px;
+    background: #fff;
+    box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e8e8e8;
+}
 
+.section:first-child {
 }
 
     .section__title {
-        margin: 20px 0px;
+        margin: 0px 0px 20px;
     }
 
     .section__title-text {

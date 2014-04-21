@@ -61,7 +61,7 @@ define([
         fill: function(attributes) {
             var that = this;
 
-            attributes[this.name].map(function(item) {
+            attributes[this.name].forEach(function(item) {
                 var data = {
                     id:  parseInt(item.id, 10),
                     name: item.name

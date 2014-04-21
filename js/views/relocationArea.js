@@ -94,7 +94,7 @@ define([
 
         onSelectSuggest: function(data) {
             if (this.inputAreas.indexOf(this.const.DELIMITER) > 0) {
-                var areas = this.inputAreas.split(this.const.DELIMITER).map($.trim);
+                var areas = this._getSplittedAreas();
 
                 if (areas.length) {
                     areas[areas.length - 1] = data.text;
@@ -122,9 +122,7 @@ define([
 
             this._updateValues();
 
-            this.inputAreas
-                .split(this.const.DELIMITER)
-                .map($.trim)
+            this._getSplittedAreas()
                 .forEach(function(item) {
                     if (!item) {
                         return;
@@ -158,15 +156,13 @@ define([
             if (
                 event.keyCode === Utils.keycodes.ENTER &&
                 this.suggest.getSelected() === null
-                ) {
+            ) {
                 this._addTags();
                 this.suggest.hide();
                 return;
             }
 
-            var areas = this.inputAreas
-                .split(this.const.DELIMITER)
-                .map($.trim);
+            var areas = this._getSplittedAreas();
 
             this.suggest.update(areas[areas.length - 1], this.width);
             this.suggest.processKey(event);
@@ -177,6 +173,14 @@ define([
                 this.needArea = id !== this.const.NO_RELOCATION;
                 this.render();
             }
+        },
+
+        _getSplittedAreas: function() {
+            return this.inputAreas
+                .split(this.const.DELIMITER)
+                .map(function(item) {
+                    return item.trim();
+                });
         },
 
         _onFocusOut: function(event) {

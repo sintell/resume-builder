@@ -74,7 +74,7 @@ define([
             this._updateValues();
 
             if (this.skills.indexOf(this.const.DELIMITER) > 0) {
-                var skills = this.skills.split(this.const.DELIMITER).map($.trim);
+                var skills = this._getSplittedSkills();
 
                 if (skills.length) {
                     skills[skills.length - 1] = data.text;
@@ -95,9 +95,7 @@ define([
 
             this._updateValues();
 
-            this.skills
-                .split(this.const.DELIMITER)
-                .map($.trim)
+            this._getSplittedSkills()
                 .forEach(function(item) {
                     if (item) {
                         that.tags.addTag(item, null, false);
@@ -127,8 +125,7 @@ define([
                 return;
             }
 
-            var skills = this.skills.split(this.const.DELIMITER)
-                .map($.trim);
+            var skills = this._getSplittedSkills();
 
             var lastSkill = skills[skills.length - 1];
 
@@ -162,6 +159,14 @@ define([
 
         _preventKeydown: function(event) {
             this.suggest.preventKeydown(event);
+        },
+
+        _getSplittedSkills: function() {
+            return this.skills
+                .split(this.const.DELIMITER)
+                .map(function(item) {
+                    return item.trim();
+                });
         },
 
         _onFocusOut: function(event) {

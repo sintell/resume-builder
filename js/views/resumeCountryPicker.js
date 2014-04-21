@@ -94,13 +94,8 @@ define([
         },
 
         toggleInput: function() {
-            if (this.tags.getCount() >= this.maxCount) {
-                this.$input.hide();
-                this.$add.hide();
-            } else {
-                this.$input.show();
-                this.$add.show();
-            }
+            this.$input.toggle(this.tags.getCount() < this.maxCount);
+            this.$add.toggle(this.tags.getCount() < this.maxCount);
         },
 
         _addTags: function() {
@@ -108,9 +103,7 @@ define([
 
             this._updateValues();
 
-            this.inputAreas
-                .split(this.const.DELIMITER)
-                .map($.trim)
+            this._getSplittedAreas()
                 .forEach(function(item) {
                     if (that.tags.getCount() >= that.maxCount) {
                         return;
@@ -171,7 +164,7 @@ define([
             this._updateValues();
 
             if (this.inputAreas.indexOf(this.const.DELIMITER) > 0) {
-                var areas = this.inputAreas.split(this.const.DELIMITER).map($.trim);
+                var areas = this._getSplittedAreas();
 
                 if (areas.length) {
                     areas[areas.length - 1] = data.text;
@@ -189,7 +182,6 @@ define([
 
                 this.tags.addTag(data.text, node);
             }
-
 
             this.suggest.hide();
             this.$input.focus();
@@ -209,15 +201,13 @@ define([
             if (
                 event.keyCode === Utils.keycodes.ENTER &&
                 this.suggest.getSelected() === null
-                ) {
+            ) {
                 this._addTags();
                 this.suggest.hide();
                 return;
             }
 
-            var areas = this.inputAreas
-                .split(this.const.DELIMITER)
-                .map($.trim);
+            var areas = this._getSplittedAreas();
 
             var lastArea = areas[areas.length - 1];
 
@@ -243,6 +233,14 @@ define([
         _initializeTags: function() {
             this.tags = new Tags();
             this.listenTo(this.tags, 'remove', this.onRemoveTag);
+        },
+
+        _getSplittedAreas: function() {
+            return this.inputAreas
+                .split(this.const.DELIMITER)
+                .map(function(item) {
+                    return item.trim();
+                });
         },
 
         _findNodeByName: function(name) {

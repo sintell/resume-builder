@@ -63,6 +63,10 @@ define(['underscore'],function(_) {
             return text.replace('ё','е');
        };
 
+       this.addLeadingZero = function(val) {
+            return val > 9 ? val : '0' + val;
+       };
+
        this.formatUpdateTime = function(updateTime) {
            var date = new Date(updateTime);
            var SECOND = 1000;
@@ -76,13 +80,19 @@ define(['underscore'],function(_) {
            var diff = now - date;
 
            if (diff < 0) {
+               if (diff > -60) {
+                   // Если такая ситуация произошла, то, скорее всего,
+                   // у пользователя незначительно отличается время от времени сервера.
+                   return 'только что';
+               }
+
                return [
                    [date.getDate(), this.monthNameByNum(date.getMonth()), date.getFullYear()].join(' '),
-                   [date.getHours(), date.getMinutes()].join(':')
+                   [this.addLeadingZero(date.getHours()), this.addLeadingZero(date.getMinutes())].join(':')
                ].join(' ');
            } else if (diff < 60 * SECOND) {
                var seconds = Math.round(diff/SECOND);
-               dateString = [seconds, this.secondsToRussian(seconds), 'назад'].join(' ');
+               dateString = 'только что';
            } else if (diff < 60 * MINUTE) {
                var minutes = Math.round(diff/MINUTE);
                dateString = [minutes, this.minutesToRussian(minutes), 'назад'].join(' ');

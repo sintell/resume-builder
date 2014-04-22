@@ -8,40 +8,28 @@
         box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.1);
         padding: 12px 20px;
         margin: 0 auto 20px auto;
-        text-align: center;
     }
-        .resume-list__item__separator {
-            border: none;
-            border-bottom: 1px solid #dedede;
+        .resume-list__item__info {
+            display: table;
+        }
+        .resume-list__item__views__new {
+            padding: 2px 4px;
+            border-radius: 3px;
+            background: #5BB3EE;
+            color: #FFF;
+            font-weight: bold;
         }
 
         .resume-list__item__field {
-            margin: 0 10px;
-            text-align: center; 
+            margin: 0 10px; 
             display: inline-block;
             color: #555; 
         }
 
         .resume-list__item__title {
-            font-size: 2em;
+            font-size: 1.70em;
             margin-bottom: 10px;
             text-align: left;
             display: block;
+            padding: 0 10px 0;
         }
-
-        .resume-list__item__status {
-            
-        }
-
-        .resume-list__item__access {
-
-        }
-
-        .resume-list__item__updated {
-
-        }
-
-        .resume-list__item__views {
-
-        }
-

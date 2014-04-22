@@ -1,10 +1,7 @@
 .field {
     padding: 5px 5px;
+    display: table-cell;
 }
-
-    .field:first-child {
-        padding-left: 0;       
-    }
 
     .field__title {
         font-size: 0.9em;

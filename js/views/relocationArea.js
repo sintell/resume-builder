@@ -52,6 +52,10 @@ define([
 
             this.needArea = attributes.relocation.type.id !== this.const.NO_RELOCATION;
 
+            if (!attributes.relocation.area) {
+                return;
+            }
+
             this.areas = _.map(attributes.relocation.area, function(area) {
                 return area.name;
             }).join(', ');

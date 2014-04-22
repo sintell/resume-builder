@@ -6,19 +6,25 @@
         list-style: none;
         background: #fff;
         box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.1);
-        padding: 20px;
+        padding: 12px 20px;
         margin: 0 auto 20px auto;
-        width: 700px;
+        text-align: center;
     }
+        .resume-list__item__separator {
+            border: none;
+            border-bottom: 1px solid #dedede;
+        }
+
         .resume-list__item__field {
             margin: 0 10px;
             text-align: center; 
-            display: inline-block; 
+            display: inline-block;
+            color: #555; 
         }
 
         .resume-list__item__title {
-            font-size: 40px;
-            margin-bottom: 20px;
+            font-size: 2em;
+            margin-bottom: 10px;
             text-align: left;
             display: block;
         }

@@ -2,7 +2,8 @@
     color: #5BB3EE;
     border-bottom: 1px dotted;
     text-decoration: none;
-    padding: 2px;
+    padding-bottom: 1px;
+    padding: 0px;
 }
     .nav-link:hover {
         color: #60BCFA;
@@ -12,10 +13,18 @@
         color: #3CA5EB;
     }
 
-    .nav-link_size_small {
+    .nav-link_small {
         border-bottom-width: 1px;
     }
 
-    .nav-link_size_big {
+    .nav-link_big {
         border-bottom-width: 2px;
+    }
+
+    .nav-link_underline-on-hover {
+        border-bottom-style: none;
+    }
+
+    .nav-link_underline-on-hover:hover {
+        border-bottom-style: dotted;
     }

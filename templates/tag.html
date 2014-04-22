@@ -1,0 +1,10 @@
+<div class="HH-Tags">
+    <ul>
+        <% tags.forEach(function(tag) { %>
+        <li>
+            <span class="HH-Tag-Text"><%- tag.text %></span>
+            <span class="HH-Tag-Remove">&times;</span>
+        </li>
+        <% }); %>
+    </ul>
+</div>

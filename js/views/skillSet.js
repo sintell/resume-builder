@@ -3,10 +3,11 @@ define([
     'underscore',
     'backbone',
     'views/suggest',
+    'views/tags',
     'config',
     'utils',
     'text!templates/skillSet.html'
-], function($, _, Backbone, Suggest, Config, Utils, SkillSetTemplate) {
+], function($, _, Backbone, Suggest, Tags, Config, Utils, SkillSetTemplate) {
     'use strict';
 
     return Backbone.View.extend({
@@ -25,18 +26,24 @@ define([
         events: {
             'keyup .HH-SkillSet-Input': '_updateSuggest',
             'keydown .HH-SkillSet-Input': '_preventKeydown',
-            'focusout .HH-SkillSet-Input': '_onFocusOut'
+            'focusout .HH-SkillSet-Input': '_onFocusOut',
+            'click .HH-SkillSet-AddSkills': '_addTags'
         },
 
         initialize: function() {
             this._initializeSuggest();
+            this.tags = new Tags();
         },
 
         fill: function(attributes) {
+            var that = this;
             if (attributes.skill_set) {
+
+                attributes.skill_set.forEach(function(item) {
+                    that.tags.addTag(item, null, true);
+                });
+
                 this.skills = attributes.skill_set.join(this.const.DELIMITER + ' ');
-            } else {
-                this.skills = '';
             }
         },
 
@@ -48,44 +55,60 @@ define([
             this.$el.html(this.template(data));
 
             this.suggest.setElement(this.$('.HH-ResumeBuilder-Component-Suggest'));
+            this.tags.setElement(this.$('.HH-ResumeBuilder-Component-Tags'));
+
+            this.tags.render();
+
+            this.$input = this.$('.HH-SkillSet-Input');
 
             return this;
         },
 
         takeback: function(attributes) {
-            this._updateValues();
-
-            attributes.skill_set = this.skills
-                .split(this.const.DELIMITER)
-                .map($.trim)
-                .filter(function(item) {
-                    return item !== '';
-                });
+            attributes.skill_set = this.tags.takeback().map(function(item) {
+                return item.text;
+            });
         },
 
         onSelectSuggest: function(data) {
             this._updateValues();
 
-            var skills = this.skills.split(this.const.DELIMITER).map($.trim);
+            if (this.skills.indexOf(this.const.DELIMITER) > 0) {
+                var skills = this._getSplittedSkills();
 
-            if (skills.length) {
-                skills[skills.length - 1] = data.text;
+                if (skills.length) {
+                    skills[skills.length - 1] = data.text;
+                }
+
+                this.$input.val(skills.join(this.const.DELIMITER + ' '));
+            } else {
+                this.$input.val('');
+                this.tags.addTag(data.text);
             }
 
-            var $input = this.$('.HH-SkillSet-Input');
-
-            $input.val(skills.join(this.const.DELIMITER + ' '));
-
             this.suggest.hide();
+            this.$input.focus();
+        },
 
-            $input.focus();
+        _addTags: function() {
+            var that = this;
+
+            this._updateValues();
+
+            this._getSplittedSkills()
+                .forEach(function(item) {
+                    if (item) {
+                        that.tags.addTag(item, null, false);
+                    }
+                });
+
+            this.$input.val('');
+            this.tags.render();
         },
 
         _updateValues: function() {
-            var input = this.$('.HH-SkillSet-Input');
-
-            this.skills = input.val();
-            this.width = input.outerWidth();
+            this.skills = this.$input.val();
+            this.width = this.$input.outerWidth();
         },
 
         _updateSuggest: function(event) {
@@ -93,7 +116,16 @@ define([
 
             this._updateValues();
 
-            var skills =  this.skills.split(this.const.DELIMITER).map($.trim);
+            if (
+                event.keyCode === Utils.keycodes.ENTER &&
+                this.suggest.getSelected() === null
+            ) {
+                this._addTags();
+                this.suggest.hide();
+                return;
+            }
+
+            var skills = this._getSplittedSkills();
 
             var lastSkill = skills[skills.length - 1];
 
@@ -127,6 +159,14 @@ define([
 
         _preventKeydown: function(event) {
             this.suggest.preventKeydown(event);
+        },
+
+        _getSplittedSkills: function() {
+            return this.skills
+                .split(this.const.DELIMITER)
+                .map(function(item) {
+                    return item.trim();
+                });
         },
 
         _onFocusOut: function(event) {

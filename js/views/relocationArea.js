@@ -4,6 +4,8 @@ define([
     'backbone',
     'views/baseArea',
     'views/suggest',
+    'views/tags',
+    'utils',
     'text!templates/relocationArea.html'
 ], function(
     $,
@@ -11,6 +13,8 @@ define([
     Backbone,
     BaseArea,
     Suggest,
+    Tags,
+    Utils,
     RelocationAreaTemplate
 ) {
     'use strict';
@@ -28,7 +32,8 @@ define([
         events: {
             'keyup .HH-ResumeBuilder-Component-RelocationArea-Input': '_updateSuggest',
             'keydown .HH-ResumeBuilder-Component-RelocationArea-Input': '_preventKeydown',
-            'focusout .HH-ResumeBuilder-Component-RelocationArea-Input': '_onFocusOut'
+            'focusout .HH-ResumeBuilder-Component-RelocationArea-Input': '_onFocusOut',
+            'click .HH-ResumeBuilder-Component-RelocationArea-Add': '_addTags'
         },
 
         initialize: function(options) {
@@ -39,27 +44,37 @@ define([
             this._orderArea(this.area);
 
             this._initializeSuggest();
+            this.tags = new Tags();
         },
 
         fill: function(attributes) {
+            var that = this;
+
             this.needArea = attributes.relocation.type.id !== this.const.NO_RELOCATION;
 
             this.areas = _.map(attributes.relocation.area, function(area) {
                 return area.name;
             }).join(', ');
+
+            attributes.relocation.area.forEach(function(item) {
+                that.tags.addTag(item.name, item, true);
+            });
         },
 
         render: function() {
-            var data;
-
-            data = {
+            var data = {
                 areas: this.areas,
                 needArea: this.needArea
             };
 
             this.$el.html(this.template(data));
 
-            this.suggest.setElement(this.$el.find('.HH-ResumeBuilder-Component-Suggest'));
+            this.suggest.setElement(this.$('.HH-ResumeBuilder-Component-Suggest'));
+            this.tags.setElement(this.$('.HH-ResumeBuilder-Component-Tags'));
+
+            this.tags.render();
+
+            this.$input = this.$('.HH-ResumeBuilder-Component-RelocationArea-Input');
 
             return this;
         },
@@ -72,38 +87,58 @@ define([
             this._updateValues();
 
             attributes.relocation = attributes.relocation || {};
-            attributes.relocation.area = this._getAreas();
+            attributes.relocation.area = this.tags.takeback().map(function(item) {
+                return item.data;
+            });
         },
 
         onSelectSuggest: function(data) {
-            var split = this.inputAreas.split(this.const.DELIMITER);
+            if (this.inputAreas.indexOf(this.const.DELIMITER) > 0) {
+                var areas = this._getSplittedAreas();
 
-            var areas =  _.map(split, function(item) {
-                return $.trim(item);
-            });
+                if (areas.length) {
+                    areas[areas.length - 1] = data.text;
+                }
 
-            if (areas.length) {
-                areas[areas.length - 1] = data.text;
+                this.$input.val(areas.join(this.const.DELIMITER + ' '));
+            } else {
+                this.$input.val('');
+
+                var node = this._findNodeByName(data.text, this.area);
+
+                if (!node) {
+                    return;
+                }
+
+                this.tags.addTag(data.text, {id: node.id}, false)
             }
 
-            this.$el.find('.HH-ResumeBuilder-Component-RelocationArea-Input').val(
-                areas.join(this.const.DELIMITER + ' ')
-            );
-
             this.suggest.hide();
-
-            this.$el.find('.HH-ResumeBuilder-Component-RelocationArea-Input').focus();
+            this.$input.focus();
         },
 
-        _getAreas: function() {
-            var split = this.inputAreas.split(this.const.DELIMITER),
-                that = this;
+        _addTags: function() {
+            var that = this;
 
-            return _.map(split, function(item) {
-                return  {
-                    id: that._findNodeByName($.trim(item), that.area).id
-                };
-            });
+            this._updateValues();
+
+            this._getSplittedAreas()
+                .forEach(function(item) {
+                    if (!item) {
+                        return;
+                    }
+
+                    var node = that._findNodeByName(item, that.area);
+
+                    if (!node) {
+                        return;
+                    }
+
+                    that.tags.addTag(item, {id: node.id}, false);
+                });
+
+            this.$input.val('');
+            this.tags.render();
         },
 
         _updateValues: function() {
@@ -111,22 +146,25 @@ define([
                 return;
             }
 
-            var input = this.$el.find('input');
-
-            this.inputAreas = input.val();
-            this.width = input.outerWidth();
+            this.inputAreas = this.$input.val();
+            this.width = this.$input.outerWidth();
         },
 
         _updateSuggest: function(event) {
             this._updateValues();
 
-            var split = this.inputAreas.split(this.const.DELIMITER);
+            if (
+                event.keyCode === Utils.keycodes.ENTER &&
+                this.suggest.getSelected() === null
+            ) {
+                this._addTags();
+                this.suggest.hide();
+                return;
+            }
 
-            var areas =  _.map(split, function(item) {
-                return $.trim(item);
-            });
+            var areas = this._getSplittedAreas();
 
-            this.suggest.update(_.last(areas), this.width);
+            this.suggest.update(areas[areas.length - 1], this.width);
             this.suggest.processKey(event);
         },
 
@@ -135,6 +173,14 @@ define([
                 this.needArea = id !== this.const.NO_RELOCATION;
                 this.render();
             }
+        },
+
+        _getSplittedAreas: function() {
+            return this.inputAreas
+                .split(this.const.DELIMITER)
+                .map(function(item) {
+                    return item.trim();
+                });
         },
 
         _onFocusOut: function(event) {

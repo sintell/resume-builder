@@ -41,7 +41,7 @@ define([
                 'metro': 'ближайшее метро',
                 'site': 'веб-сайт',
                 'recommendation': 'рекомендации'
-            }
+            };
 
             this.listenTo(this.model, 'load', this.render);
             this.listenTo(this.model, 'saveEnd', this.render);
@@ -62,8 +62,10 @@ define([
             this.$suggestedFields = $('.HH-Sidebar-SuggestedFields');
             
             this.setProgressBar(this.model.get('_progress').percentage);
-
-            this.positionFromTop = this.$statusBlock.position().top;
+            
+            if (typeof this.positionFromTop === 'undefined') {            
+                this.positionFromTop = this.$statusBlock.position().top;
+            }
 
             this.$suggestedFields.html(this.suggestedFieldsTemplate({
                 suggestedFields: this.getSuggestedFields()
@@ -109,14 +111,13 @@ define([
             }
 
             return fields.map(function(fieldName) {
-                return {id: fieldName, name: that.fieldsNameMap[fieldName]}
+                return {id: fieldName, name: that.fieldsNameMap[fieldName]};
             }).sort(function(a,b) {
-                return (a.name > b.name)? 1 : -1
-            })
+                return (a.name > b.name)? 1 : -1;
+            });
         },
 
         toggleEdit: function(event) {
-            console.log(this.model)
             this.model.trigger('editMode', {
                 field: $(event.currentTarget).data('hh-field-name')
             });

@@ -91,16 +91,15 @@ define(['underscore'],function(_) {
                    [this.addLeadingZero(date.getHours()), this.addLeadingZero(date.getMinutes())].join(':')
                ].join(' ');
            } else if (diff < 60 * SECOND) {
-               var seconds = Math.round(diff/SECOND);
                dateString = 'только что';
            } else if (diff < 60 * MINUTE) {
-               var minutes = Math.round(diff/MINUTE);
+               var minutes = Math.round(diff / MINUTE);
                dateString = [minutes, this.minutesToRussian(minutes), 'назад'].join(' ');
            } else if (diff < 24 * HOUR) {
-               var hours = Math.round(diff/HOUR);
+               var hours = Math.round(diff / HOUR);
                dateString = [hours, this.hoursToRussian(hours), 'назад'].join(' ');
            } else if (diff < 30 * DAY) {
-               var days = Math.round(diff/DAY);
+               var days = Math.round(diff / DAY);
                dateString = [days, this.daysToRussian(days), 'назад'].join(' ');
            } else {
                return [date.getDate(), this.monthNameByNum(date.getMonth()), date.getFullYear()].join(' ');

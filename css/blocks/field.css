@@ -10,6 +10,7 @@
     .field__title {
         font-size: 0.8em;
         color: #555;
+        text-align: left;
     }
 
     .field__data {

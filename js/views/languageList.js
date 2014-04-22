@@ -39,6 +39,11 @@ define([
         fill: function(attributes) {
             var that = this;
 
+            if (!attributes.language) {
+                this.languages = [];
+                return;
+            }
+
             this.languages = attributes.language.map(function (language) {
                 return new LanguageView($.extend(
                     {},

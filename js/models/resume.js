@@ -33,6 +33,7 @@ define([
             specialization: [],
             relocation: {type:{}},
             contact: [],
+            language: [],
 
             // Добавлены чтобы не было ошибок при создании нового резюме.
             updated_at: 'Никогда',

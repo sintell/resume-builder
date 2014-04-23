@@ -2,10 +2,15 @@
     <div class="sidebar-section__item">
         <h4 class="sidebar-section__item-title">Прогресс</h4>
         <div class="sidebar-section__item-value">
-            <div class="resume-status-progress">
+            <div class="HH-ResumeStatus-Progress resume-status-progress">
                 <div class="HH-Sidebar-ProgressText resume-status-progress__text">50%</div>
                 <div class="HH-Sidebar-ProgressBar resume-status-progress__bar"></div>
             </div>
+            <% if (canPublish) { %>
+                <div class="HH-ResumeStatus-Publish resume-status-publish">
+                    <button type="button" class="button button_publish">Опубликовать</button>
+                </div>
+            <% } %>
         </div>
     </div>
     <% if (drawRecommendedFields) { %>

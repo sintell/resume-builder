@@ -104,11 +104,19 @@ define([
             var recommended = this.model.get('_progress').recommended;
             var fields;
 
-            if (mandatory.length > 0) {
+            if (typeof mandatory !== 'undefined' && mandatory.length > 0) {
                 fields = mandatory;
-            } else if (recommended.length > 0) {
+            } else if (typeof recomended !== 'undefined' && recommended.length > 0) {
                 fields = recommended;
             }
+
+            if (typeof fields === 'undefined') {
+                return [{
+                    id: 'last_name',
+                    name: 'Начните заполнять резюме, что бы получить рекомендации'
+                }]
+            }
+
 
             return fields.map(function(fieldName) {
                 return {id: fieldName, name: that.fieldsNameMap[fieldName]};
@@ -118,6 +126,7 @@ define([
         },
 
         toggleEdit: function(event) {
+            console.log(event)
             this.model.trigger('editMode', {
                 field: $(event.currentTarget).data('hh-field-name')
             });

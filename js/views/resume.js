@@ -51,7 +51,7 @@ define([
             this.listenTo(this.model, 'load', function() {
                 that.initializeSections($.extend(options, {model: this.model, data: this.data}));
                 that.render();
-                if (typeof options.editModeOn !== 'undefined') {
+                if (options.editModeOn) {
                     that.model.trigger('editMode', options.editModeOn);
                 }
             });
@@ -138,10 +138,6 @@ define([
                 target.removeClass('control_with-error');
                 $('.HH-ResumeSection-Submit:visible').prop('disabled', false);
             }
-        },
-
-        switchSection: function(section, field) {
-            console.log(section, field)
         }
     });
 });

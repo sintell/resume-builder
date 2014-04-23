@@ -30,22 +30,16 @@ define([
             this.model.on('editMode', function(editModeOn) {
                 if (typeof editModeOn.section !== 'undefined' &&
                     this.sectionName === editModeOn.section) {
-                    this._switch();
-                    
-                    var t = this.$el.offset().top;                    
-                    window.scrollTo(0, t);
+                        this._scrollToViewAndEdit();                        
                 };
 
-                if( typeof editModeOn.field !== 'undefined') {
+                if (typeof editModeOn.field !== 'undefined') {
                     var field = $('[data-hh-name="'+ editModeOn.field +'"]').first(); 
 
                     if (!editModeOn.section) {
                         var section = $(field).closest('.HH-ResumeSection-Inner').data('hh-section-name');
                         if (section === this.sectionName) {
-                            this._switch();
-                            
-                            var t = this.$el.offset().top;                    
-                            window.scrollTo(0, t);
+                            this._scrollToViewAndEdit();                        
                         };
                     };    
 
@@ -183,6 +177,15 @@ define([
                     attributes = attributes[key];
                 }
             }
+        },
+
+        _scrollToViewAndEdit: function() {
+            this._switch();
+                        
+            var offsetTop = this.$el.offset().top;  
+            $('html, body').animate({
+                scrollTop: offsetTop
+            }, 500);         
         }
     });
 });

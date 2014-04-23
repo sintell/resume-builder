@@ -31,7 +31,7 @@ define([
                 if (typeof editModeOn.section !== 'undefined' &&
                     this.sectionName === editModeOn.section) {
                         this._scrollToViewAndEdit();                        
-                };
+                }
 
                 if (typeof editModeOn.field !== 'undefined') {
                     var field = $('[data-hh-name="'+ editModeOn.field +'"]').first(); 
@@ -40,12 +40,12 @@ define([
                         var section = $(field).closest('.HH-ResumeSection-Inner').data('hh-section-name');
                         if (section === this.sectionName) {
                             this._scrollToViewAndEdit();                        
-                        };
-                    };    
+                        }
+                    } 
 
                     field.focus();               
                 }
-            }, this)
+            }, this);
         },
 
         render: function(data) {
@@ -180,9 +180,13 @@ define([
         },
 
         _scrollToViewAndEdit: function() {
-            this._switch();
-                        
-            var offsetTop = this.$el.offset().top;  
+            // Answer to The Ultimate Question of Life, the Universe, and Everything 
+            var PADDING_AND_MARGIN = 42;
+            if (!this.editMode) {
+                this._switch();                
+            }
+
+            var offsetTop = this.$el.offset().top + PADDING_AND_MARGIN;  
             $('html, body').animate({
                 scrollTop: offsetTop
             }, 500);         

@@ -1,9 +1,8 @@
 .nav-link {
     color: #5BB3EE;
-    border-bottom: 1px dotted;
+    border-bottom: 1px solid;
     text-decoration: none;
     padding-bottom: 1px;
-    padding: 0px;
 }
     .nav-link:hover {
         color: #60BCFA;
@@ -26,5 +25,9 @@
     }
 
     .nav-link_underline-on-hover:hover {
+        border-bottom-style: solid;
+    }
+
+    .nav-link_action {
         border-bottom-style: dotted;
     }

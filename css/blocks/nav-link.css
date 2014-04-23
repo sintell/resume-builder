@@ -4,13 +4,13 @@
     text-decoration: none;
     padding-bottom: 1px;
 }
-    .nav-link:hover {
-        color: #60BCFA;
-    }
+        .nav-link:hover {
+            color: #60BCFA;
+        }
 
-    .nav-link:active {
-        color: #3CA5EB;
-    }
+        .nav-link:active {
+            color: #3CA5EB;
+        }
 
     .nav-link_small {
         border-bottom-width: 1px;
@@ -24,9 +24,9 @@
         border-bottom-style: none;
     }
 
-    .nav-link_underline-on-hover:hover {
-        border-bottom-style: solid;
-    }
+        .nav-link_underline-on-hover:hover {
+            border-bottom-style: solid;
+        }
 
     .nav-link_action {
         border-bottom-style: dotted;

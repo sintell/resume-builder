@@ -68,12 +68,21 @@ define(['underscore'],function(_) {
        };
 
        this.formatUpdateTime = function(updateTime) {
-           var date = new Date(updateTime);
+           var ISO_8601_OFFSET_SEPARATOR_POSITION = 22;
            var SECOND = 1000;
            var MINUTE = SECOND * 60;
            var HOUR = MINUTE * 60;
            var DAY = HOUR * 24;
            var dateString = '';
+           // Safari под iOS не парсит дату в формате ISO 8601, если временная зона задана в формате ±hhmm
+           // Поэтому приводим временную зону к формату ±hh:mm
+           if (updateTime[ISO_8601_OFFSET_SEPARATOR_POSITION] !== ':') {
+               updateTime = [
+                   updateTime.slice(0, ISO_8601_OFFSET_SEPARATOR_POSITION),
+                   updateTime.slice(ISO_8601_OFFSET_SEPARATOR_POSITION)
+               ].join(':');
+           }
+           var date = new Date(updateTime);
 
            // TODO: что будет, если у пользователя некорректно проставлено время?
            var now = new Date();
@@ -91,16 +100,15 @@ define(['underscore'],function(_) {
                    [this.addLeadingZero(date.getHours()), this.addLeadingZero(date.getMinutes())].join(':')
                ].join(' ');
            } else if (diff < 60 * SECOND) {
-               var seconds = Math.round(diff/SECOND);
                dateString = 'только что';
            } else if (diff < 60 * MINUTE) {
-               var minutes = Math.round(diff/MINUTE);
+               var minutes = Math.round(diff / MINUTE);
                dateString = [minutes, this.minutesToRussian(minutes), 'назад'].join(' ');
            } else if (diff < 24 * HOUR) {
-               var hours = Math.round(diff/HOUR);
+               var hours = Math.round(diff / HOUR);
                dateString = [hours, this.hoursToRussian(hours), 'назад'].join(' ');
            } else if (diff < 30 * DAY) {
-               var days = Math.round(diff/DAY);
+               var days = Math.round(diff / DAY);
                dateString = [days, this.daysToRussian(days), 'назад'].join(' ');
            } else {
                return [date.getDate(), this.monthNameByNum(date.getMonth()), date.getFullYear()].join(' ');

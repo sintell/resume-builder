@@ -120,9 +120,10 @@ define([
                     specializations: this.specializations,
                     languages: this.languages,
                     industries: this.industries
-                }
+                };
 
                 if (typeof section !== 'undefined') {
+                    console.log(section, field)
                     _.extend(options, {
                         editModeOn: {
                             section: section,

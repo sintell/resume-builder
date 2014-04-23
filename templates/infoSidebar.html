@@ -1,44 +1,44 @@
-<div class="sidebar-section">
-    <% if (isPublished) { %>
-        <div class="sidebar-section__item">
-            <h4 class="sidebar-section__item-title">Последнее изменение</h4>
-            <div class="sidebar-section__item-value"><%- updated_at %></div>
-        </div>
+<% if (isPublished || !isNew) { %>
+    <div class="sidebar-section">
+        <% if (isPublished) { %>
+            <div class="sidebar-section__item">
+                <h4 class="sidebar-section__item-title">Последнее изменение</h4>
+                <div class="sidebar-section__item-value"><%- updated_at %></div>
+            </div>
 
-        <div class="sidebar-section__item">
-            <h4 class="sidebar-section__item-title">Всего просмотров</h4>
-            <div class="sidebar-section__item-value"><%- total_views %></div>
-        </div>
+            <div class="sidebar-section__item">
+                <h4 class="sidebar-section__item-title">Просмотров</h4>
+                <div class="sidebar-section__item-value"><%- total_views %>
+                    <% if (new_views > 0) { %>
+                        <span class="g-highlight">+<%- new_views %> новых</span>
+                    <% } %>
+                </div>
+            </div>
 
-        <div class="sidebar-section__item">
-            <h4 class="sidebar-section__item-title">Новых просмотров</h4>
-            <div class="sidebar-section__item-value"><%- new_views %></div>
-        </div>
-
-        <div class="sidebar-section__item">
-            <% if (updated) { %>
-                Дата обновлена. Обновить резюме можно будет через 4 часа
-            <% } else if (canBeUpdated) { %>
-                <input type="button" class="HH-Sidebar-ButtonUpdate button button_primary" value="Обновить дату" />
-            <% } else { %>
-                Обновить резюме можно будет через
-                <% if (timeBeforeUpdate.hours) { %>
-                    <%- timeBeforeUpdate.hours %>
+            <div class="sidebar-section__item">
+                <% if (updated) { %>
+                    Дата обновлена. Обновить резюме можно будет через 4 часа
+                <% } else if (canBeUpdated) { %>
+                    <input type="button" class="HH-Sidebar-ButtonUpdate button button_primary" value="Обновить дату" />
+                <% } else { %>
+                    Обновить резюме можно будет через
+                    <% if (timeBeforeUpdate.hours) { %>
+                        <%- timeBeforeUpdate.hours %>
+                    <% } %>
+                    <% if (timeBeforeUpdate.minutes) { %>
+                        <%- timeBeforeUpdate.minutes %>
+                    <% } %>
                 <% } %>
-                <% if (timeBeforeUpdate.minutes) { %>
-                    <%- timeBeforeUpdate.minutes %>
-                <% } %>
-            <% } %>
-        </div>
-    <% } %>
+            </div>
+        <% } %>
+        <% if (!isNew) { %>
+            <div class="sidebar-section__item">
+                <input type="button" class="HH-Sidebar-ButtonClone button button_primary" value="Дублировать" />
+            </div>
 
-    <% if (!isNew) { %>
-        <div class="sidebar-section__item">
-            <input type="button" class="HH-Sidebar-ButtonClone button button_primary" value="Дублировать" />
-        </div>
-
-        <div class="sidebar-section__item">
-            <input type="button" class="HH-Sidebar-ButtonDestroy button button_primary" value="Удалить" />
-        </div>
-    <% } %>
-</div>
+            <div class="sidebar-section__item">
+                <input type="button" class="HH-Sidebar-ButtonDestroy button button_primary" value="Удалить" />
+            </div>
+        <% } %>
+    </div>
+<% } %>

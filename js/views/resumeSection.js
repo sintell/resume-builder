@@ -28,22 +28,17 @@ define([
 
             this.sidebar = options.sidebar;
             this.model.on('editMode', function(editModeOn) {
-                if (typeof editModeOn.section !== 'undefined' &&
-                    this.sectionName === editModeOn.section) {
-                        this._scrollToViewAndEdit();                        
-                }
-
                 if (typeof editModeOn.field !== 'undefined') {
-                    var field = $('[data-hh-name="'+ editModeOn.field +'"]').first(); 
+                    var section = editModeOn.section;
+                    var field = $('[data-hh-name="'+ editModeOn.field +'"]').first();
 
-                    if (!editModeOn.section) {
-                        var section = $(field).closest('.HH-ResumeSection-Inner').data('hh-section-name');
-                        if (section === this.sectionName) {
-                            this._scrollToViewAndEdit();                        
-                        }
+                    if (!section) {
+                        section = $(field).closest('.HH-ResumeSection-Inner').data('hh-section-name');
                     } 
 
-                    field.focus();               
+                    if (section === this.sectionName) {
+                        this._scrollToViewAndEdit(field);                    
+                    }
                 }
             }, this);
         },
@@ -179,17 +174,19 @@ define([
             }
         },
 
-        _scrollToViewAndEdit: function() {
-            // Answer to The Ultimate Question of Life, the Universe, and Everything 
-            var PADDING_AND_MARGIN = 42;
-            if (!this.editMode) {
-                this._switch();                
-            }
-
-            var offsetTop = this.$el.offset().top + PADDING_AND_MARGIN;  
+        _scrollToViewAndEdit: function(field) {
+            var that = this;
+            var offsetTop = this.$el.offset().top;  
+            
             $('html, body').animate({
                 scrollTop: offsetTop
-            }, 500);         
+            }, {queue: false, complete: function() {
+                if (!that.editMode) {
+                    that._switch();                
+                }
+
+                field.focus();
+            }});         
         }
     });
 });

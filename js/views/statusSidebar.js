@@ -66,6 +66,7 @@ define([
                 });                
             }
 
+            data = _.extend(data, this.model.data())
             this.$el.html(this.template(data));
 
             this.$statusBlock = $('.HH-Sidebar-Status');

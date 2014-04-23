@@ -1,7 +1,7 @@
 <div class="HH-ResumeSection-Control control control_viewing">
     <label class="control__label">Язык</label>
 
-    <div class="control__input">
+    <div class="control__input control__input_removable">
         <select class="HH-LanguageControl-IdSelect">
             <% languages.forEach(function(language) { %>
             <option value="<%- language.id %>">
@@ -9,7 +9,9 @@
             </option>
             <% }); %>
         </select>
-        <input type="button" class="HH-ResumeSection-RemoveLanguage button button_secondary" value="Удалить" />
+        <input type="button"
+               class="HH-ResumeSection-RemoveLanguage button button_secondary button_right"
+               value="Удалить" />
     </div>
 </div>
 

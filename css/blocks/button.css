@@ -5,6 +5,10 @@
     outline: none;
 }
 
+    .button_right {
+        float: right;
+    }
+
     .button:focus {
         border: 1px solid #a2d8fc;
         box-shadow: 0 0 3px 2px #1d97e8;

@@ -3,14 +3,14 @@
 }
 
     .field__title {
-        font-size: 12px;
+        font-size: 14px;
         color: #aaa;
         text-align: left;
         display: inline-block;
     }
 
     .field__data {
-        font-size: 12px;
+        font-size: 14px;
         color: #555;
         display: inline-block;
     }

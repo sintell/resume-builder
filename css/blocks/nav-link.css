@@ -12,10 +12,6 @@
             color: #3CA5EB;
         }
 
-    .nav-link_small {
-        border-bottom-width: 1px;
-    }
-
     .nav-link_big {
         border-bottom-width: 2px;
     }
@@ -30,4 +26,8 @@
 
     .nav-link_action {
         border-bottom-style: dotted;
+    }
+
+    .nav-link__right-margined {
+        margin-right: 10px;
     }

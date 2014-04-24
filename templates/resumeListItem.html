@@ -1,32 +1,32 @@
-<div class="resume-list__item__title">
-    <a class="nav-link nav-link_big nav-link_underline-on-hover" href="<%- id %>"><%- title %></a>
-</div>
-<div class="resume-list__item__info">
-    <div class="resume-list__item__field resume-list__item__status">
+<div class="item">
+    <div class="item__title">
+        <a class="nav-link nav-link_big nav-link_title" href="<%- id %>"><%- title %></a>
+    </div>
+    <div class="item__field">
         <div class="field">
             <div class="field__data"><%- status %></div>
         </div>
     </div>
-    <div class="resume-list__item__field resume-list__item__access">
+    <div class="item__field">
         <div class="field">
             <div class="field__data"><a class="nav-link nav-link_small" href="#access"><%- access %></a></div>
         </div>
     </div>
-    <div class="resume-list__item__field resume-list__item__updated">
+    <div class="item__field">
         <div class="field">
             <div class="field__title">Последнее изменение:</div>
             <div class="field__data"><%- updatedAt %></div>
         </div>
     </div>
-    <div class="resume-list__item__field resume-list__item__views">
-      <div class="field">
+    <div class="item__field">
+        <div class="field">
             <div class="field__title">Просмотров:</div>
-          <div class="field__data"><%- totalViews %>
-          <% if (newViews>0) { %>
-              <span class="g-highlight">+<%- newViews %> новых</span>
-          <% } %>
-          </div>
-      </div>
+            <div class="field__data"><%- totalViews %>
+                <% if (newViews>0) { %>
+                    <span class="highlight">+<%- newViews %> новых</span>
+                <% } %>
+            </div>
+        </div>
     </div>
 </div>
 <div class="resume-list__item__field resume-list__item__access">

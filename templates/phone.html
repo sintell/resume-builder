@@ -1,5 +1,5 @@
 <% if (contact.isPresented) { %>
-<div class="HH-ResumeSection-Control control control_viewing">
+<div class="HH-ResumeSection-Control control control_viewing control_removable">
     <label class="control__label"><%- contact.verboseName %></label>
     <span class="control__value"><%- [contact.value.country, contact.value.city, contact.value.number].join('') %></span>
 
@@ -22,7 +22,7 @@
                name="comment.value.number"
                data-hh-namespace="contact"
                data-hh-name="contact.value.number"/>
-        <input type="button" class="HH-Contact-Button button button_secondary" value="Удалить" />
+        <input type="button" class="HH-Contact-Button button button_secondary button_right" value="Удалить" />
     </div>
 </div>
 

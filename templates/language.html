@@ -1,8 +1,8 @@
-<div class="HH-ResumeSection-Control control control_viewing control_with-border">
+<div class="HH-ResumeSection-Control control control_viewing control_with-border control_removable">
     <label class="control__label"><%- language.name %></label>
 
     <span class="control__value"><%- language.level.name %></span>
-    <div class="control__input control__input_removable">
+    <div class="control__input">
         <select class="HH-LanguageControl-LevelSelect">
             <% levels.forEach(function(level) { %>
             <option value="<%- level.id %>" <%- language.level.id === level.id ? 'selected' : '' %>>

@@ -1,4 +1,4 @@
-@-webkit-keyframes button-pop {
+@-webkit-keyframes element-pop {
     from { 
         -webkit-transform: scale3d(1,1,0);
         box-shadow: 0 0 0 0;
@@ -9,7 +9,7 @@
     }
 }
 
-@keyframes button-pop {
+@keyframes element-pop {
     from { 
         transform: scale3d(1,1,0);
         box-shadow: 0 0 0 0;

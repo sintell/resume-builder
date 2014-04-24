@@ -76,7 +76,7 @@ define(['underscore'],function(_) {
            var dateString = '';
            // Safari под iOS не парсит дату в формате ISO 8601, если временная зона задана в формате ±hhmm
            // Поэтому приводим временную зону к формату ±hh:mm
-           if (updateTime[ISO_8601_OFFSET_SEPARATOR_POSITION] !== ':') {
+           if (typeof updateTime !== 'undefined' && updateTime[ISO_8601_OFFSET_SEPARATOR_POSITION] !== ':') {
                updateTime = [
                    updateTime.slice(0, ISO_8601_OFFSET_SEPARATOR_POSITION),
                    updateTime.slice(ISO_8601_OFFSET_SEPARATOR_POSITION)

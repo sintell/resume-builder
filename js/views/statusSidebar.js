@@ -50,6 +50,10 @@ define([
                 'gender': 'пол'
             };
 
+            this.moderationNameMap = {
+
+            };
+
             this.listenTo(this.model, 'load', this.render);
             this.listenTo(this.model, 'saveEnd', this.render);
 
@@ -156,6 +160,15 @@ define([
             return fields.map(function(fieldName) {
                 return {id: fieldName, name: that.fieldsNameMap[fieldName]};
             });
+        },
+
+        getModerationNote: function() {
+            var moderationNote = this.model.get('moderation_note');
+            if (this.model.has('status') && this.model.get('status').id === 'blocked') {
+                return this.moderationNameMap[moderationNote.id]
+            } else {
+                return;
+            }
         },
 
         toggleEdit: function(event) {

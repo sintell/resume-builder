@@ -27,12 +27,29 @@ define([
             this.editMode = false;
 
             this.sidebar = options.sidebar;
+            this.model.on('editMode', function(editModeOn) {
+                if (typeof editModeOn.field !== 'undefined') {
+                    var section = editModeOn.section;
+                    var field = $('[data-hh-name="'+ editModeOn.field +'"]').first();
+
+                    if (!section) {
+                        section = $(field).closest('.HH-ResumeSection-Inner').data('hh-section-name');
+                    } 
+
+                    if (section === this.sectionName) {
+                        this._scrollToViewAndEdit(field);                    
+                    }
+                }
+            }, this);
         },
 
         render: function(data) {
             var that = this;
 
-            this.$el.html(this.baseTemplate({title: this.title}));
+            this.$el.html(this.baseTemplate({
+                    title: this.title,
+                    sectionName: this.sectionName
+            }));
             this.$el.find('.HH-ResumeSection-Content').replaceWith(this.template(data));
 
             this.components.forEach(function(component) {
@@ -60,12 +77,15 @@ define([
                 container.html(component.render().el);
                 container.contents().unwrap();
             });
+            
 
             return this;
         },
 
         _switch: function(event) {
-            event.preventDefault();
+            if (typeof event !== 'undefined') {
+                event.preventDefault();
+            }
 
             this.editMode = !this.editMode;
 
@@ -152,6 +172,21 @@ define([
                     attributes = attributes[key];
                 }
             }
+        },
+
+        _scrollToViewAndEdit: function(field) {
+            var that = this;
+            var offsetTop = this.$el.offset().top;  
+            
+            $('html, body').animate({
+                scrollTop: offsetTop
+            }, {queue: false, complete: function() {
+                if (!that.editMode) {
+                    that._switch();                
+                }
+
+                field.focus();
+            }});         
         }
     });
 });

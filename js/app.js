@@ -48,6 +48,7 @@ define([
     return Backbone.Router.extend({
         routes: {
             '': 'showResumeList',
+            ':id-(s:section)(-f:field)': 'showResume',
             ':id': 'showResume'
         },
 
@@ -103,7 +104,7 @@ define([
             }               
         },
 
-        showResume: function(id) {
+        showResume: function(id, section, field) {
             if (this.user.isAuthenticated && this.user.isEmployee) {
                 if (id !== 'new') {
                     this.resume = new Resume({id: id}, {collection: this.resumes});
@@ -113,17 +114,29 @@ define([
 
                 this.headerView.render({linkToList: (this.resumes.length > 1)});
 
-                var resumeView = new ResumeView({
-                    model: this.resume
-                }, {
+                var options = {
                     dictionary: this.dictionary,
                     area: this.area,
                     specializations: this.specializations,
                     languages: this.languages,
                     industries: this.industries
-                });
+                };
 
-                $('.HH-ResumeBuilder-Container').html(resumeView.render().el);
+                if (typeof section !== 'undefined') {
+                    _.extend(options, {
+                        editModeOn: {
+                            section: section,
+                            field: field
+                        }
+                    });
+                }
+
+                this.resumeView = new ResumeView({
+                    model: this.resume
+                }, options);
+
+                $('.HH-ResumeBuilder-Container').html(this.resumeView.render().el);
+
             }
         },
 

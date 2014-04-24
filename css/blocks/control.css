@@ -69,9 +69,6 @@
             display: none;
         }
 
-        .control_removable {
-        }
-
         .control_removable .control__input {
             line-height: 28px;
         }

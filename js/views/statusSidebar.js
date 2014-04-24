@@ -126,7 +126,6 @@ define([
         },
 
         toggleEdit: function(event) {
-            console.log(event)
             this.model.trigger('editMode', {
                 field: $(event.currentTarget).data('hh-field-name')
             });

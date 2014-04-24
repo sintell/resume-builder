@@ -18,7 +18,7 @@
         box-shadow: none;
     }
 
-    .button_main, .button_publish {
+    .button_main {
         background: #7ac67a;
         border-color: #7ac67a;
         color: #fff;
@@ -31,12 +31,12 @@
         animation: button-pop 1s 4 alternate;
     }
 
-        .button_main:hover, .button_publish:hover {
+        .button_main:hover {
             background-color: #86cb86;
             border-color: #86cb86;
         }
 
-        .button_main:active, .button_publish:active {
+        .button_main:active {
             background-color: #62bc62;
             border-color: #62bc62;
         }

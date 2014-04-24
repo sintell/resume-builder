@@ -20,11 +20,11 @@
         border-bottom-width: 2px;
     }
 
-    .nav-link_underline-on-hover {
+    .nav-link_title {
         border-bottom-style: none;
     }
 
-        .nav-link_underline-on-hover:hover {
+        .nav-link_title:hover {
             border-bottom-style: solid;
         }
 

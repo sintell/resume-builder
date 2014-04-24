@@ -123,7 +123,6 @@ define([
                 };
 
                 if (typeof section !== 'undefined') {
-                    console.log(section, field)
                     _.extend(options, {
                         editModeOn: {
                             section: section,

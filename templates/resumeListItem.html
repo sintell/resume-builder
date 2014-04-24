@@ -1,30 +1,31 @@
-<div class="field">
-    <div class="field__title">Название</div>
-    <div class="field__data"><a href="<%- id %>"><%- title %></a></div>
-</div>
-<div class="field">
-    <div class="field__title">Статус</div>
-    <div class="field__data"><%- status %></div>
-</div>
-<div class="field">
-    <div class="field__title">Доступ</div>
-    <div class="field__data"><a href="<%- id %>-saccess"><%- access %></a></div>
-</div>
-<div class="field">
-    <div class="field__title">Обновлено</div>
-    <div class="field__data"><%- updatedAt %></div>
-</div>
-<div class="field">
-    <div class="field__title">Просмотров</div>
-    <div class="field__data"><%- totalViews %></div>
-</div>
-<div class="field">
-    <div class="field__title">Новых просмотров</div>
-    <div class="field__data"><%- newViews %></div>
-</div>
-<div class="field">
-    <div class="field__title">Дублировать</div>
-    <div class="field__data">
-        <input type="button" class="HH-ResumeBuilder-ButtonClone button button_secondary" value="Дублировать" />
+<div class="item">
+    <div class="item__title">
+        <a class="nav-link nav-link_big nav-link_title" href="<%- id %>"><%- title %></a>
+    </div>
+    <div class="item__field">
+        <div class="field">
+            <div class="field__data"><%- status %></div>
+        </div>
+    </div>
+    <div class="item__field">
+        <div class="field">
+            <div class="field__data"><a class="nav-link nav-link_small" href="#access"><%- access %></a></div>
+        </div>
+    </div>
+    <div class="item__field">
+        <div class="field">
+            <div class="field__title">Последнее изменение:</div>
+            <div class="field__data"><%- updatedAt %></div>
+        </div>
+    </div>
+    <div class="item__field">
+        <div class="field">
+            <div class="field__title">Просмотров:</div>
+            <div class="field__data"><%- totalViews %>
+                <% if (newViews>0) { %>
+                    <span class="highlight">+<%- newViews %> новых</span>
+                <% } %>
+            </div>
+        </div>
     </div>
 </div>

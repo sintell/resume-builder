@@ -1,11 +1,9 @@
 .resume-list {
-    margin: 0;
     padding: 0;
-    display: table;
-    border-spacing: 5px 20px;
+    margin: 20px auto;
 }
     .resume-list__item {
         list-style: none;
-        display: table-row;
-        margin: 20px 0;
+        margin: 0 auto;
+        width: 800px;
     }

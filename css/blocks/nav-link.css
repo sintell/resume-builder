@@ -1,0 +1,33 @@
+.nav-link {
+    color: #5BB3EE;
+    border-bottom: 1px solid;
+    text-decoration: none;
+    padding-bottom: 1px;
+}
+        .nav-link:hover {
+            color: #60BCFA;
+        }
+
+        .nav-link:active {
+            color: #3CA5EB;
+        }
+
+    .nav-link_small {
+        border-bottom-width: 1px;
+    }
+
+    .nav-link_big {
+        border-bottom-width: 2px;
+    }
+
+    .nav-link_title {
+        border-bottom-style: none;
+    }
+
+        .nav-link_title:hover {
+            border-bottom-style: solid;
+        }
+
+    .nav-link_action {
+        border-bottom-style: dotted;
+    }

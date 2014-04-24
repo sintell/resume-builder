@@ -1,12 +1,12 @@
 <div class="header">
     <% if (user.isAuthenticated) { %>
         <h3 class="header__text"><%- user.first_name %> <%- user.last_name %></h3>
-        <% if (linkToList) { %>
-            <a href="/">К списку</a>
-        <% } %>
         <form class="header__form" action="<%- serverHost %>/oauth/logout" method="POST">
+            <% if (linkToList) { %>
+                <a class="nav-link nav-link__right-margined" href="/">Мои резюме</a>
+            <% } %>
             <% if (user.isEmployee) { %>
-                <input type="submit" class="HH-ResumeBuilder-ButtonCreate button button_primary" value="Создать резюме" />
+                <a class="nav-link nav-link__right-margined" href="/new">Создать резюме</a>
             <% } else { %>
                 <span class="header__warning">Только соискатели могут создавать резюме</span>
             <% } %>

@@ -69,7 +69,7 @@
             display: none;
         }
 
-        .control__input_removable {
+        .control_removable .control__input {
             line-height: 28px;
         }
 

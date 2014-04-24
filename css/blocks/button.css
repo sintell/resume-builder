@@ -36,6 +36,11 @@
             border-color: #62bc62;
         }
 
+        .button_main:disabled {
+            background-color: #9ed59e;
+            border-color: #9ed59e;
+        }
+
     .button_primary {
         background: #5bb3ee;
         border-color: #5bb3ee;
@@ -54,6 +59,11 @@
             border-color: #3ca5eb;
         }
 
+        .button_primary:disabled {
+            background-color: #81cafb;
+            border-color: #81cafb;
+        }
+
     .button_secondary {
         background: #f0f0f0;
         border-color: #ccc;
@@ -66,5 +76,9 @@
         }
 
         .button_secondary:active {
-            background: #e8e8e8;
+            background-color: #e8e8e8;
+        }
+
+        .button_secondary:disabled {
+            background-color: #fefefe;
         }

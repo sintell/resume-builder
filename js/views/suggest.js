@@ -7,8 +7,6 @@ define([
 ], function($, _, Backbone, Utils, SuggestTemplate) {
     'use strict';
 
-    var TAGS_SUGGEST_TOP = '-10px';
-
     return Backbone.View.extend({
         keymap: {
             ARROW_DOWN: 40,
@@ -49,11 +47,12 @@ define([
 
         render: function() {
             var data = {
-                suggest: this.suggest
+                suggest: this.suggest,
+                tags: this.tags
             };
 
             this.$el.html(this.template(data));
-            this.$('.HH-Suggest-Results').css('width', this.width + 'px').css('top', this.tags ? TAGS_SUGGEST_TOP : '0');
+            this.$('.HH-Suggest-Results').css('width', this.width + 'px');
 
             return this;
         },

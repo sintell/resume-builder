@@ -8,6 +8,10 @@
     z-index: 1000;
 }
 
+    .suggest-list_for-tags {
+        top: -10px;
+    }
+
     .suggest-list__item {
         line-height: 16px;
         padding: 0px 10px;

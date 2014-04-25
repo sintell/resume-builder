@@ -1,9 +1,9 @@
 <% if (contact.isPresented) { %>
-<div class="HH-ResumeSection-Control control control_viewing control_removable">
+<div class="HH-ResumeSection-Control control control_viewing">
     <label class="control__label"><%- contact.verboseName %></label>
     <span class="control__value"><%- [contact.value.country, contact.value.city, contact.value.number].join('') %></span>
 
-    <div class="control__input">
+    <div class="control__input control__tags">
         <input class="HH-Phone-Country textbox textbox_very-small"
                type="text"
                value="<%- contact.value.country %>"

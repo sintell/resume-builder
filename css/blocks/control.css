@@ -69,8 +69,8 @@
             display: none;
         }
 
-        .control_removable .control__input {
-            line-height: 28px;
+        .control__tags {
+            line-height: 31px;
         }
 
     .control_add-button.control_editing {

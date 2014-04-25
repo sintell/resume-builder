@@ -1,5 +1,5 @@
 .textbox {
-
+    width: 200px;
 }
 
     .textbox_very-small {
@@ -22,4 +22,8 @@
         width: 100%;
         height: 100px;
         resize: vertical;
+    }
+
+    .textbox_with-tags {
+        width: 360px;
     }

@@ -3,11 +3,15 @@
 <span class="control__value"><%- areas %></span>
 
 <div class="control__input ">
-    <input  class="HH-ResumeBuilder-Component-RelocationArea-Input textbox textbox_large"
-            type="text"
-            value=""
-            name="relocation_areas"/>
-    <span class="HH-ResumeBuilder-Component-RelocationArea-Add">+</span>
+    <div class="control__tags">
+        <input  class="HH-ResumeBuilder-Component-RelocationArea-Input textbox textbox_large textbox_with-tags"
+                type="text"
+                value=""
+                name="relocation_areas"/>
+        <input type="button"
+               class="HH-ResumeBuilder-Component-RelocationArea-Add button button_secondary button_right"
+               value="+"/>
+    </div>
 
     <div class="HH-ResumeBuilder-Component-Suggest"></div>
     <div class="HH-ResumeBuilder-Component-Tags"></div>

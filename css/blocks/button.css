@@ -81,4 +81,5 @@
 
         .button_secondary:disabled {
             background-color: #fefefe;
+            color: #999;
         }

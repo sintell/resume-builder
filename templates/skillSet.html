@@ -2,12 +2,14 @@
 <span class="control__value"><%- skills %></span>
 
 <div class="control__input">
-    <input type="text"
-           data-hh-name="skill_set"
-           class="HH-SkillSet-Input textbox"
-           value=""/>
+    <div class="control__tags">
+        <input type="text"
+               data-hh-name="skill_set"
+               class="HH-SkillSet-Input textbox textbox_large textbox_with-tags"
+               value=""/>
 
-    <input type="button" class="HH-SkillSet-AddSkills button button_secondary" value="+"/>
+        <input type="button" class="HH-SkillSet-AddSkills button button_secondary button_right" value="+"/>
+    </div>
 
     <div class="HH-ResumeBuilder-Component-Suggest"></div>
     <div class="HH-ResumeBuilder-Component-Tags"></div>

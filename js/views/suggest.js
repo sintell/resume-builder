@@ -7,6 +7,8 @@ define([
 ], function($, _, Backbone, Utils, SuggestTemplate) {
     'use strict';
 
+    var TAGS_SUGGEST_TOP = '-10px';
+
     return Backbone.View.extend({
         keymap: {
             ARROW_DOWN: 40,
@@ -41,7 +43,7 @@ define([
             this.data = data;
 
             if (forceUpdate) {
-                this.update(this.text, this.width);
+                this.update(this.text, this.width, this.tags);
             }
         },
 
@@ -51,7 +53,7 @@ define([
             };
 
             this.$el.html(this.template(data));
-            this.$('.HH-Suggest-Results').css('width', this.width + 'px');
+            this.$('.HH-Suggest-Results').css('width', this.width + 'px').css('top', this.tags ? TAGS_SUGGEST_TOP : '0');
 
             return this;
         },
@@ -61,11 +63,12 @@ define([
             this.isShow = false;
         },
 
-        update: function(text, width) {
+        update: function(text, width, tags) {
             var prevLength;
 
             this.width = width;
             this.text = text;
+            this.tags = tags;
 
             if (text.length >= this.minInput) {
                 prevLength = this.suggest.length;

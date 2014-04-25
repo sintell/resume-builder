@@ -168,7 +168,7 @@ define([
 
             var areas = this._getSplittedAreas();
 
-            this.suggest.update(areas[areas.length - 1], this.width);
+            this.suggest.update(areas[areas.length - 1], this.width, true);
             this.suggest.processKey(event);
         },
 

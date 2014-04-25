@@ -194,7 +194,7 @@ define([
 
         _updateValues: function() {
             this.inputAreas = this.$input.val();
-            this.width =this.$input.outerWidth();
+            this.width = this.$input.outerWidth();
         },
 
         _updateSuggest: function(event) {
@@ -215,7 +215,7 @@ define([
 
             var lastArea = areas[areas.length - 1];
 
-            this.suggest.update(lastArea, this.width);
+            this.suggest.update(lastArea, this.width, true);
 
             this.suggest.processKey(event);
         },

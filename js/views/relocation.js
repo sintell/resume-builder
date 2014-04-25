@@ -2,9 +2,8 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'views/suggest',
     'text!templates/relocation.html'
-], function($, _, Backbone, Suggest, RelocationTemplate) {
+], function($, _, Backbone, RelocationTemplate) {
     'use strict';
 
     return Backbone.View.extend({

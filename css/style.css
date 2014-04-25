@@ -3,6 +3,7 @@
 @import "./blocks/resume.css";
 @import "./blocks/section.css";
 @import "./blocks/control.css";
+@import "./blocks/suggest.css";
 @import "./blocks/suggest-list.css";
 @import "./blocks/area-list.css";
 @import "./blocks/checkbox-list.css";
@@ -24,3 +25,5 @@
 @import "./blocks/nav-link.css";
 @import "./blocks/highlight.css";
 @import "./blocks/item.css";
+@import "./blocks/tag.css";
+@import "./blocks/tag-list.css";

@@ -189,6 +189,10 @@ define([
 
         _onFocusOut: function(event) {
             this.suggest.hide();
+        },
+
+        _preventKeydown: function(event) {
+            this.suggest.preventKeydown(event);
         }
     });
 });

@@ -22,6 +22,14 @@
             </div>
         </div>
     <%}%>
+    <% if (drawModerationNotes) { %>
+        <div class="sidebar-section__item">
+            <h4 class="sidebar-section__item-title">Замечания модератора</h4>
+            <div class="sidebar-section__item-value">
+                <div class="moderation-notes HH-Sidebar-ModerationNotes"></div>
+            </div>
+        </div>
+    <%}%>
     <div class="sidebar-section__item">
         <h4 class="sidebar-section__item-title">Статус публикации</h4>
         <div class="sidebar-section__item-value"><%- status.name %></div>

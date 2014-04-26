@@ -27,8 +27,8 @@
     }
 
     .button_publish {
-        -webkit-animation: button-pop 1s 4 alternate;
-        animation: button-pop 1s 4 alternate;
+        -webkit-animation: element-pop 1s 4 alternate;
+        animation: element-pop 1s 4 alternate;
     }
 
         .button_main:hover {

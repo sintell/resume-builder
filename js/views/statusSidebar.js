@@ -21,6 +21,10 @@ define([
         template: _.template(SideBarTemplate),
         suggestedFieldsTemplate: _.template(SuggestedFieldsTemplate),
 
+        events: {
+            'click .HH-Sidebar-ButtonPublish': '_publish'
+        },
+
         initialize: function(options) {
             this.model = options.model;
 
@@ -67,6 +71,7 @@ define([
             }
 
             data = _.extend(data, this.model.data())
+
             this.$el.html(this.template(data));
 
             this.$statusBlock = $('.HH-Sidebar-Status');
@@ -89,8 +94,16 @@ define([
                 }));       
                 $('.HH-SuggestedField').click(this.toggleEdit);         
             };
- 
-           if (!Utils.isIOS()) {
+
+            this.setProgressBar(this.model.get('_progress').percentage);                
+           
+            this.positionFromTop = this.$statusBlock.position().top;
+
+            if (data.canPublish) {
+                $('.HH-ResumeStatus-Publish').show();
+            }
+
+            if (!Utils.isIOS()) {
                 $(window).scroll(this.switchFloat);
             }
         },
@@ -146,6 +159,21 @@ define([
         toggleEdit: function(event) {
             this.model.trigger('editMode', {
                 field: $(event.currentTarget).data('hh-field-name')
+            });
+        },
+
+        _publish: function() {
+            var that = this;
+
+            $.ajax({
+                type: 'POST',
+
+                url: [Config.apiUrl, 'resumes', this.model.id, 'publish'].join('/'),
+
+                success: function(data, status, xhr) {
+                    that.updated = true;
+                    that.render();
+                }
             });
         }
     });

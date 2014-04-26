@@ -54,22 +54,22 @@ define([
             };
 
             this.moderationNameMap = {
-                "no_recommendation": "recommendation",
-                "block_no_education_place_or_date": "education",
-                "lot_information": "",
-                "no_company_name": "experience",
-                "no_position": "experience",
-                "no_date": "experience",
-                "bad_education_student": "education",
-                "no_company_description": "experience",
-                "block_work_place": "experience",
-                "bad": "skills",
-                "block_no_function": "experience",
-                "bad_description": "title",
-                "not_enough_information": "language",
-                "bad_function": "skills",
-                "block_full_name": "last_name",
-                "bad_education": "education"
+                'no_recommendation': 'recommendation',
+                'block_no_education_place_or_date': 'education',
+                'lot_information': '',
+                'no_company_name': 'experience',
+                'no_position': 'experience',
+                'no_date': 'experience',
+                'bad_education_student': 'education',
+                'no_company_description': 'experience',
+                'block_work_place': 'experience',
+                'bad': 'skills',
+                'block_no_function': 'experience',
+                'bad_description': 'title',
+                'not_enough_information': 'language',
+                'bad_function': 'skills',
+                'block_full_name': 'last_name',
+                'bad_education': 'education'
             };
 
             this.listenTo(this.model, 'load', this.render);

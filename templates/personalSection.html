@@ -7,6 +7,7 @@
                type="text"
                value="<%- resume.last_name %>"
                name="last_name"
+               data-hh-anchor="last_name"
                maxlength="<%- conditions.last_name.max_length %>"
                pattern="<%- conditions.last_name.regexp %>"
                data-hh-namespace="personal_info"
@@ -23,6 +24,7 @@
                type="text"
                value="<%- resume.first_name %>"
                name="first_name"
+               data-hh-anchor="first_name"
                maxlength="<%- conditions.first_name.max_length %>"
                pattern="<%- conditions.first_name.regexp %>"
                data-hh-namespace="personal_info"
@@ -39,6 +41,7 @@
                type="text"
                value="<%- resume.middle_name %>"
                name="middle_name"
+               data-hh-anchor="middle_name"
                maxlength="<%- conditions.middle_name.max_length %>"
                pattern="<%- conditions.middle_name.regexp %>"
                data-hh-namespace="personal_info"
@@ -59,6 +62,7 @@
                            type="radio"
                            value="<%- gender.id %>"
                            name="gender"
+                           data-hh-anchor="gender"
                            data-hh-name="gender.id"
                            data-hh-namespace="personal_info"
                            <%- gender.id === resume.gender.id ? 'checked' : '' %>/>
@@ -75,6 +79,7 @@
 
     <div class="HH-ResumeSection-Component"
          data-hh-component="birth-date"
+         data-hh-anchor="birth-date"
          data-hh-namespace="personal_info"></div>
 </div>
 

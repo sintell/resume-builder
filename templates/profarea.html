@@ -1,7 +1,7 @@
 <span class="control__value"><%- resume.specializationNames %></span>
 
 <div class="control__input">
-    <select class="HH-SpecializationControl-Select select select_large">
+    <select class="HH-SpecializationControl-Select select select_large" data-hh-anchor="specialization">
         <% _.each(specializations, function(specialization) { %>
         <option value="<%- specialization.id %>"
                 <%- resume.specialization.some(function(s) {return s.profarea_id == specialization.id}) ? 'selected' : '' %>>

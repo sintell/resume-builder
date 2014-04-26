@@ -30,7 +30,7 @@ define([
             this.model.on('editMode', function(editModeOn) {
                 if (typeof editModeOn.field !== 'undefined') {
                     var section = editModeOn.section;
-                    var field = $(['[data-hh-name=', editModeOn.field, ']'].join('"'));
+                    var field = $(['[data-hh-anchor=', editModeOn.field, ']'].join('"')).first();
 
                     if (!section) {
                         section = $(field).closest('.HH-ResumeSection-Inner').data('hh-section-name');

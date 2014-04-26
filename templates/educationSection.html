@@ -3,7 +3,7 @@
     <span class="control__value"><%- resume.education.level.name %></span>
 
     <div class="control__input">
-        <select class="HH-SpecializationControl-Select">
+        <select class="HH-EducationControl-Select" data-hh-anchor="education">
             <% dictionary.education_level.forEach(function(educationLevel) { %>
                 <option value="<%- educationLevel.id %>"
                         <%- resume.education.level.id == educationLevel.id ? 'selected' : '' %>>

@@ -21,32 +21,35 @@ define([
         template: _.template(SideBarTemplate),
         suggestedFieldsTemplate: _.template(SuggestedFieldsTemplate),
 
-        events: {
-            'click .HH-SuggestedField': 'toggleEdit'
-        },
-
         initialize: function(options) {
             this.model = options.model;
 
             this.fieldsNameMap = {
-                'specialization': 'специализация',
-                'language': 'язык',
+                'specialization': 'профессиональная область',
+                'language': 'владение языками',
                 'title': 'название',
-                'skills': 'профессиональная область',
-                'experience': 'опыт',
+                'skills': 'личные качества',
+                'experience': 'опыт работы',
                 'contact': 'контактная информация',
                 'skill_set': 'навыки',
                 'education': 'образование',
                 'salary': 'желаемая зарплата',
                 'metro': 'ближайшее метро',
                 'site': 'веб-сайт',
-                'recommendation': 'рекомендации'
+                'recommendation': 'рекомендации',
+                'birth_date': 'дата рождения',
+                'last_name': 'фамилия',
+                'first_name': 'имя',
+                'middle_name': 'отчество',
+                'citizenship': 'гражданство',
+                'area': 'город проживания',
+                'gender': 'пол'
             };
 
             this.listenTo(this.model, 'load', this.render);
             this.listenTo(this.model, 'saveEnd', this.render);
 
-            _.bindAll(this, 'switchFloat', 'setProgressBar');
+            _.bindAll(this, 'switchFloat', 'setProgressBar', 'toggleEdit');
         },
 
         render: function() {
@@ -62,9 +65,6 @@ define([
                     drawRecommendedFields: true
                 });                
             }
-
-            console.log(data)
-            console.log(fieldsData)
 
             this.$el.html(this.template(data));
 
@@ -85,7 +85,8 @@ define([
             if (typeof fieldsData !== 'undefined') {
                 this.$suggestedFields.html(this.suggestedFieldsTemplate({
                     suggestedFields: fieldsData
-                }));                
+                }));       
+                $('.HH-SuggestedField').click(this.toggleEdit);         
             };
  
            if (!Utils.isIOS()) {
@@ -140,8 +141,6 @@ define([
 
             return fields.map(function(fieldName) {
                 return {id: fieldName, name: that.fieldsNameMap[fieldName]};
-            }).sort(function(a,b) {
-                return (a.name > b.name)? 1 : -1;
             });
         },
 

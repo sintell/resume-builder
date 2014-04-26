@@ -8,12 +8,14 @@
             </div>
         </div>
     </div>
-    <div class="sidebar-section__item">
-        <h4 class="sidebar-section__item-title">Рекомендованные поля</h4>
-        <div class="sidebar-section__item-value">
-            <div class="suggested-fields HH-Sidebar-SuggestedFields"></div>
+    <% if (drawRecommendedFields) { %>
+        <div class="sidebar-section__item">
+            <h4 class="sidebar-section__item-title">Рекомендованные поля</h4>
+            <div class="sidebar-section__item-value">
+                <div class="suggested-fields HH-Sidebar-SuggestedFields"></div>
+            </div>
         </div>
-    </div>
+    <%}%>
 
     <div class="sidebar-section__item">
         <h4 class="sidebar-section__item-title">Статус публикации</h4>

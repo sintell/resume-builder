@@ -50,8 +50,23 @@ define([
         },
 
         render: function() {
+            var fieldsData = this.getSuggestedFields();
+            var data = this.model.attributes;
 
-            this.$el.html(this.template(this.model.attributes));
+            if (typeof fieldsData === 'undefined') {
+                data = _.extend(data, {
+                    drawRecommendedFields: false
+                });
+            } else {
+                data = _.extend(data, {
+                    drawRecommendedFields: true
+                });                
+            }
+
+            console.log(data)
+            console.log(fieldsData)
+
+            this.$el.html(this.template(data));
 
             this.$statusBlock = $('.HH-Sidebar-Status');
 
@@ -67,11 +82,13 @@ define([
                 this.positionFromTop = this.$statusBlock.position().top;
             }
 
-            this.$suggestedFields.html(this.suggestedFieldsTemplate({
-                suggestedFields: this.getSuggestedFields()
-            }));
-
-            if (!Utils.isIOS()) {
+            if (typeof fieldsData !== 'undefined') {
+                this.$suggestedFields.html(this.suggestedFieldsTemplate({
+                    suggestedFields: fieldsData
+                }));                
+            };
+ 
+           if (!Utils.isIOS()) {
                 $(window).scroll(this.switchFloat);
             }
         },
@@ -111,12 +128,15 @@ define([
             }
 
             if (typeof fields === 'undefined') {
-                return [{
-                    id: 'last_name',
-                    name: 'Начните заполнять резюме, что бы получить рекомендации'
-                }]
+                if (this.model.isNew()) {
+                    return [{
+                        id: 'last_name',
+                        name: 'Начните заполнять резюме, что бы получить рекомендации'
+                    }]
+                } else {
+                    return;
+                }
             }
-
 
             return fields.map(function(fieldName) {
                 return {id: fieldName, name: that.fieldsNameMap[fieldName]};

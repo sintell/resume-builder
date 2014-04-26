@@ -6,7 +6,8 @@
 
 <div class="control__input">
     <select name="birth_date-day">
-        <% _.each(_.range(1,  calendar.days[date.month - 1] + 1), function(day) { %>
+        <option value="" disabled selected>День</option>
+        <% _.each(_.range(1,  (calendar.days[date.month - 1] || MAX_DAYS) + 1), function(day) { %>
         <option value="<%- day %>"
         <%- date.day === day ? 'selected' : '' %>>
         <%- day %>
@@ -16,6 +17,7 @@
 
     <select class="HH-ResumeBuilder-Component-BirthDate-Month"
             name="birth_date-month">
+        <option value="" disabled selected>Месяц</option>
         <% _.each(calendar.months, function(month, index) { %>
         <option value="<%- index + 1 %>"
         <%- date.month === index + 1 ? 'selected' : '' %>>
@@ -27,5 +29,6 @@
     <input class="HH-ResumeBuilder-Component-BirthDate-Year textbox textbox_very-small"
            value="<%- date.year %>"
            name="birth_date-year"
+           placeholder="Год"
            pattern="^[0-9]{4}$"/>
 </div>

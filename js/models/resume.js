@@ -24,7 +24,7 @@ define([
             area: {},
             metro: {},
             gender: {},
-            birth_date: '1993-01-01',
+            birth_date: '',
             salary: {},
             employment: {},
             schedule: {},

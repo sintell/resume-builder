@@ -12,12 +12,16 @@
     }
 
     .sidebar-section__item {
-        margin: 20px 0px;
+        margin: 30px 0px;
     }
 
     .sidebar-section__item-title {
-        margin: 0px 0px 20px 0px;
+        margin: 0px 0px 15px 0px;
     }
+        
+        .sidebar-section__item_with-whitespace {
+            margin-bottom: 40px;
+        }
 
     .sidebar-section__item-value {
 

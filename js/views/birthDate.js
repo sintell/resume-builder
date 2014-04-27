@@ -21,6 +21,12 @@ define([
             'change .HH-ResumeBuilder-Component-BirthDate-Year': '_change'
         },
 
+        const: {
+            // Високосный год
+            LEAP_YEAR: 2012,
+            MAX_DAYS_IN_MONTH: 31
+        },
+
         fill: function(attributes) {
             if (attributes.birth_date) {
                 var split = attributes.birth_date.split('-');
@@ -38,7 +44,6 @@ define([
         },
 
         render: function() {
-            var MAX_DAYS = 31;
             var data = {
                 calendar: this.calendar,
                 date: {
@@ -46,7 +51,7 @@ define([
                     month: this.month,
                     year: this.year
                 },
-                MAX_DAYS: MAX_DAYS
+                MAX_DAYS: this.const.MAX_DAYS_IN_MONTH
             };
 
             this.$el.html(this.template(data));
@@ -78,10 +83,8 @@ define([
         },
 
         _daysInMonth: function() {
-            var LEAP_YEAR = 2012;
-
             var result = [],
-                year = this.year || LEAP_YEAR;
+                year = this.year || this.const.LEAP_YEAR;
 
             for (var i = 1; i < 13; i++) {
                 result.push(new Date(year, i, 0).getDate());

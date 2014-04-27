@@ -57,11 +57,11 @@ define([
             var data = this.model.attributes;
 
             if (typeof fieldsData === 'undefined') {
-                data = _.extend(data, {
+                data = $.extend(data, {
                     drawRecommendedFields: false
                 });
             } else {
-                data = _.extend(data, {
+                data = $.extend(data, {
                     drawRecommendedFields: true
                 });                
             }
@@ -132,10 +132,8 @@ define([
                 if (this.model.isNew()) {
                     return [{
                         id: 'last_name',
-                        name: 'Начните заполнять резюме, что бы получить рекомендации'
+                        name: 'Начните заполнять резюме, чтобы получить рекомендации'
                     }]
-                } else {
-                    return;
                 }
             }
 

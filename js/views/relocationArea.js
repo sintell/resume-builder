@@ -168,7 +168,7 @@ define([
 
             var areas = this._getSplittedAreas();
 
-            this.suggest.update(areas[areas.length - 1], this.width);
+            this.suggest.update(areas[areas.length - 1], this.width, true);
             this.suggest.processKey(event);
         },
 
@@ -189,6 +189,10 @@ define([
 
         _onFocusOut: function(event) {
             this.suggest.hide();
+        },
+
+        _preventKeydown: function(event) {
+            this.suggest.preventKeydown(event);
         }
     });
 });

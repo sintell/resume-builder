@@ -147,7 +147,7 @@ define([
                 });
             }
 
-            this.suggest.update(lastSkill, this.width);
+            this.suggest.update(lastSkill, this.width, true);
 
             this.suggest.processKey(event);
         },

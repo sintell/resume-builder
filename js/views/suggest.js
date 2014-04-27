@@ -41,13 +41,14 @@ define([
             this.data = data;
 
             if (forceUpdate) {
-                this.update(this.text, this.width);
+                this.update(this.text, this.width, this.tags);
             }
         },
 
         render: function() {
             var data = {
-                suggest: this.suggest
+                suggest: this.suggest,
+                tags: this.tags
             };
 
             this.$el.html(this.template(data));
@@ -61,11 +62,12 @@ define([
             this.isShow = false;
         },
 
-        update: function(text, width) {
+        update: function(text, width, tags) {
             var prevLength;
 
             this.width = width;
             this.text = text;
+            this.tags = tags;
 
             if (text.length >= this.minInput) {
                 prevLength = this.suggest.length;

@@ -1,5 +1,5 @@
 <% if (suggest.length > 0) { %>
-<ul class="HH-Suggest-Results suggest-list">
+<ul class="HH-Suggest-Results suggest-list <%- tags ? 'suggest-list_for-tags' : '' %>">
     <% _.each(suggest, function(suggest) { %>
     <li class="HH-ResumeBuilder-SuggestItem suggest-list__item"><%- suggest %></li>
     <% }); %>

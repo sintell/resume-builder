@@ -1,9 +1,9 @@
 <div class="HH-Tags">
-    <ul>
+    <ul class="tag-list">
         <% tags.forEach(function(tag) { %>
-        <li>
+        <li class="tag">
             <span class="HH-Tag-Text"><%- tag.text %></span>
-            <span class="HH-Tag-Remove">&times;</span>
+            <input type="button" class="HH-Tag-Remove tag__cross" value="&times;"/>
         </li>
         <% }); %>
     </ul>

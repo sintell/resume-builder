@@ -1,0 +1,28 @@
+.tag {
+    position: relative;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    height: 25px;
+    line-height: 25px;
+    padding: 2px 24px 2px 8px;
+    margin-bottom: 5px;
+}
+
+    .tag__cross {
+        position: absolute;
+        color: #888;
+        font-size: 24px;
+        border: none;
+        outline: none;
+        background: none;
+        margin: 0;
+        padding: 0 8px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+        .tag__cross:hover {
+            color: #000;
+        }

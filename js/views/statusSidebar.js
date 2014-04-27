@@ -61,6 +61,7 @@ define([
             var data = this.model.attributes;
 
             if (typeof fieldsData === 'undefined') {
+                console.log(fieldsData);
                 data = $.extend(data, {
                     drawRecommendedFields: false
                 });
@@ -138,7 +139,7 @@ define([
 
             if (typeof mandatory !== 'undefined' && mandatory.length > 0) {
                 fields = mandatory;
-            } else if (typeof recomended !== 'undefined' && recommended.length > 0) {
+            } else if (typeof recommended !== 'undefined' && recommended.length > 0) {
                 fields = recommended;
             }
 
@@ -149,6 +150,7 @@ define([
                         name: 'Начните заполнять резюме, чтобы получить рекомендации'
                     }]
                 }
+                return;
             }
 
             return fields.map(function(fieldName) {

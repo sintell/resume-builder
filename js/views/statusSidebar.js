@@ -4,14 +4,16 @@ define([
     'config',
     'utils',
     'text!templates/statusSidebar.html',
-    'text!templates/suggestedFields.html'
+    'text!templates/suggestedFields.html',
+    'text!templates/moderationNotes.html'
 ], function(
     _,
     Backbone,
     Config,
     Utils,
     SideBarTemplate,
-    SuggestedFieldsTemplate
+    SuggestedFieldsTemplate,
+    ModerationNotesTemplate
 ) {
     'use strict';
 
@@ -20,6 +22,7 @@ define([
     return Backbone.View.extend({
         template: _.template(SideBarTemplate),
         suggestedFieldsTemplate: _.template(SuggestedFieldsTemplate),
+        moderationNotesTemplate: _.template(ModerationNotesTemplate),
 
         events: {
             'click .HH-Sidebar-ButtonPublish': '_publish'
@@ -50,6 +53,25 @@ define([
                 'gender': 'пол'
             };
 
+            this.moderationNameMap = {
+                'no_recommendation': 'recommendation',
+                'block_no_education_place_or_date': 'education',
+                'lot_information': '',
+                'no_company_name': 'experience',
+                'no_position': 'experience',
+                'no_date': 'experience',
+                'bad_education_student': 'education',
+                'no_company_description': 'experience',
+                'block_work_place': 'experience',
+                'bad': 'skills',
+                'block_no_function': 'experience',
+                'bad_description': 'title',
+                'not_enough_information': 'language',
+                'bad_function': 'skills',
+                'block_full_name': 'last_name',
+                'bad_education': 'education'
+            };
+
             this.listenTo(this.model, 'load', this.render);
             this.listenTo(this.model, 'saveEnd', this.render);
 
@@ -58,18 +80,23 @@ define([
 
         render: function() {
             var fieldsData = this.getSuggestedFields();
-            var data = this.model.attributes;
+            var moderationData = this.getModerationNotes();
 
-            if (typeof fieldsData === 'undefined') {
-                console.log(fieldsData);
-                data = $.extend(data, {
-                    drawRecommendedFields: false
-                });
-            } else {
-                data = $.extend(data, {
-                    drawRecommendedFields: true
-                });                
+            var drawModerationNotes = false;
+            var drawRecommendedFields = false;
+
+            if (typeof fieldsData !== 'undefined') {
+                drawRecommendedFields = true;
             }
+
+            if (typeof moderationData !== 'undefined') {
+                drawModerationNotes = true;
+            }
+
+            var data = _.extend(this.model.attributes, {
+                drawModerationNotes: drawModerationNotes,
+                drawRecommendedFields: drawRecommendedFields
+            });
 
             data = _.extend(data, this.model.data())
 
@@ -82,6 +109,7 @@ define([
             this.$infoSidebar = $('.HH-Sidebar-Info');
             
             this.$suggestedFields = $('.HH-Sidebar-SuggestedFields');
+            this.$moderationNotes = $('.HH-Sidebar-ModerationNotes');
             
             this.setProgressBar(this.model.get('_progress').percentage);
             
@@ -94,16 +122,14 @@ define([
                     suggestedFields: fieldsData
                 }));       
                 $('.HH-SuggestedField').click(this.toggleEdit);         
-            };
-
-            this.setProgressBar(this.model.get('_progress').percentage);                
-           
-            this.positionFromTop = this.$statusBlock.position().top;
-
-            if (data.canPublish) {
-                $('.HH-ResumeStatus-Publish').show();
             }
-
+            if (typeof moderationData !== 'undefined') {
+                this.$moderationNotes.html(this.moderationNotesTemplate({
+                    moderationNotes: moderationData
+                }));       
+                $('.HH-ModerationNote').click(this.toggleEdit);         
+            }
+ 
             if (!Utils.isIOS()) {
                 $(window).scroll(this.switchFloat);
             }
@@ -148,7 +174,7 @@ define([
                     return [{
                         id: 'last_name',
                         name: 'Начните заполнять резюме, чтобы получить рекомендации'
-                    }]
+                    }];
                 }
                 return;
             }
@@ -156,6 +182,20 @@ define([
             return fields.map(function(fieldName) {
                 return {id: fieldName, name: that.fieldsNameMap[fieldName]};
             });
+        },
+
+        getModerationNotes: function() {
+            var moderationNotes = this.model.get('moderation_note');
+            var that = this;
+
+            if (this.model.has('status') && this.model.get('status').id === 'blocked') {
+                return moderationNotes.map(function(moderationNote) {
+                    return {
+                        id: that.moderationNameMap[moderationNote.id],
+                        name: moderationNote.name
+                    };
+                });
+            }
         },
 
         toggleEdit: function(event) {

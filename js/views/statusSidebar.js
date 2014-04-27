@@ -195,8 +195,6 @@ define([
                         name: moderationNote.name
                     };
                 });
-            } else {
-                return;
             }
         },
 

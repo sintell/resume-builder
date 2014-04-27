@@ -3,13 +3,15 @@ define([
     'backbone',
     'config',
     'utils',
-    'text!templates/statusSidebar.html'
+    'text!templates/statusSidebar.html',
+    'text!templates/suggestedFields.html'
 ], function(
     _,
     Backbone,
     Config,
     Utils,
-    SideBarTemplate
+    SideBarTemplate,
+    SuggestedFieldsTemplate
 ) {
     'use strict';
 
@@ -17,16 +19,54 @@ define([
 
     return Backbone.View.extend({
         template: _.template(SideBarTemplate),
+        suggestedFieldsTemplate: _.template(SuggestedFieldsTemplate),
 
         initialize: function(options) {
             this.model = options.model;
-            this.listenTo(this.model, 'load', this.render);
 
-            _.bindAll(this, 'switchFloat', 'setProgressBar');
+            this.fieldsNameMap = {
+                'specialization': 'профессиональная область',
+                'language': 'владение языками',
+                'title': 'название',
+                'skills': 'личные качества',
+                'experience': 'опыт работы',
+                'contact': 'контактная информация',
+                'skill_set': 'навыки',
+                'education': 'образование',
+                'salary': 'желаемая зарплата',
+                'metro': 'ближайшее метро',
+                'site': 'веб-сайт',
+                'recommendation': 'рекомендации',
+                'birth_date': 'дата рождения',
+                'last_name': 'фамилия',
+                'first_name': 'имя',
+                'middle_name': 'отчество',
+                'citizenship': 'гражданство',
+                'area': 'город проживания',
+                'gender': 'пол'
+            };
+
+            this.listenTo(this.model, 'load', this.render);
+            this.listenTo(this.model, 'saveEnd', this.render);
+
+            _.bindAll(this, 'switchFloat', 'setProgressBar', 'toggleEdit');
         },
 
         render: function() {
-            this.$el.html(this.template(this.model.attributes));
+            var fieldsData = this.getSuggestedFields();
+            var data = this.model.attributes;
+
+            if (typeof fieldsData === 'undefined') {
+                data = $.extend(data, {
+                    drawRecommendedFields: false
+                });
+            } else {
+                data = $.extend(data, {
+                    drawRecommendedFields: true
+                });                
+            }
+
+            this.$el.html(this.template(data));
 
             this.$statusBlock = $('.HH-Sidebar-Status');
 
@@ -34,11 +74,22 @@ define([
 
             this.$infoSidebar = $('.HH-Sidebar-Info');
             
+            this.$suggestedFields = $('.HH-Sidebar-SuggestedFields');
+            
             this.setProgressBar(this.model.get('_progress').percentage);
+            
+            if (typeof this.positionFromTop === 'undefined') {            
+                this.positionFromTop = this.$statusBlock.position().top;
+            }
 
-            this.positionFromTop = this.$statusBlock.position().top;
-
-            if (!Utils.isIOS()) {
+            if (typeof fieldsData !== 'undefined') {
+                this.$suggestedFields.html(this.suggestedFieldsTemplate({
+                    suggestedFields: fieldsData
+                }));       
+                $('.HH-SuggestedField').click(this.toggleEdit);         
+            };
+ 
+           if (!Utils.isIOS()) {
                 $(window).scroll(this.switchFloat);
             }
         },
@@ -63,6 +114,38 @@ define([
         setProgressBar: function(progressPercent) {
             this.$statusBlock.find('.HH-Sidebar-ProgressBar').width(progressPercent + '%');
             this.$statusBlock.find('.HH-Sidebar-ProgressText').text(progressPercent + '%');
+        },
+
+        getSuggestedFields: function() {
+            var that = this;
+            var mandatory = this.model.get('_progress').mandatory;
+            var recommended = this.model.get('_progress').recommended;
+            var fields;
+
+            if (typeof mandatory !== 'undefined' && mandatory.length > 0) {
+                fields = mandatory;
+            } else if (typeof recomended !== 'undefined' && recommended.length > 0) {
+                fields = recommended;
+            }
+
+            if (typeof fields === 'undefined') {
+                if (this.model.isNew()) {
+                    return [{
+                        id: 'last_name',
+                        name: 'Начните заполнять резюме, чтобы получить рекомендации'
+                    }]
+                }
+            }
+
+            return fields.map(function(fieldName) {
+                return {id: fieldName, name: that.fieldsNameMap[fieldName]};
+            });
+        },
+
+        toggleEdit: function(event) {
+            this.model.trigger('editMode', {
+                field: $(event.currentTarget).data('hh-field-name')
+            });
         }
     });
 });

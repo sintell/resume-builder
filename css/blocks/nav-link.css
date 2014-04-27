@@ -1,15 +1,17 @@
 .nav-link {
     color: #5BB3EE;
-    border-bottom: 1px solid;
+    border-bottom: 1px solid #5BB3EE;
     text-decoration: none;
     padding-bottom: 1px;
 }
         .nav-link:hover {
             color: #60BCFA;
+            border-color: #60BCFA;
         }
 
         .nav-link:active {
             color: #3CA5EB;
+            border-color: #3CA5EB;
         }
 
     .nav-link_big {
@@ -26,6 +28,7 @@
 
     .nav-link_action {
         border-bottom-style: dotted;
+        cursor: pointer;
     }
 
     .nav-link__right-margined {

@@ -13,6 +13,7 @@
 @import "./blocks/sidebar.css";
 @import "./blocks/sidebar-section.css";
 @import "./blocks/resume-status-progress.css";
+@import "./blocks/resume-status-publish.css";
 @import "./blocks/ajax-spin.css";
 @import "./blocks/resume-list.css";
 @import "./blocks/field.css";
@@ -27,4 +28,4 @@
 @import "./blocks/item.css";
 @import "./blocks/tag.css";
 @import "./blocks/tag-list.css";
-@import "./blocks/suggested-fields.css"
+@import "./blocks/suggested-fields.css";

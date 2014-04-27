@@ -159,6 +159,10 @@ define([
                 canBeUpdated: this.has('updated_at') &&
                               new Date() - new Date(this.get('updated_at')) > MS_IN_HOURS * HOURS_BETWEEN_UPDATES,
 
+                canPublish: this.has('status') && !(this.get('status').id !== 'not_published') &&
+                            (typeof this.get('_progress').mandatory === 'undefined' ||
+                            this.get('_progress').mandatory.length === 0),
+
                 timeBeforeUpdate: (function() {
                     var ms,
                         hours,

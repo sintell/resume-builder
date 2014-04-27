@@ -21,6 +21,10 @@ define([
         template: _.template(SideBarTemplate),
         suggestedFieldsTemplate: _.template(SuggestedFieldsTemplate),
 
+        events: {
+            'click .HH-Sidebar-ButtonPublish': '_publish'
+        },
+
         initialize: function(options) {
             this.model = options.model;
 
@@ -57,6 +61,7 @@ define([
             var data = this.model.attributes;
 
             if (typeof fieldsData === 'undefined') {
+                console.log(fieldsData);
                 data = $.extend(data, {
                     drawRecommendedFields: false
                 });
@@ -65,6 +70,8 @@ define([
                     drawRecommendedFields: true
                 });                
             }
+
+            data = _.extend(data, this.model.data())
 
             this.$el.html(this.template(data));
 
@@ -88,8 +95,16 @@ define([
                 }));       
                 $('.HH-SuggestedField').click(this.toggleEdit);         
             };
- 
-           if (!Utils.isIOS()) {
+
+            this.setProgressBar(this.model.get('_progress').percentage);                
+           
+            this.positionFromTop = this.$statusBlock.position().top;
+
+            if (data.canPublish) {
+                $('.HH-ResumeStatus-Publish').show();
+            }
+
+            if (!Utils.isIOS()) {
                 $(window).scroll(this.switchFloat);
             }
         },
@@ -124,7 +139,7 @@ define([
 
             if (typeof mandatory !== 'undefined' && mandatory.length > 0) {
                 fields = mandatory;
-            } else if (typeof recomended !== 'undefined' && recommended.length > 0) {
+            } else if (typeof recommended !== 'undefined' && recommended.length > 0) {
                 fields = recommended;
             }
 
@@ -135,6 +150,7 @@ define([
                         name: 'Начните заполнять резюме, чтобы получить рекомендации'
                     }]
                 }
+                return;
             }
 
             return fields.map(function(fieldName) {
@@ -145,6 +161,21 @@ define([
         toggleEdit: function(event) {
             this.model.trigger('editMode', {
                 field: $(event.currentTarget).data('hh-field-name')
+            });
+        },
+
+        _publish: function() {
+            var that = this;
+
+            $.ajax({
+                type: 'POST',
+
+                url: [Config.apiUrl, 'resumes', this.model.id, 'publish'].join('/'),
+
+                success: function(data, status, xhr) {
+                    that.updated = true;
+                    that.render();
+                }
             });
         }
     });

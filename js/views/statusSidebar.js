@@ -98,7 +98,7 @@ define([
                 drawRecommendedFields: drawRecommendedFields
             });
 
-            data = _.extend(data, this.model.data())
+            data = _.extend(data, this.model.data());
 
             this.$el.html(this.template(data));
 
@@ -110,9 +110,17 @@ define([
             
             this.$suggestedFields = $('.HH-Sidebar-SuggestedFields');
             this.$moderationNotes = $('.HH-Sidebar-ModerationNotes');
-            
-            this.setProgressBar(this.model.get('_progress').percentage);
-            
+
+            if (data.canPublish) {
+                this.$('.HH-ResumeStatus-Publish').show();
+            }
+
+            if (drawModerationNotes) {
+                this.$('.HH-ResumeStatus-Publish').show();
+                this.$('.HH-Sidebar-ButtonPublish').val("Отправить модератору");
+                this.$('.HH-Sidebar-ButtonPublish').text("Отправить модератору");
+            }
+
             if (typeof this.positionFromTop === 'undefined') {            
                 this.positionFromTop = this.$statusBlock.position().top;
             }
@@ -123,6 +131,7 @@ define([
                 }));       
                 $('.HH-SuggestedField').click(this.toggleEdit);         
             }
+
             if (typeof moderationData !== 'undefined') {
                 this.$moderationNotes.html(this.moderationNotesTemplate({
                     moderationNotes: moderationData
@@ -189,6 +198,11 @@ define([
             var that = this;
 
             if (this.model.has('status') && this.model.get('status').id === 'blocked') {
+                var nullItem = moderationNotes.indexOf(null);
+                if (nullItem !== -1) {
+                    moderationNotes.splice(nullItem, 1);
+                }
+
                 return moderationNotes.map(function(moderationNote) {
                     return {
                         id: that.moderationNameMap[moderationNote.id],

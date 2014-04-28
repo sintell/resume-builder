@@ -1,0 +1,20 @@
+<div class="HH-ResumeSection-Control control control_viewing">
+    <label class="control__label">Учебные заведения</label>
+
+    <% if (!education[educationLevel].length) { %>
+    <span class="control__value">не указано</span>
+    <% } %>
+</div>
+
+<div class="HH-ResumeSection-Educations"></div>
+
+<div class="HH-ResumeSection-Control control control_viewing control_collapsing control_add-button">
+    <label class="control__label"></label>
+
+    <div class="control__input">
+        <input type="button" 
+               class="HH-ResumeSection-AddEducation button button_secondary" 
+               data-hh-anchor="education"
+               value="Добавить учебное заведение" />
+    </div>
+</div>

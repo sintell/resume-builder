@@ -1,0 +1,29 @@
+<div class="HH-ResumeSection-Control control control_viewing">
+    <label class="control__label">Название</label>
+    <span class="control__value"><%- education.name %></span>
+
+    <div class="control__input">
+        <input class="HH-EducationControl-NameInput textbox textbox_large"
+               type="text"
+               value="<%- education.name %>">
+    </div>
+</div>
+<div class="HH-ResumeSection-Control control control_viewing">
+    <label class="control__label">Год окончания</label>
+    <span class="control__value"><%- education.year %></span>
+
+    <div class="control__input">
+        <input class="HH-EducationControl-YearInput textbox textbox_very-small"
+               type="text"
+               value="<%- education.year %>">
+      
+    </div>
+</div>
+<div class="HH-ResumeSection-Control control control_viewing control_collapsing control_with-border">
+    <div class="control__input">
+        <label class="control__label"></label>
+        <input type="button"
+               class="HH-ResumeSection-RemoveEducation button button_secondary"
+               value="Удалить" />
+    </div>
+</div>

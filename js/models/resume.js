@@ -34,9 +34,11 @@ define([
             relocation: {type:{}},
             contact: [],
             language: [],
-            education: [{
-                level: {id:'primary'}
-            }],
+            education: {
+                level: {id:'primary', name: 'Высшее'},
+                primary: [],
+                elementary: []
+            },
 
             // Добавлены чтобы не было ошибок при создании нового резюме.
             updated_at: 'Никогда',

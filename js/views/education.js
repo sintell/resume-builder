@@ -28,6 +28,7 @@ define([
 
         events: {
             'click .HH-ResumeSection-RemoveEducation': '_removeEducation',
+
             'keyup .HH-EducationControl-NameInput': '_updateNameSuggest',
             'focusout .HH-EducationControl-NameInput': '_onNameFocusOut',
 
@@ -36,14 +37,11 @@ define([
         },
 
         initialize: function(options) {
-            this.const = {
-                SUGGEST_MIN_INPUT: 3
-            };
 
             this.removed = false;
             this.grade = options.grade;
             this._initializeNameSuggest();            
-            this._initializeResultSuggest();            
+            this._initializeResultSuggest();   
         },
 
         render: function() {
@@ -51,8 +49,6 @@ define([
             this.$el.html(templateFunction({
                 education: this.model.attributes
             }));
-
-
 
             return this;
         },
@@ -94,7 +90,7 @@ define([
             this.nameSuggest.update(this.nameName, this.nameWidth);
             this.nameSuggest.processKey(event);
 
-            var $nameSuggestEl = $('.HH-Education-Name-Suggest');
+            var $nameSuggestEl = this.$('.HH-Education-Name-Suggest');
 
             this.nameSuggest.setElement($nameSuggestEl);
         },
@@ -150,7 +146,7 @@ define([
             this.resultSuggest.update(this.resultName, this.resultWidth);
             this.resultSuggest.processKey(event);
 
-            var $resultSuggestEl = $('.HH-Education-Result-Suggest');
+            var $resultSuggestEl = this.$('.HH-Education-Result-Suggest');
             this.resultSuggest.setElement($resultSuggestEl);
         },
 

@@ -38,6 +38,11 @@ define([
                 return education.render().el;
             }));
 
+            if (this.toggleEdit) {
+                this.$('.HH-ResumeSection-Control').toggleClass('control_viewing control_editing');
+                this.toggleEdit = false;
+            }
+
             return this;
         },
 
@@ -46,6 +51,12 @@ define([
             this.educationLevel = (this.model.get('education').level.id !== 'secondary') ?
                 'primary' :
                 'elementary';
+
+            if (attributes.forceLevel) {
+                this.educationLevel = (attributes.forceLevel !== 'secondary') ?
+                    'primary' :
+                    'elementary';
+            };
 
 
             if (!this.education) {
@@ -56,15 +67,17 @@ define([
                 this.education[this.educationLevel] = [];
             }
 
-            this.education[this.educationLevel] = attributes.education[this.educationLevel].map(function (education) {
-                return new EducationView($.extend(
-                    {},
-                    that.options, {
-                        model: new Backbone.Model(education),
-                        grade: that.educationLevel
-                    }
-                ));
-            });
+            this.education[this.educationLevel] = attributes.education[this.educationLevel]
+                .map(function (education) {
+                    return new EducationView($.extend(
+                        {},
+                        that.options, {
+                            model: new Backbone.Model(education),
+                            grade: that.educationLevel,
+                            toggleEdit: attributes.toggleEdit
+                        }
+                    ));
+                });
         },
 
         takeback: function(attributes) {
@@ -95,7 +108,6 @@ define([
                 }
 
             });
-            attributes.education.level = {id: 'secondary'};
         },
 
         _addEducation: function() {
@@ -114,8 +126,14 @@ define([
             education.$('.HH-ResumeSection-Control').toggleClass('control_viewing control_editing');
         },
 
-        _refreshEducationList: function() {
-            this.fill(this.model);
+        _refreshEducationList: function(event) {
+            var data = $.extend(this.model.attributes, {
+                toggleEdit: true,
+                forceLevel: event
+            })
+
+            this.toggleEdit = true;
+            this.fill(data);
             this.render();
         }
     });

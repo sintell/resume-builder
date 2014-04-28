@@ -117,6 +117,7 @@ define([
         _validateInput: function(event) {
             var target = $(event.target);
             var section = $(event.currentTarget);
+            var $resumeSection = section.closest('.HH-Resume-ResumeSection');
 
             var name = target.data('hh-name');
 
@@ -132,11 +133,11 @@ define([
                 section.append(this.errorTemplate({
                     errorText: error
                 }));
-                $('.HH-ResumeSection-Submit:visible').prop('disabled', true);
+                $resumeSection.find('.HH-ResumeSection-Submit:visible').prop('disabled', true);
             } else {
                 section.removeClass('section_with-error');
                 target.removeClass('control_with-error');
-                $('.HH-ResumeSection-Submit:visible').prop('disabled', false);
+                $resumeSection.find('.HH-ResumeSection-Submit:visible').prop('disabled', false);
             }
         }
     });

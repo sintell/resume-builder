@@ -45,7 +45,6 @@ define([
             attributes.education.level = attributes.education.level || {id: 'primary'};
 
             var $level = this.$('.HH-EducationControl-LevelSelect').find('option:selected');
-            console.log($level)
 
             attributes.education.level = {
                 id: $level.val()

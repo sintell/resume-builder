@@ -111,6 +111,8 @@ define([
             if (data) {
                 this.$('.HH-EducationControl-NameInput').val(data.text);
             }
+            this.nameSuggest.hide();
+
         },
 
         _onNameFocusOut: function() {
@@ -169,6 +171,7 @@ define([
             if (data) {
                 this.$('.HH-EducationControl-ResultInput').val(data.text);
             }
+            this.resultSuggest.hide();
         },
 
         _onResultFocusOut: function() {

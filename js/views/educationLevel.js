@@ -55,7 +55,6 @@ define([
         _refreshEducationList: function(event) {
             var value = this.$('.HH-EducationControl-LevelSelect')
                 .find('option:selected').val();
-            console.log(value)
 
             this.model.trigger('refreshEducationList', value);
         }

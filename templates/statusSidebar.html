@@ -6,7 +6,7 @@
                 <div class="HH-Sidebar-ProgressText resume-status-progress__text">50%</div>
                 <div class="HH-Sidebar-ProgressBar resume-status-progress__bar"></div>
             </div>
-            <% if (canPublish) { %>
+            <% if (canPublish || drawModerationNotes) { %>
                 <div class="HH-ResumeStatus-Publish resume-status-publish" style="display: none;">
                     <button type="button" 
                             class="HH-Sidebar-ButtonPublish button button_main">Опубликовать</button>

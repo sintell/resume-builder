@@ -115,6 +115,12 @@ define([
                 this.$('.HH-ResumeStatus-Publish').show();
             }
 
+            if (drawModerationNotes) {
+                this.$('.HH-ResumeStatus-Publish').show();
+                this.$('.HH-Sidebar-ButtonPublish').val("Отправить модератору");
+                this.$('.HH-Sidebar-ButtonPublish').text("Отправить модератору");
+            }
+
             if (typeof this.positionFromTop === 'undefined') {            
                 this.positionFromTop = this.$statusBlock.position().top;
             }
@@ -125,6 +131,7 @@ define([
                 }));       
                 $('.HH-SuggestedField').click(this.toggleEdit);         
             }
+
             if (typeof moderationData !== 'undefined') {
                 this.$moderationNotes.html(this.moderationNotesTemplate({
                     moderationNotes: moderationData

@@ -4,6 +4,7 @@ define([
     'backbone',
     'views/resumeSection',
     'views/languageList',
+    'views/educationLevel',
     'text!templates/educationSection.html'
 ], function(
     $,
@@ -11,6 +12,7 @@ define([
     Backbone,
     ResumeSection,
     LanguageListView,
+    EducationLevelView,
     EducationSectionTemplate
 ) {
     'use strict';
@@ -25,6 +27,7 @@ define([
 
             $.extend(options, {resume: this.model});
 
+            this.components.push(new EducationLevelView(options));
             this.components.push(new LanguageListView(options));
         },
 

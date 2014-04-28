@@ -65,6 +65,7 @@ define([
 
             if (!this.education[this.educationLevel]) {
                 this.education[this.educationLevel] = [];
+                return;
             }
 
             this.education[this.educationLevel] = attributes.education[this.educationLevel]

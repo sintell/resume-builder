@@ -119,7 +119,11 @@ define([
                 this.id = 0;
             }
 
-            this.trigger('selectArea', this.id);
+            if (this.previousId !== this.id || !this.id) {
+                this.trigger('selectArea', this.id);
+            }
+
+            this.previousId = this.id;
         },
 
         _preventKeydown: function(event) {

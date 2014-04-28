@@ -1,0 +1,15 @@
+<div class="HH-ResumeSection-Control control control_viewing">
+    <label class="control__label">Уровень</label>
+    <span class="control__value"><%- education.level.name %></span>
+
+    <div class="control__input">
+        <select class="HH-EducationControl-LevelSelect" data-hh-anchor="education">
+            <% dictionary.education_level.forEach(function(educationLevel) { %>
+                <option value="<%- educationLevel.id %>"
+                        <%- education.level.id == educationLevel.id ? 'selected' : '' %>>
+                    <%- educationLevel.name %>
+                </option>
+             <% }); %>
+        </select>
+    </div>
+</div>

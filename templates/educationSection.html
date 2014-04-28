@@ -1,17 +1,6 @@
-<div class="HH-ResumeSection-Control control control_viewing">
-    <label class="control__label">Уровень</label>
-    <span class="control__value"><%- resume.education.level.name %></span>
-
-    <div class="control__input">
-        <select class="HH-EducationControl-Select" data-hh-anchor="education">
-            <% dictionary.education_level.forEach(function(educationLevel) { %>
-                <option value="<%- educationLevel.id %>"
-                        <%- resume.education.level.id == educationLevel.id ? 'selected' : '' %>>
-                    <%- educationLevel.name %>
-                </option>
-             <% }); %>
-        </select>
-    </div>
+<div class="HH-ResumeSection-Component"
+     data-hh-namespace="education"
+     data-hh-component="education-level">
 </div>
 
 <div class="HH-ResumeSection-Component"

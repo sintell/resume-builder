@@ -143,6 +143,8 @@ define([
         createResume: function() {
             this.navigate('new');
             this.resume = new Resume({
+                first_name: this.user.get('first_name'),
+                last_name: this.user.get('last_name'),
                 contact: [{
                     type: {id: 'email'},
                     value: this.user.get('email'),

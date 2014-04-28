@@ -37,11 +37,6 @@ define([
 
         render: function() { 
            return ResumeSection.prototype.render.apply(this, arguments);
-        },
-
-        refreshEducationList: function() {
-            console.log(1)
-            this.model.trigger('refreshEducationList');
         }
     });
 });

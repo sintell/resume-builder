@@ -3,6 +3,7 @@ define([
     'underscore',
     'backbone',
     'views/suggest',
+    'utils',
     'text!templates/primaryEducation.html',
     'text!templates/elementaryEducation.html'
 ], function(
@@ -10,6 +11,7 @@ define([
     _,
     Backbone,
     Suggest,
+    Utils,
     PrimaryEducationTemplate,
     ElementaryEducationTemplate
 ) {
@@ -70,23 +72,26 @@ define([
             var that = this;
             this._updateNameSuggestValues();
 
-            $.ajax({
-                url: this.nameSuggestUrl + this.nameName,
-                dataType: 'jsonp',
-                jsonp: 'p'
-            }).success(function(data) {
-                if (!data) {
-                    return;
-                }
+            if (!Utils.isIgnoringSuggestKeys(event.keyCode)) {
+                $.ajax({
+                    url: this.nameSuggestUrl + this.nameName,
+                    dataType: 'jsonp',
+                    jsonp: 'p'
+                }).success(function(data) {
+                    if (!data) {
+                        return;
+                    }
 
-                that.nameData = data.items;
+                    that.nameData = data.items;
 
-                var names = data.items.map(function(item) {
-                    return item.text;
+                    var names = data.items.map(function(item) {
+                        return item.text;
+                    });
+
+                    that.nameSuggest.setData(names, true);
                 });
-
-                that.nameSuggest.setData(names, true);
-            });
+            }
+            
             this.nameSuggest.update(this.nameName, this.nameWidth);
             this.nameSuggest.processKey(event);
 
@@ -126,23 +131,26 @@ define([
             var that = this;
             this._updateResultSuggestValues();
 
-            $.ajax({
-                url: this.resultSuggestUrl + this.resultName,
-                dataType: 'jsonp',
-                jsonp: 'p'
-            }).success(function(data) {
-                if (!data) {
-                    return;
-                }
+            if (!Utils.isIgnoringSuggestKeys(event.keyCode)) {
+                $.ajax({
+                    url: this.resultSuggestUrl + this.resultName,
+                    dataType: 'jsonp',
+                    jsonp: 'p'
+                }).success(function(data) {
+                    if (!data) {
+                        return;
+                    }
 
-                that.resultData = data.items;
+                    that.resultData = data.items;
 
-                var results = data.items.map(function(item) {
-                    return item.text;
+                    var results = data.items.map(function(item) {
+                        return item.text;
+                    });
+
+                    that.resultSuggest.setData(results, true);
                 });
+            }
 
-                that.resultSuggest.setData(results, true);
-            });
             this.resultSuggest.update(this.resultName, this.resultWidth);
             this.resultSuggest.processKey(event);
 
